@@ -1,0 +1,19 @@
+#git:
+#  autoCommit: true   # not sure i like this yet
+
+{{ if eq .chezmoi.os "windows" -}}
+shell:
+  command: "pwsh"
+  args: ["-NoLogo", "-NoExit", "-Command", "& {Set-Location (chezmoi source-path)}"]
+{{- end }}
+
+{{ $unity := get . "unity" -}}
+{{ if not (hasKey . "unity") -}}
+{{   $unity = promptString "unity work machine? (true/false)" -}}
+{{ end -}}
+data:
+  scottbilas:
+    # true if this is a unity machine, false if personal
+    unity: {{ $unity }}
+    # dark or light, updated at the target site by Set-DarkMode
+    theme: dark

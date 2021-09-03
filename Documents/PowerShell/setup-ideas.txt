@@ -1,0 +1,41 @@
+
+# <copy or symlink private/git to ~/dotfiles/private/git>
+
+
+
+#scoop bucket add github-gh https://github.com/cli/scoop-gh.git
+#scoop install gh
+#gh auth login << config via unity.toml
+
+# set up .ssh
+# fix dotfiles to use git@ remote
+
+# common syncthingtray.ini (stored directly in AppData\Roaming) as a template
+# check stignore for all shares, and other syncthing settings
+
+# dotnet tool install -g dotnet-t4
+# test with:
+#    echo "<#@ parameter name='Name' #>Hello <#=Name#>" | t4 -o - -p:Name=World
+#    (expected: "Hello World")
+
+# linqpad paths pointing to the right place (C:\Users\scott\AppData\Roaming\LINQPad)
+
+# HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\DisallowShaking DWORD = 1
+
+# iex (chezmoi completion)
+
+# scoope + reg keys for sysinternals
+# `handle` alias that adds -nobanner (can we use that cool new posh native command wrapper thingy?)
+
+# would be nice to have a way to replicate:
+# C:\Users\scott\AppData\Local\Microsoft\PowerToys\FancyZones\zones-settings.json
+# C:\Users\scott\AppData\Local\Microsoft\PowerToys\FancyZones\settings.json
+# (and other powertoys options..but at least the monitor zone configs)
+
+# scoop install nodejs
+# `npm ci` from gitree folder
+
+### SETUP-UNITY.PS1
+
+# add unity scoop bucket
+# install unity-downloader-cli
