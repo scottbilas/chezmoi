@@ -1,0 +1,5 @@
+# lowercase = case-insensitive
+--smart-case
+
+# retain formatting with pager
+--pretty

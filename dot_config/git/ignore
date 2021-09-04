@@ -1,0 +1,68 @@
+## IMPORTANT: this global ignores file is shared by git and hg.
+## don't do stuff that isn't supported by both.
+##
+## git: https://git-scm.com/docs/gitignore
+## hg:  https://www.mercurial-scm.org/wiki/.hgignore
+##
+## ...can use https://github.com/github/gitignore for inspiration
+
+# needed by hg, ignored (apparently) by git
+syntax: glob
+
+__pycache__
+.history
+.*env
+.pytest_cache
+.vs
+.last_tmp.*
+*_i.c
+*_p.c
+*.1.tlog
+*.aps
+*.backup
+*.bak
+*.bak.meta
+*.cache
+*.Cache
+*.exe.*
+*.FileListAbsolute.txt
+*.idb
+*.ilk
+*.ipch
+*.lastbuildstate
+*.lib
+*.log
+*.mdb
+*.mdb.meta
+*.memsnap*
+*.ncb
+*.obj
+*.orig
+*.orig.meta
+*.pyo
+*.res
+*.sbr
+*.sublime-workspace
+*.suo
+*.tlb
+*.tlh
+*.tlog
+*.user
+*.VC.db
+*.VC.db-*
+*.VC.opendb
+*.vscdb
+*.vspscc
+*Resources.resources
+build.force
+TemporaryGeneratedFile_*
+Thumbs.db
+
+# various extensions will generate these
+**/.vscode/tags
+**/.ropeproject/objectdb
+
+# from https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
+**/.idea/**/workspace.xml
+**/.idea/**/tasks.xml
+**/.idea/dictionaries

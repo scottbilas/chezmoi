@@ -1,0 +1,8 @@
+[include]
+    path = ~/.config/git/config-general
+{{- if (eq .chezmoi.os "windows") }}
+    path = ~/.config/git/config-windows
+{{- end }}
+{{- if not .scottbilas.personal_machine }}
+    path = ~/Sync/Private/git/config
+{{- end }}

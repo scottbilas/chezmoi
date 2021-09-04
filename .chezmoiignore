@@ -1,8 +1,9 @@
-README.md
-LICENSE.md
+*.md
 _*
+chezmoi.code-workspace
 
 {{ if eq .chezmoi.os "linux" }}
   Documents
   AppData
+  dot_config/windows
 {{ end }}

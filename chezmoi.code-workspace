@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "chezmoi",
+			"path": "."
+		},
+		{
+			"name": ".config",
+			"path": "..\\..\\..\\.config"
+		},
+		{
+			"name": "dotfiles",
+			"path": "..\\..\\..\\dotfiles"
+		}
+	],
+	"settings": {}
+}
