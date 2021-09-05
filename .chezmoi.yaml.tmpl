@@ -13,6 +13,8 @@ cd:
 {{   $personal_machine = promptString "personal machine? (true/false)" -}}
 {{ end -}}
 data:
+  chezmoi:
+    home: {{.chezmoi.homeDir | replace "\\" "/"}}
   scottbilas:
     personal_machine: {{ $personal_machine }}
     # dark or light, updated at the target site by Set-DarkMode

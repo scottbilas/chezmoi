@@ -1,0 +1,15 @@
+{{ if eq .chezmoi.os "windows" }}
+[".local/state/powershell/PSDepend"]
+    type = "archive"
+    url = "https://github.com/RamblingCookieMonster/PSDepend/archive/refs/heads/master.tar.gz"
+    exact = true
+    stripComponents = 1
+{{- end }}
+
+{{ if eq .chezmoi.os "linux" }}
+[".config/bat/extras"]
+    type = "archive"
+    # https://github.com/eth-p/bat-extras/releases to find a newer one
+    url = "https://github.com/eth-p/bat-extras/releases/download/v2021.08.21/bat-extras-20210821.zip"
+    exact = true
+{{- end }}
