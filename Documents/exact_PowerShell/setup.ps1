@@ -14,22 +14,6 @@ if ((Get-PSRepository PSGallery).InstallationPolicy -ne 'Trusted') {
 
 ## PSDepend
 
-# TODO: have this scoop install python; pip install gita; then have PSDepend brought in via gita (and gitree and others) in a "profile" group
-# (then get rid of ghq entirely..)
-# (or use ghq just for profile stuff..? two git mgmt tools?? nah.. just that ghq seems better at this job)
-
-# git repo
-Write-Output "[posh] Cloning/updating PSDepend module..."
-#ghq get -s -u -p scottbilas/PSDepend
-#if ($LASTEXITCODE) { throw "`ghq` returned error $LASTEXITCODE" }
-
-# symlink
-$psdependDstPath = Join-Path (Resolve-Path ~) Documents PowerShell Modules PSDepend
-if (!(Test-Path $psdependDstPath)) { # TODO: check that it points to the right place (make this a utility func)
-    #$psdependSrcPath = ghq list -p scottbilas/PSDepend
-    New-Item -ItemType SymbolicLink -Path $psdependDstPath -Target $psdependSrcPath\PSDepend | Out-Null
-}
-
 Write-Output "[posh] Pulling module dependencies..."
 Import-Module PSDepend
 Invoke-PSDepend -Force $PSScriptRoot

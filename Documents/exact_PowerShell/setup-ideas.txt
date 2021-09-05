@@ -2,6 +2,9 @@
 # <copy or symlink private/git to ~/dotfiles/private/git>
 
 
+#scoop install python
+#pip install -U gita
+
 
 #scoop bucket add github-gh https://github.com/cli/scoop-gh.git
 #scoop install gh
