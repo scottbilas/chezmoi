@@ -179,6 +179,3 @@
 [user]
     # https://orrsella.com/2013/08/10/git-using-different-user-emails-for-different-repositories/
     useConfigOnly = true
-
-[ghq]
-    root = ~/.local/state/repos/

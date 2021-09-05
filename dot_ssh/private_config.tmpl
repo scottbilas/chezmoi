@@ -1,0 +1,25 @@
+# TODO: fixes for termux
+
+BatchMode yes
+Compression yes
+Protocol 2
+#LogLevel DEBUG3
+
+Host *
+    IdentityFile ~/.local/share/private/ssh/id_rsa
+    UserKnownHostsFile ~/.local/share/private/ssh/known_hosts
+    StrictHostKeyChecking no
+
+    # speed up multiple identical connects with multiplexing
+    #ControlMaster auto
+    #ControlPath ~/.cache/ssh/mux/%C
+    #TODO ^^ does not work on windows, figure out how to disable there
+
+Host github.com
+    HostName github.com
+    IdentityFile ~/.local/share/private/ssh/github_rsa
+    User git
+
+{{if not .scottbilas.personal_machine -}}
+{{ include "../../../.local/share/private/ssh/config-work" }}
+{{- end -}}

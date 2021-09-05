@@ -1,16 +1,28 @@
 {
 	"folders": [
 		{
-			"name": "chezmoi",
+			"name": "🤘 ~/.local/share/chezmoi",
 			"path": "."
 		},
 		{
-			"name": ".config",
+			"name": "🔒 ~/.local/share/private",
+			"path": "..\\private"
+		},
+		{
+			"name": "💔 ~/dotfiles",
+			"path": "..\\..\\..\\dotfiles"
+		},
+		{
+			"name": "⚙️ ~/.config",
 			"path": "..\\..\\..\\.config"
 		},
 		{
-			"name": "dotfiles",
-			"path": "..\\..\\..\\dotfiles"
+			"name": "⚙️ ~/.ssh",
+			"path": "..\\..\\..\\.ssh"
+		},
+		{
+			"name": "⚙️ ~/Documents/PowerShell",
+			"path": "..\\..\\..\\Documents\\PowerShell"
 		}
 	],
 	"settings": {}

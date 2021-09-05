@@ -3,6 +3,4 @@
 {{- if (eq .chezmoi.os "windows") }}
     path = ~/.config/git/config-windows
 {{- end }}
-{{- if not .scottbilas.personal_machine }}
-    path = ~/Sync/Private/git/config
-{{- end }}
+    path = ~/.local/share/private/git/config

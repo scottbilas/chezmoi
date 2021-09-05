@@ -42,3 +42,8 @@
 
 # add unity scoop bucket
 # install unity-downloader-cli
+
+
+# CHECKS
+
+# "git config user.email" in a work/reponame is different from whatever/otherreponame
