@@ -6,9 +6,6 @@
 #pip install -U gita
 
 
-#scoop bucket add github-gh https://github.com/cli/scoop-gh.git
-#scoop install gh
-#gh auth login << config via unity.toml
 
 # set up .ssh
 # fix dotfiles to use git@ remote

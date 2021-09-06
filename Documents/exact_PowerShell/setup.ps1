@@ -107,11 +107,11 @@ function addPackage([string]$name, [switch]$sudo) {
 
 foreach ($install in @(
         # stuff shovel wants
-        'dark', 'innounp', 'lessmsi'
+        'aria2', 'dark', 'innounp', 'lessmsi'
         # shell stuff
-        'busybox', 'less', 'which', 'echoargs', 'wget', 'lz4'
+        'busybox', 'less', 'which', 'echoargs', 'wget'
         # other core utils
-        'ripgrep', 'kalk', '7zip', 'autohotkey', 'fd', 'gsudo', 'chezmoi', 'git'
+        'ripgrep', 'kalk', '7zip', 'autohotkey', 'fd', 'gsudo', 'chezmoi', 'git', 'micro'
     )) {
     addPackage($install)
 }
@@ -121,29 +121,37 @@ addPackage -sudo CascadiaCode-NF
 addPackage -sudo JetBrainsMono-NF
 
 <#
+# TODO: also check which shim has been overridden
+
 # each of these requires special setup
 
-barrier-np
-everything
-gh
-syncthingtray
+barrier-np - client/server, also only for work computers
+everything - configure and hold
+gh - auth << setup from unity.toml
+syncthingtray - lots of config, validation, machine-specific
+vscode-portable - cannot chezmoi publish before scoop/apps/current symlink is set up, right..?
+
+# bigger apps
 
 7tt
 linqpad
-micro
-nodejs
 paint.net
 sysinternals
 tailblazer
-vscode-portable
 vcxsrv
 windirstat
 
+# languages and platforms
+
+nodejs
 perl
 python
 go
 rust
 
+# unity stuff
+
+lz4
 unity-downloader-cli
 #>
 
@@ -155,12 +163,29 @@ Write-Output '[scoop] Core packages ok'
 $Env:PATH = ($Env:PATH -Split ';' | Where-Object { $_ }) -join ';' # fix any blank entries, which will cause problems in other funcs that don't expect it
 $badPaths = ($Env:PATH).Split(';') | Where-Object { !(Test-Path ([Environment]::ExpandEnvironmentVariables($_))) }
 if ($badPaths) {
-    Write-Error "PATH is invalid: $(($badPaths | ForEach-Object { "'$_'" }) -Join ', ')"
+    Write-Error "[check] PATH is invalid: $(($badPaths | ForEach-Object { "'$_'" }) -Join ', ')"
 }
 else {
-    Write-Output '[scoop] PATH ok'
+    Write-Output '[check] PATH ok'
 }
 
-if ($Upgrade) {
+# look for bad scoop installs
+$badScoop = @()
+foreach ($app in (Get-ChildItem ~/Scoop/Apps -Exclude scoop)) {
+    if (Test-Path $app/current) {
+        if (!(Test-Path $app/current/*install.json)) {
+            $badScoop += $app.Name
+        }
+    }
+    else {
+        $badScoop += $app.Name
+    }
+}
+if ($badScoop) {
+    Write-Error "[check] Scoop has invalid installs: $($badScoop -join ', ')"
+}
+
+# anything (else) going on with scoop?
+if ($badScoop -or $Upgrade) {
     scoop status
 }
