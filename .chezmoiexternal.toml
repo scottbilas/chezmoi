@@ -1,7 +1,7 @@
 {{ if eq .chezmoi.os "windows" }}
 [".local/state/powershell/PSDepend"]
     type = "archive"
-    url = "https://github.com/RamblingCookieMonster/PSDepend/archive/refs/heads/master.tar.gz"
+    url = "https://github.com/scottbilas/PSDepend/archive/refs/heads/master.tar.gz"
     exact = true
     stripComponents = 1
 {{- end }}
