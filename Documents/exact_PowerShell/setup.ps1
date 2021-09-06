@@ -18,6 +18,8 @@ $Upgrade = $false
 if ((Get-PSRepository PSGallery).InstallationPolicy -ne 'Trusted') {
     Write-Output "[posh] Trusting PSGallery..."
     Set-PSRepository PSGallery -InstallationPolicy Trusted
+} else {
+    Write-Output "[posh] PSGallery ok"
 }
 
 ## PSDepend
@@ -36,24 +38,29 @@ if (!$invokePSDepend) {
 }
 
 if ($invokePSDepend) {
-    Write-Output "[posh] Pulling module dependencies..."
+    Write-Output "[posh] Pulling modules..."
     Invoke-PSDepend -Force $PSScriptRoot
+} else {
+    Write-Output "[posh] Modules ok"
 }
 
 ## Scoop
 
 if ((iee scoop config show_update_log) -match 'not set') {
     iee scoop config show_update_log false
+} else {
+    Write-Output "[scoop] Config ok"
 }
 
 ## Shovel
 
 if ((scoop config SCOOP_REPO) -ne 'https://github.com/Ash258/Scoop-Core') {
-    Write-Output "[scoop] Upgrading to shovel..."
+    Write-Output "[scoop] Upgrading to Shovel..."
     iee scoop config SCOOP_REPO https://github.com/Ash258/Scoop-Core
     iee scoop config SCOOP_BRANCH main
-    iee scoop config rm lastupdate | Out-Null
     iee scoop update
+} else {
+    Write-Output "[scoop] Shovel ok"
 }
 
 # CHECKS
@@ -63,4 +70,6 @@ $Env:PATH = ($Env:PATH -Split ';' | Where-Object { $_ }) -join ';' # fix any bla
 $badPaths = ($Env:PATH).Split(';') | Where-Object { !(Test-Path ([Environment]::ExpandEnvironmentVariables($_))) }
 if ($badPaths) {
     Write-Error "PATH is invalid: $(($badPaths | ForEach-Object { "'$_'" }) -Join ', ')"
+} else {
+    Write-Output "[scoop] PATH ok"
 }
