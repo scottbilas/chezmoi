@@ -2,6 +2,8 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+# UPGRADES
+
 ## Chezmoi
 
 # chezmoi update << do safely
@@ -9,6 +11,7 @@ $ErrorActionPreference = 'Stop'
 ## Posh
 
 if ((Get-PSRepository PSGallery).InstallationPolicy -ne 'Trusted') {
+    Write-Output "[posh] Trusting PSGallery..."
     Set-PSRepository PSGallery -InstallationPolicy Trusted
 }
 
@@ -18,16 +21,15 @@ Write-Output "[posh] Pulling module dependencies..."
 Import-Module PSDepend
 Invoke-PSDepend -Force $PSScriptRoot
 
+## Upgrade to Shovel
 
-
-# Upgrade to Shovel
-
-Install-ScoopPackage 7zip
+Write-Output "[scoop] Upgrading to shovel..."
 Invoke-Exe 'scoop config SCOOP_REPO https://github.com/Ash258/Scoop-Core'
+Invoke-Exe 'scoop config SCOOP_BRANCH main'
 Invoke-Exe 'scoop config show_update_log false'
-Invoke-Exe 'scoop update'
+Invoke-Exe 'scoop update scoop'
 
-
+# CHECKS
 
 # look for stale PATH entries
 $Env:PATH = ($Env:PATH -Split ';' | Where-Object { $_ }) -join ';' # fix any blank entries, which will cause problems in other funcs that don't expect it
