@@ -2,6 +2,9 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+# TODO: make param
+$Upgrade = $false
+
 # UPGRADES
 
 ## Chezmoi
@@ -10,7 +13,7 @@ $ErrorActionPreference = 'Stop'
 
 ## Posh
 
-# important: this must come before we pull in modules
+# ! this must come before we pull in modules
 
 if ((Get-PSRepository PSGallery).InstallationPolicy -ne 'Trusted') {
     Write-Output "[posh] Trusting PSGallery..."
@@ -19,11 +22,23 @@ if ((Get-PSRepository PSGallery).InstallationPolicy -ne 'Trusted') {
 
 ## PSDepend
 
-# important: this must come as early as possible so as to pick up `native` for `iee` etc.
+# ! this must come as early as possible so as to pick up `native` for `iee` etc.
 
-Write-Output "[posh] Pulling module dependencies..."
-Import-Module PSDepend
-Invoke-PSDepend -Force $PSScriptRoot
+$invokePSDepend = $Upgrade
+if (!$invokePSDepend) {
+    $missingPSModules = (Import-PowerShellDataFile ~\Documents\PowerShell\requirements.psd1).Keys |
+        Where-Object { $_ -ne 'PSDependOptions' } |
+        Where-Object { !(Test-Path ~\Documents\PowerShell\Modules\$_) }
+    if ($missingPSModules) {
+        Write-Output "[posh] Missing modules: $($missingPSModules -join ', ')"
+        $invokePSDepend = $true
+    }
+}
+
+if ($invokePSDepend) {
+    Write-Output "[posh] Pulling module dependencies..."
+    Invoke-PSDepend -Force $PSScriptRoot
+}
 
 ## Scoop
 
@@ -37,7 +52,7 @@ if ((scoop config SCOOP_REPO) -ne 'https://github.com/Ash258/Scoop-Core') {
     Write-Output "[scoop] Upgrading to shovel..."
     iee scoop config SCOOP_REPO https://github.com/Ash258/Scoop-Core
     iee scoop config SCOOP_BRANCH main
-    iee scoop config rm lastupdate
+    iee scoop config rm lastupdate | Out-Null
     iee scoop update
 }
 
