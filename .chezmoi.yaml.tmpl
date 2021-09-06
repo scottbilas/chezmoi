@@ -10,7 +10,7 @@ cd:
 {{/* TODO: autodetect this... */}}
 {{ $personal_machine := get .scottbilas "personal_machine" -}}
 {{ if not (hasKey .scottbilas "personal_machine") -}}
-{{   $personal_machine = promptString "personal machine? (true/false)" -}}
+{{   $personal_machine = promptString "\n>>> Personal machine? (true/false): " -}}
 {{ end -}}
 data:
   chezmoi:
