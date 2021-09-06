@@ -10,6 +10,8 @@ $ErrorActionPreference = 'Stop'
 
 ## Posh
 
+# important: this must come before we pull in modules
+
 if ((Get-PSRepository PSGallery).InstallationPolicy -ne 'Trusted') {
     Write-Output "[posh] Trusting PSGallery..."
     Set-PSRepository PSGallery -InstallationPolicy Trusted
@@ -17,17 +19,27 @@ if ((Get-PSRepository PSGallery).InstallationPolicy -ne 'Trusted') {
 
 ## PSDepend
 
+# important: this must come as early as possible so as to pick up `native` for `iee` etc.
+
 Write-Output "[posh] Pulling module dependencies..."
 Import-Module PSDepend
 Invoke-PSDepend -Force $PSScriptRoot
 
-## Upgrade to Shovel
+## Scoop
 
-Write-Output "[scoop] Upgrading to shovel..."
-Invoke-Exe 'scoop config SCOOP_REPO https://github.com/Ash258/Scoop-Core'
-Invoke-Exe 'scoop config SCOOP_BRANCH main'
-Invoke-Exe 'scoop config show_update_log false'
-Invoke-Exe 'scoop update scoop'
+if ((iee scoop config show_update_log) -match 'not set') {
+    iee scoop config show_update_log false
+}
+
+## Shovel
+
+if ((scoop config SCOOP_REPO) -ne 'https://github.com/Ash258/Scoop-Core') {
+    Write-Output "[scoop] Upgrading to shovel..."
+    iee scoop config SCOOP_REPO https://github.com/Ash258/Scoop-Core
+    iee scoop config SCOOP_BRANCH main
+    iee scoop config rm lastupdate
+    iee scoop update
+}
 
 # CHECKS
 
