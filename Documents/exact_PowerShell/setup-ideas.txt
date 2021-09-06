@@ -47,3 +47,7 @@
 # CHECKS
 
 # "git config user.email" in a work/reponame is different from whatever/otherreponame
+
+# check contents of busybox for collisions with standalone which/less/wget/etc.
+
+# check if my PSDepend (and other forks) is out of date from upstream
