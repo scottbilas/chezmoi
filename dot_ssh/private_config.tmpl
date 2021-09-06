@@ -21,5 +21,6 @@ Host github.com
     User git
 
 {{if not .scottbilas.personal_machine -}}
+{{if stat ".local/share/private/ssh/config-work" -}}
 {{ include "../../../.local/share/private/ssh/config-work" }}
-{{- end -}}
+{{end}}{{end -}}
