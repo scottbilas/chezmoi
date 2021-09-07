@@ -111,9 +111,9 @@ foreach ($install in @(
         # stuff shovel wants
         'aria2', 'dark', 'innounp', 'lessmsi'
         # shell stuff
-        'busybox', 'less', 'which', 'echoargs', 'wget'
+        'busybox', 'echoargs', 'less', 'wget', 'which'
         # other core utils
-        'ripgrep', 'kalk', '7zip', 'autohotkey', 'fd', 'gsudo', 'chezmoi', 'git', 'micro'
+        '7zip', 'autohotkey', 'chezmoi', 'fd', 'fzf', 'git', 'gsudo', 'kalk', 'micro', 'ripgrep'
     )) {
     addPackage($install)
 }
