@@ -78,7 +78,8 @@
                     "leading_diamond": "",
                     "trailing_diamond": "",
                     "properties": {
-                        "prefix": " <#fefefe>ﮫ</> "
+                        "prefix": " <#fefefe>ﮫ</> ",
+                        "threshold": 2000
                     }
                 },
                 {
