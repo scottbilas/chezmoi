@@ -50,7 +50,7 @@ else {
 ## Scoop pre
 
 if ((iee scoop config show_update_log) -match 'not set') {
-    iee scoop config show_update_log false
+    iee scoop config show_update_log $false
 }
 else {
     Write-Output '[scoop] Config ok'
