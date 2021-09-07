@@ -9,6 +9,12 @@ Import-Module Terminal-Icons
 # TODO ^ less harsh/neon themes, and also dark/light options (wire up to Set-DarkMode)
 
 
+### COMPLETIONS
+
+Set-PSReadLineOption `
+    -PredictionSource History `
+    -PredictionViewStyle ListView
+
 # from https://gist.github.com/shanselman/25f5550ad186189e0e68916c6d7f44c3?WT.mc_id=-blog-scottha
 Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
     param($commandName, $wordToComplete, $cursorPosition)
@@ -16,3 +22,5 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
            [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
         }
 }
+
+Import-Module ~/scoop/apps/scoop/current/supporting/completion/Scoop-Completion.psd1

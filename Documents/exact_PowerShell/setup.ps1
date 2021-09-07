@@ -30,9 +30,9 @@ else {
 
 $invokePSDepend = $Upgrade
 if (!$invokePSDepend) {
-    $missingPSModules = (Import-PowerShellDataFile ~\Documents\PowerShell\requirements.psd1).Keys |
+    $missingPSModules = (Import-PowerShellDataFile ~/Documents/PowerShell/requirements.psd1).Keys |
         Where-Object { $_ -ne 'PSDependOptions' } |
-        Where-Object { !(Test-Path ~\Documents\PowerShell\Modules\$_) }
+        Where-Object { !(Test-Path ~/Documents/PowerShell/Modules/$_) }
     if ($missingPSModules) {
         Write-Output "[posh] Missing modules: $($missingPSModules -join ', ')"
         $invokePSDepend = $true
@@ -74,6 +74,8 @@ if ($Upgrade) {
     Write-Output '[scoop] Updating buckets'
     iee scoop update
 }
+
+### FAILS SOMEWHERE IN HERE....
 
 $buckets = iee scoop bucket
 
@@ -120,6 +122,10 @@ foreach ($install in @(
 addPackage -sudo CascadiaCode-NF
 addPackage -sudo JetBrainsMono-NF
 
+if ((iee scoop config MSIEXTRACT_USE_LESSMSI) -match 'not set') {
+    iee scoop config MSIEXTRACT_USE_LESSMSI $true
+}
+
 <#
 # TODO: also check which shim has been overridden
 
@@ -157,6 +163,9 @@ unity-downloader-cli
 
 Write-Output '[scoop] Core packages ok'
 
+### TODO: sudo Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1
+### also look at existing powershell scripts that i already wrote to do registry stuff..
+
 # CHECKS
 
 # look for stale PATH entries
@@ -184,6 +193,8 @@ foreach ($app in (Get-ChildItem ~/Scoop/Apps -Exclude scoop)) {
 if ($badScoop) {
     Write-Error "[check] Scoop has invalid installs: $($badScoop -join ', ')"
 }
+
+Write-Output '[check] Scoop apps ok'
 
 # anything (else) going on with scoop?
 if ($badScoop -or $Upgrade) {

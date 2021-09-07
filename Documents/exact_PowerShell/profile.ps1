@@ -31,9 +31,7 @@ Set-PSReadlineKeyHandler -Chord Tab -Function MenuComplete
 
 Set-PSReadLineOption `
     -HistorySavePath "~/.local/state/powershell/PSReadLine/$($Host.Name)_history.txt" `
-    -HistorySearchCursorMovesToEnd `
-    -PredictionSource History `
-    -PredictionViewStyle ListView
+    -HistorySearchCursorMovesToEnd
 
 
 ### ALIASES AND ALIAS-ISHES
@@ -49,6 +47,7 @@ Set-PSReadLineOption `
 # shortyshortcuts
 Set-Alias o explorer
 Set-Alias g git
+Set-Alias m micro
 Set-Alias cm chezmoi
 function dotf { code (Resolve-Path ~\dotfiles\dotfiles.code-workspace) }
 function up { Set-Location .. }
@@ -76,3 +75,16 @@ function psup { & (Join-Path $PSScriptRoot setup.ps1) -Upgrade }
 
 
 ### FUNCTIONS
+
+# from http://stackoverflow.com/a/712205/14582
+function Flatten($a) {
+    ,@($a | %{ $_ })
+}
+
+function Time([scriptblock]$exec) {
+    $now = Get-Date
+    $result = Invoke-Command $exec -Args (flatten $args)
+    $delta = (Get-Date) - $now
+    Write-Host ("`n>>> seconds: {0}" -f $delta.TotalSeconds)
+    $result
+}
