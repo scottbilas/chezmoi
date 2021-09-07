@@ -1,0 +1,47 @@
+{
+    // movement
+    "CtrlUp": "ScrollUp",
+    "CtrlDown": "ScrollDown",
+    "Ctrl-G": "command-edit:goto ",
+
+    // selection
+    "ShiftHome": "SelectToStartOfLine",
+    "CtrlShiftHome": "SelectToStart",
+    "CtrlShiftEnd": "SelectToEnd",
+    "CtrlShiftLeft": "SelectWordLeft",
+    "CtrlShiftRight": "SelectWordRight",
+    //"ShiftPageUp": "SelectPageUp",  ...grrr...pageup/dn cant be combined with anything..
+    //"ShiftPageDown": "SelectPageDown",
+
+    // editing
+    "Alt-/": "lua:comment.comment",
+    "Alt-d": "DuplicateLine",
+
+    // multi-cursor
+    "Ctrl-D": "SpawnMultiCursor",
+    "Ctrl-K": "SkipMultiCursor",
+    "Alt-l": "SpawnMultiCursorSelect",
+    "Esc": "Escape,RemoveAllMultiCursors,ClearStatus",
+
+    // window mgmt
+    "Alt-h": "HSplit",
+    "Alt-v": "VSplit",
+    "Alt-[": "PreviousSplit",
+    "Alt-]": "NextSplit",
+
+    // commands
+    "Ctrl-W": "Quit",
+    "Alt-q": "QuitAll",
+    "Alt-p": "command:fzf",
+    "Alt-!": "ShellMode",
+    "Alt-g": "None", // disable default
+
+    // important: check for a default binding that would be rebound and include
+    // it in the new binding.
+
+    // tree
+    "Ctrl-B": "lua:filemanager.toggle_tree",  // toggle tree on current tab
+    "Alt-b": "AddTab,lua:filemanager.toggle_tree,NextSplit", // open new tab w/ file manager (TODO: would be nice to close that pane too, but micro doesnt do this reliably)
+    "Enter": "InsertNewline,lua:filemanager.try_open_at_cursor",
+    "Home": "StartOfLine,lua:filemanager.goto_parent_dir",
+}
