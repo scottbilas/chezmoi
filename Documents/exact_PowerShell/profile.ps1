@@ -49,7 +49,7 @@ Set-Alias o explorer
 Set-Alias g git
 Set-Alias m micro
 Set-Alias cm chezmoi
-function dotf { code (Resolve-Path ~\dotfiles\dotfiles.code-workspace) }
+function dotf { code (Resolve-Path ~\.local\share\chezmoi\chezmoi.code-workspace) }
 function up { Set-Location .. }
 function ov($what) { Set-Location ../$what }
 function ~ { Set-Location ~ }
