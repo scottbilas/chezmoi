@@ -28,6 +28,5 @@ function Set-DarkMode {
     # TODO:
     #
     # * figure out how to get slack inside of wavebox to switch themes (will probably require an extension..)
-    # * add in terminal dark/light for console theme (probably need to do separate linux vs posh)
     # * change wallpaper :D
 }
