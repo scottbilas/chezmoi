@@ -12,7 +12,7 @@ function Get-UnityBuildConfig($UnityExePath) {
 
     $fileSize = (Get-Item $UnityExePath).Length
 
-    if ($fileSize -gt 75MB -and $fileSize -lt 150MB) { return 'Release' }
+    if ($fileSize -gt 60MB -and $fileSize -lt 150MB) { return 'Release' }
     if ($fileSize -gt 300MB -and $fileSize -lt 400MB) { return 'Debug' }
 
     throw "Unexpected size of $UnityExePath, need to revise detection bounds for Unity buildconfig"
@@ -201,6 +201,21 @@ function Install-Unity {
     )
 
     $buildPath = Join-Path $BuildsRoot $Version.GetVersionFull()
+
+    <#
+    TODO: do a pre-pass to get the full version/name and use that to build the path instead.
+    this will also let me download version 2020.1 etc. (accept $Version as a string or [Version] or whatev too)
+    and it will get the right folder name.
+
+        $ unity-downloader-cli -u 051fb20b3877 -s -c Editor
+        All builds are done and cached
+        Branch: 2020.3/partner/staging
+        Version: 2020.3.14f1-dots
+
+        051fb20b3877
+
+    ^^ Henrik says "Version:" and the following hash should be relatively stable
+    #>
 
     # let udcli deal with ignoring already-downloaded components
     $udargs = 'unity-downloader-cli', '-u', $Version.Hash, '-p', $buildPath, '-c', 'Editor'

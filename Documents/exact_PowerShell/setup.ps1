@@ -109,7 +109,10 @@ function addPackage([string]$name, [switch]$sudo) {
 
 foreach ($install in @(
         # stuff shovel wants
-        'aria2', 'dark', 'innounp', 'lessmsi'
+        'dark', 'innounp', 'lessmsi'
+        # ^ TODO: "aria2" will get used by shovel, but it has failures. using shovel+aria2 on fzf fails with an error, but succeeds with plain scoop
+        # ^ so this should be an issue or PR to fix, or maybe fall back if aria2 fails..
+
         # shell stuff
         'busybox', 'echoargs', 'less', 'wget', 'which'
         # other core utils

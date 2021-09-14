@@ -24,3 +24,7 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
 }
 
 Import-Module ~/scoop/apps/scoop/current/supporting/completion/Scoop-Completion.psd1
+
+# must manually import this..
+# TODO: do PR to avoid having shovel import this module if it already shows up in (get-module)
+Import-Module ~/scoop/apps/scoop/current/supporting/yaml/bin/powershell-yaml.psd1
