@@ -48,3 +48,20 @@
 # check contents of busybox for collisions with standalone which/less/wget/etc.
 
 # check if my PSDepend (and other forks) is out of date from upstream
+
+# STICKY KEYS
+# AERO SHAKE
+
+* update-help
+
+
+# get rid of
+# HKEY_CLASSES_ROOT\Directory\shell\GitKraken
+# HKEY_CLASSES_ROOT\Directory\Background\shell\GitKraken
+
+# disable windows terminal right-click
+# [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked]
+# "{9F156763-7844-4DC4-B2B1-901F640F5155}"=""
+
+# move files to "home" subdir
+# https://github.com/twpayne/chezmoi/issues/891
