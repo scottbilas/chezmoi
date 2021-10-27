@@ -6,4 +6,7 @@ chezmoi.code-workspace
   Documents
   AppData
   dot_config/windows
+{{ else }}
+  Documents/PowerShell/Help
+  Documents/PowerShell/Scripts
 {{ end }}
