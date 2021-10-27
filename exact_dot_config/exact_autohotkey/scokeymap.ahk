@@ -5,7 +5,8 @@
 ; right-click in startup folder, "paste shortcut"
 
 ; emulate term
-^[::Send {Esc}
+; TEMP: disabled because it interferes with Notion ^[ ^] hotkeys :(
+;^[::Send {Esc}
 
 ; below is adapted from https://autohotkey.com/board/topic/51959-using-capslock-as-another-modifier-key/
 
@@ -19,6 +20,7 @@ return
 #IfWinExist, Capslock Is Down
 
 ; vimish
+[::Esc
 h::Left
 j::Down
 k::Up
@@ -41,8 +43,13 @@ e::Media_Next
 #IfWinExist
 
 ; work around accidental ctrl-shift-q in firefox
+#IfWinActive ahk_exe firefox.exe
 $^+q::
-IfWinNotActive, ahk_exe firefox.exe
-{
-    Send ^+q ; this is not Firefox, so send the key again.
-}
+#IfWinActive
+
+; dumb notion hotkeys..
+; TODO: this does not work
+;#IfWinActive ahk_exe notion.exe
+;Browser_Back::^[
+;Browser_Foward::^]
+;#IfWinActive
