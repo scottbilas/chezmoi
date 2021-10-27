@@ -63,5 +63,13 @@
 # [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked]
 # "{9F156763-7844-4DC4-B2B1-901F640F5155}"=""
 
+# disable "move to onedrive" right-click
+# [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked]
+# "{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}"=""
+
+# disable "share with skype" right-click
+# [HKEY_LOCAL_MACHINE\SOFTWARE\Classes\PackagedCom\Package\Microsoft.SkypeApp_*\Class\{776DBC8D-7347-478C-8D71-791E12EF49D8}]
+# rename DllPath -> DllPath.diediedie
+
 # move files to "home" subdir
 # https://github.com/twpayne/chezmoi/issues/891
