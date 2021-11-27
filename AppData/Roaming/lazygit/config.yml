@@ -1,0 +1,14 @@
+gui:
+  theme:
+    selectedLineBgColor:
+      - reverse
+    selectedRangeBgColor:
+      - reverse
+
+os:
+  editCommand: micro
+
+update:
+  method: never
+
+reporting: off
