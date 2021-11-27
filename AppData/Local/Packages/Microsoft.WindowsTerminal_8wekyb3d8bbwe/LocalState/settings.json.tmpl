@@ -11,7 +11,7 @@
     "startOnUserLogin": true,
     "tabSwitcherMode": "disabled",
     "tabWidthMode": "equal",
-    "theme": "{{.scottbilas.theme}}",
+    "theme": "{{.profile.theme}}",
 
     "profiles": {
         "defaults": 
@@ -22,7 +22,7 @@
                 "window",
                 "taskbar"
             ],
-            "colorScheme": {{ if eq .scottbilas.theme "dark"}}"One Half Dark"{{else}}"Campbell Powershell"{{end}},
+            "colorScheme": {{ if eq .profile.theme "dark" }}"One Half Dark"{{ else }}"Campbell Powershell"{{ end }},
             "fontFace": "CaskaydiaCove NF", // scoop install CascadiaCode-NF
             "fontSize": 9,
             "historySize": 100000
@@ -39,7 +39,7 @@
             },
             {
                 "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
-                "icon": "{{.chezmoi.home}}/dotfiles/resources/icons/debian_logo_red.png",
+                "icon": "{{.profile.home_dir}}/dotfiles/resources/icons/debian_logo_red.png",
                 "name": "Debian",
                 "source": "Windows.Terminal.Wsl",
                 "tabTitle": "Debian"

@@ -1,21 +1,22 @@
-#git:
-#  autoCommit: true   # not sure i like this yet
-
 {{ if eq .chezmoi.os "windows" -}}
 cd:
   command: "pwsh"
-  args: ["-NoLogo", "-NoExit", "-Command", "& {Set-Location (chezmoi source-path)}"]
+  args: ["-NoLogo", "-NoExit", "-Command", "& Set-Location (chezmoi source-path)"]
 {{- end }}
 
-{{/* TODO: autodetect this... */ -}}
-{{ $personal_machine := get .scottbilas "personal_machine" -}}
-{{ if not (hasKey .scottbilas "personal_machine") -}}
-{{   $personal_machine = promptBool "\n>>> Personal machine? (y/n): " -}}
-{{ end -}}
 data:
-  chezmoi:
-    home: {{.chezmoi.homeDir | replace "\\" "/"}}
-  scottbilas:
+  profile:
+{{- if eq .chezmoi.os "windows" }}
+    beyond_compare_dir: {{output "pwsh" "-c" "& get-content alias:bc" | trim | replace "\\" "/" | dir}}
+{{- end }}
+{{- /* TODO: autodetect this... */}}
+{{- $personal_machine := get .profile "personal_machine" }}
+{{- if not (hasKey .profile "personal_machine") }}
+{{-   $personal_machine = promptBool "\n>>> Personal machine? (y/n): " }}
+{{- end }}
+    home_dir: {{.chezmoi.homeDir | replace "\\" "/"}}
     personal_machine: {{$personal_machine}}
-    # dark or light, updated at the target site by Set-DarkMode
-    theme: dark
+    theme: dark # updated in the dst file by Set-DarkMode
+
+#git:
+#  autoCommit: true   # not sure i like this yet
