@@ -7,6 +7,18 @@ param (
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
+$ProgressPreference = 'SilentlyContinue' # distracting and ends up with cursor in wrong vertical position sometimes (maybe exposes a terminal bug)
+
+$jobs = @()
+
+trap {
+    foreach ($job in $jobs) {
+        # $???$?
+    }
+    
+    "Error: $_"
+    break
+}
 
 ## Chezmoi
 
@@ -46,6 +58,16 @@ if ($invokePSDepend) {
 else {
     Write-Output '[posh] Modules ok'
 }
+
+## Posh help
+
+$jobs += Start-Job { Update-Help }
+
+#  ____   ____ ___   ___  ____  
+# / ___| / ___/ _ \ / _ \|  _ \ 
+# \___ \| |  | | | | | | | |_) |
+#  ___) | |__| |_| | |_| |  __/ 
+# |____/ \____\___/ \___/|_|
 
 ## Scoop pre
 
@@ -116,7 +138,7 @@ foreach ($install in @(
         # shell stuff
         'busybox', 'echoargs', 'less', 'wget', 'which'
         # other core utils
-        '7zip', 'autohotkey', 'chezmoi', 'fd', 'fzf', 'git', 'gsudo', 'kalk', 'micro', 'ripgrep'
+        '7zip', 'autohotkey', 'bat', 'chezmoi', 'delta', 'fd', 'file', 'fzf', 'git', 'gsudo', 'kalk', 'lazygit', 'micro', 'ripgrep'
     )) {
     addPackage($install)
 }
@@ -173,9 +195,9 @@ Write-Output '[scoop] Core packages ok'
 
 # look for stale PATH entries
 $Env:PATH = ($Env:PATH -Split ';' | Where-Object { $_ }) -join ';' # fix any blank entries, which will cause problems in other funcs that don't expect it
-$badPaths = ($Env:PATH).Split(';') | Where-Object { !(Test-Path ([Environment]::ExpandEnvironmentVariables($_))) }
-if ($badPaths) {
-    Write-Error "[check] PATH is invalid: $(($badPaths | ForEach-Object { "'$_'" }) -Join ', ')"
+$invalidPaths = ($Env:PATH).Split(';') | Where-Object { !(Test-Path ([Environment]::ExpandEnvironmentVariables($_))) }
+if ($invalidPaths) {
+    Write-Error -ea:cont "[check] PATH invalid: $(($invalidPaths | ForEach-Object { "'$_'" }) -Join ', ')"
 }
 else {
     Write-Output '[check] PATH ok'
@@ -202,4 +224,17 @@ Write-Output '[check] Scoop apps ok'
 # anything (else) going on with scoop?
 if ($badScoop -or $Upgrade) {
     scoop status
+}
+
+# look for bcomp not wired up to explorer
+
+$bcShellPath = (Get-ItemProperty -ea:silent 'HKLM:\SOFTWARE\Classes\CLSID\{57FA2D12-D22D-490A-805A-5CB48E84F12A}\InProcServer32')."(Default)"
+if (Test-Path alias:bc) {
+    $bcPath = Get-Content alias:bc
+    if ($bcShellPath -ne $bcPath) {
+        Write-Error "[check] Beyond Compare Explorer integration mismatch; run bcomp4-shell-integration.reg (bc=$bcPath, reg=$bcShellPath)"
+    }
+}
+elseif ($bcShellPath) {
+    Write-Error "[check] Beyond Compare Explorer integration is registered, but bc cannot be found; install bc or run bcomp4-shell-integration-remove.reg"
 }

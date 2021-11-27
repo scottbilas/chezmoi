@@ -44,7 +44,13 @@ e::Media_Next
 
 ; work around accidental ctrl-shift-q in firefox
 #IfWinActive ahk_exe firefox.exe
-$^+q::
+^+q::
+#IfWinActive
+
+; use ctrl-shift-a instead of ctrl-a in miro (prevent accidental select-all+do-something-stupid-to-big-doc)
+#IfWinActive ahk_exe miro.exe
+^+a::Send ^a
+^a::
 #IfWinActive
 
 ; dumb notion hotkeys..

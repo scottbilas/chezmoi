@@ -3,7 +3,9 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-$DefaultBuildsRoot = 'c:\builds\editor' # TODO support arrays here, including autodetect from hub state and custom builds
+# TODO support arrays here, including autodetect from hub state and custom builds
+# TODO make this a dirinfo? want it to be optional though..
+$DefaultBuildsRoot = 'c:\builds\editor'
 
 function Get-UnityBuildConfig($UnityExePath) {
 
@@ -25,10 +27,10 @@ function Get-MonoBuildConfig($MonoDllPath) {
 
     $fileSize = (Get-Item $MonoDllPath).Length
 
-    if ($fileSize -gt 4MB -and $fileSize -lt 6MB) { return 'Release' }
+    if ($fileSize -gt 4MB -and $fileSize -lt 7.5MB) { return 'Release' }
     if ($fileSize -gt 9MB -and $fileSize -lt 11MB) { return 'Debug' }
 
-    throw "Unexpected size for $MonoDllPath, need to revise detection bounds for Mono buildconfig"
+    throw "Unexpected size $([Math]::Round($fileSize / 1MB, 2))MB for $MonoDllPath, need to revise detection bounds for Mono buildconfig (rel=4-7.5MB, dbg=9-11MB)"
 }
 Export-ModuleMember Get-MonoBuildConfig
 
@@ -191,34 +193,47 @@ function Get-UnityInfo {
 }
 Export-ModuleMember Get-UnityInfo
 
+function Install-Unity2 { # TODO :/
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory, ValueFromPipeline)]$Version, # TODO: validate this is actually a version object, not just text/int
+        [string]$BuildsRoot = $DefaultBuildsRoot,
+        [switch]$IncludeSymbols,
+        [switch]$IncludeStandaloneIL2CPP)
+
+    Install-Unity `
+        -Version:$Version.Version `
+        -Hash:$Version.Hash `
+        -IncludeSymbols:$IncludeSymbols `
+        -IncludeStandaloneIL2CPP:$IncludeStandaloneIL2CPP `
+        -WhatIf:$WhatIfPreference
+}
+
+function Get-UnityVersion($Version) {
+    #$results = unity-downloader-cli -u $Version -s -c Editor
+    #^^ not working because sublaunch process not getting redirected
+    #^^ Henrik says "Version:" and the following hash should be relatively stable
+    # https://unity.slack.com/archives/CCXLULRGV/p1636717847023300?thread_ts=1631517211.016500&cid=CCXLULRGV
+    # until fixed, just have this do the query and show it, but not actually try to parse
+
+    unity-downloader-cli -u $Version -s -c Editor
+}
+Export-ModuleMember Get-UnityVersion
+
 function Install-Unity {
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        [Parameter(Mandatory, ValueFromPipeline)]$Version,
+        [string]$Version,
+        [string]$Hash,
         [string]$BuildsRoot = $DefaultBuildsRoot,
         [switch]$IncludeSymbols,
         [switch]$IncludeStandaloneIL2CPP
     )
 
-    $buildPath = Join-Path $BuildsRoot $Version.GetVersionFull()
-
-    <#
-    TODO: do a pre-pass to get the full version/name and use that to build the path instead.
-    this will also let me download version 2020.1 etc. (accept $Version as a string or [Version] or whatev too)
-    and it will get the right folder name.
-
-        $ unity-downloader-cli -u 051fb20b3877 -s -c Editor
-        All builds are done and cached
-        Branch: 2020.3/partner/staging
-        Version: 2020.3.14f1-dots
-
-        051fb20b3877
-
-    ^^ Henrik says "Version:" and the following hash should be relatively stable
-    #>
+    $installPath = Join-Path $BuildsRoot "$Version-$Hash"
 
     # let udcli deal with ignoring already-downloaded components
-    $udargs = 'unity-downloader-cli', '-u', $Version.Hash, '-p', $buildPath, '-c', 'Editor'
+    $udargs = 'unity-downloader-cli', '-u', $Hash, '-p', $installPath, '-c', 'Editor'
     if ($IncludeSymbols) {
         $udargs += '-c', 'Symbols'
     }
@@ -232,7 +247,7 @@ function Install-Unity {
 
         # we have full symbols, so nuke the stripped symbols otherwise vs may use them as the pdb is in the same folder as the exe
         if ($IncludeSymbols) {
-            Remove-Item -Verbose:$VerbosePreference $buildPath\*.pdb
+            Remove-Item -Verbose:$VerbosePreference $installPath\*.pdb
         }
     }
 

@@ -73,3 +73,8 @@
 
 # move files to "home" subdir
 # https://github.com/twpayne/chezmoi/issues/891
+
+# ensure file history is enabled and has exclusions
+#  ~/scoop/{apps,buckets,cache}
+#  ~/scoop/persist/vscode-portable/data/user-data/Cache
+#  ~/users/scott/.nuget/packages

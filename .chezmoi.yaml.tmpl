@@ -1,13 +1,29 @@
+{{ $beyond_compare_dir := "" }}
 {{ if eq .chezmoi.os "windows" -}}
 cd:
-  command: "pwsh"
-  args: ["-NoLogo", "-NoExit", "-Command", "& Set-Location (chezmoi source-path)"]
+  command: pwsh
+  args: [-NoExit, -Command, "& Set-Location (chezmoi source-path)"]
+
+{{ $beyond_compare_dir = output "pwsh" "-Command" "& Get-Content Alias:bc" | trim | replace "\\" "/" | dir -}}
+diff:
+  command: {{$beyond_compare_dir}}/bcomp.exe
+  pager: delta
+
+#merge:
+#  command: pwsh
+#  args: [-Command, "& FIXMEFIXMEFIXME"]
 {{- end }}
+
+interpreters.ps1:
+  command: pwsh
+
+#git:
+#  autoCommit: true   # not sure i like this yet
 
 data:
   profile:
 {{- if eq .chezmoi.os "windows" }}
-    beyond_compare_dir: {{output "pwsh" "-c" "& get-content alias:bc" | trim | replace "\\" "/" | dir}}
+    beyond_compare_dir: {{$beyond_compare_dir}}
 {{- end }}
 {{- /* TODO: autodetect this... */}}
 {{- $personal_machine := get .profile "personal_machine" }}
@@ -17,6 +33,3 @@ data:
     home_dir: {{.chezmoi.homeDir | replace "\\" "/"}}
     personal_machine: {{$personal_machine}}
     theme: dark # updated in the dst file by Set-DarkMode
-
-#git:
-#  autoCommit: true   # not sure i like this yet

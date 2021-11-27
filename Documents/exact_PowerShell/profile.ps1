@@ -49,6 +49,9 @@ Set-Alias o explorer
 Set-Alias g git
 Set-Alias m micro
 Set-Alias cm chezmoi
+Set-Alias lg lazygit
+function cm-cd { Set-Location (chezmoi source-path) }
+function cm-d { chezmoi diff --use-builtin-diff @args }
 function dotf { code (Resolve-Path ~\.local\share\chezmoi\chezmoi.code-workspace) }
 function up { Set-Location .. }
 function ov($what) { Set-Location ../$what }
@@ -67,8 +70,11 @@ Set-Alias pssetup (Join-Path $PSScriptRoot setup.ps1)
 function psup { & (Join-Path $PSScriptRoot setup.ps1) -Upgrade }
 
 & {
-    $bc = 'C:\Program Files\Beyond Compare 4\BComp.exe'
-    if (Test-Path $bc) {
+    $bc = Resolve-Path -ea:silent ~/scoop/apps/beyondcompare/current/bcomp.exe
+    if (!$bc) {
+        $bc = Resolve-Path -ea:silent "$env:ProgramFiles\Beyond Compare 4\BComp.exe"
+    }
+    if ($bc) {
         Set-Alias -Scope Global bc $bc
     }
 }
