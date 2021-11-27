@@ -77,4 +77,6 @@
 # ensure file history is enabled and has exclusions
 #  ~/scoop/{apps,buckets,cache}
 #  ~/scoop/persist/vscode-portable/data/user-data/Cache
+#  ~/scoop/persist/vscode-portable/data/extensions
 #  ~/users/scott/.nuget/packages
+#  ~/users/scott/Documents\Dyson Sphere Program\Save
