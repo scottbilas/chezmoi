@@ -1,0 +1,13 @@
+{
+	"font_face": "FuraCode NF",
+	"font_size": 9,
+	"translate_tabs_to_spaces": true,
+	"theme": "Merge Dark.sublime-theme",
+	"diff_style": "auto",
+	"hardware_acceleration": "opengl",
+	"hide_menu": true,
+	"ignore_diff_white_space": true,
+	"side_bar_layout": "columns",
+	"image_diff_style": "side-by-side",
+	"render_commit_dialog_message_at_top": true,
+}
