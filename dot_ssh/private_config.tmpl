@@ -19,9 +19,6 @@ Host github.com
     IdentityFile ~/.local/share/private/ssh/github_rsa
     User git
 
-{{ if not .scottbilas.personal_machine -}}
-{{   if stat ".local/share/private/ssh/config-work" -}}
-{{     include "../../../.local/share/private/ssh/config-work" }}
-{{   end -}}
+{{ if not .profile.personal_machine -}}
+{{   include "../../../.local/share/private/ssh/config-work" }}
 {{ end -}}
-
