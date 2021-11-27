@@ -36,8 +36,8 @@ Set-PSReadLineOption `
 
 ### ALIASES AND ALIAS-ISHES
 
-# these aliases only cause problems or collide with other things
-'diff', 'rm', 'set', 'sort', 'r' | ForEach-Object {
+# these aliases only cause problems or collide with other things or otherwise are lame
+'diff', 'rm', 'set', 'sort', 'r', 'kill' | ForEach-Object {
     # remove from every scope (https://stackoverflow.com/a/24743647/14582)
     while (Test-Path Alias:$_) {
         Remove-Item -Force Alias:$_
