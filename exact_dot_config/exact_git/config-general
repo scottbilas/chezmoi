@@ -69,9 +69,10 @@
     autocrlf = input
     excludesfile = ~/.config/git/ignore
     symlinks = true
+    pager = delta
 
-    # TODO: `--pattern` is problematic, gives errors when pattern not found (like when no diffs in output), and either way prevents exit on non-filled-screen.
-    #pager = perl ~/dotfiles/scripts/diff-so-fancy/diff-so-fancy | less --pattern '^(Date|added|deleted|modified):'
+[interactive]
+    diffFilter = delta --color-only --features=interactive
 
 [credential]
     modalprompt = false
@@ -81,20 +82,19 @@
 
 [diff]
     algorithm = histogram
-    renames = copies
+    color-moved = default
     mnemonicprefix = true
+    renames = copies
     tool = vimdiff3
 
 [difftool "vimdiff3"]
 ;    path = nvim
 
-[diff-so-fancy]
-    stripLeadingSymbols = false
-
-[icdiff]
-    # want: --color-map=meta:white (but doesn't seem to do anything)
-    options = --line-numbers --line-number-width=4 --strip-trailing-cr --numlines=3
-    pager = less
+[include]
+    path = ~/.config/git/delta-themes.gitconfig
+[delta]
+    side-by-side = true
+    features = collared-trogon
 
 [init]
 	defaultBranch = dev
