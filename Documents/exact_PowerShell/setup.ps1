@@ -138,7 +138,8 @@ foreach ($install in @(
         # shell stuff
         'busybox', 'echoargs', 'less', 'wget', 'which'
         # other core utils
-        '7zip', 'autohotkey', 'bat', 'chezmoi', 'delta', 'fd', 'file', 'fzf', 'git', 'gsudo', 'kalk', 'lazygit', 'micro', 'ripgrep'
+        '7zip', 'autohotkey', 'bat', 'chezmoi', 'delta', 'fd', 'file', 'fzf', 'git', 'gsudo',
+        'highlight', 'kalk', 'lazygit', 'micro', 'ripgrep'
     )) {
     addPackage($install)
 }

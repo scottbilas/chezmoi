@@ -1,0 +1,6 @@
+set hidden on
+set icons on
+set mouse on
+{{ if eq .chezmoi.os "windows" -}}
+set previewer {{.profile.home_dir}}/AppData/Local/lf/lf-preview.cmd
+{{ end -}}
