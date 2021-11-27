@@ -1,0 +1,325 @@
+{
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[markdown]": {
+        "editor.tabSize": 2
+    },
+    "[yaml]": {
+        "editor.tabSize": 2
+    },
+    "[powershell]": {
+        "editor.codeLens": false
+    },
+    "[plaintext]": {
+        "editor.quickSuggestions": false // often annoying in a txt file - picks random stuff to be helpful, is too aggressive
+    },
+    "bracket-pair-colorizer-2.colors": [ // roughly matching indentRainbow.colors
+        "#A4A456",
+        "#72A472",
+        "#A472A4",
+        "#569898"
+    ],
+    "bracket-pair-colorizer-2.excludedLanguages": [
+        "t4"
+    ],
+    "bracket-pair-colorizer-2.showBracketsInRuler": true,
+    "bracket-pair-colorizer-2.showBracketsInGutter": true,
+    "breadcrumbs.enabled": true,
+    "C_Cpp.default.compilerPath": "clang",
+    "cSpell.allowCompoundWords": true,
+    "cSpell.ignorePaths": [
+        "**/package-lock.json",
+        "**/node_modules/**",
+        "**/vscode-extension/**",
+        "**/.git/objects/**",
+        ".vscode",
+        "**/vscode/User/settings.json",
+    ],
+    "cSpell.ignoreRegExpList": [
+        "[./]\\w+",       // things that look like filenames/paths/extensions
+        "@\\w+",          // usernames
+        "\\W[Rr]'(?=\\w)" // raw format string prefixes
+    ],
+    "cSpell.userWords": [
+        "Behaviour",
+        "Behaviours",
+        "Bilas",
+        "Bilas's",
+        "blittable",
+        "Boids",
+        "coord",
+        "cygwin",
+        "datas",
+        "deserialization",
+        "deserialized",
+        "devs",
+        "dll's",
+        "dotfiles",
+        "dups",
+        "executables",
+        "fatals",
+        "ffwd",
+        "Finalizers",
+        "Fogbugz",
+        "funcs",
+        "globbing",
+        "icase",
+        "IDE's",
+        "katana",
+        "llvm",
+        "minimap",
+        "mkdir",
+        "POSIX",
+        "REPO",
+        "Resilio",
+        "Resizable",
+        "scottbilas",
+        "serializable",
+        "Shouldly",
+        "struct",
+        "structs",
+        "submodules",
+        "termux",
+        "transcode",
+        "uncrustify",
+        "unexpanded",
+        "untracked",
+        "xplat"
+    ],
+    "diffEditor.renderSideBySide": true,
+    "editor.accessibilitySupport": "off", // without this, can't do word wrapping
+    "editor.cursorBlinking": "phase",
+    "editor.cursorSmoothCaretAnimation": true,
+    "editor.cursorSurroundingLines": 5,
+    "editor.cursorSurroundingLinesStyle": "all",
+    "editor.dragAndDrop": true,
+    "editor.foldingStrategy": "indentation",
+    "editor.fontFamily": "JetBrainsMono NF",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 13,
+    "editor.lineNumbers": "off",
+    "editor.linkedEditing": true,
+    "editor.matchBrackets": "never", // want rafamel.subtle-brackets to handle matching brackets instead
+    "editor.minimap.enabled": true,
+    "editor.minimap.maxColumn": 40,
+    "editor.mouseWheelScrollSensitivity": 1,
+    "editor.mouseWheelZoom": true,
+    "editor.quickSuggestionsDelay": 250,
+    "editor.renderIndentGuides": false,
+    "editor.roundedSelection": true,
+    "editor.rulers": [
+        80,
+        100,
+        120
+    ],
+    "editor.smoothScrolling": true,
+    "editor.snippetSuggestions": "bottom",
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                // log.constant
+                // log.date
+                // log.debug
+                // log.error
+                // log.exception
+                // log.info
+                // log.string
+                // log.exceptiontype
+                // log.warning
+                "scope": "log.constant",
+                "settings": {
+                    "foreground": "#DDD"
+                }
+            },
+            {
+                "scope": "keyword.control.bats",
+                "settings": {
+                    "foreground": "#b33ce2",
+                    "fontStyle": "underline"
+                }
+            },
+            {
+                "scope": "support.function.bats",
+                "settings": {
+                    "foreground": "#d15353",
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope": "support.variable.bats",
+                "settings": {
+                    "foreground": "#329432",
+                    "fontStyle": "italic"
+                }
+            }
+        ]
+    },
+    "emojisense.languages": {
+        "csharp": true,
+        "git-commit": true,
+        "markdown": true,
+        "powershell": true,
+        "scminput": true
+    },
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "files.associations": {
+        "config-*": "ini",
+        "config": "ini",
+        "hgrc-*": "ini",
+        "hgrc": "ini",
+        "ignore": "gitignore",
+        ".hgignore": "gitignore",
+        ".pylintrc": "ini",
+        "*.asmdef": "json",
+        "*.asset": "yaml",
+        "*.buildconfiguration": "json",
+        "*.buildsettings": "json",
+        "*.json.tmpl": "jsonc",
+        "*.jsonl": "json",
+        "*.linq": "csharp",
+        "*.log": "log",
+        "*.meta": "yaml",
+        "*.prefab": "yaml",
+        "*.tmpl": "go-template",
+        "*.ttinclude": "t4",
+        "*.txt": "plaintext",
+        "*.unity": "yaml",
+        "*.uxml": "xml",
+        "*.vssettings": "xml",
+        "*.yaml.tmpl": "yaml",
+    },
+    "files.autoSave": "off",
+    "files.eol": "\n",
+    "files.exclude": {
+        // root folders
+        ".hglf": true,
+
+        // files
+        "**/*.bak": true,
+        "**/*.cache": true,
+        "**/*.csproj.CopyComplete": true,
+        "**/*.csproj.user": true,
+        "**/*.idb": true,
+        "**/*.ilk": true,
+        "**/*.lib": true,
+        "**/*.mdb": true,
+        "**/*.meta": true,
+        "**/*.obj": true,
+        "**/*.orig": true,
+        "**/*.pyc": true,
+        "**/*.pyo": true,
+        "**/*.suo": true,
+        "**/*FileListAbsolute.txt": true,
+
+        // folders
+        "**/.history": true,
+        "**/.venv": true,
+        "**/.vs": true,
+        "**/__pycache__": true
+    },
+    "git.confirmSync": false,
+    "go.formatTool": "goimports",
+    "go.toolsManagement.autoUpdate": true,
+    "go.useLanguageServer": true,
+    "indentRainbow.excludedLanguages": [
+        "t4",
+    ],
+    "indentRainbow.colors": [
+        "rgba(255,255,64,0.03)",
+        "rgba(127,255,127,0.03)",
+        "rgba(255,127,255,0.03)",
+        "rgba(79,236,236,0.03)"
+    ],
+    "json.schemas": [
+        { "fileMatch": [ "*.asmdef" ], "url": "http://json.schemastore.org/asmdef" }
+    ],
+    "local-history.path": "~/.local/backups/vscode",
+    "logFileHighlighter.customPatterns": [
+        {
+            "pattern": "error",
+            "foreground": "#b40000",
+        },
+        {
+            "pattern": ".*error.*",
+            "background": "#3b0000",
+        }
+    ],
+    "markdown.preview.fontSize": 16,
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "perforce.addOnFileCreate": true,
+    "perforce.deleteOnFileDelete": true,
+    "perforce.editOnFileModified": true,
+    "perforce.hideNonWorkspaceFiles": "hide changelists",
+    "powershell.codeFormatting.useConstantStrings": true,
+    "powershell.codeFormatting.useCorrectCasing": true,
+    "powershell.codeFormatting.pipelineIndentationStyle": "IncreaseIndentationForFirstPipeline",
+    "powershell.integratedConsole.showOnStartup": false,
+    "powershell.promptToUpdatePowerShell": false,
+    "problems.decorations.enabled": true,
+    "redhat.telemetry.enabled": false,
+    "rewrap.wrappingColumn": 120,
+    "search.smartCase": true,
+    "search.useGlobalIgnoreFiles": true,
+    "scm.defaultViewMode": "tree",
+    "shellcheck.customArgs": [ "-x" ],
+    "shellformat.flag": "-i 4 -s",
+    "telemetry.telemetryLevel": "crash",
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.lineHeight": 0,
+    "terminal.integrated.scrollback": 10000,
+    "terminal.integrated.tabs.enabled": false,
+    "todohighlight.keywords": [
+        {
+            "text": "TODO:",
+            "color": "salmon",
+            "backgroundColor": "darkslategray",
+            "overviewRulerColor": "yellow"
+        }
+    ],
+    "ttProcessor.TTPath": "{{.chezmoi.homeDir | replace "\\" "\\\\"}}\\.dotnet\\tools\\t4.exe", // dotnet tool install -g dotnet-t4
+    "update.enableWindowsBackgroundUpdates": false,
+    "update.mode": "manual",
+    "window.autoDetectColorScheme": true,
+    "window.menuBarVisibility": "toggle",
+    "window.newWindowDimensions": "inherit",
+    "window.restoreFullscreen": true,
+    "window.restoreWindows": "all",
+    "window.title": "${rootName}${separator}${dirty}${activeEditorMedium}${separator}",
+    "workbench.activityBar.visible": false,
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#242424"
+    },
+    "workbench.editor.untitled.hint": "hidden",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.list.smoothScrolling": true,
+    "workbench.panel.defaultLocation": "right",
+    "workbench.startupEditor": "newUntitledFile",
+    "zenMode.centerLayout": false,
+    "zenMode.restore": false,
+
+    // uncomment for screenshot mode
+    /*
+    "customizeUI.stylesheet": { ".title.show-file-icons": "display: none !important;", },
+    "editor.folding": false,
+    "editor.glyphMargin": false,
+    "editor.lineDecorationsWidth": 5,
+    "editor.lineNumbers": "off",
+    "editor.minimap.enabled": false,
+    "editor.rulers": [],
+    "editor.scrollbar.verticalScrollbarSize": 0,
+    "workbench.activityBar.visible": false,
+    "workbench.colorTheme": "Humane",
+    "workbench.statusBar.visible": false,
+    */
+}
