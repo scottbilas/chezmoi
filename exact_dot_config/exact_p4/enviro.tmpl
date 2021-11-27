@@ -1,0 +1,13 @@
+# This is a global .p4config, which can be overridden by `.p4config` files in the project folders.
+
+P4ALIASES={{.profile.home_dir}}/.config/p4/aliases
+P4CONFIG=.p4config
+P4EDITOR=micro
+P4IGNORE=.p4ignore
+P4TICKETS={{.profile.home_dir}}/.local/state/p4/.p4tickets
+P4USER=scobi
+
+{{ if eq .chezmoi.os "windows" -}}
+P4DIFF={{.profile.beyond_compare_dir}}/bcomp.exe
+P4MERGE={{.profile.beyond_compare_dir}}/p4-bcmerge.cmd
+{{- end }}
