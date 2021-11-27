@@ -3,11 +3,9 @@ _*
 chezmoi.code-workspace
 
 {{ if eq .chezmoi.os "linux" }}
-  Documents
   AppData
+  Documents
   exact_dot_config/exact_windows
+  exact_dot_config/scoop
   scoop
-{{ else }}
-  Documents/PowerShell/Help
-  Documents/PowerShell/Scripts
 {{ end }}
