@@ -5,24 +5,24 @@
 			"path": "."
 		},
 		{
-			"name": "🔒 ~/.local/share/private",
-			"path": "..\\private"
+			"name": "🐚 ~/Documents/PowerShell",
+			"path": "..\\..\\..\\Documents\\PowerShell"
 		},
 		{
-			"name": "💔 ~/dotfiles",
-			"path": "..\\..\\..\\dotfiles"
+			"name": "🙉 ~/.local/share/private",
+			"path": "..\\private"
 		},
 		{
 			"name": "⚙️ ~/.config",
 			"path": "..\\..\\..\\.config"
 		},
 		{
-			"name": "⚙️ ~/.ssh",
+			"name": "🔒 ~/.ssh",
 			"path": "..\\..\\..\\.ssh"
 		},
 		{
-			"name": "⚙️ ~/Documents/PowerShell",
-			"path": "..\\..\\..\\Documents\\PowerShell"
+			"name": "💔 ~/dotfiles",
+			"path": "..\\..\\..\\dotfiles"
 		}
 	],
 	"settings": {}
