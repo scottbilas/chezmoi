@@ -59,8 +59,8 @@ function ~ { Set-Location ~ }
 
 # default sort.exe is in system32; avoid that one
 & {
-    $sort = Resolve-Path ~\scoop\apps\git\current\usr\bin\sort.exe
-    if (Test-Path $sort) {
+    $sort = Resolve-Path -ea:silent ~\scoop\apps\git\current\usr\bin\sort.exe
+    if ($sort) {
         Set-Alias -Scope Global sort $sort
     }
 }
@@ -82,15 +82,14 @@ function psup { & (Join-Path $PSScriptRoot setup.ps1) -Upgrade }
 
 ### FUNCTIONS
 
-# from http://stackoverflow.com/a/712205/14582
 function Flatten($a) {
-    ,@($a | %{ $_ })
+    ,@($a | ForEach-Object{ $_ })
 }
 
 function Time([scriptblock]$exec) {
     $now = Get-Date
-    $result = Invoke-Command $exec -Args (flatten $args)
+    $result = Invoke-Command $exec -Args (Flatten $args)
     $delta = (Get-Date) - $now
-    Write-Host ("`n>>> seconds: {0}" -f $delta.TotalSeconds)
     $result
+    Write-Host ("`n>>> seconds: {0}" -f $delta.TotalSeconds)
 }

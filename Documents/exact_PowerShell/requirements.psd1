@@ -4,9 +4,11 @@
     }
     
     'Functional' = 'latest'
+    'ListFunctions' = 'latest'
     'Native' = 'latest'
     'oh-my-posh' = 'latest'
     'Pester' = 'latest'
+    'plinqo' = 'latest'
 
     # we want this, but shovel comes with it, and get conflicts if try to import this and also use scoop :(
     # 'powershell-yaml' = 'latest'
