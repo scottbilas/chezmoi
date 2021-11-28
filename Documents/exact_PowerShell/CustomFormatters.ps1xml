@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>ErrorInstance</Name>
+            <OutOfBand />
+            <ViewSelectedBy>
+                <TypeName>System.Management.Automation.ErrorRecord</TypeName>
+            </ViewSelectedBy>
+            <CustomControl>
+                <CustomEntries>
+                    <CustomEntry>
+                        <CustomItem>
+                            <ExpressionBinding>
+                                <!--look at\PowerShellCore.format.ps1xml for more ideas-->
+                                <ScriptBlock>
+                                    try {
+                                        $trace = $_.scriptstacktrace -split "`n" | ForEach-Object {
+                                            $_ -replace '&lt;ScriptBlock&gt;, |&lt;No file&gt;: ', ''
+                                        } | Where-Object {
+                                            $_ -ne 'at line 1'
+                                        }
+
+                                        $info = ($_.invocationinfo.positionmessage, $trace) -join "`n"
+
+                                        $type = $_.exception.gettype().name
+                                        if ($type -match 'WriteErrorException|ErrorRecord') {
+                                            $type = 'Error'
+                                        }
+                                        
+                                        $type + ": " + $_.tostring() + "`n" + ($info -replace '(?m)^', '  ')
+                                    } 
+                                    catch {
+                                        "ERROR in CustomFormatters.ps1xml formatter, stack: $($_.invocationinfo.positionmessage)"
+                                    }
+                                </ScriptBlock>
+                            </ExpressionBinding>
+                        </CustomItem>
+                    </CustomEntry>
+                </CustomEntries>
+            </CustomControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>

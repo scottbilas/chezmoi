@@ -8,6 +8,7 @@ Set-PoshPrompt -Theme ~/Documents/PowerShell/prompt.json
 Import-Module Terminal-Icons
 # TODO ^ less harsh/neon themes, and also dark/light options (wire up to Set-DarkMode)
 
+Update-FormatData -PrependPath ~/Documents/PowerShell/CustomFormatters.ps1xml
 
 ### COMPLETIONS
 
