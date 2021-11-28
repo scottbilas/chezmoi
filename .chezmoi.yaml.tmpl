@@ -11,7 +11,7 @@ diff:
 
 merge:
   command: pwsh
-  args: [{{.profile.home_dir}}/.config/beyondcompare/chezmoi-bcmerge.ps1, -Destination, '{{`{{ .Destination }}`}}', -Source, '{{`{{ .Source }}`}}', -Target, '{{`{{ .Target }}`}}']
+  args: [{{.profile.home_dir}}/.config/beyondcompare/bcmerge-chezmoi.ps1, -Destination, '{{`{{ .Destination }}`}}', -Source, '{{`{{ .Source }}`}}', -Target, '{{`{{ .Target }}`}}']
 {{- end }}
 
 interpreters.ps1:

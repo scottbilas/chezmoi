@@ -9,5 +9,5 @@ P4USER=scobi
 
 {{ if eq .chezmoi.os "windows" -}}
 P4DIFF={{.profile.beyond_compare_dir}}/bcomp.exe
-P4MERGE={{.profile.beyond_compare_dir}}/p4-bcmerge.cmd
+P4MERGE={{.profile.beyond_compare_dir}}/bcmerge-p4.cmd
 {{- end }}
