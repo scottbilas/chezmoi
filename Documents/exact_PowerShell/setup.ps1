@@ -1,4 +1,5 @@
 #Requires -Version 7
+#Requires -Modules scottbilas-Setup
 
 [CmdletBinding()]
 param (
@@ -16,7 +17,7 @@ trap {
         # $???$?
     }
     
-    "Error: $_"
+#    "Error: $_"
     break
 }
 
@@ -63,13 +64,16 @@ else {
 
 $jobs += Start-Job { Update-Help }
 
-#  ____   ____ ___   ___  ____  
-# / ___| / ___/ _ \ / _ \|  _ \ 
-# \___ \| |  | | | | | | | |_) |
-#  ___) | |__| |_| | |_| |  __/ 
-# |____/ \____\___/ \___/|_|
-
 ## Scoop pre
+
+if (!(Get-Command -ea:silent powershell)) {
+    # put C:\Windows\System32\WindowsPowerShell\v1.0 on path
+    $poshPath = "$Env:SystemRoot\System32\WindowsPowerShell\v1.0"
+    if (!(Test-Path $poshPath\powershell.exe)) {
+        Write-Error "[scoop] powershell.exe not detected on system (should be at $poshPath)"
+    }
+    Write-Error "[scoop] powershell.exe not detected on path (required by scoop); add $poshPath to path"
+}
 
 if ((iee scoop config show_update_log) -match 'not set') {
     iee scoop config show_update_log $false
@@ -194,13 +198,16 @@ Write-Output '[scoop] Core packages ok'
 
 # CHECKS
 
-# look for stale PATH entries
-$Env:PATH = ($Env:PATH -Split ';' | Where-Object { $_ }) -join ';' # fix any blank entries, which will cause problems in other funcs that don't expect it
-$invalidPaths = ($Env:PATH).Split(';') | Where-Object { !(Test-Path ([Environment]::ExpandEnvironmentVariables($_))) }
-if ($invalidPaths) {
-    Write-Error -ea:cont "[check] PATH invalid: $(($invalidPaths | ForEach-Object { "'$_'" }) -Join ', ')"
+$envPaths = Invoke-SetupEnvPaths
+$Env:PATH = $envPaths.ResultPath
+if ($envPaths.InvalidPaths) {
+    Write-Error -ea:cont "[check] PATH contains invalid paths: $(($envPaths.InvalidPaths | Sort-Object | ForEach-Object { "'$_'" }) -Join ', ')"
 }
-else {
+if ($envPaths.DuplicatePaths) {
+    Write-Error -ea:cont "[check] PATH contains duplicate paths: $(($envPaths.DuplicatePaths | Sort-Object | ForEach-Object { "'$_'" }) -Join ', ')"
+}
+
+if (!$envPaths.InvalidPaths -and !$envPaths.DuplicatePaths) {
     Write-Output '[check] PATH ok'
 }
 
@@ -232,7 +239,7 @@ if ($badScoop -or $Upgrade) {
 $bcShellPath = (Get-ItemProperty -ea:silent 'HKLM:\SOFTWARE\Classes\CLSID\{57FA2D12-D22D-490A-805A-5CB48E84F12A}\InProcServer32')."(Default)"
 if (Test-Path alias:bc) {
     $bcPath = Get-Content alias:bc
-    if ($bcShellPath -ne $bcPath) {
+    if ((Split-Path $bcShellPath) -ne (Split-Path $bcPath)) {
         Write-Error "[check] Beyond Compare Explorer integration mismatch; run bcomp4-shell-integration.reg (bc=$bcPath, reg=$bcShellPath)"
     }
 }
