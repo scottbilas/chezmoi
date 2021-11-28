@@ -9,9 +9,9 @@ diff:
   command: {{$beyond_compare_dir}}/bcomp.exe
   pager: delta
 
-#merge:
-#  command: pwsh
-#  args: [-Command, "& FIXMEFIXMEFIXME"]
+merge:
+  command: pwsh
+  args: [{{.profile.home_dir}}/.config/beyondcompare/chezmoi-bcmerge.ps1, -Destination, '{{`{{ .Destination }}`}}', -Source, '{{`{{ .Source }}`}}', -Target, '{{`{{ .Target }}`}}']
 {{- end }}
 
 interpreters.ps1:
