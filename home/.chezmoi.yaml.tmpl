@@ -1,5 +1,9 @@
-{{ $beyond_compare_dir := "" }}
-{{ if eq .chezmoi.os "windows" -}}
+format: yaml
+pager: delta
+verbose: true
+
+{{- $beyond_compare_dir := "" }}
+{{ if eq .chezmoi.os "windows" }}
 cd:
   command: pwsh
   args: [-NoExit, -Command, "& Set-Location (chezmoi source-path)"]
@@ -7,7 +11,6 @@ cd:
 {{ $beyond_compare_dir = output "pwsh" "-Command" "& Get-Content Alias:bc" | trim | replace "\\" "/" | dir -}}
 diff:
   command: {{$beyond_compare_dir}}/bcomp.exe
-  pager: delta
 
 merge:
   command: pwsh
