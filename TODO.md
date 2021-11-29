@@ -7,3 +7,4 @@
   * Reset branch to chezmoi stuff
   * Clean out old branches
   * Nuke chezmoi
+* Integrate chezmoi status into ~ prompt
