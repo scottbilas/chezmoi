@@ -236,7 +236,7 @@ if ($badScoop -or $Upgrade) {
 
 # look for bcomp not wired up to explorer
 
-$bcShellPath = (Get-ItemProperty -ea:silent 'HKLM:\SOFTWARE\Classes\CLSID\{57FA2D12-D22D-490A-805A-5CB48E84F12A}\InProcServer32')."(Default)"
+$bcShellPath = Get-ItemProperty -ea:silent 'HKLM:\SOFTWARE\Classes\CLSID\{57FA2D12-D22D-490A-805A-5CB48E84F12A}\InProcServer32' | % '(Default)'
 if (Test-Path alias:bc) {
     $bcPath = Get-Content alias:bc
     if ((Split-Path $bcShellPath) -ne (Split-Path $bcPath)) {

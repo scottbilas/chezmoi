@@ -1,3 +1,4 @@
+{{ if get .profile "beyond_compare_dir" -}}
 Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{57FA2D12-D22D-490A-805A-5CB48E84F12A}]
@@ -29,3 +30,4 @@ Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved]
 "{57FA2D12-D22D-490A-805A-5CB48E84F12A}"="Beyond Compare 4 Shell Extension"
+{{- end }}
