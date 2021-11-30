@@ -84,4 +84,5 @@
 # ensure common fonts installed
 # sudo bucket add nerd-fonts
 # # mswinterminal and vscode
+# # note that the font may not actually install..may need manual copy to fonts folder
 # sudo scoop install CascadiaCode-NF jetbrainsmono-nf 

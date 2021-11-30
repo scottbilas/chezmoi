@@ -8,6 +8,7 @@ _currently a "clean" aux project, eventually will take over dotfiles entirely_
 # do stuff in ps1sh to get poshcore7
 scoop install chezmoi
 chezmoi init --config-format yaml scottbilas/chezmoi
+git remote set-url origin git@github.com:scottbilas/chezmoi.git
 cd ~/Documents/PowerShell
 ./setup
 ```
