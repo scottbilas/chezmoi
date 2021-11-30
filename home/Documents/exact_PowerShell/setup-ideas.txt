@@ -86,3 +86,8 @@
 # # mswinterminal and vscode
 # # note that the font may not actually install..may need manual copy to fonts folder
 # sudo scoop install CascadiaCode-NF jetbrainsmono-nf 
+
+
+# check for multiple colliding exe's on the path
+# (dotnet.exe is one that comes to mind as a problem)
+# whitelist exceptions
