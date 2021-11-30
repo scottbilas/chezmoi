@@ -80,3 +80,8 @@
 #  ~/scoop/persist/vscode-portable/data/extensions
 #  ~/users/scott/.nuget/packages
 #  ~/users/scott/Documents\Dyson Sphere Program\Save
+
+# ensure common fonts installed
+# sudo bucket add nerd-fonts
+# # mswinterminal and vscode
+# sudo scoop install CascadiaCode-NF jetbrainsmono-nf 
