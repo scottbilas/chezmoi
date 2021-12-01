@@ -10,7 +10,7 @@ param (
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-$gitRoot = chezmoi source-path
+$gitRoot = git -C (chezmoi source-path) rev-parse --show-toplevel
 $gitSource = git -C $gitRoot ls-files $Source
 
 $Destination = Resolve-Path $Destination

@@ -20,5 +20,5 @@ Host github.com
     User git
 
 {{ if not .profile.personal_machine -}}
-{{   include "../../../.local/share/private/ssh/config-work" }}
+{{   include "../../../../.local/share/private/ssh/config-work" }}
 {{ end -}}
