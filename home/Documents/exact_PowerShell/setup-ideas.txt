@@ -91,3 +91,8 @@
 # check for multiple colliding exe's on the path
 # (dotnet.exe is one that comes to mind as a problem)
 # whitelist exceptions
+
+
+# check that the python installed as current with scoop matches the registry
+# Computer\HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore\3.10 etc.
+# otherwise say to run C:\Users\scott\scoop\apps\python\current\install-pep-514.reg
