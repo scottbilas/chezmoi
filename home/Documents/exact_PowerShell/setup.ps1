@@ -1,5 +1,5 @@
 #Requires -Version 7
-#Requires -Modules scottbilas-Setup
+#Requires -Modules scottbilas-Setup, Native
 
 [CmdletBinding()]
 param (
