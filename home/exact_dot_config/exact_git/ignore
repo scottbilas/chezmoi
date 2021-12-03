@@ -13,6 +13,7 @@ __pycache__
 .history
 .*env
 .pytest_cache
+.sync
 .vs
 .last_tmp.*
 *_i.c
