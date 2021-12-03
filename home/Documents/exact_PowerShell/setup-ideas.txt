@@ -85,7 +85,7 @@
 # sudo bucket add nerd-fonts
 # # mswinterminal and vscode
 # # note that the font may not actually install..may need manual copy to fonts folder
-# sudo scoop install CascadiaCode-NF jetbrainsmono-nf 
+# sudo scoop install CascadiaCode-NF jetbrainsmono-nf
 
 
 # check for multiple colliding exe's on the path
@@ -96,3 +96,8 @@
 # check that the python installed as current with scoop matches the registry
 # Computer\HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore\3.10 etc.
 # otherwise say to run C:\Users\scott\scoop\apps\python\current\install-pep-514.reg
+
+
+# poetry self update
+
+# check zerotier version (install vs download)
