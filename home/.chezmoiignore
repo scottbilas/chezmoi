@@ -1,3 +1,4 @@
+.editorconfig
 {{ if eq .chezmoi.os "linux" }}
   AppData
   Documents

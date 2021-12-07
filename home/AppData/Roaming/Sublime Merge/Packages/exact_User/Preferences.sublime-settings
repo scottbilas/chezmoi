@@ -2,7 +2,7 @@
 	"font_face": "FuraCode NF",
 	"font_size": 9,
 	"translate_tabs_to_spaces": true,
-	"theme": "Merge Dark.sublime-theme",
+	"theme": "auto",
 	"diff_style": "auto",
 	"hardware_acceleration": "opengl",
 	"hide_menu": true,

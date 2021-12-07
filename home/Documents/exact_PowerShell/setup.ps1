@@ -120,20 +120,21 @@ Write-Output '[scoop] Bucket presence ok'
 
 ## Scoop core
 
-$packages = (Get-ChildItem ~/scoop/apps).Name
+$scoopPackages = (Get-ChildItem ~/scoop/apps).Name
 
-function addPackage([string]$name, [switch]$sudo) {
-    if ($packages -notcontains $install) {
+function installScoopPackage([string]$name, [switch]$sudo) {
+    if ($scoopPackages -notcontains $name) {
         if ($sudo) {
-            sudo ie scoop install $install
+            Write-Host "[scoop] Asking for sudo to install $name.."
+            sudo iee scoop install $name
         }
         else {
-            ie scoop install $install
+            iee scoop install $name
         }
     }
 }
 
-foreach ($install in @(
+foreach ($name in @(
         # stuff shovel wants
         'dark', 'innounp', 'lessmsi'
         # ^ TODO: "aria2" will get used by shovel, but it has failures. using shovel+aria2 on fzf fails with an error, but succeeds with plain scoop
@@ -145,12 +146,12 @@ foreach ($install in @(
         '7zip', 'autohotkey', 'bat', 'chezmoi', 'delta', 'fd', 'file', 'fzf', 'git', 'gsudo',
         'highlight', 'kalk', 'lazygit', 'micro', 'ripgrep'
     )) {
-    addPackage($install)
+    installScoopPackage($name)
 }
 
 # special note on fonts: avoid packages with "mono" in the name - these lose ligatures ("nerd font policy")
-addPackage -sudo CascadiaCode-NF
-addPackage -sudo JetBrainsMono-NF
+installScoopPackage -sudo CascadiaCode-NF
+installScoopPackage -sudo JetBrainsMono-NF
 
 if ((iee scoop config MSIEXTRACT_USE_LESSMSI) -match 'not set') {
     iee scoop config MSIEXTRACT_USE_LESSMSI $true
@@ -231,7 +232,7 @@ Write-Output '[check] Scoop apps ok'
 
 # anything (else) going on with scoop?
 if ($badScoop -or $Upgrade) {
-    scoop status
+    iee scoop status
 }
 
 # look for bcomp not wired up to explorer
@@ -244,5 +245,38 @@ if (Test-Path alias:bc) {
     }
 }
 elseif ($bcShellPath) {
-    Write-Error "[check] Beyond Compare Explorer integration is registered, but bc cannot be found; install bc or run bcomp4-shell-integration-remove.reg"
+    Write-Error '[check] Beyond Compare Explorer integration is registered, but bc cannot be found; install bc or run bcomp4-shell-integration-remove.reg'
+}
+
+# ensure we have a python 3
+
+if ((iee python --version) -notmatch 'Python 3') {
+    Write-Error '[python] Python 3 not found or is not default'
+}
+if ((iee pip config list) -match 'global.index-url') {
+    # this can slip in from a copy-pasta of an install command intended for CI server
+    Write-Host '[python] Found override of global index for pip, clearing it'
+    iee pip config unset global.index-url
+}
+if ($Upgrade) {
+    Write-Host '[python] Ensuring pip is the latest version'
+    iee python -m pip install --upgrade pip
+}
+
+# ok now ensure we have gita
+
+# skip header and grab name
+$pipPackages = iee pip list | Select-Object -Skip 2 | ForEach-Object { $_.Split(' ')[0] }
+
+function installPipPackage([string]$name) {
+    if ($pipPackages -notcontains $name) {
+        iee Pip install $name
+    }
+}
+
+foreach ($name in @(
+        # core utils
+        'gita'
+    )) {
+    installPipPackage($name)
 }
