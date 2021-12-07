@@ -1,0 +1,2 @@
+# avoid newlines being appended on the text files in this folder
+root=true
