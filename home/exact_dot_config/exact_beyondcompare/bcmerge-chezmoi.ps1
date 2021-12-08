@@ -21,10 +21,11 @@ if ($gitSource) {
     $base = [IO.Path]::GetTempFileName()
     git -C $gitRoot show HEAD:$gitSource > $base
 
-    bc $Source $Destination $base /centertitle="HEAD:$gitSource"
+    # "destination on the left" matches chezmoi status
+    bc $Destination $Source $base /centertitle="HEAD:$gitSource"
 }
 else {
-    bc $Source $Destination
+    bc $Destination $Source
 }
 
 # TODO: wait on bcomp and then delete tempfile $base

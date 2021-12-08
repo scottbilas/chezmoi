@@ -119,5 +119,7 @@
 # check zerotier version (install vs download)
 
 
+# check that env vars like USERNAME match what [Environment] says (same for HOME)
+
 # clean out old scoop cache
 # (or make this a separate cleanup command)
