@@ -19,6 +19,6 @@ Host github.com
     IdentityFile ~/.local/share/private/ssh/github_rsa
     User git
 
-{{ if not .profile.personal_machine -}}
+{{ if and (not .profile.personal_machine) (stat (joinPath .chezmoi.homeDir ".local/share/private")) -}}
 {{   include "../../../../.local/share/private/ssh/config-work" }}
 {{ end -}}
