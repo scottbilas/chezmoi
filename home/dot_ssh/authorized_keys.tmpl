@@ -1,0 +1,4 @@
+{{ if stat (joinPath .chezmoi.homeDir ".local/share/private") -}}
+{{   include "../../../../.local/share/private/ssh/id_rsa.pub" }}
+{{   include "../../../../.local/share/private/ssh/id_rsa-personal.pub" }}
+{{ end -}}
