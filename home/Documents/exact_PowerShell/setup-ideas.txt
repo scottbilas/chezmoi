@@ -11,8 +11,16 @@
 #Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.*'
 #if missing: Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 #if missing: Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
-#Start-Service sshd
 #Set-Service -Name sshd -StartupType 'Automatic'
+#
+# ALSO have to disable these last two lines from c:/programdata/ssh/sshd_config
+#Match Group administrators
+#       AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys
+#
+# then can start the service
+#Start-Service sshd
+#
+# (above derived from https://stackoverflow.com/a/50502015)
 
 # fix dotfiles to use git@ remote
 
