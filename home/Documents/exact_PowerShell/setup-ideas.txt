@@ -8,6 +8,12 @@
 
 
 # set up .ssh
+#Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.*'
+#if missing: Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+#if missing: Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
+#Start-Service sshd
+#Set-Service -Name sshd -StartupType 'Automatic'
+
 # fix dotfiles to use git@ remote
 
 # common syncthingtray.ini (stored directly in AppData\Roaming) as a template
@@ -103,3 +109,7 @@
 # poetry self update
 
 # check zerotier version (install vs download)
+
+
+# clean out old scoop cache
+# (or make this a separate cleanup command)
