@@ -165,7 +165,12 @@ if ((iee scoop config MSIEXTRACT_USE_LESSMSI) -match 'not set') {
 barrier-np - client/server, also only for work computers
 everything - configure and hold
 gh - auth << setup from unity.toml
+
 syncthingtray - lots of config, validation, machine-specific
+    * copy in and update ~\appdata\roaming\syncthingtray.ini
+    * copy in and update ~\.local\share\syncthing\config.xml
+    * also will need all those certificates etc from local\share\syncthing
+
 vscode-portable - cannot chezmoi publish before scoop/apps/current symlink is set up, right..?
 
 # bigger apps
@@ -232,7 +237,7 @@ Write-Output '[check] Scoop apps ok'
 
 # anything (else) going on with scoop?
 if ($badScoop -or $Upgrade) {
-    iee scoop status
+    scoop status
 }
 
 # look for bcomp not wired up to explorer
@@ -243,6 +248,7 @@ if (Test-Path alias:bc) {
     if ((Split-Path $bcShellPath) -ne (Split-Path $bcPath)) {
         Write-Error "[check] Beyond Compare Explorer integration mismatch; run bcomp4-shell-integration.reg (bc=$bcPath, reg=$bcShellPath)"
     }
+    Write-Output "[check] Beyond Compare Explorer integration ok"
 }
 elseif ($bcShellPath) {
     Write-Error '[check] Beyond Compare Explorer integration is registered, but bc cannot be found; install bc or run bcomp4-shell-integration-remove.reg'
@@ -250,33 +256,37 @@ elseif ($bcShellPath) {
 
 # ensure we have a python 3
 
-if ((iee python --version) -notmatch 'Python 3') {
-    Write-Error '[python] Python 3 not found or is not default'
-}
-if ((iee pip config list) -match 'global.index-url') {
-    # this can slip in from a copy-pasta of an install command intended for CI server
-    Write-Host '[python] Found override of global index for pip, clearing it'
-    iee pip config unset global.index-url
-}
-if ($Upgrade) {
-    Write-Host '[python] Ensuring pip is the latest version'
-    iee python -m pip install --upgrade pip
-}
-
-# ok now ensure we have gita
-
-# skip header and grab name
-$pipPackages = iee pip list | Select-Object -Skip 2 | ForEach-Object { $_.Split(' ')[0] }
-
-function installPipPackage([string]$name) {
-    if ($pipPackages -notcontains $name) {
-        iee Pip install $name
+if ($scoopPackages -contains 'python') {
+    if ((iee python --version) -notmatch 'Python 3') {
+        Write-Error '[python] Python 3 not found or is not default'
     }
-}
+    if ((iee pip config list) -match 'global.index-url') {
+        # this can slip in from a copy-pasta of an install command intended for CI server
+        Write-Host '[python] Found override of global index for pip, clearing it'
+        iee pip config unset global.index-url
+    }
+    if ($Upgrade) {
+        Write-Host '[python] Ensuring pip is the latest version'
+        iee python -m pip install --upgrade pip
+    }
 
-foreach ($name in @(
-        # core utils
-        'gita'
-    )) {
-    installPipPackage($name)
+    <# not sure i want to use git yet..
+    # ok now ensure we have gita
+
+    # skip header and grab name
+    $pipPackages = iee pip list | Select-Object -Skip 2 | ForEach-Object { $_.Split(' ')[0] }
+
+    function installPipPackage([string]$name) {
+        if ($pipPackages -notcontains $name) {
+            iee Pip install $name
+        }
+    }
+
+    foreach ($name in @(
+            # core utils
+            'gita'
+        )) {
+        installPipPackage($name)
+    }
+    #>
 }
