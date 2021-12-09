@@ -1,3 +1,9 @@
+# OVERALL:
+#
+# put a SETUP.md into each config folder with the manual instructions.
+# have a script that combines them all (plus a general one somewhere) into a single SETUP.md in the root.
+# where automation available, add a section above the manual stuff that says how to do it.
+
 
 # <copy or symlink private/git to ~/dotfiles/private/git>
 
