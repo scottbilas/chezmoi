@@ -143,8 +143,11 @@ foreach ($name in @(
         # shell stuff
         'busybox', 'echoargs', 'less', 'wget', 'which'
         # other core utils
-        '7zip', 'autohotkey', 'bat', 'chezmoi', 'delta', 'fd', 'file', 'fzf', 'git', 'gsudo',
-        'highlight', 'kalk', 'lazygit', 'micro', 'ripgrep'
+        '7zip', 'autohotkey', 'bat', 'delta', 'fd', 'file', 'fzf', 'git', 'gsudo',
+        'highlight', 'kalk', 'lazygit', 'micro', 'ripgrep',
+        # bigger things
+        'dotnet-sdk', 'python', 'nodejs', 'rust', 'perl', 'go'
+        'syncthingtray', 'linqpad', 'linqpadless', 'sysinternals', 'windirstat'
     )) {
     installScoopPackage($name)
 }
@@ -172,24 +175,14 @@ syncthingtray - lots of config, validation, machine-specific
     * also will need all those certificates etc from local\share\syncthing
 
 vscode-portable - cannot chezmoi publish before scoop/apps/current symlink is set up, right..?
+sysinternals - accept eula registry crap
 
 # bigger apps
 
 7tt
-linqpad
 paint.net
-sysinternals
 tailblazer
 vcxsrv
-windirstat
-
-# languages and platforms
-
-nodejs
-perl
-python
-go
-rust
 
 # unity stuff
 
