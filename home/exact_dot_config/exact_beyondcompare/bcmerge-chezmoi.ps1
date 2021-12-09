@@ -13,7 +13,11 @@ $ErrorActionPreference = 'Stop'
 $gitRoot = git -C (chezmoi source-path) rev-parse --show-toplevel
 $gitSource = git -C $gitRoot ls-files $Source
 
-$Destination = Resolve-Path $Destination
+$dst = Resolve-Path -ea:silent $Destination
+if (!$dst) {
+    Write-Output "Nothing to merge with $Source, file does not exist at $Destination"
+}
+
 $Source = Resolve-Path $Source
 
 # if not added to git repo yet, there will be no base
@@ -22,10 +26,10 @@ if ($gitSource) {
     git -C $gitRoot show HEAD:$gitSource > $base
 
     # "destination on the left" matches chezmoi status
-    bc $Destination $Source $base /centertitle="HEAD:$gitSource"
+    bc $dst $Source $base /centertitle="HEAD:$gitSource"
 }
 else {
-    bc $Destination $Source
+    bc $dst $Source
 }
 
 # TODO: wait on bcomp and then delete tempfile $base
