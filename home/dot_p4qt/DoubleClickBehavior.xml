@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--perforce-xml-version=1.0-->
+<PropertyList IsManaged="TRUE" varName="DoubleClickBehavior">
+ <String varName="DoubleClickBranchMapping">ViewBranchmapping</String>
+ <String varName="DoubleClickDepotDirectory">ExpandCollapseFolder</String>
+ <String varName="DoubleClickDepotFile">Open</String>
+ <String varName="DoubleClickJob">ViewJob</String>
+ <String varName="DoubleClickLabel">Viewlabel</String>
+ <String varName="DoubleClickPendingChange">SubmitChange</String>
+ <String varName="DoubleClickPendingFile">Open</String>
+ <String varName="DoubleClickRemoteMapping">ViewRemoteMapping</String>
+ <String varName="DoubleClickRepoMapping">ViewRepo</String>
+ <String varName="DoubleClickRevision">Open</String>
+ <String varName="DoubleClickShelveFolder">Unshelve</String>
+ <String varName="DoubleClickShelvedFile">Open</String>
+ <String varName="DoubleClickStream">ViewStream</String>
+ <String varName="DoubleClickSubmittedChange">ViewSubmitted</String>
+ <String varName="DoubleClickWorkspace">ViewWorkspace</String>
+ <String varName="DoubleClickWorkspaceDirectory">ExpandCollapseFolder</String>
+ <String varName="DoubleClickWorkspaceFile">Open</String>
+</PropertyList>

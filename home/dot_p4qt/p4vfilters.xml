@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--perforce-xml-version=1.0-->
+<PropertyList IsManaged="TRUE" varName="LastUsedFilters">
+ <Query varName="Clients">
+  <type>compound</type>
+  <negatesResult>false</negatesResult>
+  <compoundType>and</compoundType>
+  <subQueries>
+   <Query>
+    <type>comparison</type>
+    <negatesResult>false</negatesResult>
+    <leftExpression>
+     <type>propertyName</type>
+     <value type="QString">Owner</value>
+     <allowEmpty>true</allowEmpty>
+    </leftExpression>
+    <comparison>equalTo</comparison>
+    <comparisonModifier>any</comparisonModifier>
+    <caseSensitivity>caseInsensitive</caseSensitivity>
+    <rightExpression>
+     <type>variableName</type>
+     <value type="QString">P4USER</value>
+     <allowEmpty>true</allowEmpty>
+    </rightExpression>
+   </Query>
+  </subQueries>
+  <PropertyList IsManaged="TRUE" varName="metaData">
+   <Bool varName="filterByHost">true</Bool>
+  </PropertyList>
+ </Query>
+</PropertyList>
