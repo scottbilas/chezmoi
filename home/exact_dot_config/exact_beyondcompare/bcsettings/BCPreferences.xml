@@ -157,56 +157,6 @@
 		<WorkspaceAutoLoadName Value=""/>
 		<WorkspaceAutoSaveName Value=""/>
 		<Workspaces>
-			<Item Value="Chezmoi">
-				<ShortCut Value="0"/>
-				<Windows>
-					<_0>
-						<PosStr Value="192;180;1710;1200;3;120"/>
-						<Tabs>
-							<_0>
-								<TDirCompareSession Value="dotfiles&#2;Chezmoi"/>
-								<ZOrder Value="1"/>
-							</_0>
-							<_1>
-								<TTextCompareSession>
-									<CodePageOverride>
-										<Left Value="-1"/>
-										<Right Value="-1"/>
-									</CodePageOverride>
-									<NoEdit>
-										<Left Value="False"/>
-										<Right Value="False"/>
-									</NoEdit>
-									<Rules>
-										<AlignKind Value="alignSmart"/>
-										<CaseSig Value="False"/>
-										<CompareEndings Value="False"/>
-										<EmbeddedWSSig Value="False"/>
-										<LeadWSSig Value="False"/>
-										<NeverAlignDiffs Value="False"/>
-										<NonWSSig Value="True"/>
-										<OrphansAlwaysSig Value="False"/>
-										<SkewTolerance Value="2000"/>
-										<TrailWSSig Value="False"/>
-										<UseCloseness Value="True"/>
-									</Rules>
-									<Specs>
-										<Left Value="C:\Users\scott\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"/>
-										<Right Value="C:\Users\scott\.local\share\chezmoi\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json.tmpl"/>
-									</Specs>
-									<State>
-										<DisplayFilter Value="[showLeftMod, showRightMod, showDiffMod]"/>
-										<InsigIgnored Value="True"/>
-										<ShowContext Value="True"/>
-									</State>
-								</TTextCompareSession>
-								<ZOrder Value="0"/>
-							</_1>
-						</Tabs>
-						<ZOrder Value="0"/>
-					</_0>
-				</Windows>
-			</Item>
 		</Workspaces>
 	</TBcPrefs>
 	<TSccPrefs>

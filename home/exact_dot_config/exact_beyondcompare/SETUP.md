@@ -29,3 +29,7 @@
     * Delete the `bcsettings` folder from there and un-zip(*) the `.bcpkg` so we can get the xml's into the diff
 
 (*) Note that a `.bcpkg` file is just a zip file. To recreate it, just zip up all the xml files (as files in the zip's root, no folder prefix).
+
+## TODO
+
+It looks like the bcsettings are a full dump of all settings. In `~\AppData\Roaming\Scooter Software\Beyond Compare 4` there are xml files that seem to only hold overrides from defaults. This may be nicer and more manageable. Todo: switch to this.
