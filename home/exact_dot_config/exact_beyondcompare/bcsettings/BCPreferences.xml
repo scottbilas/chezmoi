@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Produced by Beyond Compare 4 from Scooter Software -->
+<BCPreferences Version="1" MinVersion="1">
+	<TBcPrefs>
+		<ArchiveMasks>
+			<RAR Value="*.rar"/>
+			<_7ziparchive Value="*.7z;*.7z.001"/>
+			<DiskImage Value="*.img;*.iso"/>
+			<ShockwaveFlash Value="*.swf"/>
+			<ARJarchive Value="*.arj"/>
+			<Zarchive Value="*.z;*.taz"/>
+			<LZHarchive Value="*.lzh;*.lha"/>
+			<NullsoftInstaller Value="*.nsis"/>
+			<LZMA86archive Value="*.lzma86"/>
+			<MSPortableExecutable Value=""/>
+			<ELFExecutable Value=""/>
+			<MachO Value=""/>
+			<Xararchive Value="*.xar;*.safariextz"/>
+			<Mubarchive Value=""/>
+			<HierarchicalFileSystemHFS Value="*.hfs"/>
+			<MacOSXDiskImage Value="*.dmg"/>
+			<Compoundarchive Value=""/>
+			<Wimarchive Value="*.wim;*.swm"/>
+			<Redhatpackage Value="*.rpm"/>
+			<Debianpackage Value="*.deb"/>
+			<Cpioarchive Value="*.cpio"/>
+			<NTFSFileSystem Value="*.ntfs"/>
+			<FATFileSystem Value="*.fat"/>
+			<Mbrarchive Value="*.mbr"/>
+			<MSvirtualharddisk Value=""/>
+			<MsLZarchive Value=""/>
+			<Flvarchive Value="*.flv"/>
+			<APMarchive Value=""/>
+			<PPMDarchive Value="*.pmd"/>
+			<TerseExecutable Value="*.te"/>
+			<UEFIcarchive Value="*.scap"/>
+			<UEFIsarchive Value=""/>
+			<SquashFSarchive Value="*.squashfs"/>
+			<CramFSarchive Value="*.cramfs"/>
+			<Ext2Ext3Ext4FileSystem Value="*.ext2;*.ext3;*.ext4"/>
+			<MicrosoftHelp2x Value="*.hxs;*.hxi;*.hxr;*.hxq;*.hxw"/>
+			<BZippedTar Value="*.tbz;*.tbz2;*.tar.bz2"/>
+			<BZip Value="*.bz;*.bz2"/>
+			<GZippedTar Value="*.tgz;*.tar.gz"/>
+			<GZip Value="*.gz"/>
+			<Tar Value="*.tar"/>
+			<MicrosoftCabinet Value="*.cab"/>
+			<XzTar Value="*.txz;*.tar.xz"/>
+			<Xz Value="*.xz"/>
+			<LzmaTar Value="*.tlz;*.tar.lzma"/>
+			<Lzma Value="*.lzma"/>
+			<CompiledHTMLHelp Value="*.chm"/>
+			<BeyondCompareSnapshot Value="*.bcss;*.bcs"/>
+			<Zip Value="*.zip;*.zipx;*.jar;*.ear;*.war;*.bcpkg"/>
+		</ArchiveMasks>
+		<BackupCustomMask Value=""/>
+		<BackupDir Value=""/>
+		<BackupKind Value="bkNameTildeExt"/>
+		<BackupOnCopy Value="False"/>
+		<BackupOnSave Value="False"/>
+		<BackupOnSaveKeepReadOnly Value="True"/>
+		<CheckForUpdatesDayAmt Value="7"/>
+		<ChildViewNewTab Value="True"/>
+		<CustomColor0 Value="$000000"/>
+		<CustomColor1 Value="$000000"/>
+		<CustomColor10 Value="$000000"/>
+		<CustomColor11 Value="$000000"/>
+		<CustomColor12 Value="$000000"/>
+		<CustomColor13 Value="$000000"/>
+		<CustomColor14 Value="$000000"/>
+		<CustomColor15 Value="$000000"/>
+		<CustomColor2 Value="$000000"/>
+		<CustomColor3 Value="$000000"/>
+		<CustomColor4 Value="$000000"/>
+		<CustomColor5 Value="$000000"/>
+		<CustomColor6 Value="$000000"/>
+		<CustomColor7 Value="$000000"/>
+		<CustomColor8 Value="$000000"/>
+		<CustomColor9 Value="$000000"/>
+		<DimPct Value="20"/>
+		<FileBinaryCompareBufSize Value="65536"/>
+		<FileCheckForChanges Value="True"/>
+		<FileCheckForChangesAutoReload Value="False"/>
+		<FileComparePriority Value="tjpNormal"/>
+		<FileEscClose Value="True"/>
+		<FileUseLeftRatio Value="False"/>
+		<FileVertScrollBarSingle Value="False"/>
+		<FilterPresets Value="All files&#2;*.*&#4;C++ source&#2;*.cpp;*.hpp;*.c;*.h;*.cc&#4;Delphi source&#2;*.pas;*.inc;*.dfm;*.nfm;*.xfm;*.dpr;*.dpk&#4;HTML source&#2;*.htm;*.html;*.xml;*.jpg;*.gif;*.png&#4;Java source&#2;*.java;*.jj;*.jjt&#4;Dev Standard&#2;-.git\&#4;Dev Unity Project&#2;-.\*.csproj;-.\*.sln;-*.suo;-*.user;-.idea\;-Library\;-.git\;-Logs\;-obj\&#4;"/>
+		<HintHidePause Value="2500"/>
+		<HintPause Value="500"/>
+		<HintShortCuts Value="True"/>
+		<HintShortPause Value="100"/>
+		<HomeMRUSessionOnly Value="False"/>
+		<LogAutoSaveFilename Value=""/>
+		<LogIncludeConnection Value="True"/>
+		<LogIncludeDebug Value="False"/>
+		<LogIncludeOpDetails Value="False"/>
+		<LogIncludeOpSummary Value="True"/>
+		<LogIncludeWarning Value="True"/>
+		<LogMaxSize Value="100000"/>
+		<MRUCapacity Value="9"/>
+		<NextDiffAfterCopy Value="False"/>
+		<NextDiffFileSameDir Value="True"/>
+		<NextDiffLoadFirst Value="False"/>
+		<NextDiffShowMsg Value="True"/>
+		<NextDiffWrap Value="False"/>
+		<OpBeepWhenFinished Value="False"/>
+		<OpClearCDReadOnly Value="False"/>
+		<OpConfirmCompare Value="True"/>
+		<OpConfirmCopy Value="True"/>
+		<OpConfirmDelete Value="True"/>
+		<OpConfirmDeleteNoSides Value="False"/>
+		<OpConfirmMerge Value="True"/>
+		<OpConfirmMove Value="True"/>
+		<OpConfirmMoveReplace Value="True"/>
+		<OpConfirmOverwriteNewer Value="True"/>
+		<OpConfirmOverwriteReadOnly Value="True"/>
+		<OpConfirmOverwriteSysFile Value="True"/>
+		<OpIncludeFiltered Value="False"/>
+		<OpSyncConfirmMode Value="cmPrompt"/>
+		<QuickCompareRulesBased Value="False"/>
+		<QuickCompareShow Value="True"/>
+		<QuickCompareSkipDiff Value="True"/>
+		<ScriptBeepWhenFinished Value="False"/>
+		<ScriptCloseWhenFinished Value="False"/>
+		<ScriptSharedDir Value=""/>
+		<SearchTimerInterval Value="1000"/>
+		<SessionAutoSavedCapacity Value="100"/>
+		<SharedSessionFilename Value=""/>
+		<ShowHints Value="True"/>
+		<TabNewNext Value="False"/>
+		<TabsConfirmClose Value="True"/>
+		<TabSingleCloseWindow Value="True"/>
+		<TabSingleHide Value="True"/>
+		<TabsOnTaskbar Value="True"/>
+		<TextAutoIndent Value="True"/>
+		<TextAutoUnindent Value="True"/>
+		<TextContextLines Value="6"/>
+		<TextCrosshatchBeyondEOF Value="True"/>
+		<TextCursorBeyondEOL Value="False"/>
+		<TextDragDropEditing Value="True"/>
+		<TextFindCurWord Value="True"/>
+		<TextInputFontStr Value="Consolas;8;[];0"/>
+		<TextItemSpacing Value="0"/>
+		<TextRightGutter Value="False"/>
+		<TextRightMarginOffset Value="0"/>
+		<TextShowGapBars Value="True"/>
+		<TextSyntaxDiffs Value="False"/>
+		<TextUseFontLinking Value="True"/>
+		<TextUseInputFont Value="False"/>
+		<TextUseOrphanColor Value="False"/>
+		<ThumbnailScroll Value="False"/>
+		<ToolbarShowCaptions Value="False"/>
+		<UseIPv6 Value="True"/>
+		<ViewNewTab Value="True"/>
+		<WindowsConfirmClose Value="True"/>
+		<WorkspaceAutoLoadName Value=""/>
+		<WorkspaceAutoSaveName Value=""/>
+		<Workspaces>
+			<Item Value="Chezmoi">
+				<ShortCut Value="0"/>
+				<Windows>
+					<_0>
+						<PosStr Value="192;180;1710;1200;3;120"/>
+						<Tabs>
+							<_0>
+								<TDirCompareSession Value="dotfiles&#2;Chezmoi"/>
+								<ZOrder Value="1"/>
+							</_0>
+							<_1>
+								<TTextCompareSession>
+									<CodePageOverride>
+										<Left Value="-1"/>
+										<Right Value="-1"/>
+									</CodePageOverride>
+									<NoEdit>
+										<Left Value="False"/>
+										<Right Value="False"/>
+									</NoEdit>
+									<Rules>
+										<AlignKind Value="alignSmart"/>
+										<CaseSig Value="False"/>
+										<CompareEndings Value="False"/>
+										<EmbeddedWSSig Value="False"/>
+										<LeadWSSig Value="False"/>
+										<NeverAlignDiffs Value="False"/>
+										<NonWSSig Value="True"/>
+										<OrphansAlwaysSig Value="False"/>
+										<SkewTolerance Value="2000"/>
+										<TrailWSSig Value="False"/>
+										<UseCloseness Value="True"/>
+									</Rules>
+									<Specs>
+										<Left Value="C:\Users\scott\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"/>
+										<Right Value="C:\Users\scott\.local\share\chezmoi\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json.tmpl"/>
+									</Specs>
+									<State>
+										<DisplayFilter Value="[showLeftMod, showRightMod, showDiffMod]"/>
+										<InsigIgnored Value="True"/>
+										<ShowContext Value="True"/>
+									</State>
+								</TTextCompareSession>
+								<ZOrder Value="0"/>
+							</_1>
+						</Tabs>
+						<ZOrder Value="0"/>
+					</_0>
+				</Windows>
+			</Item>
+		</Workspaces>
+	</TBcPrefs>
+	<TSccPrefs>
+		<ShowSilentCheckOut Value="False"/>
+	</TSccPrefs>
+</BCPreferences>
