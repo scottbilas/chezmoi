@@ -49,7 +49,6 @@ Set-Alias o explorer
 Set-Alias g git
 Set-Alias m micro
 Set-Alias cm chezmoi
-Set-Alias lg lazygit
 function cm-cd { Set-Location (chezmoi source-path) }
 function cm-d { chezmoi diff --use-builtin-diff @args }
 function dotf { code (Resolve-Path ~\.local\share\chezmoi\chezmoi.code-workspace) }

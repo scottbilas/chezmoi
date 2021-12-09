@@ -144,7 +144,7 @@ foreach ($name in @(
         'busybox', 'echoargs', 'less', 'wget', 'which'
         # other core utils
         '7zip', 'autohotkey', 'bat', 'delta', 'fd', 'file', 'fzf', 'git', 'gsudo',
-        'highlight', 'kalk', 'lazygit', 'micro', 'ripgrep',
+        'highlight', 'kalk', 'gitui', 'micro', 'ripgrep',
         # bigger things
         'dotnet-sdk', 'python', 'nodejs', 'rust', 'perl', 'go'
         'syncthingtray', 'linqpad', 'linqpadless', 'sysinternals', 'windirstat'
