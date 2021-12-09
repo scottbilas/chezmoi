@@ -8,6 +8,12 @@ gui:
 os:
   editCommand: micro
 
+git:
+  paging:
+    colorArg: always
+    # not yet supported on windows (soon? https://github.com/jesseduffield/lazygit/issues/1453)
+    pager: delta --dark --paging=never
+
 update:
   method: never
 
