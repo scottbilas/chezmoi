@@ -15,7 +15,7 @@ diff:
 
 merge:
   command: pwsh
-  args: [{{.profile.home_dir}}/.config/beyondcompare/bcmerge-chezmoi.ps1, -Destination, '{{`{{ .Destination }}`}}', -Source, '{{`{{ .Source }}`}}', -Target, '{{`{{ .Target }}`}}']
+  args: [{{.profile.home_dirf}}/.config/beyondcompare/bcmerge-chezmoi.ps1, -Destination, '{{`{{ .Destination }}`}}', -Source, '{{`{{ .Source }}`}}', -Target, '{{`{{ .Target }}`}}']
 {{-   else }}{{/* can happen if posh profile not applied yet */ -}}
 # Beyond Compare not detected!
 {{-   end }}
@@ -37,6 +37,7 @@ data:
 {{- if not (hasKey .profile "personal_machine") }}
 {{-   $personal_machine = promptBool "\n>>> Personal machine? (y/n): " }}
 {{- end }}
-    home_dir: {{.chezmoi.homeDir | replace "\\" "/"}}
+    home_dirf: {{.chezmoi.homeDir | replace "\\" "/"}}
+    home_dirb: {{.chezmoi.homeDir | replace "/" "\\"}}
     personal_machine: {{$personal_machine}}
     theme: dark # updated in the dst file by Set-DarkMode
