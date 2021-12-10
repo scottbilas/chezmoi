@@ -7,7 +7,7 @@ P4IGNORE=.p4ignore
 P4TICKETS={{.profile.home_dirf}}/.local/state/p4/.p4tickets
 P4USER=scobi
 
-{{ if get .profile "beyond_compare_dir" -}}
-P4DIFF={{.profile.beyond_compare_dir}}/bcomp.exe
-P4MERGE={{.profile.beyond_compare_dir}}/bcmerge-p4.cmd
+{{ if get .profile "beyond_compare_dirf" -}}
+P4DIFF={{.profile.beyond_compare_dirf}}/bcomp.exe
+P4MERGE={{.profile.beyond_compare_dirf}}/bcmerge-p4.cmd
 {{- end }}

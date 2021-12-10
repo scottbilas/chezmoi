@@ -1,17 +1,17 @@
 format: yaml
 pager: delta
 
-{{- $beyond_compare_dir := "" }}
+{{- $beyond_compare_dirf := "" }}
 {{ if eq .chezmoi.os "windows" }}
 cd:
   command: pwsh
   args: [-NoExit, -Command, "& Set-Location (chezmoi source-path)"]
 
-{{ $beyond_compare_dir = output "pwsh" "-Command" "& { Get-Content -ea:silent Alias:bc || '' }" | trim -}}
-{{   if ne $beyond_compare_dir "" -}}
-{{     $beyond_compare_dir = $beyond_compare_dir | replace "\\" "/" | dir -}}
+{{ $beyond_compare_dirf = output "pwsh" "-Command" "& { Get-Content -ea:silent Alias:bc || '' }" | trim -}}
+{{   if ne $beyond_compare_dirf "" -}}
+{{     $beyond_compare_dirf = $beyond_compare_dirf | replace "\\" "/" | dir -}}
 diff:
-  command: {{$beyond_compare_dir}}/bcomp.exe
+  command: {{$beyond_compare_dirf}}/bcomp.exe
 
 merge:
   command: pwsh
@@ -29,8 +29,8 @@ interpreters.ps1:
 
 data:
   profile:
-{{- if ne $beyond_compare_dir "" }}
-    beyond_compare_dir: {{$beyond_compare_dir}}
+{{- if ne $beyond_compare_dirf "" }}
+    beyond_compare_dirf: {{$beyond_compare_dirf}}
 {{- end }}
 {{- /* TODO: autodetect this... */}}
 {{- $personal_machine := get .profile "personal_machine" }}

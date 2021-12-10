@@ -1,10 +1,10 @@
-{{ if get .profile "beyond_compare_dir" -}}
+{{ if get .profile "beyond_compare_dirf" -}}
 Windows Registry Editor Version 5.00
 
 [HKEY_CURRENT_USER\SOFTWARE\Classes\CLSID\{57FA2D12-D22D-490A-805A-5CB48E84F12A}]
 @="CirrusShellEx"
 
-{{$bc := .profile.beyond_compare_dir | replace "/" "\\\\"}}
+{{$bc := .profile.beyond_compare_dirf | replace "/" "\\\\"}}
 [HKEY_CURRENT_USER\SOFTWARE\Classes\CLSID\{57FA2D12-D22D-490A-805A-5CB48E84F12A}\InProcServer32]
 @="{{$bc}}\\BCShellEx64.dll"
 "ThreadingModel"="Apartment"
