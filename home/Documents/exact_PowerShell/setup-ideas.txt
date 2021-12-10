@@ -40,8 +40,6 @@
 # NOTE: dotnet sdk might be installed with only local packages. may need to also do this:
 #    dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
 
-# linqpad paths pointing to the right place (C:\Users\scott\AppData\Roaming\LINQPad)
-
 # HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\DisallowShaking DWORD = 1
 
 # iex (chezmoi completion)

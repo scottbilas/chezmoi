@@ -3,7 +3,7 @@
 
 {
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    
+
     "alwaysShowTabs": false,
     "copyOnSelect": false,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
@@ -14,10 +14,10 @@
     "theme": "{{.profile.theme}}",
 
     "profiles": {
-        "defaults": 
+        "defaults":
         {
             "antialiasingMode": "cleartype",
-            "bellStyle": 
+            "bellStyle":
             [
                 "window",
                 "taskbar"
@@ -28,7 +28,7 @@
             "historySize": 100000
         },
 
-        "list": 
+        "list":
         [
             {
                 "commandline": "pwsh /nologo",
@@ -39,7 +39,7 @@
             },
             {
                 "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
-                "icon": "{{.profile.home_dir}}/dotfiles/resources/icons/debian_logo_red.png",
+                "icon": "{{.profile.home_dirf}}/dotfiles/resources/icons/debian_logo_red.png",
                 "name": "Debian",
                 "source": "Windows.Terminal.Wsl",
                 "tabTitle": "Debian"
@@ -53,9 +53,9 @@
 
     // add custom color schemes to this array
     "schemes": [],
-    
+
     // to unbind a default keybinding, set the command to "unbound"
-    "actions": 
+    "actions":
     [
         { "command": { "action": "moveFocus", "direction": "left" }, "keys": "ctrl+alt+h" },
         { "command": { "action": "moveFocus", "direction": "down" }, "keys": "ctrl+alt+j" },
