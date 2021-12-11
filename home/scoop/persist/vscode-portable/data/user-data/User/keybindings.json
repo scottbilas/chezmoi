@@ -200,5 +200,110 @@
         "key": "ctrl+shift+i",
         "command": "-emojisense.quickEmojitext",
         "when": "editorTextFocus"
+    },
+    {
+        "key": "x",
+        "command": "-notebook.cell.cut",
+        "when": "notebookEditorFocused && !inputFocus"
+    },
+    {
+        "key": "d d",
+        "command": "-notebook.cell.delete",
+        "when": "notebookEditorFocused && !inputFocus"
+    },
+    {
+        "key": "c",
+        "command": "-notebook.cell.copy",
+        "when": "notebookEditorFocused && !inputFocus"
+    },
+    {
+        "key": "m",
+        "command": "-notebook.cell.changeToMarkdown",
+        "when": "notebookEditorFocused && !inputFocus && activeEditor == 'workbench.editor.notebook' && notebookCellType == 'code'"
+    },
+    {
+        "key": "y",
+        "command": "-notebook.cell.changeToCode",
+        "when": "notebookEditorFocused && !inputFocus && activeEditor == 'workbench.editor.notebook' && notebookCellType == 'markup'"
+    },
+    {
+        "key": "a",
+        "command": "-notebook.cell.insertCodeCellAboveAndFocusContainer",
+        "when": "notebookEditorFocused && !inputFocus"
+    },
+    {
+        "key": "b",
+        "command": "-notebook.cell.insertCodeCellBelowAndFocusContainer",
+        "when": "notebookEditorFocused && !inputFocus"
+    },
+    {
+        "key": "v",
+        "command": "-notebook.cell.paste",
+        "when": "notebookEditorFocused && !inputFocus"
+    },
+    {
+        "key": "l",
+        "command": "-notebook.cell.toggleLineNumbers",
+        "when": "notebookEditorFocused && !inputFocus"
+    },
+    {
+        "key": "o",
+        "command": "-notebook.cell.toggleOutputs",
+        "when": "notebookEditorFocused && !inputFocus"
+    },
+    {
+        "key": "z",
+        "command": "-undo",
+        "when": "notebookEditorFocused && !inputFocus"
+    },
+    {
+        "key": "j",
+        "command": "-list.focusDown",
+        "when": "notebookEditorFocused && !inputFocus"
+    },
+    {
+        "key": "k",
+        "command": "-list.focusUp",
+        "when": "notebookEditorFocused && !inputFocus"
+    },
+    {
+        "key": "f",
+        "command": "-notebook.find",
+        "when": "notebookEditorFocused && !inputFocus"
+    },
+    {
+        "key": "s",
+        "command": "-workbench.action.files.save",
+        "when": "notebookEditorFocused && !inputFocus"
+    },
+    {
+        "key": "ctrl+shift+v",
+        "command": "multiclip.paste",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+v",
+        "command": "-multiclip.paste",
+        "when": "editorTextFocus && editorLangId != 'markdown'"
+    },
+    {
+        "key": "ctrl+shift+v",
+        "command": "-markdown.showPreview",
+        "when": "!notebookEditorFocused && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+alt+enter",
+        "command": "-notebook.cell.quitEdit",
+        "when": "inputFocus && notebookEditorFocused && notebookCellType == 'markup'"
+    },
+    {
+        "key": "ctrl+alt+enter",
+        "command": "notebook.execute",
+        "when": "notebookEditorFocused"
+    },
+    {
+        "key": "ctrl+alt+enter",
+        "command": "-notebook.cell.execute",
+        "when": "notebookCellListFocused && notebookMissingKernelExtension && !notebookCellExecuting && notebookCellType == 'code' || notebookCellListFocused && !notebookCellExecuting && notebookCellType == 'code' && notebookKernelCount > 0"
     }
 ]
