@@ -66,7 +66,9 @@
  <Associations varName="DiffAssociations">
   <RunExternal>true</RunExternal>
   <Association varName="Default Association">
+   {{ if get .profile "beyond_compare_dirf" -}}
    <Application>{{.profile.beyond_compare_dirf}}/bcomp.exe</Application>
+   {{- end }}
    <Arguments>%1 %2</Arguments>
   </Association>
  </Associations>
@@ -153,7 +155,9 @@
  <Associations varName="MergeAssociations">
   <RunExternal>true</RunExternal>
   <Association varName="Default Association">
+   {{ if get .profile "beyond_compare_dirf" -}}
    <Application>{{.profile.beyond_compare_dirf}}/bcomp.exe</Application>
+   {{- end }}
    <Arguments>%1 %2 %b %r</Arguments>
   </Association>
  </Associations>

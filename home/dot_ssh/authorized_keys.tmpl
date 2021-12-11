@@ -1,4 +1,6 @@
-{{ if stat (joinPath .profile.home_dirf ".local/share/private") -}}
+{{ if stat (joinPath .profile.home_dirf ".local/share/private/ssh/id_rsa.pub") -}}
 {{   include "../../../../.local/share/private/ssh/id_rsa.pub" }}
+{{ end -}}
+{{ if stat (joinPath .profile.home_dirf ".local/share/private/ssh/id_rsa-personal.pub") -}}
 {{   include "../../../../.local/share/private/ssh/id_rsa-personal.pub" }}
 {{ end -}}
