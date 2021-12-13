@@ -260,9 +260,5 @@
     # https://orrsella.com/2013/08/10/git-using-different-user-emails-for-different-repositories/
     useConfigOnly = true
 
-{{ if stat (joinPath .profile.home_dirf ".local/share/private/git/config") -}}
-{{   include "../../../../.local/share/private/git/config" }}
-{{ end -}}
-{{ if stat (joinPath .profile.home_dirf ".local/share/private/git/config-work") -}}
-{{   include "../../../../.local/share/private/git/config-work" }}
-{{ end -}}
+[include]
+    path = ~/.local/share/private/git/config
