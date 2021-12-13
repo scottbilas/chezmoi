@@ -238,7 +238,7 @@ if ($badScoop -or $Upgrade) {
 $bcShellPath = Get-ItemProperty -ea:silent 'HKLM:\SOFTWARE\Classes\CLSID\{57FA2D12-D22D-490A-805A-5CB48E84F12A}\InProcServer32' | % '(Default)'
 if (Test-Path alias:bc) {
     $bcPath = Get-Content alias:bc
-    if ((Split-Path $bcShellPath) -ne (Split-Path $bcPath)) {
+    if (!$bcShellPath -or ((Split-Path $bcShellPath) -ne (Split-Path $bcPath))) {
         Write-Error "[check] Beyond Compare Explorer integration mismatch; run bcomp4-shell-integration.reg (bc=$bcPath, reg=$bcShellPath)"
     }
     Write-Output "[check] Beyond Compare Explorer integration ok"

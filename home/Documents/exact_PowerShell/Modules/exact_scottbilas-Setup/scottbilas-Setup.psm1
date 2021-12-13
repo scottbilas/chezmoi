@@ -20,7 +20,7 @@ function Invoke-SetupEnvPaths([string]$EnvPaths = $Env:PATH) {
         $item = $item -Replace '[/\\]+$', ''
 
         # posh 7 (at least) inserts its own path at the front of PATH. but we can't just remove
-        # it from the system path, otherwise everything else (like mswinterm) wanting to run `pwsh` 
+        # it from the system path, otherwise everything else (like mswinterm) wanting to run `pwsh`
         # will have to fully-qualify it.
         $ispshome = $item -eq $PSHOME
 
@@ -38,3 +38,9 @@ function Invoke-SetupEnvPaths([string]$EnvPaths = $Env:PATH) {
     $result
 }
 Export-ModuleMember Invoke-SetupEnvPaths
+
+function Invoke-FixExplorerIconCache {
+    # from https://answers.microsoft.com/en-us/xbox/forum/all/broken-shortcut-icons-in-windows-11/f95d31d5-babf-494a-b16f-042e1442a287?auth=1
+
+
+}
