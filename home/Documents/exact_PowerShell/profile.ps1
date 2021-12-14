@@ -4,6 +4,10 @@ $ErrorActionPreference = 'Stop'
 # important: don't set strict mode for the profile. rando cli ops need to stay fuzzy else they get annoying.
 # but stopping on any error is good, let's keep that one.
 
+# this file vs dev.ps1:
+#
+# only simple profile here, avoid file activity as much as possible. all those Resolve-Paths hit IO..
+
 
 ### POSH CORE
 
@@ -44,9 +48,17 @@ Set-PSReadLineOption `
     }
 }
 
+if (Get-Command -ea:silent git-branchless) {
+    function g { git-branchless wrap @args }
+    Remove-Item -ea:silent alias:g
+}
+else {
+    Set-Alias g git
+    Remove-Item -ea:silent function:g
+}
+
 # shortyshortcuts
 Set-Alias o explorer
-Set-Alias g git
 Set-Alias m micro
 Set-Alias cm chezmoi
 function cm-cd { Set-Location (chezmoi source-path) }
@@ -91,4 +103,21 @@ function Time([scriptblock]$exec) {
     $delta = (Get-Date) - $now
     $result
     Write-Host ("`n>>> seconds: {0}" -f $delta.TotalSeconds)
+}
+
+# https://stackoverflow.com/a/46583549/14582
+function Expand-EnvironmentVariablesRecursively($unexpanded) {
+    $previous, $expanded = '', $unexpanded
+    while ($previous -ne $expanded) {
+        $previous = $expanded
+        $expanded = [Environment]::ExpandEnvironmentVariables($previous)
+    }
+    return $expanded
+}
+
+function Update-EnvPath {
+    $machine = Expand-EnvironmentVariablesRecursively([Environment]::GetEnvironmentVariable("Path", "Machine"))
+    $user = Expand-EnvironmentVariablesRecursively([Environment]::GetEnvironmentVariable("Path", "User"))
+
+    $env:PATH = ($machine -replace ';$', '') + ';' + ($user -replace ';$', '')
 }

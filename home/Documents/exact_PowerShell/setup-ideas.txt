@@ -127,3 +127,11 @@
 
 # clean out old scoop cache
 # (or make this a separate cleanup command)
+
+
+# test environment
+# if C:\Users\scott\.cargo\bin not in PATH but cargo.exe is, warn
+
+
+# cargo install --locked git-branchless
+# also test for upgrades
