@@ -6,6 +6,7 @@
     'Functional' = 'latest'
     'ListFunctions' = 'latest'
     'Microsoft.PowerShell.ConsoleGuiTools' = 'latest'
+    'Microsoft.PowerShell.Crescendo' = 'latest'
     'Native' = 'latest'
     'oh-my-posh' = 'latest'
     'Pester' = 'latest'
