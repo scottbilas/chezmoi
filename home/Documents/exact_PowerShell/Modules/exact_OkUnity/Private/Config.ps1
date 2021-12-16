@@ -35,14 +35,17 @@ function Get-OkUnityConfig {
                 Write-Verbose "Parsing config file $validConfigPath for the first time"
             }
 
-            # schema validation
-            if (Get-Command pajv) {
+            # parse config
+            $yaml = Get-Content $validConfigPath | ConvertFrom-Yaml
+
+            # schema validation (don't bother on an empty or all-comments file tho)
+            if ($yaml -and (Get-Command -ea:silent pajv)) {
                 Write-Verbose "Using pajv to validate via schema $SchemaPath"
-                ie pajv --errors=text -d $validConfigPath -s $SchemaPath >$null
+                iee pajv --errors=text -d $validConfigPath -s $SchemaPath >$null
             }
 
-            # parse and cache config
-            $script:CachedConfig = Expand(Get-Content $validConfigPath | ConvertFrom-Yaml)
+            # cache config with defaults filled out
+            $script:CachedConfig = Expand($yaml)
             $script:LastHash = $hash
         }
     }
