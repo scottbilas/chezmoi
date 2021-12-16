@@ -25,5 +25,13 @@
 			"path": "..\\..\\..\\dotfiles"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"window.title": "${dirty}${activeEditorLong}${separator}${rootName}",
+        "workbench.colorCustomizations": {
+            "titleBar.activeForeground": "#b7babe",
+            "titleBar.activeBackground": "#503956",
+            "titleBar.inactiveForeground": "#714575",
+            "titleBar.inactiveBackground": "#1a001d"
+        }
+	}
 }
