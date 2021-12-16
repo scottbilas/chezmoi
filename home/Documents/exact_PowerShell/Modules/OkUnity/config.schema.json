@@ -1,0 +1,38 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Welcome3",
+    "definitions": {
+        "Welcome3": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "builds": {
+                    "$ref": "#/definitions/Builds"
+                }
+            },
+            "required": [
+                "builds"
+            ],
+            "title": "Welcome3"
+        },
+        "Builds": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "global": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "project": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "title": "Builds"
+        }
+    }
+}
