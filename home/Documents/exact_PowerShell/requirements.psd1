@@ -11,11 +11,8 @@
     'oh-my-posh' = 'latest'
     'Pester' = 'latest'
     'plinqo' = 'latest'
+    'powershell-yaml' = 'latest'
     'Profiler' = 'latest'
-
-    # we want this, but shovel comes with it, and get conflicts if try to import this and also use scoop :(
-    # 'powershell-yaml' = 'latest'
-
     'PSReadLine' = @{
         Version = 'latest'
         Parameters = @{
@@ -24,5 +21,6 @@
     }
 
     'Terminal-Icons' = 'latest'
+    'UnitySetup' = 'latest'
     'ZLocation' = 'latest'
 }

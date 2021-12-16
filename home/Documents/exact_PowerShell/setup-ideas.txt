@@ -135,3 +135,13 @@
 
 # cargo install --locked git-branchless
 # also test for upgrades
+
+
+# add a PATH system vs local out-of-sync check (and maybe env vars too) to prompt
+
+
+# yaml validation
+# npm install -g pajv
+
+
+# npm update -g

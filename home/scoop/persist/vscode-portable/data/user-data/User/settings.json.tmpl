@@ -293,7 +293,7 @@
             "overviewRulerColor": "yellow"
         }
     ],
-    "ttProcessor.TTPath": "{{.profile.home_dirb}}\\.dotnet\\tools\\t4.exe", // dotnet tool install -g dotnet-t4
+    "ttProcessor.TTPath": "{{.profile.home_dirb | replace "\\" "\\\\"}}\\.dotnet\\tools\\t4.exe", // dotnet tool install -g dotnet-t4
     "update.enableWindowsBackgroundUpdates": false,
     "update.mode": "manual",
     "vsicons.dontShowNewVersionMessage": true,
@@ -302,7 +302,8 @@
     "window.newWindowDimensions": "inherit",
     "window.restoreFullscreen": true,
     "window.restoreWindows": "all",
-    "window.title": "${rootName}${separator}${dirty}${activeEditorMedium}${separator}",
+    "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}${separator}${appName}",
+    "window.titleSeparator": " > ",
     "workbench.activityBar.visible": false,
     "workbench.colorCustomizations": {
         "editorRuler.foreground": "#242424"
