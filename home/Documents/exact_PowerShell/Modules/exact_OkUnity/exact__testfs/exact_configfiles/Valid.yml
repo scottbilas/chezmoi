@@ -1,0 +1,6 @@
+builds:
+  global:
+  - path1
+  project:
+  - path2
+  - path3
