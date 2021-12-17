@@ -1,4 +1,5 @@
-if ((Get-Command Invoke-Pester).Version -lt [version]'5.0.0') { throw "Requires a much newer Pester" }
+$ErrorActionPreference = 'Stop'
+Import-Module Pester -MinimumVersion 5.0.0
 
 BeforeAll {
     Import-Module $PSScriptRoot/../OkUnity -Force
@@ -7,35 +8,35 @@ BeforeAll {
 
 Describe 'Get-OkUnityConfig' {
 
-    It 'With missing config file given, it errors' {
+    It 'errors if missing config file' {
         { Get-OkUnityConfig -ConfigPath definitely/not/a/path } | Should -Throw 'Config file*does not exist'
     }
 
-    It 'With empty config file, it returns valid config' {
+    It 'returns valid config for empty config file' {
         $config = Get-OkUnityConfig -ConfigPath $testfs/Empty.yml
         $config.ContainsKey('builds') | Should -Not -Be $null
     }
 
-    It 'With comments-only config file, it returns valid config' {
+    It 'returns valid config for comments-only config file' {
         $config = Get-OkUnityConfig -ConfigPath $testfs/CommentsOnly.yml
         $config.ContainsKey('builds') | Should -Not -Be $null
     }
 
-    It 'Expecting to have pajv available (`npm install -g pajv`)' {
+    It 'has pajv available (`npm install -g pajv`)' {
         { Get-Command pajv } | Should -Not -Throw
     }
 
-    It 'With invalid data, it errors' {
-        { Get-OkUnityConfig -ConfigPath $testfs/Invalid.yml 2>$null } | Should -Throw '*Invalid.yml invalid'
+    It 'errors for invalid data' {
+        { Get-OkUnityConfig -ConfigPath $testfs/Invalid.yml 2>$null } | Should -Throw '*data.builds should be object'
     }
 
-    It 'With valid data, it returns parsed config' {
+    It 'returns parsed config for valid data' {
         $config = Get-OkUnityConfig -ConfigPath $testfs/Valid.yml
         $config.builds.global | Should -Be @('path1')
         $config.builds.project | Should -Be @('path2', 'path3')
     }
 
-    It 'With partial data, it returns expanded config' {
+    It 'returns expanded config for partial data' {
         $config = Get-OkUnityConfig -ConfigPath $testfs/ValidPartial.yml
         $config.builds.global | Should -Be @('path1')
         $config.builds.project.length | Should -Be 0

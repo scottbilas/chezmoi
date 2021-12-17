@@ -10,6 +10,26 @@ Import-Module Terminal-Icons
 
 Update-FormatData -PrependPath ~/Documents/PowerShell/CustomFormatters.ps1xml
 
+### FUNCTIONS
+
+function pester($file) {
+    if (!$file) {
+        pwsh -NoProfile -Command { Invoke-Pester }
+        return
+    }
+
+    if ($file -notmatch '\.ps1$')  {
+        if ($file -notmatch '\.tests') {
+            $file = "$file.Tests.ps1"
+        }
+        else {
+            $file = "$file.ps1"
+        }
+    }
+
+    pwsh -NoProfile $file
+}
+
 ### COMPLETIONS
 
 Set-PSReadLineOption `
