@@ -21,6 +21,5 @@
     }
 
     'Terminal-Icons' = 'latest'
-    'UnitySetup' = 'latest'
     'ZLocation' = 'latest'
 }
