@@ -1,13 +1,23 @@
 Set-StrictMode -Version Latest
 
 function Find-UnityBuilds() {
-    function getUnityExes($paths) {
-        $paths | ForEach-Object { Get-ChildItem (join-path $_ "unity.exe")}
+
+    filter Resolve($type) {
+        $original = $_
+        $_ |
+        ForEach-Object { Get-ChildItem (join-path $_ "unity.exe")} |
+        Where-Object { Test-Path $_ } |
+        ForEach-Object {
+            [PSCustomObject]@{
+                Type = $type
+                Path = $_
+                Pattern = $original
+            }
+        }
     }
 
-    $buildsGlobal = getUnityExes (Get-OkUnityConfig).builds.global
-    $buildsProject = getUnityExes (Get-OkUnityConfig).builds.project
+    $buildsGlobal = (Get-OkUnityConfig).builds.global | Resolve Global
+    $buildsProject = (Get-OkUnityConfig).builds.project | Resolve Project
 
-    "global: $buildsGlobal"
-    "project: $buildsProject"
+    $buildsGlobal + $buildsProject
 }
