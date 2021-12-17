@@ -36,12 +36,18 @@ function Get-OkUnityConfig {
             }
 
             # parse config
-            $yaml = Get-Content $validConfigPath | ConvertFrom-Yaml
+            $yaml = Get-Content -raw $validConfigPath | ConvertFrom-Yaml
 
             # schema validation (don't bother on an empty or all-comments file tho)
             if ($yaml -and (Get-Command -ea:silent pajv)) {
-                Write-Verbose "Using pajv to validate via schema $SchemaPath"
-                iee pajv --errors=text -d $validConfigPath -s $SchemaPath >$null
+                Write-Verbose "pajv --errors=text -d $validConfigPath -s $SchemaPath"
+                $errors = pajv --errors=text -d $validConfigPath -s $SchemaPath 2>&1
+                if ($LASTEXITCODE) {
+                    throw (($errors |
+                        Where-Object { $_.GetType().Name -eq "ErrorRecord" } |
+                        ForEach-Object { $_.ToString() }
+                    ) -join '; ')
+                }
             }
 
             # cache config with defaults filled out
