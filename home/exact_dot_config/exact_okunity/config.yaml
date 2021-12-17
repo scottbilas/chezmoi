@@ -1,8 +1,11 @@
 # yaml-language-server: $schema=../../Documents/PowerShell/Modules/OkUnity/config.schema.json
+
 builds:
   global:
   - c:/builds/editor/*
   - d:/work/unity*/build/WindowsEditor
+
+  # these only apply to unity projects that share a close ancestor
   project:
   - c:/p4/*/Unity/Editor
 
