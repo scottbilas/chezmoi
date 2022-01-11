@@ -143,10 +143,10 @@ foreach ($name in @(
         # shell stuff
         'busybox', 'echoargs', 'less', 'wget', 'which'
         # other core utils
-        '7zip', 'autohotkey', 'bat', 'delta', 'fd', 'file', 'fzf', 'git', 'gsudo',
-        'highlight', 'kalk', 'gitui', 'micro', 'ripgrep',
+        '7zip', 'autohotkey', 'bat', 'delta', 'fd', 'file', 'fzf', 'git', 'git-lfs',
+        'gsudo', 'highlight', 'kalk', 'gitui', 'micro', 'ripgrep',
         # bigger things
-        'dotnet-sdk', 'python', 'nodejs', 'rust', 'perl', 'go'
+        'python', 'nodejs', 'rust', 'perl', 'go'
         'syncthingtray', 'linqpad', 'linqpadless', 'sysinternals', 'windirstat'
     )) {
     installScoopPackage($name)
