@@ -24,6 +24,7 @@ function Set-DarkMode {
     $theme = $Off ? 'light' : 'dark'
     ((Get-Content -Raw $chezmoiPath) -replace 'theme: \S+', "theme: $theme").TrimEnd() | Out-File -Encoding ascii $chezmoiPath
     chezmoi apply ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json
+    chezmoi apply ~/AppData/Roaming/LINQPad/RoamingUserOptions.xml
 
     # TODO:
     #
