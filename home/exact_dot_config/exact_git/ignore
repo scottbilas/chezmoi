@@ -58,6 +58,7 @@ __pycache__
 build.force
 TemporaryGeneratedFile_*
 Thumbs.db
+NDependOut
 
 # various extensions will generate these
 **/.vscode/tags
