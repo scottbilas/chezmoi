@@ -9,5 +9,5 @@
 	"ignore_diff_white_space": true,
 	"side_bar_layout": "columns",
 	"image_diff_style": "side-by-side",
-	"render_commit_dialog_message_at_top": true,
+	"render_commit_dialog_message_at_top": false,
 }

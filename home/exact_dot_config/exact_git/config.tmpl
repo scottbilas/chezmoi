@@ -202,13 +202,13 @@
     prompt = false
 [difftool "bc"]
 #   cmd = "set"   # uncomment to detect env vars
-    cmd = \"{{.profile.beyond_compare_dirf}}/BComp.exe\" -expandall -lefttitle=\"<$GIT_WORK_TREE> - left\" -righttitle=\"<$GIT_WORK_TREE> - right\" \"$LOCAL\" \"$REMOTE\"
+    cmd = "{{.profile.beyond_compare_dirf}}/BComp.exe" -expandall -lefttitle="<$GIT_WORK_TREE> - left" -righttitle="<$GIT_WORK_TREE> - right" "$LOCAL" "$REMOTE"
 
 [merge]
     tool = bc
     prompt = false
 [mergetool "bc"]
-    path = \"{{.profile.beyond_compare_dirf}}/BComp.exe\"
+    path = "{{.profile.beyond_compare_dirf}}/BComp.exe"
 {{-   end -}}
 {{- else -}}
 [diff]
