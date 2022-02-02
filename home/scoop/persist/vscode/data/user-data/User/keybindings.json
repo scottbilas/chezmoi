@@ -305,5 +305,9 @@
         "key": "ctrl+alt+enter",
         "command": "-notebook.cell.execute",
         "when": "notebookCellListFocused && notebookMissingKernelExtension && !notebookCellExecuting && notebookCellType == 'code' || notebookCellListFocused && !notebookCellExecuting && notebookCellType == 'code' && notebookKernelCount > 0"
+    },
+    {
+        "key": "alt+f",
+        "command": "-extension.openMatchingFiles"
     }
 ]

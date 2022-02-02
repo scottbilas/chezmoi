@@ -14,188 +14,206 @@ static object ToDump(object input) =>
 
 namespace NiceIO
 {
-	public class NPath : IEquatable<NPath>, IComparable
-	{
-		private static readonly StringComparison PathStringComparison = IsLinux() ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
+    [DebuggerDisplay("{FileName} ({ToString()})")]
+    public class NPath : IEquatable<NPath>, IComparable
+    {
+        static readonly StringComparison PathStringComparison = IsLinux() ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
 
-		private readonly string[] _elements;
-		private readonly bool _isRelative;
-		private readonly string _driveLetter;
+        readonly string[] _elements;
+        readonly bool _isRelative;
+        readonly string? _driveLetter;
 
-		#region construction
+        #region construction
 
-		public NPath(string path)
-		{
-			if (path == null)
-				throw new ArgumentNullException();
+        public NPath(string path)
+        {
+            if (path == null)
+                throw new ArgumentNullException();
 
-			path = ParseDriveLetter(path, out _driveLetter);
+            path = ParseDriveLetter(path, out _driveLetter);
 
-			if (path == "/")
-			{
-				_isRelative = false;
-				_elements = new string[] { };
-			}
-			else
-			{
-				var split = path.Split('/', '\\');
+            if (path == "/")
+            {
+                _isRelative = false;
+                _elements = new string[] {};
+            }
+            else
+            {
+                var split = path.Split('/', '\\');
 
-				_isRelative = _driveLetter == null && IsRelativeFromSplitString(split);
+                _isRelative = _driveLetter == null && IsRelativeFromSplitString(split);
+                _elements = ParseSplitStringIntoElements(split.Where(s => s.Length > 0)).ToArray();
+            }
+        }
 
-				_elements = ParseSplitStringIntoElements(split.Where(s => s.Length > 0).ToArray());
-			}
-		}
+        NPath(IEnumerable<string> elements, bool isRelative, string driveLetter)
+        {
+            _elements = elements.ToArray();
+            _isRelative = isRelative;
+            _driveLetter = driveLetter;
+        }
 
-		private NPath(string[] elements, bool isRelative, string driveLetter)
-		{
-			_elements = elements;
-			_isRelative = isRelative;
-			_driveLetter = driveLetter;
-		}
+        List<string> ParseSplitStringIntoElements(IEnumerable<string> inputs)
+        {
+            var stack = new List<string>();
 
-		private string[] ParseSplitStringIntoElements(IEnumerable<string> inputs)
-		{
-			var stack = new List<string>();
+            foreach (var input in inputs.Where(input => input.Length != 0))
+            {
+                if (input == ".")
+                {
+                    if ((stack.Count > 0) && (stack.Last() != "."))
+                        continue;
+                }
+                else if (input == "..")
+                {
+                    if (HasNonDotDotLastElement(stack))
+                    {
+                        stack.RemoveAt(stack.Count - 1);
+                        continue;
+                    }
+                    if (!_isRelative)
+                        throw new ArgumentException("You cannot create a path that tries to .. past the root");
+                }
+                stack.Add(input);
+            }
+            return stack;
+        }
 
-			foreach (var input in inputs.Where(input => input.Length != 0))
-			{
-				if (input == ".")
-				{
-					if ((stack.Count > 0) && (stack.Last() != "."))
-						continue;
-				}
-				else if (input == "..")
-				{
-					if (HasNonDotDotLastElement(stack))
-					{
-						stack.RemoveAt(stack.Count - 1);
-						continue;
-					}
-					if (!_isRelative)
-						throw new ArgumentException("You cannot create a path that tries to .. past the root");
-				}
-				stack.Add(input);
-			}
-			return stack.ToArray();
-		}
+        static bool HasNonDotDotLastElement(List<string> stack)
+        {
+            return stack.Count > 0 && stack[stack.Count - 1] != "..";
+        }
 
-		private static bool HasNonDotDotLastElement(List<string> stack)
-		{
-			return stack.Count > 0 && stack[stack.Count - 1] != "..";
-		}
+        string ParseDriveLetter(string path, out string driveLetter)
+        {
+            if (path.Length >= 2 && path[1] == ':')
+            {
+                driveLetter = path[0].ToString();
+                return path.Substring(2);
+            }
 
-		private string ParseDriveLetter(string path, out string driveLetter)
-		{
-			if (path.Length >= 2 && path[1] == ':')
-			{
-				driveLetter = path[0].ToString();
-				return path.Substring(2);
-			}
+            driveLetter = null;
+            return path;
+        }
 
-			driveLetter = null;
-			return path;
-		}
+        static bool IsRelativeFromSplitString(string[] split)
+        {
+            if (split.Length < 2)
+                return true;
 
-		private static bool IsRelativeFromSplitString(string[] split)
-		{
-			if (split.Length < 2)
-				return true;
+            return split[0].Length != 0 || !split.Any(s => s.Length > 0);
+        }
 
-			return split[0].Length != 0 || !split.Any(s => s.Length > 0);
-		}
+        public NPath Combine(params string[] append)
+        {
+            return Combine(append.AsEnumerable());
+        }
 
-		public NPath Combine(params string[] append)
-		{
-			return Combine(append.Select(a => new NPath(a)).ToArray());
-		}
+        public NPath Combine(IEnumerable<string> append)
+        {
+            return Combine(append.Select(a => new NPath(a)));
+        }
 
-		public NPath Combine(params NPath[] append)
-		{
-			if (!append.All(p => p.IsRelative))
-				throw new ArgumentException("You cannot .Combine a non-relative path");
+        public NPath Combine(params NPath[] append)
+        {
+            return Combine(append.AsEnumerable());
+        }
 
-			return new NPath(ParseSplitStringIntoElements(_elements.Concat(append.SelectMany(p => p._elements))), _isRelative, _driveLetter);
-		}
+        public NPath Combine(IEnumerable<NPath> append)
+        {
+            return new NPath(
+                ParseSplitStringIntoElements(_elements.Concat(append.SelectMany(
+                    p => p.IsRelative
+                        ? p._elements
+                        : throw new ArgumentException("You cannot .Combine a non-relative path")))),
+                _isRelative,
+                _driveLetter);
+        }
 
-		public NPath Parent
-		{
-			get
-			{
-				if (_elements.Length == 0)
-					throw new InvalidOperationException("Parent is called on an empty path");
+        public NPath Parent
+        {
+            get
+            {
+                if (_elements.Length == 0)
+                    throw new InvalidOperationException ("Parent is called on an empty path");
 
-				var newElements = _elements.Take(_elements.Length - 1).ToArray();
+                var newElements = _elements.Take (_elements.Length - 1).ToArray ();
 
-				return new NPath(newElements, _isRelative, _driveLetter);
-			}
-		}
+                return new NPath (newElements, _isRelative, _driveLetter);
+            }
+        }
 
-		public NPath RelativeTo(NPath path)
-		{
-			if (!IsChildOf(path))
-			{
-				if (!IsRelative && !path.IsRelative && _driveLetter != path._driveLetter)
-					throw new ArgumentException("Path.RelativeTo() was invoked with two paths that are on different volumes. invoked on: " + ToString() + " asked to be made relative to: " + path);
+        public NPath RelativeTo(NPath path)
+        {
+            if (!IsChildOf(path))
+            {
+                if (!IsRelative && !path.IsRelative && _driveLetter != path._driveLetter)
+                    throw new ArgumentException("Path.RelativeTo() was invoked with two paths that are on different volumes. invoked on: " + ToString() + " asked to be made relative to: " + path);
 
-				NPath commonParent = null;
-				foreach (var parent in RecursiveParents)
-				{
-					commonParent = path.RecursiveParents.FirstOrDefault(otherParent => otherParent == parent);
+                NPath commonParent = null;
+                foreach (var parent in RecursiveParents)
+                {
+                    commonParent = path.RecursiveParents.FirstOrDefault(otherParent => otherParent == parent);
 
-					if (commonParent != null)
-						break;
-				}
+                    if (commonParent != null)
+                        break;
+                }
 
-				if (commonParent == null)
-					throw new ArgumentException("Path.RelativeTo() was unable to find a common parent between " + ToString() + " and " + path);
+                if (commonParent == null)
+                    throw new ArgumentException("Path.RelativeTo() was unable to find a common parent between " + ToString() + " and " + path);
 
-				if (IsRelative && path.IsRelative && commonParent.IsEmpty())
-					throw new ArgumentException("Path.RelativeTo() was invoked with two relative paths that do not share a common parent.  Invoked on: " + ToString() + " asked to be made relative to: " + path);
+                if (IsRelative && path.IsRelative && commonParent.IsEmpty())
+                    throw new ArgumentException("Path.RelativeTo() was invoked with two relative paths that do not share a common parent.  Invoked on: " + ToString() + " asked to be made relative to: " + path);
 
-				var depthDiff = path.Depth - commonParent.Depth;
-				return new NPath(Enumerable.Repeat("..", depthDiff).Concat(_elements.Skip(commonParent.Depth)).ToArray(), true, null);
-			}
+                var depthDiff = path.Depth - commonParent.Depth;
+                return new NPath(Enumerable.Repeat("..", depthDiff).Concat(_elements.Skip(commonParent.Depth)).ToArray(), true, null);
+            }
 
-			return new NPath(_elements.Skip(path._elements.Length).ToArray(), true, null);
-		}
+            return new NPath(_elements.Skip(path._elements.Length).ToArray(), true, null);
+        }
 
-		public NPath ChangeExtension(string extension)
-		{
-			ThrowIfRoot();
+        public NPath ChangeExtension(string extension)
+        {
+            ThrowIfRoot();
 
-			var newElements = (string[])_elements.Clone();
-			newElements[newElements.Length - 1] = Path.ChangeExtension(_elements[_elements.Length - 1], WithDot(extension));
-			if (extension == string.Empty)
-				newElements[newElements.Length - 1] = newElements[newElements.Length - 1].TrimEnd('.');
-			return new NPath(newElements, _isRelative, _driveLetter);
-		}
-		#endregion construction
+            var newElements = (string[])_elements.Clone();
+            newElements[newElements.Length - 1] = Path.ChangeExtension(_elements[_elements.Length - 1], WithDot(extension));
+            if (extension == string.Empty)
+                newElements[newElements.Length - 1] = newElements[newElements.Length - 1].TrimEnd('.');
+            return new NPath(newElements, _isRelative, _driveLetter);
+        }
+        #endregion construction
 
-		#region inspection
+        #region inspection
 
-		public bool IsRelative
-		{
-			get { return _isRelative; }
-		}
+        public bool IsRelative
+        {
+            get { return _isRelative; }
+        }
 
-		public string FileName
-		{
-			get
-			{
-				ThrowIfRoot();
+        public string FileName
+        {
+            get
+            {
+                ThrowIfRoot();
 
-				return _elements.Last();
-			}
-		}
+                return _elements.Last();
+            }
+        }
 
-		public string FileNameWithoutExtension
-		{
-			get { return Path.GetFileNameWithoutExtension(FileName); }
-		}
+        public string FileNameWithoutExtension
+        {
+            get { return Path.GetFileNameWithoutExtension (FileName); }
+        }
 
-		public IReadOnlyList<string> Elements
-		{
-			get { return _elements; }
+        public IReadOnlyList<string> Elements
+        {
+            get { return _elements; }
+        }
+
+        public string DriveLetter
+        {
+            get { return _driveLetter; }
 		}
 
 		public int Depth
@@ -203,494 +221,505 @@ namespace NiceIO
 			get { return _elements.Length; }
 		}
 
-		public bool Exists(string append = "")
-		{
-			return Exists(new NPath(append));
-		}
+        public bool Exists(string append = "")
+        {
+            return Exists(new NPath(append));
+        }
 
-		public bool Exists(NPath append)
-		{
-			return FileExists(append) || DirectoryExists(append);
-		}
+        public bool Exists(NPath append)
+        {
+            return FileExists(append) || DirectoryExists(append);
+        }
 
-		public bool DirectoryExists(string append = "")
-		{
-			return DirectoryExists(new NPath(append));
-		}
+        public bool DirectoryExists(string append = "")
+        {
+            return DirectoryExists(new NPath(append));
+        }
 
-		public bool DirectoryExists(NPath append)
-		{
-			return Directory.Exists(Combine(append).ToString());
-		}
+        public bool DirectoryExists(NPath append)
+        {
+            return Directory.Exists(Combine(append).ToString());
+        }
 
-		public bool FileExists(string append = "")
-		{
-			return FileExists(new NPath(append));
-		}
+        public bool FileExists(string append = "")
+        {
+            return FileExists(new NPath(append));
+        }
 
-		public bool FileExists(NPath append)
-		{
-			return File.Exists(Combine(append).ToString());
-		}
+        public bool FileExists(NPath append)
+        {
+            return File.Exists(Combine(append).ToString());
+        }
 
-		public string ExtensionWithDot
-		{
-			get
-			{
-				if (IsRoot)
-					throw new ArgumentException("A root directory does not have an extension");
+        public string ExtensionWithDot
+        {
+            get
+            {
+                if (IsRoot)
+                    throw new ArgumentException("A root directory does not have an extension");
 
-				var last = _elements.Last();
-				var index = last.LastIndexOf(".");
-				if (index < 0) return String.Empty;
-				return last.Substring(index);
-			}
-		}
+                var last = _elements.Last();
+                var index = last.LastIndexOf('.');
+                if (index < 0) return String.Empty;
+                return last.Substring(index);
+            }
+        }
 
-		public string InQuotes()
-		{
-			return "\"" + ToString() + "\"";
-		}
+        public string ExtensionWithoutDot
+        {
+            get
+            {
+                if (IsRoot)
+                    throw new ArgumentException("A root directory does not have an extension");
 
-		public string InQuotes(SlashMode slashMode)
-		{
-			return "\"" + ToString(slashMode) + "\"";
-		}
+                var last = _elements.Last();
+                var index = last.LastIndexOf('.');
+                if (index < 0) return String.Empty;
+                return last.Substring(index + 1);
+            }
+        }
+        public string InQuotes()
+        {
+            return "\"" + ToString() + "\"";
+        }
 
-		public override string ToString()
-		{
-			return ToString(SlashMode.Native);
-		}
+        public string InQuotes(SlashMode slashMode)
+        {
+            return "\"" + ToString(slashMode) + "\"";
+        }
 
-		public string ToString(SlashMode slashMode)
-		{
-			// Check if it's linux root /
-			if (IsRoot && string.IsNullOrEmpty(_driveLetter))
-				return Slash(slashMode).ToString();
+        [DebuggerStepThrough]
+        public override string ToString()
+        {
+            return ToString(SlashMode.Native);
+        }
 
-			if (_isRelative && _elements.Length == 0)
-				return ".";
+        public string ToString(SlashMode slashMode)
+        {
+            // Check if it's linux root /
+            if (IsRoot && string.IsNullOrEmpty(_driveLetter))
+                return Slash(slashMode).ToString();
 
-			var sb = new StringBuilder();
-			if (_driveLetter != null)
-			{
-				sb.Append(_driveLetter);
-				sb.Append(":");
-			}
-			if (!_isRelative)
-				sb.Append(Slash(slashMode));
-			var first = true;
-			foreach (var element in _elements)
-			{
-				if (!first)
-					sb.Append(Slash(slashMode));
+            if (_isRelative && _elements.Length == 0)
+                return ".";
 
-				sb.Append(element);
-				first = false;
-			}
-			return sb.ToString();
-		}
+            var sb = new StringBuilder();
+            if (_driveLetter != null)
+            {
+                sb.Append(_driveLetter);
+                sb.Append(":");
+            }
+            if (!_isRelative)
+                sb.Append(Slash(slashMode));
+            var first = true;
+            foreach (var element in _elements)
+            {
+                if (!first)
+                    sb.Append(Slash(slashMode));
 
-		public static implicit operator string(NPath path)
-		{
-			return path.ToString();
-		}
+                sb.Append(element);
+                first = false;
+            }
+            return sb.ToString();
+        }
 
-		static char Slash(SlashMode slashMode)
-		{
-			switch (slashMode)
-			{
-				case SlashMode.Backward:
-					return '\\';
-				case SlashMode.Forward:
-					return '/';
-				default:
-					return Path.DirectorySeparatorChar;
-			}
-		}
+        [DebuggerStepThrough]
+        public static implicit operator string(NPath path)
+        {
+            return path.ToString();
+        }
 
-		public override bool Equals(Object obj)
-		{
-			if (obj == null)
-				return false;
+        static char Slash(SlashMode slashMode)
+        {
+            switch (slashMode)
+            {
+                case SlashMode.Backward:
+                    return '\\';
+                case SlashMode.Forward:
+                    return '/';
+                default:
+                    return Path.DirectorySeparatorChar;
+            }
+        }
 
-			// If parameter cannot be cast to Point return false.
-			var p = obj as NPath;
-			if ((Object)p == null)
-				return false;
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+                return false;
 
-			return Equals(p);
-		}
+            // If parameter cannot be cast to Point return false.
+            var p = obj as NPath;
+            if ((Object)p == null)
+                return false;
 
-		public bool Equals(NPath p)
-		{
-			if (p._isRelative != _isRelative)
-				return false;
+            return Equals(p);
+        }
 
-			if (!string.Equals(p._driveLetter, _driveLetter, PathStringComparison))
-				return false;
+        public bool Equals(NPath p)
+        {
+            if (p._isRelative != _isRelative)
+                return false;
 
-			if (p._elements.Length != _elements.Length)
-				return false;
+            if (!string.Equals(p._driveLetter, _driveLetter, PathStringComparison))
+                return false;
 
-			for (var i = 0; i != _elements.Length; i++)
-				if (!string.Equals(p._elements[i], _elements[i], PathStringComparison))
-					return false;
+            if (p._elements.Length != _elements.Length)
+                return false;
 
-			return true;
-		}
+            for (var i = 0; i != _elements.Length; i++)
+                if (!string.Equals(p._elements[i], _elements[i], PathStringComparison))
+                    return false;
 
-		public static bool operator ==(NPath a, NPath b)
-		{
-			// If both are null, or both are same instance, return true.
-			if (ReferenceEquals(a, b))
-				return true;
+            return true;
+        }
 
-			// If one is null, but not both, return false.
-			if (((object)a == null) || ((object)b == null))
-				return false;
+        public static bool operator ==(NPath a, NPath b)
+        {
+            // If both are null, or both are same instance, return true.
+            if (ReferenceEquals(a, b))
+                return true;
 
-			// Return true if the fields match:
-			return a.Equals(b);
-		}
+            // If one is null, but not both, return false.
+            if (((object)a == null) || ((object)b == null))
+                return false;
 
-		public override int GetHashCode()
-		{
-			unchecked
-			{
-				int hash = 17;
-				// Suitable nullity checks etc, of course :)
-				hash = hash * 23 + _isRelative.GetHashCode();
-				foreach (var element in _elements)
-					hash = hash * 23 + element.GetHashCode();
-				if (_driveLetter != null)
-					hash = hash * 23 + _driveLetter.GetHashCode();
-				return hash;
-			}
-		}
+            // Return true if the fields match:
+            return a.Equals(b);
+        }
 
-		public int CompareTo(object obj)
-		{
-			if (obj == null)
-				return -1;
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 17;
+                // Suitable nullity checks etc, of course :)
+                hash = hash * 23 + _isRelative.GetHashCode();
+                foreach (var element in _elements)
+                    hash = hash * 23 + element.GetHashCode();
+                if (_driveLetter != null)
+                    hash = hash * 23 + _driveLetter.GetHashCode();
+                return hash;
+            }
+        }
 
-			return this.ToString().CompareTo(((NPath)obj).ToString());
-		}
+        public int CompareTo(object obj)
+        {
+            if (obj == null)
+                return -1;
 
-		public static bool operator !=(NPath a, NPath b)
-		{
-			return !(a == b);
-		}
+            return ToString().CompareTo(((NPath)obj).ToString());
+        }
 
-		public bool HasExtension(params string[] extensions)
-		{
-			var extensionWithDotLower = ExtensionWithDot.ToLower();
-			return extensions.Any(e => WithDot(e).ToLower() == extensionWithDotLower);
-		}
+        public static bool operator !=(NPath a, NPath b)
+        {
+            return !(a == b);
+        }
 
-		private static string WithDot(string extension)
-		{
-			return extension.StartsWith(".") ? extension : "." + extension;
-		}
+        public bool HasExtension(params string[] extensions)
+        {
+            var extensionWithDotLower = ExtensionWithDot.ToLower();
+            return extensions.Any(e => WithDot(e).ToLower() == extensionWithDotLower);
+        }
 
-		private bool IsEmpty()
-		{
-			return _elements.Length == 0;
-		}
+        static string WithDot(string extension)
+        {
+            return extension.StartsWith(".") ? extension : "." + extension;
+        }
 
-		public bool IsRoot
-		{
-			get { return _elements.Length == 0 && !_isRelative; }
-		}
+        bool IsEmpty()
+        {
+            return _elements.Length == 0;
+        }
 
-		#endregion inspection
+        public bool IsRoot
+        {
+            get { return _elements.Length == 0 && !_isRelative; }
+        }
 
-		#region directory enumeration
+        #endregion inspection
 
-		public IEnumerable<NPath> Files(string filter, bool recurse = false)
-		{
+        #region directory enumeration
+
+        public IEnumerable<NPath> Files(string filter, bool recurse = false)
+        {
 			return Directory.GetFiles(ToString(), filter, recurse ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly).Select(s => new NPath(s));
-		}
+        }
 
-		public IEnumerable<NPath> Files(bool recurse = false)
-		{
-			return Files("*", recurse);
-		}
+        public IEnumerable<NPath> Files(bool recurse = false)
+        {
+            return Files("*", recurse);
+        }
 
-		public IEnumerable<NPath> Contents(string filter, bool recurse = false)
-		{
-			return Files(filter, recurse).Concat(Directories(filter, recurse));
-		}
+        public IEnumerable<NPath> Contents(string filter, bool recurse = false)
+        {
+            return Files(filter, recurse).Concat(Directories(filter, recurse));
+        }
 
-		public IEnumerable<NPath> Contents(bool recurse = false)
-		{
-			return Contents("*", recurse);
-		}
+        public IEnumerable<NPath> Contents(bool recurse = false)
+        {
+            return Contents("*", recurse);
+        }
 
-		public IEnumerable<NPath> Directories(string filter, bool recurse = false)
-		{
+        public IEnumerable<NPath> Directories(string filter, bool recurse = false)
+        {
 			return Directory.GetDirectories(ToString(), filter, recurse ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly).Select(s => new NPath(s));
-		}
+        }
 
-		public IEnumerable<NPath> Directories(bool recurse = false)
-		{
-			return Directories("*", recurse);
-		}
+        public IEnumerable<NPath> Directories(bool recurse = false)
+        {
+            return Directories("*", recurse);
+        }
 
-		#endregion
+        public NPath TildeExpand()
+        {
+            // implementing only the most basic part of https://www.gnu.org/software/bash/manual/html_node/Tilde-Expansion.html
 
-		#region filesystem writing operations
-		public NPath CreateFile()
-		{
-			ThrowIfRelative();
-			ThrowIfRoot();
-			EnsureParentDirectoryExists();
-			File.WriteAllBytes(ToString(), new byte[0]);
-			return this;
-		}
+            if (!IsRelative || _elements.FirstOrDefault() != "~")
+                return this;
 
-		public NPath CreateFile(string file)
-		{
-			return CreateFile(new NPath(file));
-		}
+            return HomeDirectory.Combine(_elements.Skip(1));
+        }
 
-		public NPath CreateFile(NPath file)
-		{
-			if (!file.IsRelative)
-				throw new ArgumentException("You cannot call CreateFile() on an existing path with a non relative argument");
-			return Combine(file).CreateFile();
-		}
+        #endregion
 
-		public NPath CreateDirectory()
-		{
-			ThrowIfRelative();
+        #region filesystem writing operations
+        public NPath CreateFile()
+        {
+            ThrowIfRelative();
+            ThrowIfRoot();
+            EnsureParentDirectoryExists();
+	        File.WriteAllBytes(ToString(), Array.Empty<byte>());
+            return this;
+        }
 
-			if (IsRoot)
-				throw new NotSupportedException("CreateDirectory is not supported on a root level directory because it would be dangerous:" + ToString());
+        public NPath CreateFile(string file)
+        {
+            return CreateFile(new NPath(file));
+        }
 
-			Directory.CreateDirectory(ToString());
-			return this;
-		}
+        public NPath CreateFile(NPath file)
+        {
+            if (!file.IsRelative)
+                throw new ArgumentException("You cannot call CreateFile() on an existing path with a non relative argument");
+            return Combine(file).CreateFile();
+        }
 
-		public NPath CreateDirectory(string directory)
-		{
-			return CreateDirectory(new NPath(directory));
-		}
+        public NPath CreateDirectory()
+        {
+            ThrowIfRelative();
 
-		public NPath CreateDirectory(NPath directory)
-		{
-			if (!directory.IsRelative)
-				throw new ArgumentException("Cannot call CreateDirectory with an absolute argument");
+            if (IsRoot)
+                throw new NotSupportedException("CreateDirectory is not supported on a root level directory because it would be dangerous:" + ToString());
 
-			return Combine(directory).CreateDirectory();
-		}
+            Directory.CreateDirectory(ToString());
+            return this;
+        }
 
-		public NPath Copy(string dest)
-		{
-			return Copy(new NPath(dest));
-		}
+        public NPath CreateDirectory(string directory)
+        {
+            return CreateDirectory(new NPath(directory));
+        }
 
-		public NPath Copy(string dest, Func<NPath, bool> fileFilter)
-		{
-			return Copy(new NPath(dest), fileFilter);
-		}
+        public NPath CreateDirectory(NPath directory)
+        {
+            if (!directory.IsRelative)
+                throw new ArgumentException("Cannot call CreateDirectory with an absolute argument");
 
-		public NPath Copy(NPath dest)
-		{
-			return Copy(dest, p => true);
-		}
+            return Combine(directory).CreateDirectory();
+        }
 
-		public NPath Copy(NPath dest, Func<NPath, bool> fileFilter)
-		{
-			ThrowIfRelative();
-			if (dest.IsRelative)
-				dest = Parent.Combine(dest);
+        public NPath Copy(string dest)
+        {
+            return Copy(new NPath(dest));
+        }
 
-			if (dest.DirectoryExists())
-				return CopyWithDeterminedDestination(dest.Combine(FileName), fileFilter);
+        public NPath Copy(string dest, Func<NPath, bool> fileFilter)
+        {
+            return Copy(new NPath(dest), fileFilter);
+        }
 
-			return CopyWithDeterminedDestination(dest, fileFilter);
-		}
+        public NPath Copy(NPath dest)
+        {
+            return Copy(dest, p => true);
+        }
 
-		public NPath MakeAbsolute()
-		{
-			if (!IsRelative)
-				return this;
+        public NPath Copy(NPath dest, Func<NPath, bool> fileFilter)
+        {
+            ThrowIfRelative();
+            if (dest.IsRelative)
+                dest = Parent.Combine(dest);
 
-			return NPath.CurrentDirectory.Combine(this);
-		}
+            if (dest.DirectoryExists())
+                return CopyWithDeterminedDestination(dest.Combine(FileName), fileFilter);
 
-		NPath CopyWithDeterminedDestination(NPath absoluteDestination, Func<NPath, bool> fileFilter)
-		{
-			if (absoluteDestination.IsRelative)
-				throw new ArgumentException("absoluteDestination must be absolute");
+            return CopyWithDeterminedDestination (dest, fileFilter);
+        }
 
-			if (FileExists())
-			{
-				if (!fileFilter(absoluteDestination))
-					return null;
+        public NPath MakeAbsolute()
+        {
+            if (!IsRelative)
+                return this;
 
-				absoluteDestination.EnsureParentDirectoryExists();
+            return NPath.CurrentDirectory.Combine (this);
+        }
 
-				File.Copy(ToString(), absoluteDestination.ToString(), true);
-				return absoluteDestination;
-			}
+        NPath CopyWithDeterminedDestination(NPath absoluteDestination, Func<NPath,bool> fileFilter)
+        {
+            if (absoluteDestination.IsRelative)
+                throw new ArgumentException ("absoluteDestination must be absolute");
 
-			if (DirectoryExists())
-			{
-				absoluteDestination.EnsureDirectoryExists();
-				foreach (var thing in Contents())
-					thing.CopyWithDeterminedDestination(absoluteDestination.Combine(thing.RelativeTo(this)), fileFilter);
-				return absoluteDestination;
-			}
+            if (FileExists())
+            {
+                if (!fileFilter(absoluteDestination))
+                    return null;
 
-			throw new ArgumentException("Copy() called on path that doesnt exist: " + ToString());
-		}
+                absoluteDestination.EnsureParentDirectoryExists();
 
-		public void Delete(DeleteMode deleteMode = DeleteMode.Normal)
-		{
-			ThrowIfRelative();
+                File.Copy(ToString(), absoluteDestination.ToString(), true);
+                return absoluteDestination;
+            }
 
-			if (IsRoot)
-				throw new NotSupportedException("Delete is not supported on a root level directory because it would be dangerous:" + ToString());
+            if (DirectoryExists())
+            {
+                absoluteDestination.EnsureDirectoryExists();
+                foreach (var thing in Contents())
+                    thing.CopyWithDeterminedDestination(absoluteDestination.Combine(thing.RelativeTo(this)), fileFilter);
+                return absoluteDestination;
+            }
 
-			if (FileExists())
-				File.Delete(ToString());
-			else if (DirectoryExists())
-				try
-				{
-					Directory.Delete(ToString(), true);
-				}
-				catch (IOException)
-				{
-					if (deleteMode == DeleteMode.Normal)
-						throw;
-				}
-			else
-				throw new InvalidOperationException("Trying to delete a path that does not exist: " + ToString());
-		}
+            throw new ArgumentException("Copy() called on path that doesnt exist: " + ToString());
+        }
 
-		public void DeleteIfExists(DeleteMode deleteMode = DeleteMode.Normal)
-		{
-			ThrowIfRelative();
+        public void Delete(DeleteMode deleteMode = DeleteMode.Normal)
+        {
+            ThrowIfRelative();
 
-			if (FileExists() || DirectoryExists())
-				Delete(deleteMode);
-		}
+            if (IsRoot)
+                throw new NotSupportedException("Delete is not supported on a root level directory because it would be dangerous:" + ToString());
 
-		public NPath DeleteContents()
-		{
-			ThrowIfRelative();
+            if (FileExists())
+                File.Delete(ToString());
+            else if (DirectoryExists())
+                try
+                {
+                    Directory.Delete(ToString(), true);
+                }
+                catch (IOException)
+                {
+                    if (deleteMode == DeleteMode.Normal)
+                        throw;
+                }
+            else
+                throw new InvalidOperationException("Trying to delete a path that does not exist: " + ToString());
+        }
 
-			if (IsRoot)
-				throw new NotSupportedException("DeleteContents is not supported on a root level directory because it would be dangerous:" + ToString());
+        public void DeleteIfExists(DeleteMode deleteMode = DeleteMode.Normal)
+        {
+            ThrowIfRelative();
 
-			if (FileExists())
-				throw new InvalidOperationException("It is not valid to perform this operation on a file");
+            if (FileExists() || DirectoryExists())
+                Delete(deleteMode);
+        }
 
-			if (DirectoryExists())
-			{
-				try
-				{
-					Files().Delete();
-					Directories().Delete();
-				}
-				catch (IOException)
-				{
-					if (Files(true).Any())
-						throw;
-				}
+        public NPath DeleteContents()
+        {
+            ThrowIfRelative();
 
-				return this;
-			}
+            if (IsRoot)
+                throw new NotSupportedException("DeleteContents is not supported on a root level directory because it would be dangerous:" + ToString());
 
-			return EnsureDirectoryExists();
-		}
+            if (FileExists())
+                throw new InvalidOperationException("It is not valid to perform this operation on a file");
 
-		public static NPath CreateTempDirectory(string myprefix)
-		{
-			var random = new Random();
-			while (true)
-			{
-				var candidate = new NPath(Path.GetTempPath() + "/" + myprefix + "_" + random.Next());
-				if (!candidate.Exists())
-					return candidate.CreateDirectory();
-			}
-		}
+            if (DirectoryExists())
+            {
+                try
+                {
+                    Files().Delete();
+                    Directories().Delete();
+                }
+                catch (IOException)
+                {
+                    if (Files(true).Any())
+                        throw;
+                }
 
-		public NPath Move(string dest)
-		{
-			return Move(new NPath(dest));
-		}
+                return this;
+            }
 
-		public NPath Move(NPath dest)
-		{
-			ThrowIfRelative();
+            return EnsureDirectoryExists();
+        }
 
-			if (IsRoot)
-				throw new NotSupportedException("Move is not supported on a root level directory because it would be dangerous:" + ToString());
+        public static NPath CreateTempDirectory(string myprefix)
+        {
+            var random = new Random();
+            while (true)
+            {
+                var candidate = new NPath(Path.GetTempPath() + "/" + myprefix + "_" + random.Next());
+                if (!candidate.Exists())
+                    return candidate.CreateDirectory();
+            }
+        }
 
-			if (dest.IsRelative)
-				return Move(Parent.Combine(dest));
+        public NPath Move(string dest)
+        {
+            return Move(new NPath(dest));
+        }
 
-			if (dest.DirectoryExists())
-				return Move(dest.Combine(FileName));
+        public NPath Move(NPath dest)
+        {
+            ThrowIfRelative();
 
-			if (FileExists())
-			{
-				dest.EnsureParentDirectoryExists();
-				File.Move(ToString(), dest.ToString());
-				return dest;
-			}
+            if (IsRoot)
+                throw new NotSupportedException("Move is not supported on a root level directory because it would be dangerous:" + ToString());
 
-			if (DirectoryExists())
-			{
-				Directory.Move(ToString(), dest.ToString());
-				return dest;
-			}
+            if (dest.IsRelative)
+                return Move(Parent.Combine(dest));
 
-			throw new ArgumentException("Move() called on a path that doesn't exist: " + ToString());
-		}
+            if (dest.DirectoryExists())
+                return Move(dest.Combine(FileName));
 
-		#endregion
+            if (FileExists())
+            {
+                dest.EnsureParentDirectoryExists();
+                File.Move(ToString(), dest.ToString());
+                return dest;
+            }
 
-		#region special paths
+            if (DirectoryExists())
+            {
+                Directory.Move(ToString(), dest.ToString());
+                return dest;
+            }
 
-		public static NPath CurrentDirectory
-		{
+            throw new ArgumentException("Move() called on a path that doesn't exist: " + ToString());
+        }
+
+        #endregion
+
+        #region special paths
+
+        public static NPath CurrentDirectory
+        {
 			get
 			{
 				return new NPath(Directory.GetCurrentDirectory());
 			}
 		}
 
-		public static NPath HomeDirectory
-		{
-			get
-			{
-				if (Path.DirectorySeparatorChar == '\\')
-					return new NPath(Environment.GetEnvironmentVariable("USERPROFILE"));
-				return new NPath(Environment.GetEnvironmentVariable("HOME"));
-			}
-		}
-
-		public static NPath SystemTemp
-		{
-			get
-			{
-				return new NPath(Path.GetTempPath());
-			}
-		}
+		public static NPath HomeDirectory => new(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
+		public static NPath ProgramFilesDirectory => new(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
+		public static NPath SystemTempDirectory => new(Path.GetTempPath());
 
 		#endregion
 
-		private void ThrowIfRelative()
+		public void ThrowIfRelative()
 		{
 			if (_isRelative)
 				throw new ArgumentException("You are attempting an operation on a Path that requires an absolute path, but the path is relative");
 		}
 
-		private void ThrowIfRoot()
+		public void ThrowIfRoot()
 		{
 			if (IsRoot)
 				throw new ArgumentException("You are attempting an operation that is not valid on a root level directory");
@@ -721,7 +750,12 @@ namespace NiceIO
 		public NPath FileMustExist()
 		{
 			if (!FileExists())
-				throw new FileNotFoundException("File was expected to exist : " + ToString());
+			{
+				if (DirectoryExists())
+					throw new FileNotFoundException($"Found directory instead of file '{ToString()}'", ToString());
+
+				throw new FileNotFoundException($"Could not find file '{ToString()}'", ToString());
+			}
 
 			return this;
 		}
@@ -729,7 +763,12 @@ namespace NiceIO
 		public NPath DirectoryMustExist()
 		{
 			if (!DirectoryExists())
-				throw new DirectoryNotFoundException("Expected directory to exist : " + ToString());
+			{
+				if (FileExists())
+					throw new DirectoryNotFoundException($"Found file instead of directory '{ToString()}'");
+
+				throw new DirectoryNotFoundException($"Could not find directory '{ToString()}'");
+			}
 
 			return this;
 		}
@@ -777,16 +816,20 @@ namespace NiceIO
 			}
 		}
 
-		public NPath ParentContaining(string needle)
+		public NPath ParentContaining(string needle, bool returnAppended = false)
 		{
-			return ParentContaining(new NPath(needle));
+			return ParentContaining(new NPath(needle), returnAppended);
 		}
 
-		public NPath ParentContaining(NPath needle)
+		public NPath ParentContaining(NPath needle, bool returnAppended = false)
 		{
 			ThrowIfRelative();
 
-			return RecursiveParents.FirstOrDefault(p => p.Exists(needle));
+			var found = RecursiveParents.FirstOrDefault(p => p.Exists(needle));
+			if (returnAppended && found != null)
+				found = found.Combine(needle);
+
+			return found;
 		}
 
 		public NPath WriteAllText(string contents)
@@ -803,7 +846,7 @@ namespace NiceIO
 			return File.ReadAllText(ToString());
 		}
 
-		public NPath WriteAllLines(string[] contents)
+		public NPath WriteAllLines(params string[] contents)
 		{
 			ThrowIfRelative();
 			EnsureParentDirectoryExists();
@@ -817,13 +860,13 @@ namespace NiceIO
 			return File.ReadAllLines(ToString());
 		}
 
-		public IEnumerable<NPath> CopyFiles(NPath destination, bool recurse, Func<NPath, bool> fileFilter = null)
+		public IEnumerable<NPath> CopyFiles(NPath destination, bool recurse, Func<NPath, bool>? fileFilter = null)
 		{
 			destination.EnsureDirectoryExists();
 			return Files(recurse).Where(fileFilter ?? AlwaysTrue).Select(file => file.Copy(destination.Combine(file.RelativeTo(this)))).ToArray();
 		}
 
-		public IEnumerable<NPath> MoveFiles(NPath destination, bool recurse, Func<NPath, bool> fileFilter = null)
+		public IEnumerable<NPath> MoveFiles(NPath destination, bool recurse, Func<NPath, bool>? fileFilter = null)
 		{
 			if (IsRoot)
 				throw new NotSupportedException("MoveFiles is not supported on this directory because it would be dangerous:" + ToString());
@@ -837,13 +880,17 @@ namespace NiceIO
 			return true;
 		}
 
-		private static bool IsLinux()
+		static bool IsLinux()
 		{
 			return Directory.Exists("/proc");
 		}
+		public static implicit operator NPath(string input)
+		{
+			return new NPath(input);
+		}
 	}
 
-	public static class Extensions
+	public static class NPathExtensions
 	{
 		public static IEnumerable<NPath> Copy(this IEnumerable<NPath> self, string dest)
 		{
@@ -934,651 +981,651 @@ namespace P4Nano
 				sb.AppendLine(str);
 			}
 			return sb.ToString();
-        }
-
-        public ArrayField this[string key] { get { return new ArrayField(_record, key); } }
-
-        public void Set(string key, params object[] values) { Set(key, (IEnumerable<object>)values); }
-        public void Set(string key, IEnumerable<object> values) { new ArrayField(_record, key).Set(values); }
-
-        public IEnumerator<ArrayField> GetEnumerator()
-        {
-            if (_record.HasItems)
-            {
-                var arrayFields =
-                    from key in _record.Items[0].Keys
-                    let arrayField = new ArrayField(_record, key)
-                    where arrayField.Any()
-                    select arrayField;
-                foreach (var arrayField in arrayFields)
-                {
-                    yield return arrayField;
-                }
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
-    }
-
-    public class TimeFieldDictionary
-    {
-        readonly Record _record;
-
-        public TimeFieldDictionary(Record record) { _record = record; }
-
-        public DateTime this[string key]
-        {
-            get
-            {
-                var value = _record[key];
-
-                DateTime dt;
-                if (DateTime.TryParse(value, out dt))
-                {
-                    return dt;
-                }
-
-                return Utility.P4ToSystem(int.Parse(value));
-            }
-            set { _record[key] = Utility.SystemToP4(value).ToString(); }
-        }
-    }
-
-    // this complication comes from p4's two different types of data mixed into one protocol:
-    //
-    //   1. filelog style output, where we have a hierarcy of records
-    //   2. form style output, where we have array-fields like "View" that need collapsing
-    //
-    // so the ArrayField exists to translate between the two automatically.
-
-    public class ArrayField : IList<string>
-    {
-        readonly IList<Record> _items;
-        readonly string _key;
-
-        public ArrayField(Record record, string key)
-        {
-            if (key == null) { throw new ArgumentNullException("key"); }
-
-            _items = record.Items; // this call will auto-create the list if needed
-            _key = key;
-        }
-
-        internal static string[] SplitField(string fieldValue) { return fieldValue.Replace("\r", "").TrimEnd().Split('\n'); }
-
-        public IEnumerable<string> ToStrings(int indent)
-        {
-            var indentText = new string(' ', indent * 4);
-            return
-                from val in this
-                from line in SplitField(val)
-                select indentText + line;
-        }
-
-        public IEnumerable<string> ToStrings() { return ToStrings(0); }
-
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            foreach (var str in ToStrings())
-            {
-                sb.AppendLine(str);
-            }
-            return sb.ToString();
-        }
-
-        public string Name { get { return _key; } }
-
-        public void Set(IEnumerable<object> items)
-        {
-            var index = 0;
-            foreach (var item in items)
-            {
-                if (_items.Count <= index)
-                {
-                    _items.Add(new Record());
-                }
-                _items[index][_key] = item.ToString();
-                ++index;
-            }
-
-            for (; index < _items.Count; ++index)
-            {
-                if (!_items[index].Remove(_key))
-                {
-                    break;
-                }
-            }
-
-            CompactEnd();
-        }
-
-        public void Set(params object[] items) { Set((IEnumerable<object>)items); }
-
-        public int IndexOf(string item)
-        {
-            if (item == null) { throw new ArgumentNullException("item"); }
-
-            var index = 0;
-            foreach (var val in this)
-            {
-                if (val == item) { return index; }
-                ++index;
-            }
-            return -1;
-        }
-
-        public void Insert(int index, string item)
-        {
-            InsertRange(index, WrapEnumerable(item), 1);
-        }
-
-        public void InsertRange(int index, IEnumerable<object> items)
-        {
-            var collection = items as ICollection<object> ?? new List<object>(items);
-            InsertRange(index, collection.Select(v => v.ToString()), collection.Count);
-        }
-
-        void InsertRange(int index, IEnumerable<string> items, int itemsCount)
-        {
-            var oldCount = Count;
-            if (index < 0 || index > oldCount) { throw new IndexOutOfRangeException(); }
-
-            if (itemsCount > 0)
-            {
-                while (_items.Count < (oldCount + itemsCount))
-                {
-                    _items.Add(new Record());
-                }
-
-                for (var i = _items.Count - 1; i >= index + itemsCount; --i)
-                {
-                    _items[i][_key] = _items[i - itemsCount][_key];
-                }
-
-                var idst = index;
-                foreach (var item in items)
-                {
-                    _items[idst++][_key] = item;
-                }
-            }
-        }
-
-        public void RemoveAt(int index)
-        {
-            RemoveRange(index, 1);
-        }
-
-        public void RemoveRange(int index, int removeCount)
-        {
-            var oldCount = Count;
-            if (index < 0 || removeCount < 0 || (index + removeCount) > oldCount) { throw new IndexOutOfRangeException(); }
-
-            if (removeCount > 0)
-            {
-                for (var i = index + removeCount; i < oldCount; ++i)
-                {
-                    _items[i - removeCount][_key] = _items[i][_key];
-                }
-
-                for (var i = oldCount - removeCount; i < oldCount; ++i)
-                {
-                    _items[i].Remove(_key);
-                }
-
-                CompactEnd();
-            }
-        }
-
-        public string this[int index]
-        {
-            get { return _items[index][_key]; }
-            set { _items[index][_key] = value; }
-        }
-
-        public void Add(string item)
-        {
-            if (item == null) { throw new ArgumentNullException("item"); }
-
-            var oldCount = Count;
-            if (_items.Count < (oldCount + 1))
-            {
-                _items.Add(new Record());
-            }
-            _items[oldCount][_key] = item;
-        }
-
-        public void AddRange(IEnumerable<object> items)
-        {
-            if (items == null) { throw new ArgumentNullException("items"); }
-
-            foreach (var item in items)
-            {
-                Add(item.ToString());
-            }
-        }
-
-        public void Clear() { Set(Enumerable.Empty<string>()); }
-        public bool Contains(string item) { return IndexOf(item) >= 0; }
-
-        public void CopyTo(string[] array, int arrayIndex)
-        {
-            foreach (var val in this)
-            {
-                array[arrayIndex++] = val;
-            }
-        }
-
-        public int Count { get { return _items.Count(r => r.ContainsKey(_key)); } }
-
-        public bool IsReadOnly { get { return false; } }
-
-        public bool Remove(string item)
-        {
-            var index = IndexOf(item);
-            if (index >= 0)
-            {
-                RemoveAt(index);
-                return true;
-            }
-            return false;
-        }
-
-        public IEnumerator<string> GetEnumerator()
-        {
-            foreach (var record in _items)
-            {
-                string val;
-                if (!record.TryGetValue(_key, out val)) { break; }
-                yield return val;
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
-
-        void CompactEnd()
-        {
-            for (var i = _items.Count - 1; i >= 0; --i)
-            {
-                if (_items[i].Count == 0)
-                {
-                    _items.RemoveAt(i);
-                }
-            }
-        }
-
-        IEnumerable<T> WrapEnumerable<T>(T item) { yield return item; }
-    }
-
-    public static class Utility
-    {
-        static readonly DateTime _p4Epoch = new DateTime(1970, 1, 1);
-
-        public static DateTime P4ToSystem(int p4Date)
-        {
-            var utc = _p4Epoch.AddSeconds(p4Date);
-            return TimeZone.CurrentTimeZone.ToLocalTime(utc);
-        }
-
-        public static DateTime P4ToSystem(string p4Date)
-        {
-            return p4Date != null ? P4ToSystem(int.Parse(p4Date)) : new DateTime();
-        }
-
-        public static int SystemToP4(DateTime date)
-        {
-            var utc = TimeZone.CurrentTimeZone.ToUniversalTime(date);
-            var ts = utc.Subtract(_p4Epoch);
-            return (int)ts.TotalSeconds;
-        }
-
-        // from .net 4
-        public static bool IsNullOrWhiteSpace(string value)
-        {
-            return value == null || value.All(char.IsWhiteSpace);
-        }
-
-        public static Regex P4ToRegex(IEnumerable<object> patterns)
-        {
-            var rxtext = new StringBuilder();
-            var first = true;
-
-            foreach (var line in
-                from p in patterns.Select(v => v.ToString())
-                where !IsNullOrWhiteSpace(p)
-                select p.Trim())
-            {
-                if (line.StartsWith("-"))
-                {
-                    throw new ArgumentException("Patterns cannot contain '-' exclusions");
-                }
-
-                if (Regex.IsMatch(line, @"//.*//"))
-                {
-                    throw new ArgumentException("Pattern contains more than one '//' - accidental joining of two patterns into a single string?");
-                }
-
-                if (!first)
-                {
-                    rxtext.Append('|');
-                }
-                first = false;
-
-                rxtext.Append('^');
-
-                for (var i = 0; i < line.Length;)
-                {
-                    switch (line[i])
-                    {
-                        case '.':
-                            if (((line.Length - i) >= 3) && (line[i + 1] == '.') && (line[i + 2] == '.'))
-                            {
-                                rxtext.Append(".*");
-                                i += 3;
-                            }
-                            else
-                            {
-                                rxtext.Append("\\.");
-                                ++i;
-                            }
-                            break;
-                        case '*':
-                            rxtext.Append("[^/]*");
-                            ++i;
-                            break;
-                        case '?':
-                            rxtext.Append('.');
-                            ++i;
-                            break;
-                        default:
-                            rxtext.Append(Regex.Escape(line.Substring(i, 1)));
-                            ++i;
-                            break;
-                    }
-                }
-
-                rxtext.Append('$');
-            }
-
-            return new Regex(rxtext.ToString(), RegexOptions.IgnoreCase);
-        }
-
-        public static Regex P4ToRegex(string pattern)
-        {
-            return P4ToRegex(new[] { pattern });
-        }
-    }
-
-    public class CommandArgs
-    {
-        public CommandArgs(IEnumerable<object> args)
-        {
-            PreArgs = new List<string>();
-            PostArgs = new List<string>();
-            var currentArgs = PreArgs;
-
-            using (var iarg = args.Select(v => v.ToString()).GetEnumerator())
-                while (iarg.MoveNext())
-                {
-                    var arg = iarg.Current;
-                    if (arg == null) { continue; }
-
-                    if (currentArgs == PreArgs)
-                    {
-                        // hyphen means it's a pre arg
-                        if (arg.StartsWith("-"))
-                        {
-                            currentArgs.Add(arg);
-
-                            // these options each have one arg, so grab the arg too, it's not a command
-                            if (Regex.IsMatch(arg, @"^-[cCdHLpPQuxz]$"))
-                            {
-                                if (iarg.MoveNext())
-                                {
-                                    currentArgs.Add(iarg.Current);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Command = arg;
-                            currentArgs = PostArgs;
-                        }
-                    }
-                    else
-                    {
-                        currentArgs.Add(arg);
-                    }
-                }
-        }
-
-        public CommandArgs(string cmdLine)
-            : this(cmdLine.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)) { }
-
-        public static CommandArgs Parse(params object[] args)
-        {
-            return new CommandArgs(GetArgs(args));
-        }
-
-        static IEnumerable<object> GetArgs(IEnumerable<object> args)
-        {
-            foreach (var arg in args)
-            {
-                var objects = arg as IEnumerable<object>; // posh may nest, and that's cool..
-                if (objects != null)
-                {
-                    foreach (var o in GetArgs(objects))
-                    {
-                        yield return o;
-                    }
-                }
-                else if (arg != null)
-                {
-                    yield return arg.ToString();
-                }
-            }
-        }
-
-        public IList<string> PreArgs { get; private set; }
-        public string Command { get; private set; }
-        public IList<string> PostArgs { get; private set; }
-        public IEnumerable<string> AllArgs { get { return PreArgs.Concat(new[] { Command }).Concat(PostArgs); } }
-
-        public override string ToString()
-        {
-            return string.Join(" ", AllArgs.ToArray());
-        }
-    }
-
-    [DebuggerDisplay("{ShortString}")]
-    public class Record : Dictionary<string, string>, IEquatable<Record>, ICloneable
-    {
-        static readonly Regex _nameRx = new Regex(@"^(\w+?)(\d+(?:,\d+)*)$");
-        static bool _cancelOnCtrlC;
-
-        List<Record> _items;
-
-        public Record()
-            : base(StringComparer.OrdinalIgnoreCase) { }
-
-        public Record(Record other)
-            : this()
-        {
-            foreach (var kv in other)
-            {
-                Add(kv.Key, kv.Value);
-            }
-
-            if (other._items != null)
-            {
-                _items = new List<Record>();
-                foreach (var r in other._items)
-                {
-                    _items.Add(new Record(r));
-                }
-            }
-        }
-
-        // currently only works on simply formatted forms coming from p4 itself. the spec has more features, such as comments,
-        // that we aren't checking for.
-        public Record(string formText)
-            : this()
-        {
-            var keyMode = true;
-            string currentKey = null;
-            var currentValue = new List<string>();
-
-            using (var reader = new StringReader(formText))
-            {
-                for (; ; )
-                {
-                    var line = reader.ReadLine();
-                    if (line == null)
-                    {
-                        break;
-                    }
-
-                    if (keyMode)
-                    {
-                        var match = Regex.Match(line, @"^(\w+):(?:\t(\w+))?");
-                        if (match.Success)
-                        {
-                            if (match.Groups[2].Success)
-                            {
-                                Add(match.Groups[1].Value, match.Groups[2].Value);
-                            }
-                            else
-                            {
-                                keyMode = false;
-                                currentKey = match.Groups[1].Value;
-                            }
-                        }
-                    }
-                    else if (line.Length != 0 && line[0] == '\t')
-                    {
-                        currentValue.Add(line.Substring(1));
-                    }
-                    else
-                    {
-                        Add(currentKey, string.Join("\n", currentValue.ToArray()));
-
-                        keyMode = true;
-                        currentKey = null;
-                        currentValue.Clear();
-                    }
-                }
-            }
-
-            if (!keyMode)
-            {
-                Add(currentKey, string.Join("\n", currentValue.ToArray()));
-            }
-        }
-
-        internal Record(BinaryReader reader)
-            : this()
-        {
-            foreach (var kv in r_hash(reader))
-            {
-                var k = kv.Key;
-                var v = kv.Value;
-                var rec = this;
-
-                var m = _nameRx.Match(k);
-                if (m.Success)
-                {
-                    k = m.Groups[1].Value;
-
-                    foreach (var i in
-                        from part in m.Groups[2].Value.Split(',')
-                        select int.Parse(part))
-                    {
-                        while (rec.Items.Count <= i)
-                        {
-                            rec._items.Add(new Record());
-                        }
-
-                        rec = rec._items[i];
-                    }
-                }
-
-                // special: the record may contain keys without values, which p4 uses to signify a flag. set it to 'true' to make it clear.
-                if (Utility.IsNullOrWhiteSpace(v))
-                {
-                    v = "true";
-                }
-
-                rec.Add(k, v);
-            }
-        }
-
-        // global options
-        public static bool CancelOnCtrlC { get { return _cancelOnCtrlC; } set { _cancelOnCtrlC = value; } }
-
-        public IDictionary<string, string> Fields { get { return this; } }
-        public TimeFieldDictionary TimeFields { get { return new TimeFieldDictionary(this); } }
-        public ArrayFieldCollection ArrayFields { get { return new ArrayFieldCollection(this); } }
-        public IList<Record> Items { get { return _items ?? (_items = new List<Record>()); } }
-        public bool HasItems { get { return _items != null && _items.Count != 0; } }
-        public bool IsInfo { get { return string.Compare(this["code"], "info", true) == 0; } }
-        public bool IsFailure { get { return string.Compare(this["code"], "error", true) == 0; } }
-        public bool IsError { get { return ErrorSeverity >= 3; } }
-        public bool IsWarning { get { return ErrorSeverity > 0 && !IsError; } }
-
-        public int ErrorSeverity
-        {
-            get
-            {
-                if (!IsFailure) { return 0; }
-
-                int severity;
-                int.TryParse(this["severity"], out severity);
-                return severity;
-            }
-        }
-
-        public string[] SortedFieldKeys
-        {
-            get
-            {
-                var keys = new string[Count];
-                Keys.CopyTo(keys, 0);
-                Array.Sort(keys);
-                return keys;
-            }
-        }
-
-        /// <summary>
-        /// Call this to run a P4 command.
-        /// </summary>
-        /// <param name="workingDir">Working dir for P4. Necessary when relying on p4.ini or using relative local paths. Optional, defaults to .NET current dir.</param>
-        /// <param name="cmdLine">The command line to send to p4.exe. Make sure to quote paths with spaces. Required.</param>
-        /// <param name="input">An input record to send in to a command that takes an input form, such as 'client -i'. Optional.</param>
-        /// <param name="lazy">Controls whether the enumerable is lazily evaluated or not. True means minimal memory usage, immediate results and best performance, but
-        /// also puts a burden on the client of needing to consume the entire thing to guarantee operations like 'sync' finish. Optional, defaults to false.</param>
-        /// <returns>All results from P4, reprocessed into Record objects</returns>
-        public static IEnumerable<Record> Run(string workingDir, string cmdLine, Record input, bool lazy)
-        {
-            var records = RunLazy(workingDir, cmdLine, input);
-            if (!lazy)
-            {
-                records = records.ToList();
-            }
-
-            return records;
-        }
-
-        public static IEnumerable<Record> Run(string workingDir, string cmdLine, Record input)
-        { return Run(workingDir, cmdLine, input, false); }
-        public static IEnumerable<Record> Run(string workingDir, string cmdLine, bool lazy)
-        { return Run(workingDir, cmdLine, null, lazy); }
-        public static IEnumerable<Record> Run(string workingDir, string cmdLine)
-        { return Run(workingDir, cmdLine, null, false); }
-        public static IEnumerable<Record> Run(string cmdLine, Record input, bool lazy)
-        { return Run(null, cmdLine, input, lazy); }
-        public static IEnumerable<Record> Run(string cmdLine, Record input)
-        { return Run(null, cmdLine, input, false); }
-        public static IEnumerable<Record> Run(string cmdLine, bool lazy)
+		}
+
+		public ArrayField this[string key] { get { return new ArrayField(_record, key); } }
+
+		public void Set(string key, params object[] values) { Set(key, (IEnumerable<object>)values); }
+		public void Set(string key, IEnumerable<object> values) { new ArrayField(_record, key).Set(values); }
+
+		public IEnumerator<ArrayField> GetEnumerator()
+		{
+			if (_record.HasItems)
+			{
+				var arrayFields =
+					from key in _record.Items[0].Keys
+					let arrayField = new ArrayField(_record, key)
+					where arrayField.Any()
+					select arrayField;
+				foreach (var arrayField in arrayFields)
+				{
+					yield return arrayField;
+				}
+			}
+		}
+
+		IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
+	}
+
+	public class TimeFieldDictionary
+	{
+		readonly Record _record;
+
+		public TimeFieldDictionary(Record record) { _record = record; }
+
+		public DateTime this[string key]
+		{
+			get
+			{
+				var value = _record[key];
+
+				DateTime dt;
+				if (DateTime.TryParse(value, out dt))
+				{
+					return dt;
+				}
+
+				return Utility.P4ToSystem(int.Parse(value));
+			}
+			set { _record[key] = Utility.SystemToP4(value).ToString(); }
+		}
+	}
+
+	// this complication comes from p4's two different types of data mixed into one protocol:
+	//
+	//   1. filelog style output, where we have a hierarcy of records
+	//   2. form style output, where we have array-fields like "View" that need collapsing
+	//
+	// so the ArrayField exists to translate between the two automatically.
+
+	public class ArrayField : IList<string>
+	{
+		readonly IList<Record> _items;
+		readonly string _key;
+
+		public ArrayField(Record record, string key)
+		{
+			if (key == null) { throw new ArgumentNullException("key"); }
+
+			_items = record.Items; // this call will auto-create the list if needed
+			_key = key;
+		}
+
+		internal static string[] SplitField(string fieldValue) { return fieldValue.Replace("\r", "").TrimEnd().Split('\n'); }
+
+		public IEnumerable<string> ToStrings(int indent)
+		{
+			var indentText = new string(' ', indent * 4);
+			return
+				from val in this
+				from line in SplitField(val)
+				select indentText + line;
+		}
+
+		public IEnumerable<string> ToStrings() { return ToStrings(0); }
+
+		public override string ToString()
+		{
+			var sb = new StringBuilder();
+			foreach (var str in ToStrings())
+			{
+				sb.AppendLine(str);
+			}
+			return sb.ToString();
+		}
+
+		public string Name { get { return _key; } }
+
+		public void Set(IEnumerable<object> items)
+		{
+			var index = 0;
+			foreach (var item in items)
+			{
+				if (_items.Count <= index)
+				{
+					_items.Add(new Record());
+				}
+				_items[index][_key] = item.ToString();
+				++index;
+			}
+
+			for (; index < _items.Count; ++index)
+			{
+				if (!_items[index].Remove(_key))
+				{
+					break;
+				}
+			}
+
+			CompactEnd();
+		}
+
+		public void Set(params object[] items) { Set((IEnumerable<object>)items); }
+
+		public int IndexOf(string item)
+		{
+			if (item == null) { throw new ArgumentNullException("item"); }
+
+			var index = 0;
+			foreach (var val in this)
+			{
+				if (val == item) { return index; }
+				++index;
+			}
+			return -1;
+		}
+
+		public void Insert(int index, string item)
+		{
+			InsertRange(index, WrapEnumerable(item), 1);
+		}
+
+		public void InsertRange(int index, IEnumerable<object> items)
+		{
+			var collection = items as ICollection<object> ?? new List<object>(items);
+			InsertRange(index, collection.Select(v => v.ToString()), collection.Count);
+		}
+
+		void InsertRange(int index, IEnumerable<string> items, int itemsCount)
+		{
+			var oldCount = Count;
+			if (index < 0 || index > oldCount) { throw new IndexOutOfRangeException(); }
+
+			if (itemsCount > 0)
+			{
+				while (_items.Count < (oldCount + itemsCount))
+				{
+					_items.Add(new Record());
+				}
+
+				for (var i = _items.Count - 1; i >= index + itemsCount; --i)
+				{
+					_items[i][_key] = _items[i - itemsCount][_key];
+				}
+
+				var idst = index;
+				foreach (var item in items)
+				{
+					_items[idst++][_key] = item;
+				}
+			}
+		}
+
+		public void RemoveAt(int index)
+		{
+			RemoveRange(index, 1);
+		}
+
+		public void RemoveRange(int index, int removeCount)
+		{
+			var oldCount = Count;
+			if (index < 0 || removeCount < 0 || (index + removeCount) > oldCount) { throw new IndexOutOfRangeException(); }
+
+			if (removeCount > 0)
+			{
+				for (var i = index + removeCount; i < oldCount; ++i)
+				{
+					_items[i - removeCount][_key] = _items[i][_key];
+				}
+
+				for (var i = oldCount - removeCount; i < oldCount; ++i)
+				{
+					_items[i].Remove(_key);
+				}
+
+				CompactEnd();
+			}
+		}
+
+		public string this[int index]
+		{
+			get { return _items[index][_key]; }
+			set { _items[index][_key] = value; }
+		}
+
+		public void Add(string item)
+		{
+			if (item == null) { throw new ArgumentNullException("item"); }
+
+			var oldCount = Count;
+			if (_items.Count < (oldCount + 1))
+			{
+				_items.Add(new Record());
+			}
+			_items[oldCount][_key] = item;
+		}
+
+		public void AddRange(IEnumerable<object> items)
+		{
+			if (items == null) { throw new ArgumentNullException("items"); }
+
+			foreach (var item in items)
+			{
+				Add(item.ToString());
+			}
+		}
+
+		public void Clear() { Set(Enumerable.Empty<string>()); }
+		public bool Contains(string item) { return IndexOf(item) >= 0; }
+
+		public void CopyTo(string[] array, int arrayIndex)
+		{
+			foreach (var val in this)
+			{
+				array[arrayIndex++] = val;
+			}
+		}
+
+		public int Count { get { return _items.Count(r => r.ContainsKey(_key)); } }
+
+		public bool IsReadOnly { get { return false; } }
+
+		public bool Remove(string item)
+		{
+			var index = IndexOf(item);
+			if (index >= 0)
+			{
+				RemoveAt(index);
+				return true;
+			}
+			return false;
+		}
+
+		public IEnumerator<string> GetEnumerator()
+		{
+			foreach (var record in _items)
+			{
+				string val;
+				if (!record.TryGetValue(_key, out val)) { break; }
+				yield return val;
+			}
+		}
+
+		IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
+
+		void CompactEnd()
+		{
+			for (var i = _items.Count - 1; i >= 0; --i)
+			{
+				if (_items[i].Count == 0)
+				{
+					_items.RemoveAt(i);
+				}
+			}
+		}
+
+		IEnumerable<T> WrapEnumerable<T>(T item) { yield return item; }
+	}
+
+	public static class Utility
+	{
+		static readonly DateTime _p4Epoch = new DateTime(1970, 1, 1);
+
+		public static DateTime P4ToSystem(int p4Date)
+		{
+			var utc = _p4Epoch.AddSeconds(p4Date);
+			return TimeZone.CurrentTimeZone.ToLocalTime(utc);
+		}
+
+		public static DateTime P4ToSystem(string p4Date)
+		{
+			return p4Date != null ? P4ToSystem(int.Parse(p4Date)) : new DateTime();
+		}
+
+		public static int SystemToP4(DateTime date)
+		{
+			var utc = TimeZone.CurrentTimeZone.ToUniversalTime(date);
+			var ts = utc.Subtract(_p4Epoch);
+			return (int)ts.TotalSeconds;
+		}
+
+		// from .net 4
+		public static bool IsNullOrWhiteSpace(string value)
+		{
+			return value == null || value.All(char.IsWhiteSpace);
+		}
+
+		public static Regex P4ToRegex(IEnumerable<object> patterns)
+		{
+			var rxtext = new StringBuilder();
+			var first = true;
+
+			foreach (var line in
+				from p in patterns.Select(v => v.ToString())
+				where !IsNullOrWhiteSpace(p)
+				select p.Trim())
+			{
+				if (line.StartsWith("-"))
+				{
+					throw new ArgumentException("Patterns cannot contain '-' exclusions");
+				}
+
+				if (Regex.IsMatch(line, @"//.*//"))
+				{
+					throw new ArgumentException("Pattern contains more than one '//' - accidental joining of two patterns into a single string?");
+				}
+
+				if (!first)
+				{
+					rxtext.Append('|');
+				}
+				first = false;
+
+				rxtext.Append('^');
+
+				for (var i = 0; i < line.Length;)
+				{
+					switch (line[i])
+					{
+						case '.':
+							if (((line.Length - i) >= 3) && (line[i + 1] == '.') && (line[i + 2] == '.'))
+							{
+								rxtext.Append(".*");
+								i += 3;
+							}
+							else
+							{
+								rxtext.Append("\\.");
+								++i;
+							}
+							break;
+						case '*':
+							rxtext.Append("[^/]*");
+							++i;
+							break;
+						case '?':
+							rxtext.Append('.');
+							++i;
+							break;
+						default:
+							rxtext.Append(Regex.Escape(line.Substring(i, 1)));
+							++i;
+							break;
+					}
+				}
+
+				rxtext.Append('$');
+			}
+
+			return new Regex(rxtext.ToString(), RegexOptions.IgnoreCase);
+		}
+
+		public static Regex P4ToRegex(string pattern)
+		{
+			return P4ToRegex(new[] { pattern });
+		}
+	}
+
+	public class CommandArgs
+	{
+		public CommandArgs(IEnumerable<object> args)
+		{
+			PreArgs = new List<string>();
+			PostArgs = new List<string>();
+			var currentArgs = PreArgs;
+
+			using (var iarg = args.Select(v => v.ToString()).GetEnumerator())
+				while (iarg.MoveNext())
+				{
+					var arg = iarg.Current;
+					if (arg == null) { continue; }
+
+					if (currentArgs == PreArgs)
+					{
+						// hyphen means it's a pre arg
+						if (arg.StartsWith("-"))
+						{
+							currentArgs.Add(arg);
+
+							// these options each have one arg, so grab the arg too, it's not a command
+							if (Regex.IsMatch(arg, @"^-[cCdHLpPQuxz]$"))
+							{
+								if (iarg.MoveNext())
+								{
+									currentArgs.Add(iarg.Current);
+								}
+							}
+						}
+						else
+						{
+							Command = arg;
+							currentArgs = PostArgs;
+						}
+					}
+					else
+					{
+						currentArgs.Add(arg);
+					}
+				}
+		}
+
+		public CommandArgs(string cmdLine)
+			: this(cmdLine.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)) { }
+
+		public static CommandArgs Parse(params object[] args)
+		{
+			return new CommandArgs(GetArgs(args));
+		}
+
+		static IEnumerable<object> GetArgs(IEnumerable<object> args)
+		{
+			foreach (var arg in args)
+			{
+				var objects = arg as IEnumerable<object>; // posh may nest, and that's cool..
+				if (objects != null)
+				{
+					foreach (var o in GetArgs(objects))
+					{
+						yield return o;
+					}
+				}
+				else if (arg != null)
+				{
+					yield return arg.ToString();
+				}
+			}
+		}
+
+		public IList<string> PreArgs { get; private set; }
+		public string Command { get; private set; }
+		public IList<string> PostArgs { get; private set; }
+		public IEnumerable<string> AllArgs { get { return PreArgs.Concat(new[] { Command }).Concat(PostArgs); } }
+
+		public override string ToString()
+		{
+			return string.Join(" ", AllArgs.ToArray());
+		}
+	}
+
+	[DebuggerDisplay("{ShortString}")]
+	public class Record : Dictionary<string, string>, IEquatable<Record>, ICloneable
+	{
+		static readonly Regex _nameRx = new Regex(@"^(\w+?)(\d+(?:,\d+)*)$");
+		static bool _cancelOnCtrlC;
+
+		List<Record> _items;
+
+		public Record()
+			: base(StringComparer.OrdinalIgnoreCase) { }
+
+		public Record(Record other)
+			: this()
+		{
+			foreach (var kv in other)
+			{
+				Add(kv.Key, kv.Value);
+			}
+
+			if (other._items != null)
+			{
+				_items = new List<Record>();
+				foreach (var r in other._items)
+				{
+					_items.Add(new Record(r));
+				}
+			}
+		}
+
+		// currently only works on simply formatted forms coming from p4 itself. the spec has more features, such as comments,
+		// that we aren't checking for.
+		public Record(string formText)
+			: this()
+		{
+			var keyMode = true;
+			string currentKey = null;
+			var currentValue = new List<string>();
+
+			using (var reader = new StringReader(formText))
+			{
+				for (; ; )
+				{
+					var line = reader.ReadLine();
+					if (line == null)
+					{
+						break;
+					}
+
+					if (keyMode)
+					{
+						var match = Regex.Match(line, @"^(\w+):(?:\t(\w+))?");
+						if (match.Success)
+						{
+							if (match.Groups[2].Success)
+							{
+								Add(match.Groups[1].Value, match.Groups[2].Value);
+							}
+							else
+							{
+								keyMode = false;
+								currentKey = match.Groups[1].Value;
+							}
+						}
+					}
+					else if (line.Length != 0 && line[0] == '\t')
+					{
+						currentValue.Add(line.Substring(1));
+					}
+					else
+					{
+						Add(currentKey, string.Join("\n", currentValue.ToArray()));
+
+						keyMode = true;
+						currentKey = null;
+						currentValue.Clear();
+					}
+				}
+			}
+
+			if (!keyMode)
+			{
+				Add(currentKey, string.Join("\n", currentValue.ToArray()));
+			}
+		}
+
+		internal Record(BinaryReader reader)
+			: this()
+		{
+			foreach (var kv in r_hash(reader))
+			{
+				var k = kv.Key;
+				var v = kv.Value;
+				var rec = this;
+
+				var m = _nameRx.Match(k);
+				if (m.Success)
+				{
+					k = m.Groups[1].Value;
+
+					foreach (var i in
+						from part in m.Groups[2].Value.Split(',')
+						select int.Parse(part))
+					{
+						while (rec.Items.Count <= i)
+						{
+							rec._items.Add(new Record());
+						}
+
+						rec = rec._items[i];
+					}
+				}
+
+				// special: the record may contain keys without values, which p4 uses to signify a flag. set it to 'true' to make it clear.
+				if (Utility.IsNullOrWhiteSpace(v))
+				{
+					v = "true";
+				}
+
+				rec.Add(k, v);
+			}
+		}
+
+		// global options
+		public static bool CancelOnCtrlC { get { return _cancelOnCtrlC; } set { _cancelOnCtrlC = value; } }
+
+		public IDictionary<string, string> Fields { get { return this; } }
+		public TimeFieldDictionary TimeFields { get { return new TimeFieldDictionary(this); } }
+		public ArrayFieldCollection ArrayFields { get { return new ArrayFieldCollection(this); } }
+		public IList<Record> Items { get { return _items ?? (_items = new List<Record>()); } }
+		public bool HasItems { get { return _items != null && _items.Count != 0; } }
+		public bool IsInfo { get { return string.Compare(this["code"], "info", true) == 0; } }
+		public bool IsFailure { get { return string.Compare(this["code"], "error", true) == 0; } }
+		public bool IsError { get { return ErrorSeverity >= 3; } }
+		public bool IsWarning { get { return ErrorSeverity > 0 && !IsError; } }
+
+		public int ErrorSeverity
+		{
+			get
+			{
+				if (!IsFailure) { return 0; }
+
+				int severity;
+				int.TryParse(this["severity"], out severity);
+				return severity;
+			}
+		}
+
+		public string[] SortedFieldKeys
+		{
+			get
+			{
+				var keys = new string[Count];
+				Keys.CopyTo(keys, 0);
+				Array.Sort(keys);
+				return keys;
+			}
+		}
+
+		/// <summary>
+		/// Call this to run a P4 command.
+		/// </summary>
+		/// <param name="workingDir">Working dir for P4. Necessary when relying on p4.ini or using relative local paths. Optional, defaults to .NET current dir.</param>
+		/// <param name="cmdLine">The command line to send to p4.exe. Make sure to quote paths with spaces. Required.</param>
+		/// <param name="input">An input record to send in to a command that takes an input form, such as 'client -i'. Optional.</param>
+		/// <param name="lazy">Controls whether the enumerable is lazily evaluated or not. True means minimal memory usage, immediate results and best performance, but
+		/// also puts a burden on the client of needing to consume the entire thing to guarantee operations like 'sync' finish. Optional, defaults to false.</param>
+		/// <returns>All results from P4, reprocessed into Record objects</returns>
+		public static IEnumerable<Record> Run(string workingDir, string cmdLine, Record input, bool lazy)
+		{
+			var records = RunLazy(workingDir, cmdLine, input);
+			if (!lazy)
+			{
+				records = records.ToList();
+			}
+
+			return records;
+		}
+
+		public static IEnumerable<Record> Run(string workingDir, string cmdLine, Record input)
+		{ return Run(workingDir, cmdLine, input, false); }
+		public static IEnumerable<Record> Run(string workingDir, string cmdLine, bool lazy)
+		{ return Run(workingDir, cmdLine, null, lazy); }
+		public static IEnumerable<Record> Run(string workingDir, string cmdLine)
+		{ return Run(workingDir, cmdLine, null, false); }
+		public static IEnumerable<Record> Run(string cmdLine, Record input, bool lazy)
+		{ return Run(null, cmdLine, input, lazy); }
+		public static IEnumerable<Record> Run(string cmdLine, Record input)
+		{ return Run(null, cmdLine, input, false); }
+		public static IEnumerable<Record> Run(string cmdLine, bool lazy)
         { return Run(null, cmdLine, null, lazy); }
         public static IEnumerable<Record> Run(string cmdLine)
         { return Run(null, cmdLine, null, false); }
