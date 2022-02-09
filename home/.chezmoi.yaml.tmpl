@@ -15,9 +15,14 @@ diff:
 
 merge:
   command: pwsh
-  args: [{{.profile.home_dirf}}/.config/beyondcompare/bcmerge-chezmoi.ps1, -Destination, '{{`{{ .Destination }}`}}', -Source, '{{`{{ .Source }}`}}', -Target, '{{`{{ .Target }}`}}']
+  args: [{{.profile.home_dirf}}/.config/chezmoi/merge.ps1, -BeyondCompare, -Destination, '{{`{{ .Destination }}`}}', -Source, '{{`{{ .Source }}`}}', -Target, '{{`{{ .Target }}`}}']
 {{-   else }}{{/* can happen if posh profile not applied yet */ -}}
-# Beyond Compare not detected!
+diff:
+  command: kdiff3
+
+merge:
+  command: pwsh
+  args: [{{.profile.home_dirf}}/.config/chezmoi/merge.ps1, -KDiff3, -Destination, '{{`{{ .Destination }}`}}', -Source, '{{`{{ .Source }}`}}', -Target, '{{`{{ .Target }}`}}']
 {{-   end }}
 {{- end }}
 

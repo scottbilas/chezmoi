@@ -2,6 +2,7 @@
 
 [CmdletBinding()]
 param (
+    [switch] $BeyondCompare, [switch] $KDiff3,
     [Parameter(Mandatory = $true)] $Destination,
     [Parameter(Mandatory = $true)] $Source,
     $Target # not used currently, but this is a (possibly template-expanded) file in the temp folder
@@ -26,10 +27,21 @@ if ($gitSource) {
     git -C $gitRoot show HEAD:$gitSource > $base
 
     # "destination on the left" matches chezmoi status
-    bc $dst $Source $base /centertitle="HEAD:$gitSource"
+    if ($BeyondCompare) {
+        bc $dst $Source $base /centertitle="HEAD:$gitSource"
+    }
+    if ($KDiff3) {
+        kdiff3 -m $base $dst $Source -o $Source --L1 "HEAD:$gitSource"
+        del "$Source.orig" # not needed, we have version control
+    }
 }
 else {
-    bc $dst $Source
+    if ($BeyondCompare) {
+        bc $dst $Source
+    }
+    if ($KDiff3) {
+        kdiff3 $dst $Source
+    }
 }
 
 # TODO: wait on bcomp and then delete tempfile $base
