@@ -309,5 +309,26 @@
     {
         "key": "alt+f",
         "command": "-extension.openMatchingFiles"
+    },
+    {
+        "key": "ctrl+alt+h",
+        "command": "workbench.action.navigateLeft"
+    },
+    {
+        "key": "ctrl+alt+l",
+        "command": "workbench.action.navigateRight"
+    },
+    {
+        "key": "ctrl+alt+k",
+        "command": "workbench.action.navigateUp"
+    },
+    {
+        "key": "ctrl+alt+j",
+        "command": "workbench.action.navigateDown"
+    },
+    {
+        "key": "ctrl+alt+j",
+        "command": "-editor.action.insertSnippet",
+        "when": "editorTextFocus && editorLangId == 'powershell'"
     }
 ]
