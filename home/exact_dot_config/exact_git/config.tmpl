@@ -64,6 +64,9 @@
     gone = ! "git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}'"
     rm-gone = ! "git gone | xargs -r git branch -D"
 
+    # make a new commit from root containing the whole tree (https://stackoverflow.com/a/23486788/14582)
+    squash-all = ! "git reset $(git commit-tree HEAD^{tree} -m 'Initial commit')"
+
     # easily get into git environment for testing
     sh = !sh
 
