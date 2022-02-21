@@ -1,0 +1,14 @@
+@echo off
+
+rem important!
+rem
+rem git will write symlinks back to the source when possible, which can break diffing in BC.
+rem
+rem to fix, go to Rules (referee icon), Handling tab, then check "Follow symbolic links" and save as defaults.
+rem (thanks to https://stackoverflow.com/a/35319884/14582)
+
+{{ if get .profile "beyond_compare_dirf" -}}
+{{.profile.beyond_compare_dirf}}/BComp.exe -expandall -lefttitle="%GIT_WORK_TREE% - left" -righttitle="%GIT_WORK_TREE% - right" %1 %2
+{{ else -}}
+echo ERROR! Beyond Compare NOT detected
+{{ end -}}
