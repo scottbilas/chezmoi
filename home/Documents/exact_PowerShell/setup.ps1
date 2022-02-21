@@ -233,6 +233,35 @@ if ($badScoop -or $Upgrade) {
     scoop status
 }
 
+# check for default shell not pointing at pwsh. this is important for a couple reasons:
+#
+# 1. git through ssh into this machine will fail because single quotes get added around params, which are passed directly through to git commands, which then fail. for example a fetch will give an error like `fatal: ''C:/proj/OkTools'' does not appear to be a git repository`. switching to pwsh removes the quotes. (credit: https://serverfault.com/a/973455/1920)
+# 2. i actually want powershell to be the default shell anyway for my own uses.
+#
+# to get remote fetch to work, have to..
+#   g remote add mymachine mymachine:C:/path/to/thing
+#   config remote.mymachine.uploadpack /C/Users/scott/scoop/apps/git/current/mingw64/bin/git-upload-pack.exe
+#
+# TODO: make that config unnecessary somehow..
+#    1. just add it to the standard path, whatev (dislike, will cause collisions)
+#    2. add a symlink just to that file from somewhere
+#    3. detect we're running as ssh+git from profile and add path there (see https://github.com/PowerShell/Win32-OpenSSH/wiki/DefaultShell for how to pass args in..though easy to detect from env var SSH_ stuff set)
+#    4. diagnose why this stupid problem is happening anyway and fix the actual issue..
+
+$sshDefaultShell = Get-ItemProperty -ea:silent 'HKLM:\SOFTWARE\OpenSSH' | % DefaultShell
+if (Test-Path -ea:silent $sshDefaultShell) {
+    if ((Split-Path -Leaf $sshDefaultShell) -eq 'pwsh.exe') {
+        Write-Output "[check] OpenSSH(d) default shell set to pwsh ok"
+    }
+    else {
+        Write-Error "[check] OpenSSH(d) default shell set to $sshDefaultShell rather than pwsh"
+    }
+}
+else {
+    Write-Error "[check] OpenSSH(d) default shell is not set"
+    # sudo New-ItemProperty -PropertyType String -Force -Path HKLM:\SOFTWARE\OpenSSH -Name DefaultShell -Value C:\Program Files\PowerShell\7\pwsh.exe
+}
+
 # look for bcomp not wired up to explorer
 
 $bcShellPath = Get-ItemProperty -ea:silent 'HKCU:\SOFTWARE\Classes\CLSID\{57FA2D12-D22D-490A-805A-5CB48E84F12A}\InProcServer32' | % '(Default)'
