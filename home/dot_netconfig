@@ -1,9 +1,9 @@
 # OKUNITY
 
 [toolchains]
-include=c:/builds/editor/*
-include=c:/work/unity*/build/*editor/*/*
-include=d:/work/unity*/build/*editor/*/*
+spec=c:/builds/editor/*
+spec=c:/work/unity*/build/*editor/*/*
+spec=d:/work/unity*/build/*editor/*/*
 ; older build style
-include=c:/work/unity*/build/*editor
-include=d:/work/unity*/build/*editor
+spec=c:/work/unity*/build/*editor
+spec=d:/work/unity*/build/*editor
