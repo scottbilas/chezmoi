@@ -230,7 +230,14 @@ Write-Output '[check] Scoop apps ok'
 
 # anything (else) going on with scoop?
 if ($badScoop -or $Upgrade) {
+    Write-Output '[check] Scoop upgrade status (scoop update *)'
     scoop status
+}
+
+# winget also
+if ($Upgrade -and (Get-Command winget)) {
+    Write-Output '[winget] Winget upgrade status (winget upgrade --all)'
+    winget upgrade
 }
 
 # check for default shell not pointing at pwsh. this is important for a couple reasons:
