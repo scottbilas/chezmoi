@@ -1,9 +1,11 @@
 # OKUNITY
 
 [toolchains]
-spec=c:/builds/editor/*
 spec=c:/work/unity*/build/*editor/*/*
 spec=d:/work/unity*/build/*editor/*/*
 ; older build style
 spec=c:/work/unity*/build/*editor
 spec=d:/work/unity*/build/*editor
+
+[install]
+root=c:/builds/editor

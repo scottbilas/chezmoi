@@ -149,3 +149,12 @@
 
 # ensure this is set (HKLM probs)
 # _NT_SYMBOL_PATH=srv*c:\Symbols*https://msdl.microsoft.com/download/symbols
+
+
+# ensure that autoruns, procmon, etc. all have the admin property bit set on their exe
+
+
+# block autorun of certain things that i always want blocked (remove their tasks too possibly)
+
+
+# check that (and fix) `less` and other overrides for busybox as dominant (scoop reset)
