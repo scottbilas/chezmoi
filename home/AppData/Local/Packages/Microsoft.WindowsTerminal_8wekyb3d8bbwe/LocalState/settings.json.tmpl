@@ -2,6 +2,7 @@
 // defaults: hold "alt" while clicking on the "Settings" button
 
 {
+    "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
 
     "alwaysShowTabs": false,
@@ -23,8 +24,7 @@
                 "taskbar"
             ],
             "colorScheme": {{ if eq .profile.theme "dark" }}"One Half Dark"{{ else }}"Campbell Powershell"{{ end }},
-            "fontFace": "CaskaydiaCove NF", // scoop install CascadiaCode-NF
-            "fontSize": 9,
+            "font": { "face": "CaskaydiaCove NF", "size": 9 }, // scoop install CascadiaCode-NF
             "historySize": 100000
         },
 
