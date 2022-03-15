@@ -1,3 +1,15 @@
+# SETUP
+#
+
+# until i get a reliable setup for ssh git on windows without wsl, here is how
+# i do it now.
+#
+# 1. ensure can ssh into machine
+# 2. ensure posh set as system shell, or the quoting that git does will get screwed up in arg processing. pssetup script has a check for this.
+# 3. per repo...
+#    a. `g remote add mymachine machine:C:/path/to/repo
+#    b. `g config remote.mymachine.uploadpack (resolve-path ~/scoop/apps/git/current/mingw64/bin/git-upload-pack.exe)
+
 ;        _ _
 ;   __ _| (_) __ _ ___  ___  ___
 ;  / _` | | |/ _` / __|/ _ \/ __|
@@ -222,7 +234,6 @@
     tool = vimdiff3
 [difftool "vimdiff3"]
 #   path = nvim
-
 [merge]
     tool = vimdiff3
 [mergetool "vimdiff3"]
