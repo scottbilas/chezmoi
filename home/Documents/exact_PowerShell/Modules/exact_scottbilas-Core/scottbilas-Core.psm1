@@ -26,10 +26,24 @@ function Set-DarkMode {
     chezmoi apply ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json
     chezmoi apply ~/AppData/Roaming/LINQPad/RoamingUserOptions.xml
 
-    # TODO:
-    #
-    # * figure out how to get slack inside of wavebox to switch themes (will probably require an extension..)
-    # * change wallpaper :D
+    # update p4v (requires manual p4v restart)
+    $p4vxpath = Resolve-Path -ea:silent '~\.p4qt\ApplicationSettings.xml'
+    if ($p4vxpath) {
+        $p4vxml = [xml](Get-Content $p4vxpath)
+
+        $p4vtheme = $Off ? 'false' : 'true'
+        $entry = $p4vxml.PropertyList.Bool | Where-Object { $_.varName -eq 'DarkTheme' }
+        if ($entry -and $entry.'#text' -ne $p4vtheme) {
+            $entry.'#text' = $p4vtheme
+            $p4vxml.Save($p4vxpath)
+
+            if (get-process -ea:silent p4v) {
+                Write-Host 'Restart P4V for theme change to take effect'
+            }
+        }
+    }
+
+    # TODO: change wallpaper :D
 }
 Export-ModuleMember Set-DarkMode
 

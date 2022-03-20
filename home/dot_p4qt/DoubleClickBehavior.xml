@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--perforce-xml-version=1.0-->
-<PropertyList IsManaged="TRUE" varName="DoubleClickBehavior">
+<PropertyList varName="DoubleClickBehavior" IsManaged="TRUE">
  <String varName="DoubleClickBranchMapping">ViewBranchmapping</String>
  <String varName="DoubleClickDepotDirectory">ExpandCollapseFolder</String>
  <String varName="DoubleClickDepotFile">Open</String>

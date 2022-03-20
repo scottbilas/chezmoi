@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--perforce-xml-version=1.0-->
-<PropertyList IsManaged="TRUE" varName="ApplicationShortcuts">
+<PropertyList varName="ApplicationShortcuts" IsManaged="TRUE">
  <String varName="FD_DiffRow"></String>
  <String varName="FD_EditThenOpen"></String>
  <String varName="FD_FilterContent">Alt+Left</String>
@@ -98,6 +98,8 @@
  <String varName="includeFiles"></String>
  <String varName="includeSpecial"></String>
  <String varName="includeTree"></String>
+ <String varName="inheritedRevisionHistory"></String>
+ <String varName="inheritedStreamRevGraph"></String>
  <String varName="integrate"></String>
  <String varName="jumpToAddressBar">Alt+L</String>
  <String varName="labelTag"></String>
@@ -131,6 +133,7 @@
  <String varName="openInSwarm"></String>
  <String varName="openReview"></String>
  <String varName="openSpec"></String>
+ <String varName="openStreamInherit"></String>
  <String varName="openTerminal"></String>
  <String varName="p4undo"></String>
  <String varName="paste">Ctrl+V</String>
@@ -217,6 +220,7 @@
  <String varName="showInStreamGraph"></String>
  <String varName="showInWorkspace"></String>
  <String varName="showInfo">Ctrl+I</String>
+ <String varName="showInheritedInStreamGraph"></String>
  <String varName="showLocalAndDepotFiles"></String>
  <String varName="showLogServer"></String>
  <String varName="showOnlyLocalFiles"></String>
@@ -255,6 +259,7 @@
  <String varName="streamCheckOutEdit"></String>
  <String varName="streamConvert"></String>
  <String varName="streamCopyUp"></String>
+ <String varName="streamMatch">Ctrl+Shift+S</String>
  <String varName="streamMergeDown"></String>
  <String varName="streamResolve"></String>
  <String varName="streamRevGraph"></String>
