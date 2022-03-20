@@ -26,7 +26,7 @@ function Set-DarkMode {
     chezmoi apply ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json
     chezmoi apply ~/AppData/Roaming/LINQPad/RoamingUserOptions.xml
 
-    # update p4v (requires manual p4v restart)
+    # update p4v
     $p4vxpath = Resolve-Path -ea:silent '~\.p4qt\ApplicationSettings.xml'
     if ($p4vxpath) {
         $p4vxml = [xml](Get-Content $p4vxpath)
@@ -39,6 +39,19 @@ function Set-DarkMode {
 
             if (get-process -ea:silent p4v) {
                 Write-Host 'Restart P4V for theme change to take effect'
+            }
+        }
+    }
+
+    # update unity
+    $unityreg = Get-ItemPropertyValue -ea:silent 'HKCU:Software\Unity Technologies\Unity Editor 5.x' UserSkin_h307680651
+    if ($null -ne $unityreg) {
+        $unitytheme = $Off ? 0 : 1
+        if ($unityreg -ne $unitytheme) {
+            Set-ItemProperty 'HKCU:Software\Unity Technologies\Unity Editor 5.x' UserSkin_h307680651 $unitytheme
+
+            if (get-process -ea:silent unity) {
+                Write-Host 'Restart Unity for theme change to take effect (or manually update theme in editor prefs)'
             }
         }
     }
