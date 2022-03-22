@@ -34,11 +34,14 @@ function Set-DarkMode {
         $p4vtheme = $Off ? 'false' : 'true'
         $entry = $p4vxml.PropertyList.Bool | Where-Object { $_.varName -eq 'DarkTheme' }
         if ($entry -and $entry.'#text' -ne $p4vtheme) {
-            $entry.'#text' = $p4vtheme
-            $p4vxml.Save($p4vxpath)
 
             if (get-process -ea:silent p4v) {
-                Write-Host 'Restart P4V for theme change to take effect'
+                # on p4v exit, it will overwrite the xml
+                Write-Host 'P4V is running, theme cannot change automatically'
+            }
+            else {
+                $entry.'#text' = $p4vtheme
+                $p4vxml.Save($p4vxpath)
             }
         }
     }
