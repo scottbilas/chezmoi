@@ -10,6 +10,9 @@ Import-Module Terminal-Icons
 
 Update-FormatData -PrependPath ~/Documents/PowerShell/CustomFormatters.ps1xml
 
+# needed to have zlocation hook into prompt
+Import-Module ZLocation
+
 ### FUNCTIONS
 
 function pester($file) {
