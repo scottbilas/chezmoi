@@ -1,47 +1,6 @@
 Set-StrictMode -Version Latest
 
-# TODO support arrays here, including autodetect from hub state and custom builds
-# TODO make this a dirinfo? want it to be optional though..
-$DefaultBuildsRoot = 'c:\builds\editor'
-
-function Get-UnityBuildConfig($UnityExePath) {
-
-    # least awful method, given we don't store buildconfig in VERSIONINFO..just go by some kind of size threshold
-    # https://unity.slack.com/archives/C07B85AE5/p1586853975112200?thread_ts=1586852005.107100&cid=C07B85AE5
-
-    $fileSize = (Get-Item $UnityExePath).Length
-
-    if ($fileSize -gt 60MB -and $fileSize -lt 150MB) { return 'Release' }
-    if ($fileSize -gt 300MB -and $fileSize -lt 400MB) { return 'Debug' }
-
-    throw "Unexpected size of $UnityExePath, need to revise detection bounds for Unity buildconfig"
-}
-
-function Get-MonoBuildConfig($MonoDllPath) {
-
-    # same as unity, no info in VERSIONINFO i can use
-
-    $fileSize = (Get-Item $MonoDllPath).Length
-
-    if ($fileSize -gt 4MB -and $fileSize -lt 7.5MB) { return 'Release' }
-    if ($fileSize -gt 9MB -and $fileSize -lt 11MB) { return 'Debug' }
-
-    throw "Unexpected size $([Math]::Round($fileSize / 1MB, 2))MB for $MonoDllPath, need to revise detection bounds for Mono buildconfig (rel=4-7.5MB, dbg=9-11MB)"
-}
-
-function Get-IsUnityProject($ProjectPath) {
-    $resolvedItem = Get-Item $ProjectPath
-
-    # must have a ProjectVersion.txt
-    $projectVersionTxt = Get-Item -ea:silent (Join-Path $resolvedItem ProjectSettings\ProjectVersion.txt)
-    if (!$projectVersionTxt -or $projectVersionTxt.PSIsContainer) { return $false }
-
-    # must have an Assets folder
-    $assetsDir = Get-Item -ea:silent (Join-Path $resolvedItem Assets)
-    if (!$assetsDir -or !$assetsDir.PSIsContainer) { return $false }
-
-    $true
-}
+## DELETE CODE HERE IT MOVES INTO OKUNITY
 
 # `using module ScottBilas.Unity` to pick this up in the profile
 enum UnityVersionMatch {
@@ -129,7 +88,7 @@ function Get-UnityInfo {
                     $result | Add-Member UnityVersionMatch ([UnityVersionMatch]::NoHash)
                 }
                 else {
-                    # TODO: break down 2020.3.14f1-dots-051fb20b3877 to do a partial match that requires the 
+                    # TODO: break down 2020.3.14f1-dots-051fb20b3877 to do a partial match that requires the
                     # same branch, major, and minor, but allows fuzzy matching on 2020.3.(\d+)([a-z]?\d+)
                 }
 
@@ -170,17 +129,17 @@ function Get-UnityInfo {
             $unityFolder = Split-Path $result.UnityExe
 
             $result | Add-Member UnityBuildConfig (Get-UnityBuildConfig $result.UnityExe)
-        
+
             $udcliPath = Get-Item -ea:silent (Join-Path $unityFolder .unity-downloader-meta.yml)
             if ($udcliPath) {
                 $udcliMeta = Get-Content $udcliPath | ConvertFrom-Yaml
                 $result | Add-Member UnityBranch $udcliMeta.revision_info.branch
                 $result | Add-Member InstalledComponents $udcliMeta.components.Keys
             }
-        
+
             $result | Add-Member MonoRuntimeDll (Get-Item (Join-Path $unityFolder Data/MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll))
             $result | Add-Member MonoRuntimeBuildConfig (Get-MonoBuildConfig $result.MonoRuntimeDll)
-        
+
             $result | Add-Member -MemberType ScriptMethod GetVersionFull { "$($this.Version)-$($this.Hash)" }
         }
 
@@ -241,7 +200,7 @@ function Install-Unity {
     }
     $udargs += '--wait'
 
-    if ($PSCmdlet.ShouldProcess($udargs -join ' ')) { 
+    if ($PSCmdlet.ShouldProcess($udargs -join ' ')) {
         iee @udargs
 
         # we have full symbols, so nuke the stripped symbols otherwise vs may use them as the pdb is in the same folder as the exe
@@ -255,65 +214,8 @@ function Install-Unity {
     # TODO: (consider) support telling the Hub about the newly installed build
 }
 
-function Find-UnityProjects {
-    [CmdletBinding()]
-    param(
-        [Parameter(ValueFromPipeline)][string]$Path = (Get-Location),
-        [int]$SearchDepth = 1
-    )
-
-    Get-ChildItem -Path $Path -Depth $SearchDepth -Filter 'ProjectSettings' | ForEach-Object {
-        # if we have this file and this path, then it's probably a unity project
-        if ((Test-Path (Join-Path $_ 'ProjectVersion.txt')) -and (Test-Path (Join-Path $_ '../Assets'))) {
-            # could return it as a DirectoryInfo, but that gets confusing when also using -Depth, because the default
-            # formatted result appears to be (if you look quickly) the contents of a single dir. could improve this
-            # with a subclass or something for DirectoryInfo that can have a better formatter on it..but for now just
-            # go with the string path. can `Get-Info` on it if really needed.
-            $_.Parent.FullName
-        }
-    }
-}
-
 function Start-UnityForProject {
 
-    [CmdletBinding(SupportsShouldProcess)]
-    param (
-        [Parameter(ValueFromPipeline)] $ProjectPath = (Get-Location),
-        [UnityVersionMatch]$BuildMatch = [UnityVersionMatch]::Exact,
-        $UnityBuild,
-        [switch] $AttachDebugger,
-        [switch] $VerboseUpmlogs,
-        [switch] $Rider,
-        [switch] $NoBurst,
-        [switch] $NoLocalLog
-    )
-
-    $info = Get-UnityInfo $ProjectPath
-
-    if (!$info.PSObject.Properties.Item('ProjectPath')) {
-        return Write-Error "No Unity project at $ProjectPath"
-    }
-    if (!$info.PSObject.Properties.Item('UnityExe')) {
-        return Write-Error "No Unity exe found for project at $ProjectPath (version = $($info.GetVersionFull()))"
-    }
-    if (![UnityVersionMatch].IsMatch($info.UnityVersionMatch, $BuildMatch)) {
-        return Write-Error "Unity Version does not match (expected: $($info.GetVersionFull()), match: $($info.UnityVersionMatch), found: $($info.UnityExe))"
-    }
-
-    $unityArgs = '-projectPath', $info.ProjectPath
-
-    if ($VerboseUpmlogs) {
-        write-warning "Turning on extra debug logging for UPM (%LOCALAPPDATA%\Unity\Editor\upm.log)"
-        $unityArgs += '-enablePackageManagerTraces'
-    }
-
-    if ($Rider) {
-        $unityArgs += '-executeMethod', 'Packages.Rider.Editor.RiderScriptEditor.SyncSolutionAndOpenExternalEditor'
-    }
-
-    if ($NoBurst) {
-        $unityArgs += "--burst-disable-compilation"
-    }
 
     # override with project-local log file (unity..this should be DEFAULT)
     if (!$NoLocalLog) {
