@@ -1,4 +1,5 @@
 .editorconfig
+**/__pycache__
 {{ if ne .chezmoi.os "windows" }}
 AppData
 Documents
