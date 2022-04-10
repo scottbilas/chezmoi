@@ -1,8 +1,8 @@
 .editorconfig
-{{ if eq .chezmoi.os "linux" }}
-  AppData
-  Documents
-  exact_dot_config/exact_windows
-  exact_dot_config/scoop
-  scoop
+{{ if ne .chezmoi.os "windows" }}
+AppData
+Documents
+scoop
+.config/windows
+.config/scoop
 {{ end }}

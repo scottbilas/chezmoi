@@ -6,7 +6,7 @@
     stripComponents = 1
 {{- end }}
 
-{{ if eq .chezmoi.os "linux" }}
+{{ if ne .chezmoi.os "windows" }}
 [".config/bat/extras"]
     type = "archive"
     # https://github.com/eth-p/bat-extras/releases to find a newer one
