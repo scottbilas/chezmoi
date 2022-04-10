@@ -1,7 +1,9 @@
 .editorconfig
 .config/lazygit/state.yml
+.config/gh/hosts.yml
 **/__pycache__
 {{ if ne .chezmoi.os "windows" }}
+.netconfig
 AppData
 Documents
 scoop
