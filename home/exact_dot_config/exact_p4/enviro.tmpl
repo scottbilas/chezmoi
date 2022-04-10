@@ -1,16 +1,20 @@
 # This is a global .p4config, which can be overridden by `.p4config` files in the project folders.
 
-P4ALIASES=C:/Users/scott/.config/p4/aliases
+P4ALIASES={{.profile.home_dirf}}/.config/p4/aliases
 P4CONFIG=.p4config
 P4EDITOR=micro
 P4IGNORE=.p4ignore
-P4TICKETS=C:/Users/scott/.local/state/p4/.p4tickets
+P4TICKETS={{.profile.home_dirf}}/.local/state/p4/.p4tickets
 P4USER=scobi
 
-P4DIFF=C:/Users/scott/scoop/apps/beyondcompare/current/bcomp.exe
-P4MERGE=C:/Users/scott/scoop/apps/beyondcompare/current/bcmerge-p4.cmd
+{{ if get .profile "beyond_compare_dirf" -}}
+P4DIFF={{.profile.beyond_compare_dirf}}/bcomp.exe
+P4MERGE={{.profile.beyond_compare_dirf}}/bcmerge-p4.cmd
+{{- end }}
 
-
-# note that if P4 adds any new entries below here like `P4_path:port_CHARSET=none` they need to move to either:
+{{ if eq .chezmoi.os "windows" -}}
+# note that if P4 adds any new entries below here like `P4_path:port_CHARSET=none`,
+# they need to move to either:
 #   - folder .p4config
 #   - registry under `Computer\HKEY_CURRENT_USER\Software\Perforce\Environment`
+{{- end }}
