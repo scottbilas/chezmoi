@@ -2,11 +2,21 @@
 .config/lazygit/state.yml
 .config/gh/hosts.yml
 **/__pycache__
-{{ if ne .chezmoi.os "windows" }}
+
+{{ if eq .chezmoi.os "windows" }}
+.config/lazygit
+.config/ranger
+.config/tmux
+.cache/ssh
+{{ else }}
 .netconfig
 AppData
 Documents
 scoop
 .config/windows
 .config/scoop
+{{ end }}
+
+{{ if ne .chezmoi.os "android" }}
+.termux
 {{ end }}
