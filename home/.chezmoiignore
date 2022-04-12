@@ -17,6 +17,33 @@ scoop
 .config/scoop
 {{ end }}
 
-{{ if ne .chezmoi.os "android" }}
+{{ if eq .chezmoi.os "android" }}
+# ignore a pile of stuff that comes from https://github.com/Yisus7u7/termux-desktop-xfce until i have a chance to integrate it
+.config/Kvantum
+.config/Thunar
+.config/arqiver
+.config/audacious
+.config/autostart
+.config/cairo-dock
+.config/dconf
+.config/galculator
+.config/geany
+.config/gigolo
+.config/glade.conf
+.config/glib-2.0
+.config/gnuplot
+.config/gtk-2.0
+.config/gtk-3.0
+.config/leafpad
+.config/mimeapps.list
+.config/neofetch
+.config/pulse
+.config/qt5ct
+.config/ristretto
+.config/shpkg_repo.list
+.config/user-dirs.dirs
+.config/xfce4
+.config/xfce4-dict
+{{ else }}
 .termux
 {{ end }}
