@@ -18,6 +18,10 @@ scoop
 {{ end }}
 
 {{ if eq .chezmoi.os "android" }}
+# not ready for this yet
+.config/code-server
+.config/yarn
+
 # ignore a pile of stuff that comes from https://github.com/Yisus7u7/termux-desktop-xfce until i have a chance to integrate it
 .config/Kvantum
 .config/Thunar
