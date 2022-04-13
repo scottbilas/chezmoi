@@ -10,7 +10,7 @@
     # https://github.com/eth-p/bat-extras/releases to find a newer one
     url = "https://github.com/eth-p/bat-extras/releases/download/v2021.08.21/bat-extras-20210821.zip"
     exact = true
-[".config/tmux/plugins/tpm"]
+[".local/share/tmux/plugins/tpm"]
     type = "archive"
     url = "https://github.com/tmux-plugins/tpm/archive/refs/heads/master.tar.gz"
     stripComponents = 1
