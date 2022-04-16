@@ -1,4 +1,7 @@
 .editorconfig
+.config/elinks/cookies
+.config/elinks/*hist
+.config/elinks/socket*
 .config/lazygit/state.yml
 .config/gh/hosts.yml
 **/__pycache__
