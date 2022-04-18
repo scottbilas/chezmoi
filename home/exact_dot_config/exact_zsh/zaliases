@@ -1,0 +1,53 @@
+alias realias='source ~/.config/zsh/zaliases'
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias ~="cd ~"
+alias -- -="cd -"
+
+alias l='ls -ACF'
+alias ll='ls -AgGhF $@'
+mcd() { mkdir $1 && cd $1 }
+alias rd=rmdir
+
+alias m=micro
+alias g=git
+alias lg=lazygit
+alias ncdu='ncdu --color dark $@'
+
+# no sudo in termux, so alias it to help when pasting cli's from stackoverflow :D
+[[ -v TERMUX_VERSION ]] && alias sudo=''
+
+if (($+commands[bat])); then
+    alias cat='bat --paging=never'
+    alias rgb=~/.config/bat/extras/src/batgrep.sh
+    alias man=~/.config/bat/extras/src/batman.sh
+fi
+
+alias cm=chezmoi
+alias cm-s='cm status'
+alias cm-d='cm diff'
+
+if [[ -f ~/.local/share/repos/prettyping/prettyping ]]; then
+    alias ping='~/.local/share/repos/prettyping/prettyping --nolegend'
+fi
+
+# use 'Q' hotkey to exit ranger and keep its CWD
+# (https://superuser.com/a/1436077/4518)
+function ranger {
+  local IFS=$'\t\n'
+  local tempfile="$(mktemp -t tmp.XXXXXX)"
+  local ranger_cmd=(
+    command
+    ranger
+    --cmd="map Q chain shell echo %d > \"$tempfile\"; quitall"
+  )
+
+  ${ranger_cmd[@]} "$@"
+  if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$PWD" ]]; then
+    cd -- "$(cat -- "$tempfile")" || return
+  fi
+  command rm -f -- "$tempfile" 2>/dev/null
+}
+alias r=ranger

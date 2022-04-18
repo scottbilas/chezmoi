@@ -1,1 +1,137 @@
-eval "$(starship init zsh)"
+## COMMON ENV
+
+if (( $+commands[micro] )); then
+  export EDITOR=micro
+  export VISUAL=micro
+fi
+
+# paging
+
+if (( $+commands[most] )); then
+    export PAGER=most
+else
+    export PAGER=less
+fi
+
+# todo: why did i add this..?
+[[ "$OSTYPE" == darwin* ]] && export BROWSER=open
+
+# set a default LANG
+# todo: why do i need this..?
+[[ -z "$LANG" ]] && export LANG='en_US.UTF-8'
+
+## reroute configs and set paths
+
+export GOPATH=$HOME/go
+export BAT_CONFIG_PATH=$HOME/.config/bat/bat.conf
+export WEECHAT_HOME=$HOME/.config/weechat
+export ELINKS_CONFDIR=$HOME/.config/elinks
+export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
+
+if (( $+commands[fasd] )); then
+  # move out of root (folder not autocreated by fasd)
+  mkdir -p ~/.local/share/fasd
+  export _FASD_DATA=$HOME/.local/share/fasd/data
+fi
+
+## tune app settings
+
+export FZF_DEFAULT_OPTS="--tabstop=4 --preview-window=right:60% --bind 'alt-p:toggle-preview' --preview '(bat --color=always {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -500'"
+# debian: sudo apt install fd-find && sudo ln -s /usr/bin/fdfind /usr/local/bin/fd
+export FZF_DEFAULT_COMMAND='fd --hidden -E .git'
+export FZF_TMUX=1
+
+# ensure bat uses `less`, it's not so good with `most`
+export BAT_PAGER=less
+
+export MICRO_TRUECOLOR=1
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+# todo: why do I have --no-init and -z-4?
+export LESS='--quit-if-one-screen --hilite-search --hilite-unread --ignore-case --long-prompt --raw-control-chars --no-init -z-4'
+
+# todo: why do I have this?
+# Set the Less input preprocessor.
+# Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
+if (( $+commands[(i)lesspipe(|.sh)] )); then
+  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+fi
+
+if (( $+commands[vivid] )); then
+  # help choose theme for ls colors..
+  #
+  #for theme in $(vivid themes); do
+  #  echo "Theme: $theme"
+  #  LS_COLORS=$(vivid generate $theme) ls -al
+  #  echo
+  #done
+  export LS_COLORS=$(vivid generate solarized-dark)
+fi
+
+# other
+
+# completion
+
+# todo: figure out why getting compdef error after uncommenting below
+# (see https://github.com/sorin-ionescu/prezto/issues/1138)
+# bash compatibility
+#autoload -U bashcompinit && bashcompinit
+#
+#if [[ $(type -p az) ]]; then
+#    . ~/lib/azure-cli/az.completion
+#fi
+
+[[ $- == *i* ]] && source $HOME/.config/fzf/fzf/shell/completion.zsh 2> /dev/null
+source $HOME/.config/fzf/fzf/shell/key-bindings.zsh 2> /dev/null
+### FIX ME ^^ drop the /dev/null routing of errors
+
+# Ensure path arrays do not contain duplicates.
+typeset -gU cdpath fpath mailpath path
+
+cdpath=(
+  $cdpath
+  ~
+)
+
+path=(
+  /usr/local/{bin,sbin}
+  $path
+  ~/.local/bin
+  $GOPATH/bin
+  ~/.local/share/repos/dasht/bin
+  ~/.poetry/bin
+)
+
+#####
+
+[[ -d ~/.poetry ]] && source ~/.poetry/env
+#todo: check this works
+#fpath+=~/extern/dasht/etc/zsh/completions/
+
+# needed if dasht not installed via a package mamager
+if (( $+commands[dasht] )); then
+#  export MANPATH=$commands[dasht]:h:h/man
+#  source $commands[dasht]:h:h/etc/zsh/completions.zsh
+fi
+
+(( $+commands[chezmoi] )) && eval "$(chezmoi completion zsh)"
+# starship completion
+# fzf. fasd, etc.
+
+#### LAST
+
+# keep these last so they override any modules
+
+## OPTIONS
+
+unsetopt autocd
+unsetopt banghist
+unsetopt cdablevars
+
+## aliases
+
+source ~/.config/zsh/zaliases
+
+# finally any modules
+
+(( $+commands[starship] )) && eval "$(starship init zsh)"
+(( $+commands[fasd] )) && eval "$(fasd --init auto)"
