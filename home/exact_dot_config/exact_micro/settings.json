@@ -5,6 +5,7 @@
     "autosu": false,
     "backup": true,
     "basename": false,
+    "autoclose": false,
     "colorcolumn": 80,
     "colorscheme": "twilight",
     "comment": true,
