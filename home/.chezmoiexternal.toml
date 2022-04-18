@@ -7,12 +7,19 @@
 {{ else }}
 [".config/bat/extras"]
     type = "archive"
-    # https://github.com/eth-p/bat-extras/releases to find a newer one
-    url = "https://github.com/eth-p/bat-extras/releases/download/v2021.08.21/bat-extras-20210821.zip"
+    url = "https://github.com/scottbilas/bat-extras/archive/refs/heads/master.tar.gz"
     exact = true
+    include = ["*", "*/src/**", "*/lib/**"]
+    stripComponents = 1
 [".local/share/tmux/plugins/tpm"]
     type = "archive"
     url = "https://github.com/tmux-plugins/tpm/archive/refs/heads/master.tar.gz"
-    stripComponents = 1
     exact = true
+    stripComponents = 1
+[".local/share/repos/prettyping"]
+    type = "git-repo"
+    url = "https://github.com/denilsonsa/prettyping"
+[".local/share/repos/dasht"]
+    type = "git-repo"
+    url = "https://github.com/sunaku/dasht"
 {{- end }}
