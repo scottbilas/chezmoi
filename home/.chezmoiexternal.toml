@@ -11,11 +11,15 @@
     exact = true
     include = ["*", "*/src/**", "*/lib/**"]
     stripComponents = 1
-[".local/share/tmux/plugins/tpm"]
+[".config/ranger/colorschemes"]
     type = "archive"
-    url = "https://github.com/tmux-plugins/tpm/archive/refs/heads/master.tar.gz"
+    url = "https://github.com/alfunx/ranger-colorschemes/archive/refs/heads/master.tar.gz"
     exact = true
+    include = ["*", "*/*.py"]
     stripComponents = 1
+[".local/share/tmux/plugins/tpm"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tpm"
 [".local/share/repos/prettyping"]
     type = "git-repo"
     url = "https://github.com/denilsonsa/prettyping"
