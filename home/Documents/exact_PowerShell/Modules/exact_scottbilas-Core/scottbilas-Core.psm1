@@ -67,3 +67,18 @@ function Set-LightMode {
     Set-DarkMode -Off
 }
 Export-ModuleMember Set-LightMode
+
+# like from choco (originally from https://stackoverflow.com/a/22670892/14582)
+# TODO: print out what got updated!
+# TODO: also have the registry path override the current path (like if anything was reordered there)
+function refreshenv {
+    foreach ($level in 'Machine', 'User') {
+        [Environment]::GetEnvironmentVariables($level).GetEnumerator() | % {
+            if ($_.Name -eq 'path') { 
+                $_.Value = (((Get-Content "Env:$($_.Name)") + ";$($_.Value)") -split ';' | Select -unique) -join ';'
+            }
+            $_
+        } | Set-Content -Path { "Env:$($_.Name)" }
+    }
+}
+Export-ModuleMember refreshenv

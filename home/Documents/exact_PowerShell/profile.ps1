@@ -61,8 +61,8 @@ else {
 Set-Alias o explorer
 Set-Alias m micro
 Set-Alias cm chezmoi
-function cm-cd { Set-Location (chezmoi source-path) }
-function cm-st { chezmoi status }
+function cm-c { Set-Location (chezmoi source-path) }
+function cm-s { chezmoi status }
 function cm-d { chezmoi diff --use-builtin-diff @args }
 function dotf { code (Resolve-Path ~\.local\share\chezmoi\chezmoi.code-workspace) }
 function up { Set-Location .. }

@@ -47,4 +47,5 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
         }
 }
 
-Import-Module ~/scoop/apps/scoop/current/supporting/completion/Scoop-Completion.psd1
+# scoop install scoop-completion (from extras bucket)
+Import-Module ~/scoop/modules/scoop-completion
