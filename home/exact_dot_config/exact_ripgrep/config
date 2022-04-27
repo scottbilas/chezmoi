@@ -3,3 +3,10 @@
 
 # retain formatting with pager
 --pretty
+
+# include \r\n as a possible line terminator (for $ in regex)
+--crlf
+
+# trim leading whitespace (experimental: not totally sure i want this on all the time)
+# can disable on per-case basis with --no-trim
+--trim

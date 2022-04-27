@@ -20,6 +20,14 @@
           "type": "session"
         },
         {
+          "style": "diamond",
+          "leading_diamond": " ",
+          "trailing_diamond": " ",
+          "background": "#ff0000",
+          "foreground": "white",
+          "type": "root"
+        },
+        {
           "background": "#99295d",
           "foreground": "#ffffff",
           "powerline_symbol": "\ue0b0",
@@ -36,7 +44,7 @@
           "foreground": "#193549",
           "powerline_symbol": "\ue0b0",
           "properties": {
-            "branch_icon": "\ue0a0 ",
+            "branch_icon": "שׂ ",
             "fetch_stash_count": true,
             "fetch_status": true,
             "fetch_upstream_icon": true,
@@ -47,6 +55,26 @@
           "style": "powerline",
           "template": "{{ .UpstreamIcon }} {{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0}} \uf692 {{ .StashCount }}{{ end }}{{ if gt .WorktreeCount 0}} \uf1bb {{ .WorktreeCount }}{{ end }} ",
           "type": "git"
+        },
+        {
+          "type": "plastic",
+          "style": "powerline",
+          "powerline_symbol": "\uE0B0",
+          "foreground": "#193549",
+          "background": "#e65404",
+          "background_templates": [
+            "{{ if .MergePending }}#006060{{ end }}",
+            "{{ if .Changed }}#FF9248{{ end }}",
+            "{{ if and .Changed .Behind }}#ff4500{{ end }}",
+            "{{ if .Behind }}#B388FF{{ end }}"
+          ],
+          //"template": "{{ .Selector }}{{ if .Status.Changed }} \uF044 {{ end }}{{ .Status.String }}",
+          "template": " שׂ ",
+          "properties": {
+            //"fetch_status": true, // crazy slow, cannot use this without caching of some kind
+            "branch_max_length": 25,
+            "truncate_symbol": "\u2026"
+          }
         },
         {
           "background": "black",
