@@ -65,9 +65,13 @@ function cm-c { Set-Location (chezmoi source-path) }
 function cm-s { chezmoi status }
 function cm-d { chezmoi diff --use-builtin-diff @args }
 function dotf { code (Resolve-Path ~\.local\share\chezmoi\chezmoi.code-workspace) }
+function mcd($name) { [void](mkdir $name) && Set-Location $name }
 function up { Set-Location .. }
 function ov($what) { Set-Location ../$what }
 function ~ { Set-Location ~ }
+
+function l { Get-ChildItem $args | Format-Wide -AutoSize }
+function ll { Get-ChildItem -fo $args }
 
 if (Test-Path C:\p4\UnityExtPacks\Tools\okunity.exe) {
     Set-Alias oku C:\p4\UnityExtPacks\Tools\okunity.exe
