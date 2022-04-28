@@ -1,4 +1,5 @@
-alias realias='source ~/.config/zsh/zaliases'
+# reload the shell (does not nest; SHLVL unchanged)
+alias reload="exec $SHELL -l"
 
 alias ..="cd .."
 alias ...="cd ../.."
@@ -6,31 +7,41 @@ alias ....="cd ../../.."
 alias ~="cd ~"
 alias -- -="cd -"
 
-alias l='ls -ACF'
-alias ll='ls -AgGhF $@'
+if (($+commands[exa])); then
+  alias l='exa --all --classify --icons --group-directories-first'
+  if [[ -v TERMUX_VERSION ]]; then
+    alias ll='l --long --grid --no-user --git'
+  else
+    alias ll='l --long --grid --git'
+  fi
+  export EXA_GRID_ROWS=10
+else
+  alias l='ls -ACF'
+  alias ll='ls -AgGhF $@'
+fi
+
 mcd() { mkdir $1 && cd $1 }
 alias rd=rmdir
+alias path='echo -e ${PATH//:/\\n}'
 
 alias m=micro
 alias g=git
 alias lg=lazygit
 alias ncdu='ncdu --color dark $@'
 
-# no sudo in termux, so alias it to help when pasting cli's from stackoverflow :D
-[[ -v TERMUX_VERSION ]] && alias sudo=''
-
 if (($+commands[bat])); then
-    alias cat='bat --paging=never'
-    alias rgb=~/.config/bat/extras/src/batgrep.sh
-    alias man=~/.config/bat/extras/src/batman.sh
+  alias cat='bat --paging=never'
+  alias rgb=~/.config/bat/extras/src/batgrep.sh
+  alias man=~/.config/bat/extras/src/batman.sh
 fi
 
 alias cm=chezmoi
 alias cm-s='cm status'
 alias cm-d='cm diff'
+alias cm-c='cm cd'
 
 if [[ -f ~/.local/share/repos/prettyping/prettyping ]]; then
-    alias ping='~/.local/share/repos/prettyping/prettyping --nolegend'
+  alias ping='~/.local/share/repos/prettyping/prettyping --nolegend'
 fi
 
 # use 'Q' hotkey to exit ranger and keep its CWD
@@ -48,6 +59,10 @@ function ranger {
   if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$PWD" ]]; then
     cd -- "$(cat -- "$tempfile")" || return
   fi
+
   command rm -f -- "$tempfile" 2>/dev/null
 }
 alias r=ranger
+
+# no sudo in termux, so alias it to help when pasting cli's from stackoverflow :D
+[[ -v TERMUX_VERSION ]] && alias sudo=''

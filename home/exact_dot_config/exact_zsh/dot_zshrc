@@ -1,5 +1,8 @@
 ## COMMON ENV
 
+# a few apps don't respect XDG spec (i.e. they use ~/.myappname if this isn't set)..
+export XDG_CONFIG_HOME=$HOME/.config
+
 if (( $+commands[micro] )); then
   export EDITOR=micro
   export VISUAL=micro
@@ -36,10 +39,13 @@ fi
 
 ## tune app settings
 
-export FZF_DEFAULT_OPTS="--tabstop=4 --preview-window=right:60% --bind 'alt-p:toggle-preview' --preview '(bat --color=always {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -500'"
+if (( $+commands[fzf] )); then
+    export FZF_DEFAULT_OPTS="--tabstop=4 --preview-window=right:60% --bind 'alt-p:toggle-preview' --preview '(bat --color=always {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -500'"
 # debian: sudo apt install fd-find && sudo ln -s /usr/bin/fdfind /usr/local/bin/fd
-export FZF_DEFAULT_COMMAND='fd --hidden -E .git'
-export FZF_TMUX=1
+    export FZF_DEFAULT_COMMAND='fd --hidden'
+    # TODO: this is outdated..get automatic tmux working
+    export FZF_TMUX=1
+fi
 
 # ensure bat uses `less`, it's not so good with `most`
 export BAT_PAGER=less
@@ -123,9 +129,53 @@ fi
 
 ## OPTIONS
 
-unsetopt autocd
-unsetopt banghist
-unsetopt cdablevars
+setopt auto_pushd
+
+## history-relaetd
+
+mkdir -p ~/.local/shared/zsh
+HISTFILE=~/.local/shared/zsh/history
+HISTSIZE=5000  # memory buffer max size in lines
+SAVEHIST=5000   # file max size in lines
+setopt append_history          # append to history file instead of overwrite
+setopt share_history           # share command history data across terminals
+setopt bang_hist               # https://linuxhint.com/search-in-my-zsh-history/
+setopt hist_ignore_all_dups    # don't want any dups in history at all
+setopt hist_ignore_space       # leading space will prevent adding the command to history
+
+# map up/down arrow to partial history-based match, while also supporting cursoring
+# within a multiline command.
+autoload up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+
+## line editing
+
+# ctrl left/right to move word left/right
+bindkey '^[[1;5C' emacs-forward-word
+bindkey '^[[1;5D' emacs-backward-word
+# home and end
+bindkey '^[[1~' beginning-of-line
+bindkey '^[[4~' end-of-line
+# undo/redo
+bindkey '^Y' redo
+bindkey '^Z' undo
+
+## (un-)line editing
+
+do-nothing() {}
+zle -N do-nothing
+
+# pageup/down ignore to prevent accidental crudding on fn lock laptop
+bindkey '^[[5~' do-nothing
+bindkey '^[[6~' do-nothing
+
+# TODO: review https://stackoverflow.com/questions/5407916/zsh-zle-shift-selection
+# (read all the answers...)
+# would be nice to get it like posh
+# is this in any zsh module currently?
 
 ## aliases
 
@@ -135,3 +185,24 @@ source ~/.config/zsh/zaliases
 
 (( $+commands[starship] )) && eval "$(starship init zsh)"
 (( $+commands[fasd] )) && eval "$(fasd --init auto)"
+
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+bindkey '^ ' autosuggest-accept
+
+if (( $+commands[sheldon] )); then
+  eval "$(sheldon source)"
+
+  # set fast-syntax-highlighter theme if one not already set
+  [[ ! -f ~/.cache/fsh/current_theme.zsh ]] && fast-theme -q free
+
+  # set shell theme if not set
+  # TODO: doesn't work..base16_* are generated aliases and even a manual `setopt aliases` (on by default) gives a command not found error.
+  #[[ ! -f ~/.base16_theme ]] && base16_twilight
+
+  [[ -f ~/.base16_theme ]] && . ~/.base16_theme
+fi
+
+# don't like these, ensure they aren't set
+unsetopt auto_cd
+unsetopt cdable_vars
