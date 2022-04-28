@@ -7,5 +7,6 @@ function onBufferOpen(b)
 
     if fileName == "zaliases" then
         b:SetOption("filetype", "zsh")
+        b:SetOption("tabsize", "2")
     end
 end
