@@ -1,15 +1,26 @@
+# Nice explanation at https://unix.stackexchange.com/a/71258/273715 of what
+# the startup scripts are and some advice on what goes where.
+#
+# _I'm not following the given advice for .zshenv btw_. Given my personal
+# workflow, I haven't found a need to do more than set ZDOTDIR here.
+
 # Startup scripts
 #
-#   1. Always:      ~/.zshenv
-#   2. Login:       ~/.config/zsh/.zprofile
-#   3. Interactive: ~/.config/zsh/.zshrc
-#   4. Prezto:      ~/.config/zsh/.zpreztorc
-#   5. Login:       ~/.config/zsh/.zlogin
+#   1. ~/.zshenv                (always)
+#   2. ~/.config/zsh/.zprofile  (if login shell)
+#   3. ~/.config/zsh/.zshrc     (if interactive shell)
+#   4. ~/.config/zsh/.zlogin    (if login shell)
+#   5. ~/.config/zsh/.zlogout   (if login shell && if exiting)
 #
-# Login shell = outermost shell. Will be true e.g. for shells started from tmux.
+# Login shell = outermost shell.
+#
+# Will be true e.g. for shells started from tmux. Can also be true if using my
+# `reload` alias, which just runs the shell with `-l`.
+#
 #   [[ -o interactive ]] && echo 'Interactive' || echo 'Not interactive'
 #
 # Interactive shell = hooked up to TTY
+#
 #   [[ -o login ]] && echo 'Login' || echo 'Not login'
 
 export ZDOTDIR=$HOME/.config/zsh
