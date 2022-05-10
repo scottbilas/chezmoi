@@ -1,3 +1,6 @@
+# yaml values should only use lowercase names, because chezmoi uses a library that always lowercases them
+# (see https://github.com/twpayne/chezmoi/issues/463)
+
 format: yaml
 pager: delta
 
@@ -24,7 +27,11 @@ merge:
   command: pwsh
   args: [{{.profile.home_dirf}}/.config/chezmoi/merge.ps1, -KDiff3, -Destination, '{{`{{ .Destination }}`}}', -Source, '{{`{{ .Source }}`}}', -Target, '{{`{{ .Target }}`}}']
 {{-   end }}
-{{- end }}
+{{ else }}
+merge:
+  command: nvim
+  args: [-d, '{{`{{ .Destination }}`}}', '{{`{{ .Source }}`}}', '{{`{{ .Target }}`}}']
+{{ end }}
 
 interpreters.ps1:
   command: pwsh

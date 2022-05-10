@@ -38,8 +38,8 @@
     h  = help
     i  = incoming
     o  = outgoing
-    d2 = icdiff
-    s  = gitree -mcdn
+    # `npm i -g https://github.com/scottbilas/gitree`
+    s  = !gitree -mcdn
     st = status
 
     p = pull --ff-only
@@ -53,9 +53,6 @@
 
     outgoing = !git fetch && git l FETCH_HEAD..
     incoming = !git fetch && git l ..FETCH_HEAD
-    icdiff = "!f() { PATH=$PATH:~/dotfiles/scripts/icdiff; git icdiff; }; f"
-    # `npm ci` from gitree folder
-    gitree = !node $HOME/dotfiles/repos/gitree
 
     dd = difftool --dir-diff
     sui = submodule update --init

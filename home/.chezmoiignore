@@ -4,6 +4,7 @@
 .config/elinks/socket*
 .config/lazygit/state.yml
 .config/gh/hosts.yml
+.config/zsh/.zcompdump
 **/__pycache__
 
 {{ if eq .chezmoi.os "windows" }}

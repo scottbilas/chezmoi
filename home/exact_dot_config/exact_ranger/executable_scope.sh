@@ -167,35 +167,13 @@ handle_mime() {
     local mimetype="${1}"
     case "${mimetype}" in
         # Text
-        text/* | */xml)
+        text/* | */xml | */json)
             if [[ "$( stat --printf='%s' -- "${FILE_PATH}" )" -gt "${HIGHLIGHT_SIZE_MAX}" ]]; then
                 exit 2
             fi
 
             # bat is way better than highlight (easier to install) or pygmentize (much faster)
             bat --color=always --style="plain,changes" "${FILE_PATH}" && { dump | trim; exit 5; }
-
-            #if [[ "$( tput colors )" -ge 256 ]]; then
-            #    local pygmentize_format='terminal256'
-            #    local highlight_format='xterm256'
-            #else
-            #    local pygmentize_format='terminal'
-            #    local highlight_format='ansi'
-            #fi
-            #highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" --out-format="${highlight_format}" \
-            #    --style="${HIGHLIGHT_STYLE}" --force -- "${FILE_PATH}" && exit 5
-            #pygmentize -f "${pygmentize_format}" -O "style=${PYGMENTIZE_STYLE}" -- "${FILE_PATH}" && exit 5
-
-            exit 2;;
-
-        # JSON
-        */json)
-            if [[ "$( stat --printf='%s' -- "${FILE_PATH}" )" -gt "${HIGHLIGHT_SIZE_MAX}" ]]; then
-                exit 2
-            fi
-
-            # special: print json as javascript (no default colorizer for json)
-            bat --color=always --language=javascript --style="plain,changes" "${FILE_PATH}" && { dump | trim; exit 5; }
 
             exit 2;;
 
