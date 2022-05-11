@@ -43,4 +43,18 @@
     type = "git-repo"
     url = "https://github.com/sunaku/dasht"
 
+# windows fonts are available through scoop nerd-fonts bucket
+# also note that in nerd font naming, "mono" means "no ligatures", and "book" means "proportional"
+# (note that something like "jetbrains mono" will therefore have mono twice in the name for non-ligature fonts..)
+[".local/fonts/delugia"]
+    type = "archive"
+    url = "https://github.com/adam7/delugia-code/releases/latest/download/delugia-complete.zip"
+    exact = true
+    stripComponents = 1
+[".local/fonts/jetbrains"]
+    type = "archive"
+    url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip"
+    exact = true
+    exclude = ["*Windows Compatible*", "* Mono.ttf"]
+
 {{- end }}
