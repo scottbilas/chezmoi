@@ -25,3 +25,10 @@ Rust: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
 Dotnet: `curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel Current`
 
 Go: `golang-install.sh`
+
+Node:
+
+```sh
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo bash -
+sudo apt install -y nodejs
+```
