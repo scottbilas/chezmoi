@@ -3,7 +3,8 @@
 #FINISH migrating from old
 #$Script:IsFirstRun = Test-Path Variable:Global:ProfileVars
 
-Set-PoshPrompt -Theme ~/Documents/PowerShell/prompt.json
+oh-my-posh init pwsh --config ~/Documents/PowerShell/prompt.json | Invoke-Expression
+
 # TODO ^ get back prompt i used to have
 Import-Module Terminal-Icons
 # TODO ^ less harsh/neon themes, and also dark/light options (wire up to Set-DarkMode)
@@ -48,4 +49,6 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
 }
 
 # scoop install scoop-completion (from extras bucket)
-Import-Module ~/scoop/modules/scoop-completion
+# TODO: figure out why this doesn't complete on `scoop install <tab>` - it only gives a file completion.
+# ..probably something with psreadline settings..
+#Import-Module ~/scoop/modules/scoop-completion
