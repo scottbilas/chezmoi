@@ -12,7 +12,11 @@
         "editor.codeLens": false
     },
     "[plaintext]": {
-        "editor.quickSuggestions": false // often annoying in a txt file - picks random stuff to be helpful, is too aggressive
+        "editor.quickSuggestions": {
+            "comments": "off",
+            "strings": "off",
+            "other": "off"
+        } // often annoying in a txt file - picks random stuff to be helpful, is too aggressive
     },
     "bracket-pair-colorizer-2.colors": [ // roughly matching indentRainbow.colors
         "#A4A456",
@@ -105,6 +109,7 @@
     "editor.fontFamily": "JetBrainsMono NF",
     "editor.fontLigatures": true,
     "editor.fontSize": 13,
+    "editor.guides.indentation": false,
     "editor.lineNumbers": "off",
     "editor.linkedEditing": true,
     "editor.matchBrackets": "never", // want rafamel.subtle-brackets to handle matching brackets instead
@@ -113,7 +118,6 @@
     "editor.mouseWheelScrollSensitivity": 1,
     "editor.mouseWheelZoom": true,
     "editor.quickSuggestionsDelay": 250,
-    "editor.renderIndentGuides": false,
     "editor.roundedSelection": true,
     "editor.rulers": [
         80,
