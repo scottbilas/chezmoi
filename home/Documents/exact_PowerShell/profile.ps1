@@ -73,8 +73,8 @@ function ~ { Set-Location ~ }
 function l { Get-ChildItem $args | Format-Wide -AutoSize }
 function ll { Get-ChildItem -fo $args }
 
-if (Test-Path C:\p4\UnityExtPacks\Tools\okunity.exe) {
-    Set-Alias oku C:\p4\UnityExtPacks\Tools\okunity.exe
+if (Get-Command -ea:silent lazygit) {
+    Set-Alias lg lazygit
 }
 
 # default sort.exe is in system32; avoid that one

@@ -34,6 +34,10 @@ function pester($file) {
     pwsh -NoProfile $file
 }
 
+if (Test-Path C:\UnitySrc\p4\UnityExtPacks\Tools\okunity.exe) {
+    Set-Alias oku C:\UnitySrc\p4\UnityExtPacks\Tools\okunity.exe
+}
+
 ### COMPLETIONS
 
 Set-PSReadLineOption `
