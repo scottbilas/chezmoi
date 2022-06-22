@@ -16,7 +16,7 @@ trap {
     foreach ($job in $jobs) {
         # $???$?
     }
-    
+
 #    "Error: $_"
     break
 }
@@ -82,18 +82,6 @@ else {
     Write-Output '[scoop] Config ok'
 }
 
-## Shovel
-
-if ((scoop config SCOOP_REPO) -ne 'https://github.com/Ash258/Scoop-Core') {
-    Write-Output '[scoop] Upgrading to Shovel...'
-    iee scoop config SCOOP_REPO https://github.com/Ash258/Scoop-Core
-    iee scoop config SCOOP_BRANCH main
-    iee scoop update
-}
-else {
-    Write-Output '[scoop] Shovel ok'
-}
-
 ## Scoop buckets
 
 if ($Upgrade) {
@@ -135,11 +123,6 @@ function installScoopPackage([string]$name, [switch]$sudo) {
 }
 
 foreach ($name in @(
-        # stuff shovel wants
-        'dark', 'innounp', 'lessmsi'
-        # ^ TODO: "aria2" will get used by shovel, but it has failures. using shovel+aria2 on fzf fails with an error, but succeeds with plain scoop
-        # ^ so this should be an issue or PR to fix, or maybe fall back if aria2 fails..
-
         # shell stuff
         'busybox', 'echoargs', 'less', 'wget', 'which'
         # other core utils
