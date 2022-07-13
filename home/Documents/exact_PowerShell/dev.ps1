@@ -11,8 +11,15 @@ Import-Module Terminal-Icons
 
 Update-FormatData -PrependPath ~/Documents/PowerShell/CustomFormatters.ps1xml
 
-# needed to have zlocation hook into prompt
+# needed to have zlocation hook into prompt. note that zlocation may have already hooked the
+# prompt because of posh auto-import. force it to re-hook it after oh-my-posh above grabs it.
+# TODO: fork and publish the prompt registration func (with a -force flag) and I'll just call it directly..
+Remove-Item -ea:silent function:ZLocationOrigPrompt
 Import-Module ZLocation
+Set-ZLocation (Get-Location)
+if (-not (Get-Content Function:\prompt).ToString().Contains('Update-ZLocation')) {
+    Write-Warning "ZLocation+ohmyposh prompt collision"
+}
 
 ### FUNCTIONS
 
