@@ -91,7 +91,7 @@ if ($Upgrade) {
 
 ### FAILS SOMEWHERE IN HERE....
 
-$buckets = iee scoop bucket
+$buckets = scoop bucket list | % name
 
 function addBucket([string]$name, [string]$url = $null) {
     if ($buckets -notcontains $name) { iee scoop bucket add $name $url }
