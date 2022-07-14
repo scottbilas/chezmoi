@@ -219,7 +219,7 @@ if ($badScoop -or $Upgrade) {
 
 # winget also
 if ($Upgrade -and (Get-Command winget)) {
-    Write-Output '[winget] Winget upgrade status (winget upgrade --all)'
+    Write-Output '[winget] Winget upgrade status (`invoke-wgupgrade -id *pattern*`)'
     winget upgrade
 }
 

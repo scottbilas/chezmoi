@@ -1,3 +1,5 @@
+# Invoke-PSDepend -Force ~\Documents\PowerShell\requirements.psd1
+
 @{
     PSDependOptions = @{
         Target = 'CurrentUser'
@@ -20,5 +22,6 @@
     }
 
     'Terminal-Icons' = 'latest'
+    'WingetTools' = 'latest'
     'ZLocation' = 'latest'
 }
