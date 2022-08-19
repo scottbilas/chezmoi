@@ -70,9 +70,30 @@ function up { Set-Location .. }
 function ov($what) { Set-Location ../$what }
 function ~ { Set-Location ~ }
 
+function Expand-Path {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$True, ValuefromPipeline=$True)]
+        [string[]]$path
+    )
+
+    process {
+        foreach ($i in $path) {
+            if ($i.StartsWith('~')) {
+                $Home + $i.Substring(1)
+            }
+            else {
+                $i
+            }
+        }
+    }
+}
+
 if (Get-Command -ea:silent exa) {
-    function l { exa --all --group-directories-first --icons --classify $args }
-    function ll { l --long --git --header $args }
+    # cargo install --git https://github.com/tigercat2000/exa --branch win-support
+    # (see https://github.com/ogham/exa/pull/820#issuecomment-1173006774)
+    function l { exa --all --group-directories-first --icons --classify ($args | Expand-Path) }
+    function ll { l --long --git --header ($args | Expand-Path) }
 }
 else {
     function l { Get-ChildItem $args | Format-Wide -AutoSize }
