@@ -70,8 +70,14 @@ function up { Set-Location .. }
 function ov($what) { Set-Location ../$what }
 function ~ { Set-Location ~ }
 
-function l { Get-ChildItem $args | Format-Wide -AutoSize }
-function ll { Get-ChildItem -fo $args }
+if (Get-Command -ea:silent exa) {
+    function l { exa --all --group-directories-first --icons --classify $args }
+    function ll { l --long --git --header $args }
+}
+else {
+    function l { Get-ChildItem $args | Format-Wide -AutoSize }
+    function ll { Get-ChildItem -fo $args }
+}
 
 if (Get-Command -ea:silent lazygit) {
     Set-Alias lg lazygit
