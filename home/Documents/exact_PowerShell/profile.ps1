@@ -93,7 +93,7 @@ if (Get-Command -ea:silent exa) {
     # cargo install --git https://github.com/tigercat2000/exa --branch win-support
     # (see https://github.com/ogham/exa/pull/820#issuecomment-1173006774)
     function l { exa --all --group-directories-first --icons --classify ($args | Expand-Path) }
-    function ll { l --long --git --header ($args | Expand-Path) }
+    function ll { l --long --git --header @args }
 }
 else {
     function l { Get-ChildItem $args | Format-Wide -AutoSize }
