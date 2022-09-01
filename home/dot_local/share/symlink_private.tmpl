@@ -1,1 +1,7 @@
-{{.profile.home_dirf}}/Sync/Private/
+{{ if stat (joinPath .profile.home_dirf "Sync/Private") }}
+    {{.profile.home_dirf}}/Sync/Private/
+{{ else if stat (joinPath .profile.home_dirf "Sync/Common/Private") }}
+    {{.profile.home_dirf}}/Sync/Common/Private/
+{{ else }}
+ERROR MISSING 'Sync/Private' or 'Sync/Common/Private'
+{{ end }}
