@@ -124,7 +124,7 @@ function installScoopPackage([string]$name, [switch]$sudo) {
 
 foreach ($name in @(
         # shell stuff
-        'busybox', 'echoargs', 'less', 'wget', 'which'
+        'busybox', 'echoargs', 'less', 'wget', 'which',
         # other core utils
         '7zip', 'autohotkey', 'bat', 'delta', 'fd', 'file', 'fzf', 'git', 'git-lfs',
         'gsudo', 'highlight', 'kalk', 'gitui', 'micro', 'ripgrep',

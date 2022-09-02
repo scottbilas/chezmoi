@@ -1,5 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "console_title_template": "{{.PWD}} :: {{.Shell}}",
   "blocks": [
     {
       "alignment": "left",
@@ -49,7 +50,7 @@
             "fetch_status": true,
             "fetch_upstream_icon": true,
             "fetch_worktree_count": true,
-            "github_icon": "\uf408",
+            "github_icon": "\ue709",
             "tag_icon": "\uf412 "
           },
           "style": "powerline",
