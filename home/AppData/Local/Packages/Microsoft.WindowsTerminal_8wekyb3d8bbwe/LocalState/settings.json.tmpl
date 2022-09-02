@@ -5,14 +5,15 @@
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
 
-    "alwaysShowTabs": false,
     "copyOnSelect": false,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-    "disableAnimations": false,
     "startOnUserLogin": true,
     "tabSwitcherMode": "disabled",
-    "tabWidthMode": "equal",
+    "tabWidthMode": "titleLength",
     "theme": "{{.profile.theme}}",
+    "initialCols": 150,
+    "initialRows": 50,
+    "initialPosition": "50,50",
 
     "profiles": {
         "defaults":
@@ -24,8 +25,9 @@
                 "taskbar"
             ],
             "colorScheme": {{ if eq .profile.theme "dark" }}"One Half Dark"{{ else }}"Campbell Powershell"{{ end }},
-            "font": { "face": "CaskaydiaCove NF", "size": 9 }, // scoop install CascadiaCode-NF
-            "historySize": 100000
+            "font": { "face": "FiraCode NF", "size": 9 }, // scoop install FiraCode-NF
+            "historySize": 100000,
+            "padding": 3
         },
 
         "list":
@@ -39,7 +41,7 @@
             },
             {
                 "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
-                "icon": "{{.profile.home_dirf}}/dotfiles/resources/icons/debian_logo_red.png",
+                "icon": "{{.chezmoi.sourceDir}}/../resources/icons/debian_logo_red.png",
                 "name": "Debian",
                 "source": "Windows.Terminal.Wsl",
                 "tabTitle": "Debian"
