@@ -225,6 +225,11 @@
     prompt = false
 [mergetool "bc"]
     path = {{.profile.beyond_compare_dirf}}/BComp.exe
+{{-   else if lookPath "code" -}}
+[merge]
+    tool = code
+[mergetool "code"]
+    cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
 {{-   end -}}
 {{- else -}}
 [diff]
