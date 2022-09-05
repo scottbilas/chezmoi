@@ -32,7 +32,9 @@ if ($gitSource) {
     }
     if ($KDiff3) {
         kdiff3 -m $base $dst $Source -o $Source --L1 "HEAD:$gitSource"
-        del "$Source.orig" # not needed, we have version control
+        if (test-path "$Source.orig") {
+            del "$Source.orig" # not needed, we have version control
+        }
     }
 }
 else {
