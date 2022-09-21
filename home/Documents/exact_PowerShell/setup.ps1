@@ -154,15 +154,14 @@ gh - auth << setup from unity.toml
 
 syncthingtray - lots of config, validation, machine-specific
     * copy in and update ~\appdata\roaming\syncthingtray.ini
-    * copy in and update ~\.local\share\syncthing\config.xml
-    * also will need all those certificates etc from local\share\syncthing
+    * copy in and update ~\.local\share\syncthing\{config.xml,https-*.pem,csrftokens.txt} (the cert.pem and key.pem will be created on next launch)
+    * configure the name of this device
+    * go to bunk-windows and accept
 
-vscode-portable - cannot chezmoi publish before scoop/apps/current symlink is set up, right..?
 sysinternals - accept eula registry crap
 
 # bigger apps
 
-7tt
 paint.net
 tailblazer
 vcxsrv
