@@ -7,7 +7,7 @@
 	"hardware_acceleration": "opengl",
 	"hide_menu": true,
 	"ignore_diff_white_space": true,
-	"side_bar_layout": "columns",
+	"side_bar_layout": "locations_as_column",
 	"image_diff_style": "side-by-side",
 	"render_commit_dialog_message_at_top": false,
 }
