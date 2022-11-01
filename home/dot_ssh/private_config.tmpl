@@ -1,4 +1,4 @@
-BatchMode yes
+BatchMode yes      # don't ever ask for a password
 Compression yes
 Protocol 2
 #LogLevel DEBUG3
@@ -19,6 +19,9 @@ Host github.com
     IdentityFile ~/.local/share/private/ssh/github_rsa
     User git
 
-{{ if and (not .profile.personal_machine) (stat (joinPath .chezmoi.homeDir ".local/share/private")) -}}
+{{ if stat (joinPath .chezmoi.homeDir ".local/share/private/ssh/config-home") -}}
+{{   include "../../../../.local/share/private/ssh/config-home" }}
+{{ end -}}
+{{ if stat (joinPath .chezmoi.homeDir ".local/share/private/ssh/config-work") -}}
 {{   include "../../../../.local/share/private/ssh/config-work" }}
 {{ end -}}
