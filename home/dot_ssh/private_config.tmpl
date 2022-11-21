@@ -20,8 +20,10 @@ Host github.com
     User git
 
 {{ if stat (joinPath .chezmoi.homeDir ".local/share/private/ssh/config-home") -}}
+
 {{   include "../../../../.local/share/private/ssh/config-home" }}
 {{ end -}}
 {{ if stat (joinPath .chezmoi.homeDir ".local/share/private/ssh/config-work") -}}
+
 {{   include "../../../../.local/share/private/ssh/config-work" }}
 {{ end -}}
