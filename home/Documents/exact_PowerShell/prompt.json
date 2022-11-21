@@ -51,10 +51,18 @@
             "fetch_upstream_icon": true,
             "fetch_worktree_count": true,
             "github_icon": "\ue709",
-            "tag_icon": "\uf412 "
+            "tag_icon": "\uf412 ",
+            "untracked_modes": {
+              "C:/UnitySrc/work/unity":  "no",
+              "C:/UnitySrc/work/unity2": "no",
+              "C:/UnitySrc/work/unity3": "no",
+              "D:/UnitySrc/work/unity":  "no",
+              "D:/UnitySrc/work/unity2": "no",
+              "D:/UnitySrc/work/unity3": "no"
+            }
           },
           "style": "powerline",
-          "template": "{{ .UpstreamIcon }} {{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0}} \uf692 {{ .StashCount }}{{ end }}{{ if gt .WorktreeCount 0}} \uf1bb {{ .WorktreeCount }}{{ end }} ",
+          "template": "{{ .UpstreamIcon }} {{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0}} \uf692 {{ .StashCount }}{{ end }}{{ if gt .WorktreeCount 0}} \uf1bb {{ .WorktreeCount }}{{ end }}",
           "type": "git"
         },
         {
