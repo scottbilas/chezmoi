@@ -3,6 +3,9 @@ Compression yes
 Protocol 2
 #LogLevel DEBUG3
 
+# https://confluence.atlassian.com/bitbucketserverkb/ssh-rsa-key-rejected-with-message-no-mutual-signature-algorithm-1026057701.html
+PubkeyAcceptedKeyTypes +ssh-rsa
+
 Host *
     IdentityFile ~/.local/share/private/ssh/id_rsa
     UserKnownHostsFile ~/.local/share/private/ssh/known_hosts
