@@ -53,12 +53,12 @@
             "github_icon": "\ue709",
             "tag_icon": "\uf412 ",
             "untracked_modes": {
-              "C:/UnitySrc/work/unity":  "no",
-              "C:/UnitySrc/work/unity2": "no",
-              "C:/UnitySrc/work/unity3": "no",
-              "D:/UnitySrc/work/unity":  "no",
-              "D:/UnitySrc/work/unity2": "no",
-              "D:/UnitySrc/work/unity3": "no"
+              "C:/UnitySrc/work/unity/":  "no",
+              "C:/UnitySrc/work/unity2/": "no",
+              "C:/UnitySrc/work/unity3/": "no",
+              "D:/UnitySrc/work/unity/":  "no",
+              "D:/UnitySrc/work/unity2/": "no",
+              "D:/UnitySrc/work/unity3/": "no"
             }
           },
           "style": "powerline",
