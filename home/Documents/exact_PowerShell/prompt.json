@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
-  "console_title_template": "{{.PWD}} :: {{.Shell}}",
+  "console_title_template": "{{if .Env.SHELL_TITLE}}{{.Env.SHELL_TITLE}} ❱ {{end}}{{.PWD}} :: {{.Shell}}",
   "blocks": [
     {
       "alignment": "left",
@@ -56,9 +56,13 @@
               "C:/UnitySrc/work/unity/":  "no",
               "C:/UnitySrc/work/unity2/": "no",
               "C:/UnitySrc/work/unity3/": "no",
+              "C:/UnitySrc/work/unity4/": "no",
+              "C:/UnitySrc/work/unity5/": "no",
               "D:/UnitySrc/work/unity/":  "no",
               "D:/UnitySrc/work/unity2/": "no",
-              "D:/UnitySrc/work/unity3/": "no"
+              "D:/UnitySrc/work/unity3/": "no",
+              "D:/UnitySrc/work/unity4/": "no",
+              "D:/UnitySrc/work/unity5/": "no"
             }
           },
           "style": "powerline",

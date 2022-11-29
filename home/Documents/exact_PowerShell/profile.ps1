@@ -157,3 +157,8 @@ function Update-EnvPath {
 
     $env:PATH = ($machine -replace ';$', '') + ';' + ($user -replace ';$', '')
 }
+
+function Title($title) {
+    $host.ui.RawUI.WindowTitle = $title
+    $env:SHELL_TITLE = $title
+}
