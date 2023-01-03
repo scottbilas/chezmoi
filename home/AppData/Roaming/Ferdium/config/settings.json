@@ -44,7 +44,7 @@
   "wakeUpHibernationStrategy": 0,
   "wakeUpHibernationSplay": true,
   "inactivityLock": 0,
-  "automaticUpdates": true,
+  "automaticUpdates": false,
   "universalDarkMode": true,
   "userAgentPref": "",
   "adaptableDarkMode": true,
