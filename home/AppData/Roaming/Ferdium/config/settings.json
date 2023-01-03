@@ -53,6 +53,7 @@
   "serviceRibbonWidth": 35,
   "sidebarServicesLocation": 0,
   "iconSize": 30,
+  "sentry": true,
   "navigationBarBehaviour": "never",
   "webRTCIPHandlingPolicy": "disable_non_proxied_udp",
   "searchEngine": "duckDuckGo",
@@ -75,5 +76,6 @@
   "onlyShowFavoritesInUnreadCount": false,
   "customTodoServer": "",
   "locale": "en-US",
+  "keepAllWorkspacesLoaded": false,
   "useVerticalStyle": false
 }
