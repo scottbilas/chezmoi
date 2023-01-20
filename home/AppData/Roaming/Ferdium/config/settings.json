@@ -61,7 +61,7 @@
   "translatorEngine": "LibreTranslate",
   "useHorizontalStyle": false,
   "hideCollapseButton": false,
-  "isMenuCollapsed": false,
+  "isMenuCollapsed": true,
   "hideRecipesButton": false,
   "hideSplitModeButton": true,
   "useGrayscaleServices": false,
@@ -72,10 +72,11 @@
   "alwaysShowWorkspaces": false,
   "liftSingleInstanceLock": false,
   "enableLongPressServiceHint": false,
-  "proxyFeatureEnabled": false,
-  "onlyShowFavoritesInUnreadCount": false,
+  "isTodosFeatureEnabled": true,
   "customTodoServer": "",
   "locale": "en-US",
   "keepAllWorkspacesLoaded": false,
+  "proxyFeatureEnabled": false,
+  "onlyShowFavoritesInUnreadCount": false,
   "useVerticalStyle": false
 }

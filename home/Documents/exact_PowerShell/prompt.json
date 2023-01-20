@@ -132,13 +132,14 @@
         {
           "foreground_templates": [
             "{{if eq \"Charging\" .State.String}}#40c4ff{{end}}",
-            "{{if eq \"Discharging\" .State.String}}#ff5722{{end}}",
-            "{{if eq \"Full\" .State.String}}#4caf50{{end}}"
+            "{{if and (eq \"Discharging\" .State.String) (ne 100 .Percentage)}}#ff5722{{end}}",
+            "{{if eq \"Full\" .State.String}}#4caf50{{end}}",
+            "#4caf50"
           ],
           "properties": {
             "charged_icon": "\ue22f ",
             "charging_icon": "\ue234 ",
-            "discharging_icon": "\ue231 "
+            "discharging_icon": "\u21e3 "
           },
           "style": "plain",
           "template": " {{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }}\uf295",
