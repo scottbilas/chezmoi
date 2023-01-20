@@ -8,6 +8,15 @@ $ErrorActionPreference = 'Stop'
 #
 # only simple profile here, avoid file activity as much as possible. all those Resolve-Paths hit IO..
 
+function reprofile {
+    if ($myInvocation.InvocationName -ne '.') {
+        throw 'You forgot to dot-source this (`. reprofile` <enter>)'
+    }
+
+    write-host 'Reloading profile...'
+    . ~\Documents\PowerShell\profile.ps1
+}
+
 
 ### POSH CORE
 
@@ -89,6 +98,14 @@ function Expand-Path {
     }
 }
 
+if (Get-Command -ea:silent rg) {
+    function rgh { rg --hidden --ignore @args }
+}
+
+if (Get-Command -ea:silent fd) {
+    function fdh { fd -HI @args }
+}
+
 if (Get-Command -ea:silent exa) {
     # cargo install --git https://github.com/tigercat2000/exa --branch win-support
     # (see https://github.com/ogham/exa/pull/820#issuecomment-1173006774)
@@ -100,8 +117,19 @@ else {
     function ll { Get-ChildItem -fo $args }
 }
 
+if (Get-Command -ea:silent btm) {
+    function top { btm @args }
+}
+elseif (Get-Command -ea:silent htop) {
+    function top { htop @args }
+}
+
 if (Get-Command -ea:silent lazygit) {
     Set-Alias lg lazygit
+}
+
+if (Get-Command -ea:silent pskill) {
+    function kill { pskill -nobanner @args }
 }
 
 # default sort.exe is in system32; avoid that one
