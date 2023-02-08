@@ -9,3 +9,8 @@ spec=d:/UnitySrc/work/unity*/build/*editor
 
 [install]
 root=c:/builds/editor
+
+[unity]
+{{- if env "BEE_BUILD_THREADS" }}
+job-worker-count={{ env "BEE_BUILD_THREADS" }}
+{{- end}}
