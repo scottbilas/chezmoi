@@ -99,7 +99,7 @@ function Expand-Path {
 }
 
 if (Get-Command -ea:silent rg) {
-    function rgh { rg --hidden --ignore @args }
+    function rgh { rg --hidden --no-ignore @args }
 }
 
 if (Get-Command -ea:silent fd) {
