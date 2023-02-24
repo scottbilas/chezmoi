@@ -47,6 +47,7 @@
 
     # "pull head" - automates `git pull <tracking remote> <current branch name>` so can get current on latest branch without pulling a whole (or the wrong) remote
     ph = "!f() { set -e; set -o pipefail; arr=($(git rev-parse --abbrev-ref @{u} | sed 's/\\//\\n/')); git pull ${arr[0]} ${arr[1]}; }; f"
+    phrs = "!f() { set -e; set -o pipefail; arr=($(git rev-parse --abbrev-ref @{u} | sed 's/\\//\\n/')); git pull --rebase --autostash ${arr[0]} ${arr[1]}; }; f"
     # get current while migrating current work
     prs = pull --rebase --autostash
     # pull before pushing
@@ -224,39 +225,60 @@
 
 ### PLATFORM ###
 
-{{ if eq .chezmoi.os "windows" -}}
-{{   if get .profile "beyond_compare_dirf" -}}
+# use `cmd = "set"` in a difftool to detect env vars git sends to the tool
+{{  if eq .chezmoi.os "windows" }}
+{{-   $dmtool := "" }}
+
+{{-   if get .profile "beyond_compare_dirf" }}
+{{-     $dmtool = eq $dmtool "" | ternary "bc" $dmtool }}
+[difftool "bc"]
+    cmd = {{.profile.home_dirf}}/.config/beyondcompare/bcomp-gitdd.cmd "$LOCAL" "$REMOTE"
+[mergetool "bc"]
+    path = {{.profile.beyond_compare_dirf}}/BComp.exe
+    trustExitCode = true
+{{-   end }}
+
+{{-   if lookPath "code" }}
+{{-     $dmtool = eq $dmtool "" | ternary "code" $dmtool }}
+[difftool "code"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+[mergetool "code"]
+    cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+{{-   end }}
+
+{{-   if lookPath "semanticmergetool" }}
+{{-     $dmtool = eq $dmtool "" | ternary "semantic" $dmtool }}
+[difftool "semantic"]
+    cmd = semanticmergetool -s \"$LOCAL\" -d \"$REMOTE\"
+[mergetool "semantic"]
+    cmd = semanticmergetool -s \"$REMOTE\" -d \"$LOCAL\" -b \"$BASE\" -r \"$MERGED\"
+    trustExitCode = true
+{{-   end }}
+
+{{- if $dmtool }}
+
 [diff]
-    tool = bc
+    tool = {{$dmtool}}
     prompt = false
 [difftool]
     prompt = false
-[difftool "bc"]
-#   cmd = "set"   # uncomment to detect env vars
-    cmd = {{.profile.home_dirf}}/.config/beyondcompare/bcomp-gitdd.cmd "$LOCAL" "$REMOTE"
-
 [merge]
-    tool = bc
+    tool = {{$dmtool}}
     prompt = false
-[mergetool "bc"]
-    path = {{.profile.beyond_compare_dirf}}/BComp.exe
-{{-   else if lookPath "code" -}}
-[merge]
-    tool = code
-[mergetool "code"]
-    cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
-{{-   end -}}
-{{- else -}}
+{{- end }}
+
+{{- else -}}{{/* !windows */}}
+
 [diff]
     tool = vimdiff3
 [difftool "vimdiff3"]
-#   path = nvim
+    path = nvim
 [merge]
     tool = vimdiff3
 [mergetool "vimdiff3"]
-#   path = nvim
-{{- end }}
+    path = nvim
 
+{{- end }}
 
 ;            _                        _
 ;   _____  _| |_ ___ _ __ _ __   __ _| |
