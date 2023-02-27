@@ -249,9 +249,9 @@
 {{-   if lookPath "semanticmergetool" }}
 {{-     $dmtool = eq $dmtool "" | ternary "semantic" $dmtool }}
 [difftool "semantic"]
-    cmd = semanticmergetool -s \"$LOCAL\" -d \"$REMOTE\"
+    cmd = semanticmergetool -s "$LOCAL" -d "$REMOTE"
 [mergetool "semantic"]
-    cmd = semanticmergetool -s \"$REMOTE\" -d \"$LOCAL\" -b \"$BASE\" -r \"$MERGED\"
+    cmd = semanticmergetool -s "$REMOTE" -d "$LOCAL" -b "$BASE" -r "$MERGED"
     trustExitCode = true
 {{-   end }}
 
