@@ -41,6 +41,16 @@
           "type": "path"
         },
         {
+          "type": "unity",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "foreground": "#111111",
+          "background": "#ffffff",
+          "properties": {
+            "http_timeout": 2000
+          }
+        },
+        {
           "background": "#b87b2a",
           "foreground": "#193549",
           "powerline_symbol": "\ue0b0",
@@ -82,7 +92,7 @@
             "{{ if .Behind }}#B388FF{{ end }}"
           ],
           //"template": "{{ .Selector }}{{ if .Status.Changed }} \uF044 {{ end }}{{ .Status.String }}",
-          "template": " שׂ ",
+          "template": "  שׂ ",
           "properties": {
             //"fetch_status": true, // crazy slow, cannot use this without caching of some kind
             "branch_max_length": 25,
