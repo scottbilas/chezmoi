@@ -45,8 +45,10 @@ data:
     beyond_compare_dirf: {{$beyond_compare_dirf}}
 {{- end }}
 {{- /* TODO: autodetect this... */}}
-{{- $personal_machine := get .profile "personal_machine" }}
-{{- if not (hasKey .profile "personal_machine") }}
+{{- $personal_machine := true }}
+{{- if and (hasKey . "profile") (hasKey .profile "personal_machine") }}
+{{-   $personal_machine = get .profile "personal_machine" }}
+{{- else }}
 {{-   $personal_machine = promptBool "\n>>> Personal machine? (y/n): " }}
 {{- end }}
     home_dirf: {{.chezmoi.homeDir | replace "\\" "/"}}
