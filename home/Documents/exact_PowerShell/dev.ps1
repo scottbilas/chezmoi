@@ -3,8 +3,7 @@
 #FINISH migrating from old
 #$Script:IsFirstRun = Test-Path Variable:Global:ProfileVars
 
-oh-my-posh init pwsh --config ~/Documents/PowerShell/prompt.json | Invoke-Expression
-
+oh-my-posh init pwsh --config ~/.config/oh-my-posh/prompt.json | Invoke-Expression
 # TODO ^ get back prompt i used to have
 Import-Module Terminal-Icons
 # TODO ^ less harsh/neon themes, and also dark/light options (wire up to Set-DarkMode)
