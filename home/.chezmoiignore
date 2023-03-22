@@ -4,6 +4,7 @@
 .config/elinks/socket*
 .config/lazygit/state.yml
 .config/gh/hosts.yml
+.config/alacritty/themes
 .config/zsh/.zcompdump
 **/__pycache__
 

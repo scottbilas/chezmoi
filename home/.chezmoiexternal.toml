@@ -7,6 +7,12 @@
     include = ["*", "*/*.md"]
     stripComponents = 1
 
+[".config/alacritty/themes"]
+    type = "archive"
+    url = "https://github.com/alacritty/alacritty-theme/archive/refs/heads/master.tar.gz"
+    exact = true
+    stripComponents = 2
+
 {{ if eq .chezmoi.os "windows" }}
 
 # WINDOWS
