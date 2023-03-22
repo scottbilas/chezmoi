@@ -19,7 +19,7 @@
   "enableSpellchecking": true,
   "enableTranslator": false,
   "spellcheckerLanguage": "en-us",
-  "darkMode": false,
+  "darkMode": true,
   "navigationBarManualActive": false,
   "splitMode": false,
   "splitColumns": 3,

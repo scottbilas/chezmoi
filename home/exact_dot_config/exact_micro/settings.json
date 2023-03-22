@@ -24,7 +24,6 @@
     "savecursor": true,
     "saveundo": true,
     "scrollbar": true,
-    "softwrap": false,
     "status": true,
     "statusformatl": "$(filename)$(modified) ($(line),$(col))",
     "statusformatr": "$(status.paste)| ft:$(opt:filetype) | $(opt:fileformat) | $(opt:encoding)",
