@@ -1,3 +1,5 @@
+# GENERAL
+
 .editorconfig
 .config/elinks/cookies
 .config/elinks/*hist
@@ -5,24 +7,39 @@
 .config/lazygit/state.yml
 .config/gh/hosts.yml
 .config/alacritty/themes
+.config/zsh/.zcompcache
 .config/zsh/.zcompdump
 **/__pycache__
+**/*.orig
 
 {{ if eq .chezmoi.os "windows" }}
+
+# WINDOWS
+
 .config/lazygit
 .config/ranger
 .config/tmux
 .cache/ssh
+
 {{ else }}
+
+# NON-WINDOWS
+
 .netconfig
+.wslconfig
 AppData
 Documents
 scoop
 .config/windows
 .config/scoop
+**/*.cmd
+
 {{ end }}
 
 {{ if eq .chezmoi.os "android" }}
+
+# ANDROID
+
 # not ready for this yet
 .config/code-server
 .config/yarn
@@ -54,5 +71,9 @@ scoop
 .config/xfce4
 .config/xfce4-dict
 {{ else }}
+
+# LINUX (non-Android)
+
 .termux
+
 {{ end }}
