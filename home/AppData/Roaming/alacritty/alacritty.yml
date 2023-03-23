@@ -774,10 +774,10 @@ key_bindings:
   - { key: C, mods: Control|Alt,                         action: Copy           }
   #- { key: L,         mods: Control,                    action: ClearLogNotice }
   #- { key: L,         mods: Control, mode: ~Vi|~Search, chars: "\x0c"          }
-  #- { key: PageUp,    mods: Shift,   mode: ~Alt,        action: ScrollPageUp   }
-  #- { key: PageDown,  mods: Shift,   mode: ~Alt,        action: ScrollPageDown }
-  #- { key: Home,      mods: Shift,   mode: ~Alt,        action: ScrollToTop    }
-  #- { key: End,       mods: Shift,   mode: ~Alt,        action: ScrollToBottom }
+  - { key: PageUp,    mods: Shift,   mode: ~Alt,         action: ReceiveChar    }
+  - { key: PageDown,  mods: Shift,   mode: ~Alt,         action: ReceiveChar    }
+  - { key: Home,      mods: Shift,   mode: ~Alt,         action: ReceiveChar    }
+  - { key: End,       mods: Shift,   mode: ~Alt,         action: ReceiveChar    }
 
   # Vi Mode
   #- { key: Space,  mods: Shift|Control, mode: ~Search,    action: ToggleViMode            }
