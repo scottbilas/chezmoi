@@ -5,10 +5,6 @@
 			"path": "."
 		},
 		{
-			"name": "🐚 ~/Documents/PowerShell",
-			"path": "..\\..\\..\\Documents\\PowerShell"
-		},
-		{
 			"name": "🙉 ~/.local/share/private",
 			"path": "..\\private"
 		},
@@ -21,8 +17,20 @@
 			"path": "..\\..\\..\\.ssh"
 		},
 		{
+			"name": "🐚 ~/Documents/PowerShell",
+			"path": "..\\..\\..\\Documents\\PowerShell"
+		},
+		{
 			"name": "💔 ~/dotfiles",
 			"path": "..\\..\\..\\dotfiles"
+		},
+		{
+			"name": "🤘 wsl/.local/share/chezmoi",
+			"path": "\\\\wsl.localhost\\Debian\\home\\scott\\.local\\share\\chezmoi"
+		},
+		{
+			"name": "⚙️ wsl/.config",
+			"path": "\\\\wsl.localhost\\Debian\\home\\scott\\.config"
 		}
 	],
 	"settings": {
