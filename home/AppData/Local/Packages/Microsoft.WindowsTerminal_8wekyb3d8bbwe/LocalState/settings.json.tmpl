@@ -5,15 +5,17 @@
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
 
-    "copyOnSelect": false,
-    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+    "alwaysShowTabs": false,
+    "copyOnSelect": true,
+    "defaultProfile": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
+    "initialCols": 150,
+    "initialPosition": "50,50",
+    "initialRows": 50,
     "startOnUserLogin": true,
     "tabSwitcherMode": "disabled",
     "tabWidthMode": "equal",
-    "theme": "{{.profile.theme}}",
-    "initialCols": 150,
-    "initialRows": 50,
-    "initialPosition": "50,50",
+    "theme": "dark",
+    "useAcrylicInTabRow": true,
 
     "profiles": {
         "defaults":
@@ -24,7 +26,7 @@
                 "window",
                 "taskbar"
             ],
-            "colorScheme": {{ if eq .profile.theme "dark" }}"One Half Dark"{{ else }}"Campbell Powershell"{{ end }},
+            "colorScheme": "One Half Dark",
             "font": { "face": "FiraCode NF", "size": 9 }, // scoop install FiraCode-NF
             "historySize": 100000,
             "padding": 3
@@ -33,18 +35,18 @@
         "list":
         [
             {
+                "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
+                "icon": "C:/Users/scott/.local/share/chezmoi/home/../resources/icons/debian_logo_red.png",
+                "name": "Debian",
+                "source": "Windows.Terminal.Wsl",
+                "tabTitle": "Debian"
+            },
+            {
                 "commandline": "pwsh /nologo",
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "name": "PowerShell 7",
                 "source": "Windows.Terminal.PowershellCore",
                 "tabTitle": "Posh"
-            },
-            {
-                "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
-                "icon": "{{.chezmoi.sourceDir}}/../resources/icons/debian_logo_red.png",
-                "name": "Debian",
-                "source": "Windows.Terminal.Wsl",
-                "tabTitle": "Debian"
             },
 
             { "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}", "hidden": true },
