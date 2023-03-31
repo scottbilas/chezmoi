@@ -57,16 +57,8 @@ Set-PSReadLineOption `
     }
 }
 
-if (Get-Command -ea:silent git-branchless) {
-    function g { git-branchless wrap @args }
-    Remove-Item -ea:silent alias:g
-}
-else {
-    Set-Alias g git
-    Remove-Item -ea:silent function:g
-}
-
 # shortyshortcuts
+Set-Alias g git
 Set-Alias o explorer
 Set-Alias m micro
 Set-Alias cm chezmoi
