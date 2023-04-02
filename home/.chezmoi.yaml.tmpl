@@ -5,12 +5,14 @@ format: yaml
 pager: delta
 
 {{- $beyond_compare_dirf := "" }}
+{{- $p4merge_dirf := "" }}
 {{ if eq .chezmoi.os "windows" }}
 cd:
   command: pwsh
   args: [-NoExit, -Command, "& Set-Location (chezmoi source-path)"]
 
 {{   $beyond_compare_dirf = output "pwsh" "-Command" "& { Get-Content -ea:silent Alias:bc || '' }" | trim -}}
+{{   $p4merge_dirf = output "pwsh" "-Command" "& { (Get-Command -ea:silent p4merge).Source }" | trim -}}
 {{   if ne $beyond_compare_dirf "" -}}
 {{     $beyond_compare_dirf = $beyond_compare_dirf | replace "\\" "/" | dir -}}
 diff:
@@ -19,6 +21,12 @@ diff:
 merge:
   command: pwsh
   args: [{{.profile.home_dirf}}/.config/chezmoi/merge.ps1, -BeyondCompare, -Destination, '{{`{{ .Destination }}`}}', -Source, '{{`{{ .Source }}`}}', -Target, '{{`{{ .Target }}`}}']
+{{-   else if ne $p4merge_dirf "" -}}
+diff:
+  command: p4merge
+
+merge:
+  command: p4merge
 {{-   else }}{{/* can happen if posh profile not applied yet */ -}}
 diff:
   command: kdiff3
@@ -43,6 +51,9 @@ data:
   profile:
 {{- if ne $beyond_compare_dirf "" }}
     beyond_compare_dirf: {{$beyond_compare_dirf}}
+{{- end }}
+{{- if ne $p4merge_dirf "" }}
+    p4merge_dirf: {{$p4merge_dirf}}
 {{- end }}
 {{- /* TODO: autodetect this... */}}
 {{- $personal_machine := true }}
