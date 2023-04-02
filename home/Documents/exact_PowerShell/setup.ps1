@@ -109,12 +109,18 @@ Write-Output '[scoop] Bucket presence ok'
 ## Scoop core
 
 $scoopPackages = (Get-ChildItem ~/scoop/apps).Name
+$scoopPackages += (Get-ChildItem $env:ProgramData\scoop\apps).Name
 
-function installScoopPackage([string]$name, [switch]$sudo) {
+function installScoopPackage([string]$name, [switch]$sudo, [switch]$global) {
     if ($scoopPackages -notcontains $name) {
         if ($sudo) {
             Write-Host "[scoop] Asking for sudo to install $name.."
-            sudo iee scoop install $name
+            if ($global) {
+                sudo iee scoop install -g $name
+            }
+            else {
+                sudo iee scoop install $name
+            }
         }
         else {
             iee scoop install $name
@@ -136,8 +142,8 @@ foreach ($name in @(
 }
 
 # special note on fonts: avoid packages with "mono" in the name - these lose ligatures ("nerd font policy")
-installScoopPackage -sudo CascadiaCode-NF
-installScoopPackage -sudo JetBrainsMono-NF
+installScoopPackage -sudo -global CascadiaCode-NF
+installScoopPackage -sudo -global JetBrainsMono-NF
 
 if ((iee scoop config MSIEXTRACT_USE_LESSMSI) -match 'not set') {
     iee scoop config MSIEXTRACT_USE_LESSMSI $true
