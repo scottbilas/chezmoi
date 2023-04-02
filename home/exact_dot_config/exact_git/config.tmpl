@@ -270,7 +270,7 @@
 {{- end }}
 
 [safe]
-	directory = %(prefix)///wsl.localhost/*
+	directory = %(prefix)///wsl.localhost/{{ output "wsl" "-l" "-q" | trim }}/home/{{ env "USERNAME" }}/.local/share/chezmoi
 
 {{- else -}}{{/* !windows */}}
 
