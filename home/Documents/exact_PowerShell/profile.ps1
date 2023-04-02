@@ -35,6 +35,7 @@ $Env:LESS = '--tabs=4 -RFXi'
 $Env:RIPGREP_CONFIG_PATH = (Resolve-Path ~/.config/ripgrep/config)
 $Env:SCOOP = Resolve-Path ~\scoop
 $Env:UNITY_MIXED_CALLSTACK = 1
+$Env:WSL_UTF8 = 1
 
 
 ### PSREADLINE

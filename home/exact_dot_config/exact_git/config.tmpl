@@ -269,6 +269,9 @@
     prompt = false
 {{- end }}
 
+[safe]
+	directory = %(prefix)///wsl.localhost/*
+
 {{- else -}}{{/* !windows */}}
 
 [diff]
@@ -321,3 +324,4 @@
 
 [include]
     path = ~/.local/share/private/git/config
+
