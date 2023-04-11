@@ -139,10 +139,10 @@ fi
 
 setopt auto_pushd
 
-## history-relaetd
+## history-related
 
-mkdir -p ~/.local/shared/zsh
-HISTFILE=~/.local/shared/zsh/history
+mkdir -p ~/.local/share/zsh
+HISTFILE=~/.local/share/zsh/history
 HISTSIZE=5000  # memory buffer max size in lines
 SAVEHIST=5000   # file max size in lines
 setopt append_history          # append to history file instead of overwrite
