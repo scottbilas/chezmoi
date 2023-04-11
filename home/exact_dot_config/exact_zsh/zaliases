@@ -28,6 +28,8 @@ alias m=micro
 alias g=git
 alias lg=lazygit
 alias ncdu='ncdu --color dark $@'
+alias rgh='rg --hidden --no-ignore $@'
+alias fdh='fd -HI $@'
 
 if (($+commands[bat])); then
   alias cat='bat --paging=never'
