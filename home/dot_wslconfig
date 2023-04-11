@@ -1,3 +1,7 @@
+# https://learn.microsoft.com/en-us/windows/wsl/wsl-config
+
+[automount]
+options = "metadata"
 
 [interop]
 appendWindowsPath = false
