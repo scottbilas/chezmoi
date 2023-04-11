@@ -1,2 +1,2 @@
-#!/usr/bin/sh
+#!/usr/bin/env sh
 /mnt/c/Program\ Files/PowerShell/7/pwsh.exe --nologo -WorkingDirectory c:/Users/$USER
