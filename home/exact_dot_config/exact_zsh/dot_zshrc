@@ -4,7 +4,7 @@
 export XDG_CONFIG_HOME=$HOME/.config
 
 # early we need brew in there so we have access to commands
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+[[ -d /home/linuxbrew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 if (( $+commands[micro] )); then
   export EDITOR=micro
@@ -77,7 +77,11 @@ if (( $+commands[vivid] )); then
   export LS_COLORS=$(vivid generate solarized-dark)
 fi
 
-(( $+commands[oh-my-posh] )) && eval "$(oh-my-posh init zsh -c ~/.config/oh-my-posh/prompt.json)"
+if (( $+commands[oh-my-posh] )); then
+  eval "$(oh-my-posh init zsh -c ~/.config/oh-my-posh/prompt.json)"
+elif (( $+commands[starship] )); then
+  eval "$(starship init zsh)"
+fi
 
 # other
 
