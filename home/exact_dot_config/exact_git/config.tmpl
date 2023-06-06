@@ -52,7 +52,7 @@
     # get current while migrating current work
     prs = pull --rebase --autostash
     # pull before pushing
-    sync = !git prs && git push
+    sync = !git phrs && git push
 
     outgoing = !git fh && git l FETCH_HEAD..
     incoming = !git fh && git l ..FETCH_HEAD
