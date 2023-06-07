@@ -158,6 +158,12 @@
     smudge = git-lfs smudge -- %f
     required = true
 
+# use diff/merge type lfs-text in .gitattributes to enable text diff/merge of LFS files
+[diff "lfs-text"]
+    textconv = cat
+[merge "lfs-text"]
+    driver = git lfs merge-driver --ancestor %O --current %A --other %B --marker-size %L --output %A
+
 
 ;  _   _
 ; | |_| |__   ___ _ __ ___   ___
