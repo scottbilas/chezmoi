@@ -1,20 +1,30 @@
 #Requires -Version 7
-$ErrorActionPreference = 'Stop'
 
 # important: don't set strict mode for the profile. rando cli ops need to stay fuzzy else they get annoying.
-# but stopping on any error is good, let's keep that one.
+#Set-StrictMode -Version Latest
+# but stopping on any error is good, let's keep this one
+$ErrorActionPreference = 'Stop'
 
-# this file vs dev.ps1:
-#
-# only simple profile here, avoid file activity as much as possible. all those Resolve-Paths hit IO..
+<#
+profile requirements:
 
-function reprofile {
-    if ($myInvocation.InvocationName -ne '.') {
-        throw 'You forgot to dot-source this (`. reprofile` <enter>)'
-    }
+- only simple work that avoids file activity as much as possible. every Resolve-Path hits IO..
+- profile can be reloaded, and as a command script. use $global:ProfileState.Initializing to detect first run.
+#>
 
+### PROFILE MANAGEMENT
+
+if (!$global:ProfileState) {
+    $global:ProfileState = @{ Initializing = $true }
+
+    $PROFILE = $MyInvocation.MyCommand.Path
+}
+
+$profileTimerStart = Get-Date
+
+function Reload-Profile {
     write-host 'Reloading profile...'
-    . ~\Documents\PowerShell\profile.ps1
+    Invoke-Expression -Command $PROFILE
 }
 
 
@@ -182,4 +192,13 @@ function Update-EnvPath {
 function Title($title) {
     $host.ui.RawUI.WindowTitle = $title
     $env:SHELL_TITLE = $title
+}
+
+
+
+### FINISHED
+
+if ($global:ProfileState.Initializing) {
+    $global:ProfileState.InitializeTime = (Get-Date) - $profileTimerStart
+    $global:ProfileState.Initializing = $false
 }
