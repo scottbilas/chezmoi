@@ -31,6 +31,14 @@ alias ncdu='ncdu --color dark $@'
 alias rgh='rg --hidden --no-ignore $@'
 alias fdh='fd -HI $@'
 
+# debian-isms
+if (($+commands[batcat])); then
+  alias bat=batcat
+fi
+if (($+commands[fdfind])); then
+  alias fd=fdfind
+fi
+
 if (($+commands[bat])); then
   alias cat='bat --paging=never'
   alias rgb=~/.config/bat/extras/src/batgrep.sh
