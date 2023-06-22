@@ -20,7 +20,7 @@ if (-not (Get-Content Function:\prompt).ToString().Contains('Update-ZLocation'))
     Write-Warning "ZLocation+ohmyposh prompt collision"
 }
 
-Import-Module scobi
+Import-Module scobi -DisableNameChecking
 
 ### FUNCTIONS
 
