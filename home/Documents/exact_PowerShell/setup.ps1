@@ -109,7 +109,9 @@ Write-Output '[scoop] Bucket presence ok'
 ## Scoop core
 
 $scoopPackages = (Get-ChildItem ~/scoop/apps).Name
-$scoopPackages += (Get-ChildItem $env:ProgramData\scoop\apps).Name
+if (Test-Path $env:ProgramData\scoop\apps) {
+    $scoopPackages += (Get-ChildItem $env:ProgramData\scoop\apps).Name
+}
 
 function installScoopPackage([string]$name, [switch]$sudo, [switch]$global) {
     if ($scoopPackages -notcontains $name) {
