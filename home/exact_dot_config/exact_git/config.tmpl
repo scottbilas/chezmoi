@@ -62,15 +62,25 @@
 
 [alias]
     # hey it sure would be nice if git was told terminal width, so i could use `%<|(-x)` instead of `$((COLUMNS-x))`
-    t0 = "!f() { COLUMNS=$(tput cols); git log $1 --first-parent --pretty=tformat:\"%Creset%<|($((COLUMNS-45)),trunc)%s%C(bold cyan)  %<(12,trunc)%al  %Cblue%<(13,trunc)%cr  %C(bold black)%<(12)%h  %C(auto)%d\"; }; f"
+    lx = "!f() { COLUMNS=$(tput cols); git log $@ --pretty=tformat:\"%Creset%<|($((COLUMNS-45)),trunc)%s%C(bold cyan)  %<(12,trunc)%al  %Cblue%<(13,trunc)%cr  %C(bold black)%<(12)%h  %C(auto)%d\"; }; f"
 
+    # t = "top"
+    t0 = lx --all
     t  = t0 --max-count=15
-    tt = t0 --max-count=30
+    t2 = t0 --max-count=30
 
-    l = log --graph --pretty=shortlog-graph
+    l0 = lx --first-parent
+    l  = l0 --max-count=15
+    l2 = l0 --max-count=30
+
+    lg0 = log --graph --pretty=shortlog-graph
+    lg  = lg0 --max-count=15
+    lg2 = lg0 --max-count=30
+
     ll = log --graph --stat='100,0,20' --stat-graph-width=20 --pretty=longlog
     rl = reflog --pretty=reflog
     last = log -1 HEAD
+
     # https://stackoverflow.com/a/68687780/14582
     tagl = tag --format='%(color:cyan)%(align:25)%(refname:short)%(end) %(if)%(object)%(then)%(object)%(else)%(objectname)%(end) %(color:green)%(align:10)%(taggeremail:localpart)%(end) %(color:white)%(align:40,40)[%(creatordate:relative)] %(contents:lines=1)%(end)' -l
     tagv = tag --format='%(color:bold cyan)== %(refname:short) ==%(if)%(object)%(then)%0aTag Hash: %(objectname)%0aTag Date: %(taggerdate:iso-local)%0a  Commit: %(object) %0a%0a%(contents)%(else)%0a(lightweight tag)%0a  Commit: %(objectname)%(end)%0a' -l
