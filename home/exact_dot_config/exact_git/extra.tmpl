@@ -1,0 +1,62 @@
+# use `cmd = "set"` in a difftool to detect env vars git sends to the tool
+
+{{  if eq .chezmoi.os "windows" -}}
+[alias]
+    # https://stackoverflow.com/a/54322798/14582
+    h = "!f() { $SYSTEMROOT/System32/bash -c \"git help $1\"; }; f"
+
+{{    $dmtool := "" }}
+
+{{-   if get .profile "beyond_compare_dirf" }}
+{{-     $dmtool = eq $dmtool "" | ternary "bc" $dmtool }}
+[difftool "bc"]
+    cmd = {{.profile.home_dirf}}/.config/beyondcompare/bcomp-gitdd.cmd "$LOCAL" "$REMOTE"
+[mergetool "bc"]
+    path = {{.profile.beyond_compare_dirf}}/BComp.exe
+    trustExitCode = true
+{{-   end }}
+
+{{-   if lookPath "code" }}
+{{-     $dmtool = eq $dmtool "" | ternary "code" $dmtool }}
+[difftool "code"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+[mergetool "code"]
+    cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+{{-   end }}
+
+{{-   if lookPath "semanticmergetool" }}
+{{-     $dmtool = eq $dmtool "" | ternary "semantic" $dmtool }}
+[difftool "semantic"]
+    cmd = semanticmergetool -s "$LOCAL" -d "$REMOTE"
+[mergetool "semantic"]
+    cmd = semanticmergetool -s "$REMOTE" -d "$LOCAL" -b "$BASE" -r "$MERGED"
+    trustExitCode = true
+{{-   end }}
+
+{{- if $dmtool }}
+
+[diff]
+    tool = {{$dmtool}}
+    prompt = false
+[difftool]
+    prompt = false
+[merge]
+    tool = {{$dmtool}}
+    prompt = false
+{{- end }}
+
+[safe]
+    directory = %(prefix)///wsl.localhost/{{ output "wsl" "-l" "-q" | trim }}/home/{{ env "USERNAME" }}/.local/share/chezmoi
+
+{{- else -}}{{/* !windows */}}
+
+[diff]
+    tool = vimdiff3
+[difftool "vimdiff3"]
+    path = nvim
+[merge]
+    tool = vimdiff3
+[mergetool "vimdiff3"]
+    path = nvim
+
+{{- end }}
