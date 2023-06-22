@@ -1,8 +1,21 @@
 # yaml values should only use lowercase names, because chezmoi uses a library that always lowercases them
 # (see https://github.com/twpayne/chezmoi/issues/463)
+#
+# important: do not use ".profile" from here, because those values will not exist on first-init.
 
 format: yaml
 pager: delta
+progress: true
+
+{{- /* TODO: autodetect this... */}}
+{{- $personal_machine := true }}
+{{- if and (hasKey . "profile") (hasKey .profile "personal_machine") }}
+{{-   $personal_machine = get .profile "personal_machine" }}
+{{- else }}
+{{-   $personal_machine = promptBool "\n>>> Personal machine? (y/n): " }}
+{{- end }}
+{{- $home_dirf := get .chezmoi "homeDir" | replace "\\" "/" }}
+{{- $home_dirb := get .chezmoi "homeDir" | replace "/" "\\" }}
 
 {{- $beyond_compare_dirf := "" }}
 {{- $p4merge_dirf := "" }}
@@ -20,7 +33,7 @@ diff:
 
 merge:
   command: pwsh
-  args: [{{.profile.home_dirf}}/.config/chezmoi/merge.ps1, -BeyondCompare, -Destination, '{{`{{ .Destination }}`}}', -Source, '{{`{{ .Source }}`}}', -Target, '{{`{{ .Target }}`}}']
+  args: [{{$home_dirf}}/.config/chezmoi/merge.ps1, -BeyondCompare, -Destination, '{{`{{ .Destination }}`}}', -Source, '{{`{{ .Source }}`}}', -Target, '{{`{{ .Target }}`}}']
 {{-   else if ne $p4merge_dirf "" -}}
 diff:
   command: p4merge
@@ -33,7 +46,7 @@ diff:
 
 merge:
   command: pwsh
-  args: [{{.profile.home_dirf}}/.config/chezmoi/merge.ps1, -KDiff3, -Destination, '{{`{{ .Destination }}`}}', -Source, '{{`{{ .Source }}`}}', -Target, '{{`{{ .Target }}`}}']
+  args: [{{$home_dirf}}/.config/chezmoi/merge.ps1, -KDiff3, -Destination, '{{`{{ .Destination }}`}}', -Source, '{{`{{ .Source }}`}}', -Target, '{{`{{ .Target }}`}}']
 {{-   end }}
 {{ else }}
 merge:
@@ -49,20 +62,13 @@ interpreters.ps1:
 
 data:
   profile:
+    personal_machine: {{$personal_machine}}
+    home_dirf: {{$home_dirf}}
+    home_dirb: {{$home_dirb}}
 {{- if ne $beyond_compare_dirf "" }}
     beyond_compare_dirf: {{$beyond_compare_dirf}}
 {{- end }}
 {{- if ne $p4merge_dirf "" }}
     p4merge_dirf: {{$p4merge_dirf}}
 {{- end }}
-{{- /* TODO: autodetect this... */}}
-{{- $personal_machine := true }}
-{{- if and (hasKey . "profile") (hasKey .profile "personal_machine") }}
-{{-   $personal_machine = get .profile "personal_machine" }}
-{{- else }}
-{{-   $personal_machine = promptBool "\n>>> Personal machine? (y/n): " }}
-{{- end }}
-    home_dirf: {{.chezmoi.homeDir | replace "\\" "/"}}
-    home_dirb: {{.chezmoi.homeDir | replace "/" "\\"}}
-    personal_machine: {{$personal_machine}}
     theme: dark # updated in the dst file by Set-DarkMode
