@@ -60,9 +60,13 @@
     dd = difftool --dir-diff
     sui = submodule update --init
 
-    t = l0 --max-count=15
-    t2 = l0 --max-count=30
-    l0 = log --pretty=shortlog
+[alias]
+    # hey it sure would be nice if git was told terminal width, so i could use `%<|(-x)` instead of `$((COLUMNS-x))`
+    t0 = "!f() { COLUMNS=$(tput cols); git log $1 --first-parent --pretty=tformat:\"%Creset%<|($((COLUMNS-45)),trunc)%s%C(bold cyan)  %<(12,trunc)%al  %Cblue%<(13,trunc)%cr  %C(bold black)%<(12)%h  %C(auto)%d\"; }; f"
+
+    t  = t0 --max-count=15
+    tt = t0 --max-count=30
+
     l = log --graph --pretty=shortlog-graph
     ll = log --graph --stat='100,0,20' --stat-graph-width=20 --pretty=longlog
     rl = reflog --pretty=reflog
@@ -195,9 +199,8 @@
 [pretty]
     longlog = ___%n   \\%n%C(auto)%d%Creset %s%n%C(bold cyan)% ae %Cblue(%cr) %C(bold black)%h
     reflog = %C(auto)%h %<|(20)%gd %C(blue)%cr%C(reset) %gs (%s)
-    # TODO: base these on term width
-    shortlog = %C(auto)%d%Creset %<|(70,trunc)%s%C(bold cyan)%<(18,trunc)% ae %Cblue(%cr) %C(bold black)%h
-    shortlog-graph = %<|(10) %C(auto)%d%Creset %<|(70,trunc)%s%C(bold cyan)%<(18,trunc)% ae %Cblue(%cr) %C(bold black)%h
+    # TODO: figure out if it's at all possible to get the graph to not override my formatting (consider updating alias to use `column` to format these..)
+    shortlog-graph = %<|(15)%Creset%<|(-36,trunc)%s%C(bold cyan)  %<(10,trunc)%al  %Cblue%<(11,trunc)%cr  %C(bold black)%h  %C(auto)%d
 
 # test if we can enable caching for untracked files
 #   git update-index --test-untracked-cache
