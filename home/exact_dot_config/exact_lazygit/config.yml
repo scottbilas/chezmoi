@@ -5,9 +5,6 @@ gui:
     selectedRangeBgColor:
       - reverse
 
-os:
-  editCommand: micro
-
 git:
   paging:
     colorArg: always
