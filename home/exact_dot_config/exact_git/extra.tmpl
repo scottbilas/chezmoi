@@ -1,6 +1,10 @@
 # use `cmd = "set"` in a difftool to detect env vars git sends to the tool
 
 {{  if eq .chezmoi.os "windows" -}}
+[core]
+    # use on windows only for now.. has problems on debian "empty last update token" warning and anyway i only use giant repos on my windows machines.
+    fsmonitor = true
+
 [alias]
     # https://stackoverflow.com/a/54322798/14582
     h = "!f() { $SYSTEMROOT/System32/bash -c \"git help $1\"; }; f"
