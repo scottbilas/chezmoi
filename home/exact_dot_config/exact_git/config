@@ -60,7 +60,6 @@
     dd = difftool --dir-diff
     sui = submodule update --init
 
-[alias]
     # hey it sure would be nice if git was told terminal width, so i could use `%<|(-x)` instead of `$((COLUMNS-x))`
     lx = "!f() { COLUMNS=$(tput cols); git log $@ --pretty=tformat:\"%Creset%<|($((COLUMNS-45)),trunc)%s%C(bold cyan)  %<(12,trunc)%al  %Cblue%<(13,trunc)%cr  %C(bold black)%<(12)%h  %C(auto)%d\"; }; f"
 
