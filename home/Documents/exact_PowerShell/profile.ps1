@@ -148,6 +148,7 @@ if (Get-Command -ea:silent pskill) {
 Set-Alias psdev (Join-Path $PSScriptRoot dev.ps1)
 Set-Alias pssetup (Join-Path $PSScriptRoot setup.ps1)
 function psup { & (Join-Path $PSScriptRoot setup.ps1) -Upgrade }
+function zsh { wsl -e /home/linuxbrew/.linuxbrew/bin/zsh --login }
 
 & {
     $bc = Resolve-Path -ea:silent ~/scoop/apps/beyondcompare/current/bcomp.exe
@@ -195,7 +196,7 @@ function Title($title) {
     $host.ui.RawUI.WindowTitle = $title
     $env:SHELL_TITLE = $title
 }
-
+Title posh
 
 
 ### FINISHED
