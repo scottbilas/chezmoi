@@ -4,7 +4,8 @@
 #
 # 1 inherit cwd from source pane
 # 2 new hotkeys for window creation that select zsh or pwsh
-# 3 inherit whatever shell currently running in source pane
-# 4 detect if in wsl and if so don't do #1,2 above
+# 3 fix problem where sometimes/often exiting a shell will not exit, and the pane hangs until i kill it
+# 4 inherit whatever shell currently running in source pane
+# 5 detect if in wsl and if so don't do #1,2 above
 
 /mnt/c/Program\ Files/PowerShell/7/pwsh.exe --nologo -WorkingDirectory "~"
