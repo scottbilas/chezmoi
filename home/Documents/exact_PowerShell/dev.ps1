@@ -20,6 +20,8 @@ if (-not (Get-Content Function:\prompt).ToString().Contains('Update-ZLocation'))
     Write-Warning "ZLocation+ohmyposh prompt collision"
 }
 
+Import-Module scobi
+
 ### FUNCTIONS
 
 function pester($file) {

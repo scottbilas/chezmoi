@@ -25,6 +25,8 @@ $profileTimerStart = Get-Date
 function Reload-Profile {
     write-host 'Reloading profile...'
     Invoke-Expression -Command $PROFILE
+
+    # TODO: force-reimport modules..?
 }
 
 

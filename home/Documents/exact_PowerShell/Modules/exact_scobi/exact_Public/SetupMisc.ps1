@@ -1,7 +1,3 @@
-#Requires -Version 7
-Set-StrictMode -Version Latest
-$ErrorActionPreference = 'Stop'
-
 function Invoke-SetupEnvPaths([string]$EnvPaths = $Env:PATH) {
 
     $result = [PSCustomObject]@{

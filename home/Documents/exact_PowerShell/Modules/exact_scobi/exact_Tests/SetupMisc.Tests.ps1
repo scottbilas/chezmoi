@@ -1,7 +1,7 @@
 if ((Get-Command Invoke-Pester).Version -lt [version]'5.0.0') { throw "Requires a much newer Pester" }
 
 BeforeAll {
-    Import-Module scottbilas-Setup -Force
+    Import-Module scobi -Force
 }
 
 Describe 'Invoke-SetupEnvPaths' {
