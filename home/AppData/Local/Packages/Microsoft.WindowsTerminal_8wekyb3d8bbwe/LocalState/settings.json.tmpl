@@ -35,20 +35,26 @@
         "list":
         [
             {
-                "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
+                "name": "Tmux",
+                "tabTitle": "Tmux",
+                "commandline": "wsl -e bash --login -c tmux",
                 "icon": "C:/Users/scott/.local/share/chezmoi/home/../resources/icons/debian_logo_red.png",
-                "name": "Debian",
-                "source": "Windows.Terminal.Wsl",
-                "tabTitle": "Debian"
+                "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}"
             },
             {
-                "commandline": "pwsh /nologo",
-                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "name": "PowerShell 7",
-                "source": "Windows.Terminal.PowershellCore",
-                "tabTitle": "Posh"
+                "tabTitle": "Posh",
+                "commandline": "pwsh /nologo",
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}"
             },
-
+            {
+                "name": "zsh",
+                "tabTitle": "zsh",
+                "commandline": "wsl -e /home/linuxbrew/.linuxbrew/bin/zsh --login",
+                "startingDirectory": "~",
+                "icon": "C:/Users/scott/.local/share/chezmoi/home/../resources/icons/debian_logo_red.png",
+                "guid": "{482f5753-14e3-4dcc-a557-48f7dad1eda7}",
+            },
             { "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}", "hidden": true },
             { "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}", "hidden": true },
             { "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}", "hidden": true }
