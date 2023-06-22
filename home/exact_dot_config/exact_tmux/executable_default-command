@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+# TODO: figure out how to...
+#
+# 1 inherit cwd from source pane
+# 2 new hotkeys for window creation that select zsh or pwsh
+# 3 inherit whatever shell currently running in source pane
+# 4 detect if in wsl and if so don't do #1,2 above
+
+/mnt/c/Program\ Files/PowerShell/7/pwsh.exe --nologo -WorkingDirectory "~"
