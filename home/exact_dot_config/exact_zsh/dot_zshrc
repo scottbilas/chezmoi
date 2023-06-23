@@ -1,11 +1,5 @@
 ## COMMON ENV
 
-# a few apps don't respect XDG spec (i.e. they use ~/.myappname if this isn't set)..
-export XDG_CONFIG_HOME=$HOME/.config
-
-# early we need brew in there so we have access to commands
-[[ -d /home/linuxbrew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
 if (( $+commands[micro] )); then
   export EDITOR=micro
   export VISUAL=micro
@@ -22,17 +16,10 @@ fi
 # todo: why did i add this..?
 [[ "$OSTYPE" == darwin* ]] && export BROWSER=open
 
-# set a default LANG
-# todo: why do i need this..?
-[[ -z "$LANG" ]] && export LANG='en_US.UTF-8'
-
 ## reroute configs and set paths
 
-export GOPATH=$HOME/go
-export BAT_CONFIG_PATH=$HOME/.config/bat/bat.conf
 export WEECHAT_HOME=$HOME/.config/weechat
 export ELINKS_CONFDIR=$HOME/.config/elinks
-export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 
 if (( $+commands[fasd] )); then
   # move out of root (folder not autocreated by fasd)
@@ -54,8 +41,6 @@ fi
 export BAT_PAGER=less
 
 export MICRO_TRUECOLOR=1
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
-export HOMEBREW_NO_ENV_HINTS=1
 # todo: why do I have --no-init and -z-4?
 export LESS='--quit-if-one-screen --hilite-search --hilite-unread --ignore-case --long-prompt --raw-control-chars --no-init -z-4'
 
