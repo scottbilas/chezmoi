@@ -1,7 +1,12 @@
 {{ if stat (joinPath .profile.home_dirf "Sync/Private") }}
-    {{.profile.home_dirf}}/Sync/Private/
+    {{ joinPath .profile.home_dirf "Sync/Private" }}
 {{ else if stat (joinPath .profile.home_dirf "Sync/Common/Private") }}
-    {{.profile.home_dirf}}/Sync/Common/Private/
+    {{ joinPath .profile.home_dirf "Sync/Common/Private" }}
+{{ else if stat (joinPath .profile.home_dirf ".local/share/private-hack") }}
+    {{/* temp solution when sync not set up, such as in WSL:
+         create private-hack folder, copy 'ssh' and 'git' in there from elsewhere and fix 0600
+       */}}
+    {{ joinPath .profile.home_dirf ".local/share/private-hack" }}
 {{ else }}
-ERROR MISSING 'Sync/Private' or 'Sync/Common/Private'
+ERROR MISSING 'Sync/Private' or 'Sync/Common/Private' or '.local/share/private-hack'
 {{ end }}
