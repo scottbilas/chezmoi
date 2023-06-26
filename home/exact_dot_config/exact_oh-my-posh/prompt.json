@@ -56,12 +56,12 @@
           "foreground": "#193549",
           "powerline_symbol": "\ue0b0",
           "properties": {
-            "branch_icon": "שׂ ",
+            "branch_icon": "\ue725 ", // 
             "fetch_stash_count": true,
             "fetch_status": true,
             "fetch_upstream_icon": true,
             "fetch_worktree_count": true,
-            "github_icon": "\ue709",
+            "github_icon": "\ue709", // 
             "tag_icon": "\uf412 ",
             "untracked_modes": {
               "C:/UnitySrc/work/unity/":  "no",
@@ -73,7 +73,17 @@
               "D:/UnitySrc/work/unity2/": "no",
               "D:/UnitySrc/work/unity3/": "no",
               "D:/UnitySrc/work/unity4/": "no",
-              "D:/UnitySrc/work/unity5/": "no"
+              "D:/UnitySrc/work/unity5/": "no",
+              "C:/UnitySrc/work/nu/":  "no",
+              "C:/UnitySrc/work/nu2/": "no",
+              "C:/UnitySrc/work/nu3/": "no",
+              "C:/UnitySrc/work/nu4/": "no",
+              "C:/UnitySrc/work/nu5/": "no",
+              "D:/UnitySrc/work/nu/":  "no",
+              "D:/UnitySrc/work/nu2/": "no",
+              "D:/UnitySrc/work/nu3/": "no",
+              "D:/UnitySrc/work/nu4/": "no",
+              "D:/UnitySrc/work/nu5/": "no"
             }
           },
           "style": "powerline",
@@ -93,7 +103,7 @@
             "{{ if .Behind }}#B388FF{{ end }}"
           ],
           //"template": "{{ .Selector }}{{ if .Status.Changed }} \uF044 {{ end }}{{ .Status.String }}",
-          "template": "  שׂ ",
+          "template": "   ",
           "properties": {
             //"fetch_status": true, // crazy slow, cannot use this without caching of some kind
             "branch_max_length": 25,
