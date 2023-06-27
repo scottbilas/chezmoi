@@ -22,6 +22,7 @@
     }
 
     'Terminal-Icons' = 'latest'
+    'ugit' = 'latest'
     'WingetTools' = 'latest'
     'ZLocation' = 'latest'
 }
