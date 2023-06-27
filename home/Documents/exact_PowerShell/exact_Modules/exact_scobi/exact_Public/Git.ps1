@@ -22,6 +22,11 @@ function Git-GetChangedFiles {
 #>
 
 
+# TODO: integrate this into ugit, and have it handle:
+#
+# -l/--long (optional size)
+# blob vs tree (size will be just '-')
+# -z termination and also quote stripping (see help on ls-files and git config 'core.quotePath')
 function Git-LsTree {
     [CmdletBinding()]
     param (
