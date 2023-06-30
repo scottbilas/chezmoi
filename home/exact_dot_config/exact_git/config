@@ -166,10 +166,6 @@
 ; |  __/>  <| ||  __/ | | \__ \ | (_) | | | \__ \
 ;  \___/_/\_\\__\___|_| |_|___/_|\___/|_| |_|___/
 
-[extensions]
-    # https://patchwork.kernel.org/patch/10765697/
-    worktreeConfig = true
-
 [filter "lfs"]
     clean = git-lfs clean -- %f
     process = git-lfs filter-process
