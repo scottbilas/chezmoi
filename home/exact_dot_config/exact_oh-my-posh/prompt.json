@@ -58,11 +58,15 @@
           "properties": {
             "branch_icon": "\ue725 ", // 
             "fetch_stash_count": true,
-            "fetch_status": true,
+            //"fetch_status": true,
             "fetch_upstream_icon": true,
             "fetch_worktree_count": true,
-            "github_icon": "\ue709", // 
             "tag_icon": "\uf412 ",
+            "git_icon": "\uf1d3", // 
+            "upstream_icons": {
+              "github.cds": "\uf06af ", // 󰚯  << matcher doesn't currently work on this..
+              "github.com": "\uf09b" // 
+            },
             "untracked_modes": {
               "C:/UnitySrc/work/unity/":  "no",
               "C:/UnitySrc/work/unity2/": "no",
