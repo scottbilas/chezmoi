@@ -62,9 +62,9 @@
             "fetch_upstream_icon": true,
             "fetch_worktree_count": true,
             "tag_icon": "\uf412 ",
-            "git_icon": "\uf1d3", // 
+            "git_icon": "\uf1d3", //    << default when upstream_icons does not match on url
             "upstream_icons": {
-              "github.cds": "\uf06af ", // 󰚯  << matcher doesn't currently work on this..
+              "github.cds": "\ue721", // 
               "github.com": "\uf09b" // 
             },
             "untracked_modes": {
