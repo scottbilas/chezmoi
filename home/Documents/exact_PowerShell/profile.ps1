@@ -112,10 +112,13 @@ if (Get-Command -ea:silent fd) {
 }
 
 if (Get-Command -ea:silent exa) {
-    # cargo install --git https://github.com/tigercat2000/exa --branch win-support
-    # (see https://github.com/ogham/exa/pull/820#issuecomment-1173006774)
+    $Env:EXA_GRID_ROWS = 10
+
+    # cargo install --git https://github.com/ogham/exa.git
+    # (needed until they start doing releases of windows on CI)
     function l { exa --all --group-directories-first --icons --classify ($args | Expand-Path) }
-    function ll { l --long --git --header @args }
+    function ll { l --long --header @args }
+    function llg { ll --git @args }
 }
 else {
     function l { Get-ChildItem $args | Format-Wide -AutoSize }
