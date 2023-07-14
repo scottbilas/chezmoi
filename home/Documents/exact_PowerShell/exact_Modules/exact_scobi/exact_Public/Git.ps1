@@ -3,7 +3,7 @@ function Git-GetChangedFiles {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
-        [string]$branch
+        [string]$Branch
     )
 
     # Set the paths you're interested in
@@ -28,13 +28,20 @@ function Git-GetChangedFiles {
 # blob vs tree (size will be just '-')
 # -z termination and also quote stripping (see help on ls-files and git config 'core.quotePath')
 function Git-LsTree {
-    [CmdletBinding()]
+    [CmdletBinding(PositionalBinding=$false)]
     param (
-        [string]$branch = 'HEAD',
-        [string]$path = ''
+        [Parameter(Position=0)]
+        [string]$Path = '.',
+
+        [string]$RepoRoot = $null, # corresponds to git -C
+        [string]$Branch = 'HEAD'
     )
 
-    git ls-tree -r --long $branch $path | ForEach-Object {
+    $gitArgs = @()
+    if ($RepoRoot) { $gitArgs += '-C', $RepoRoot }
+    $gitArgs += 'ls-tree', '-r', '--long', $Branch, $Path
+
+    git $gitArgs | ForEach-Object {
         if ($_ -match '(\d+) (\w+) (\w+) *(\d+)\t(.*)') {
             [pscustomobject]@{
                 path = $matches[5]
@@ -50,3 +57,49 @@ function Git-LsTree {
     }
 }
 Export-ModuleMember Git-LsTree
+
+filter Git-ToDict($Delim = ':') {
+    begin {
+        $dict = @{}
+    }
+
+    process {
+        if ($_) {
+            $k, $v = $_.Split($Delim, 2, 'trim')
+            $dict[$k] = $v
+        }
+        else {
+            $dict
+            $dict = @{}
+        }
+    }
+
+    end {
+        if ($dict.Count) { $dict }
+    }
+}
+Export-ModuleMember Git-ToDict
+
+function Git-WorktreeList {
+    [CmdletBinding(PositionalBinding=$false)]
+    param (
+        [string]$RepoRoot = $null # corresponds to git -C
+    )
+
+    $gitArgs = @()
+    if ($RepoRoot) { $gitArgs += '-C', $RepoRoot }
+    $gitArgs += 'worktree', 'list', '--porcelain'
+
+    git $gitArgs | Git-ToDict -Delim ' ' | ForEach-Object {
+        $gitdir = $_.worktree + '/.git'
+        $_.gitdir = $gitdir
+        if (Test-Path -PathType Leaf $_.gitdir) {
+            $_.gitdirwt = (Get-Content $_.gitdir | Git-ToDict).gitdir
+        }
+        if ($_.branch.StartsWith("refs/heads/")) {
+            $_.branch = $_.branch.Substring(11)
+        }
+        $_
+    }
+}
+Export-ModuleMember Git-WorktreeList
