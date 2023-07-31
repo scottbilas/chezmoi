@@ -1,5 +1,5 @@
 #Requires -Version 7
-#Requires -Modules scottbilas-Setup # do not add to this list!
+#Requires -Modules scobi # do not add any more to this
 
 [CmdletBinding()]
 param (
