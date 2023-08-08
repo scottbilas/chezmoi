@@ -18,7 +18,7 @@
             "display_user": false
           },
           "style": "plain",
-          "template": "{{ if .SSHSession }}\uf817 {{ end }}{{ .HostName }}",
+          "template": "{{ if .SSHSession }}\ueb39 {{ end }}{{ .HostName }}",
           "type": "session"
         },
         {
