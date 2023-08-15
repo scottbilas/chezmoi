@@ -12,6 +12,7 @@
     'Native' = 'latest'
     'Pester' = 'latest'
     'plinqo' = 'latest'
+    'PowerHTML' = 'latest'
     'powershell-yaml' = 'latest'
     'Profiler' = 'latest'
     'PSReadLine' = @{
