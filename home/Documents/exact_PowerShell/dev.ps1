@@ -20,6 +20,14 @@ if (-not (Get-Content Function:\prompt).ToString().Contains('Update-ZLocation'))
     Write-Warning "ZLocation+ohmyposh prompt collision"
 }
 
+# something is wrong with the way zlocation hooks the prompt, because $LASTEXITCODE always comes
+# through as 0 to the hooked oh-my-posh prompt. saving and restoring the code doesn't seem to matter.
+# the only thing i've found that works is to reverse the order so the posh prompt is still always first.
+Set-Content Function:\prompt {
+    ZLocationOrigPrompt
+    Update-ZLocation $pwd
+}
+
 Import-Module scobi -DisableNameChecking
 
 ### FUNCTIONS

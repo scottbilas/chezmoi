@@ -115,19 +115,15 @@
           }
         },
         {
+          "type": "status",
           "background": "black",
-          "foreground": "white",
           "foreground_templates": [
-            "{{ if gt .Code 0 }}#ff0000{{ end }}"
+            "{{ if eq .Code 2 }}#f0ac00{{ else }}#ff0000{{ end }}"
           ],
           "leading_diamond": " \ue0b6",
-          "properties": {
-            "foreground": "#ffffff"
-          },
           "style": "plain",
-          "template": " \uf071 {{ if gt .Code 0 }}\uf00d {{ .Meaning }}{{ else }}\uf42e{{ end }} ",
-          "trailing_diamond": "\ue0b4",
-          "type": "exit"
+          "template": " \uf00d {{ .Code }}{{ if not (and (ge (index .Meaning 0) 48) (le (index .Meaning 0) 57)) }} ({{ .Meaning }}){{ end }}",
+          "trailing_diamond": "\ue0b4"
         }
       ],
       "type": "prompt"
@@ -136,25 +132,26 @@
       "alignment": "right",
       "segments": [
         {
+          "type": "executiontime",
           "background": "#8800dd",
           "foreground": "#ffffff",
           "leading_diamond": "\ue0b6",
           "powerline_symbol": "\ue0b0",
           "properties": {
-            "threshold": 2000
+            "threshold": 1500
           },
           "style": "diamond",
-          "template": " <#fefefe>\ufbab</> {{ .FormattedMs }} ",
-          "trailing_diamond": "\ue0b4",
-          "type": "executiontime"
+          "template": " <#fefefe>\uf4e3</> {{ .FormattedMs }} ",
+          "trailing_diamond": "\ue0b4"
         },
         {
+          "type": "time",
           "foreground": "#007ACC",
           "style": "plain",
-          "template": " {{ .CurrentDate | date .Format }}",
-          "type": "time"
+          "template": " {{ .CurrentDate | date .Format }}"
         },
         {
+          "type": "battery",
           "foreground_templates": [
             "{{if eq \"Charging\" .State.String}}#40c4ff{{end}}",
             "{{if and (eq \"Discharging\" .State.String) (ne 100 .Percentage)}}#ff5722{{end}}",
@@ -167,13 +164,13 @@
             "discharging_icon": "\u21e3 "
           },
           "style": "plain",
-          "template": " {{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }}\uf295",
-          "type": "battery"
+          "template": " {{ if and (not .Error) (lt .Percentage 99) }}{{ .Icon }}{{ .Percentage }}\uf295{{ end }}"
         }
       ],
       "type": "prompt"
     },
     {
+      "type": "prompt",
       "alignment": "left",
       "newline": true,
       "segments": [
@@ -182,8 +179,7 @@
           "template": "$",
           "type": "text"
         }
-      ],
-      "type": "prompt"
+      ]
     }
   ],
   "final_space": true,
