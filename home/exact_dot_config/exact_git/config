@@ -30,6 +30,7 @@
 
     co = checkout
     fc = clone --recurse --jobs 7
+    fcz = fc --filter=blob:none
     ss = stash show -p
 
     b  = branch -vv
