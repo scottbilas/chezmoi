@@ -11,6 +11,7 @@
     'Microsoft.PowerShell.Crescendo' = 'latest'
     'Native' = 'latest'
     'Pester' = 'latest'
+    'pinvoke' = 'latest'
     'plinqo' = 'latest'
     'PowerHTML' = 'latest'
     'powershell-yaml' = 'latest'
@@ -23,6 +24,7 @@
     }
 
     'Terminal-Icons' = 'latest'
+    'PSToml' = 'latest'
     'ugit' = 'latest'
     'WingetTools' = 'latest'
     'ZLocation' = 'latest'
