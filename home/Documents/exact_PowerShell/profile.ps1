@@ -84,6 +84,10 @@ function up { Set-Location .. }
 function ov($what) { Set-Location ../$what }
 function ~ { Set-Location ~ }
 
+function Get-ScottToml {
+    Get-Content ~\.local\share\private\keys\scott.toml | convertfrom-toml
+}
+
 function Expand-Path {
     [CmdletBinding()]
     param(
@@ -138,6 +142,14 @@ if (Get-Command -ea:silent lazygit) {
 
 if (Get-Command -ea:silent pskill) {
     function kill { pskill -nobanner @args }
+}
+
+if (Get-Command -ea:silent gpt) {
+    function gpt {
+        $env:OPENAI_API_KEY = (Get-ScottToml).'App Keys'.openai
+        gpt.exe @args
+        $env:OPENAI_API_KEY = $null
+    }
 }
 
 # default sort.exe is in system32; avoid that one
