@@ -132,10 +132,10 @@ function installScoopPackage([string]$name, [switch]$sudo, [switch]$global) {
 
 foreach ($name in @(
         # shell stuff
-        'busybox', 'echoargs', 'less', 'wget', 'which',
+        'busybox', 'echoargs', 'less', 'moar', 'wget', 'curl', 'which',
         # other core utils
         '7zip', 'autohotkey1.1', 'bat', 'delta', 'fd', 'file', 'fzf', 'git', 'git-lfs',
-        'gsudo', 'highlight', 'kalk', 'gitui', 'micro', 'ripgrep',
+        'gsudo', 'highlight', 'kalk', 'gitui', 'micro', 'ripgrep', 'hexyl',
         # bigger things
         'python', 'nodejs', 'rust', 'perl', 'go'
         'syncthingtray', 'linqpad', 'linqpadless', 'sysinternals', 'windirstat'

@@ -84,8 +84,15 @@ function up { Set-Location .. }
 function ov($what) { Set-Location ../$what }
 function ~ { Set-Location ~ }
 
-function Get-ScottToml {
-    Get-Content ~\.local\share\private\keys\scott.toml | convertfrom-toml
+function Get-ConfigToml {
+    $baseDir = '~\.local\share\private\keys'
+
+    $path = Join-Path $baseDir scott.toml
+    if (!(Test-Path $path)) {
+        $path = Join-Path $baseDir unity.toml
+    }
+
+    Get-Content $path | convertfrom-toml
 }
 
 function Expand-Path {
@@ -113,6 +120,15 @@ if (Get-Command -ea:silent rg) {
 
 if (Get-Command -ea:silent fd) {
     function fdh { fd -HI @args }
+}
+
+$moarCommand = Get-Command -ea:silent moar
+if ($moarCommand) {
+    $Env:MOAR = '-quit-if-one-screen -style dracula -no-statusbar -no-linenumbers -wrap'
+    $Env:PAGER = $moarCommand.source # this probably won't do much on windows
+    Set-Alias less moar # muscle memory!
+
+    Set-Alias bat moar # let's try moar for a while instead of bat..
 }
 
 if (Get-Command -ea:silent exa) {
@@ -146,8 +162,15 @@ if (Get-Command -ea:silent pskill) {
 
 if (Get-Command -ea:silent gpt) {
     function gpt {
-        $env:OPENAI_API_KEY = (Get-ScottToml).'App Keys'.openai
+        $env:OPENAI_API_KEY = (Get-ConfigToml).'Auth Tokens'.openai
         gpt.exe @args
+        $env:OPENAI_API_KEY = $null
+    }
+}
+elseif (Get-Command -ea:silent chatgpt) {
+    function gpt {
+        $env:OPENAI_API_KEY = (Get-ConfigToml).'Auth Tokens'.openai
+        chatgpt.exe @args
         $env:OPENAI_API_KEY = $null
     }
 }
