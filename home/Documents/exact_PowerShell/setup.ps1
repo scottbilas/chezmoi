@@ -138,7 +138,7 @@ foreach ($name in @(
         'gsudo', 'highlight', 'kalk', 'gitui', 'micro', 'ripgrep', 'hexyl',
         # bigger things
         'python', 'nodejs', 'rust', 'perl', 'go'
-        'syncthingtray', 'linqpad', 'linqpadless', 'sysinternals', 'windirstat'
+        'syncthingtray', 'linqpad', 'linqpadless', 'sysinternals', 'wiztree'
     )) {
     installScoopPackage($name)
 }
@@ -309,3 +309,7 @@ if ($scoopPackages -contains 'python') {
     }
     #>
 }
+
+# mute
+
+oh-my-posh disable notice
