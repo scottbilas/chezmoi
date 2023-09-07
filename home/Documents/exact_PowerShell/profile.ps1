@@ -127,8 +127,6 @@ if ($moarCommand) {
     $Env:MOAR = '-quit-if-one-screen -style dracula -no-statusbar -no-linenumbers -wrap'
     $Env:PAGER = $moarCommand.source # this probably won't do much on windows
     Set-Alias less moar # muscle memory!
-
-    Set-Alias bat moar # let's try moar for a while instead of bat..
 }
 
 if (Get-Command -ea:silent exa) {
