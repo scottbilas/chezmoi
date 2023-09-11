@@ -60,14 +60,6 @@ Set-PSReadLineOption `
     -PredictionSource History `
     -PredictionViewStyle ListView
 
-# thanks to https://megamorf.gitlab.io/cheat-sheets/powershell-psreadline/
-Set-PSReadLineOption -AddToHistoryHandler {
-    param([string]$line)
-
-    $sensitive = 'password|secret|API_KEY\s*='
-    return ($line -notmatch $sensitive)
-}
-
 # from https://gist.github.com/shanselman/25f5550ad186189e0e68916c6d7f44c3?WT.mc_id=-blog-scottha
 Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
     param($commandName, $wordToComplete, $cursorPosition)

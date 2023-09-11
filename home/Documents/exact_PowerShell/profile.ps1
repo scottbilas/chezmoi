@@ -57,8 +57,13 @@ Set-PSReadlineKeyHandler -Chord Tab -Function MenuComplete
 
 Set-PSReadLineOption `
     -HistorySavePath "~/.local/state/powershell/PSReadLine/$($Host.Name)_history.txt" `
-    -HistorySearchCursorMovesToEnd
+    -HistorySearchCursorMovesToEnd `
+    -AddToHistoryHandler { # thanks to https://megamorf.gitlab.io/cheat-sheets/powershell-psreadline/
+        param([string]$line)
 
+        $sensitive = 'password|secret|API_KEY\s*='
+        return ($line -notmatch $sensitive)
+    }
 
 ### ALIASES AND ALIAS-ISHES
 
