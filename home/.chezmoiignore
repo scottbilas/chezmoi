@@ -20,6 +20,7 @@
 .config/ranger
 .config/tmux
 .cache/ssh
+AppData/Local/Microsoft/Windows/Themes/Custom.theme
 
 {{ else }}
 
