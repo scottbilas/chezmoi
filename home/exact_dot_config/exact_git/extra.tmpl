@@ -51,8 +51,13 @@
     prompt = false
 {{- end }}
 
+{{/*
+# TODO: fix
+#  1. no wsl distro installed = fail to run the template (fix: add fallback)
+#  2. multiple wsl distros installed, such as with docker = newlines and extra gunk added to file (fix: only choose default distro)
 [safe]
     directory = %(prefix)///wsl.localhost/{{ output "wsl" "-l" "-q" | trim }}/home/{{ env "USERNAME" }}/.local/share/chezmoi
+*/}}
 
 {{- else -}}{{/* !windows */}}
 
