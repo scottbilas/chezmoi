@@ -1,31 +1,69 @@
 #!/bin/sh
-set -e -o pipefail
+# shellcheck disable=SC1083,SC1091,SC2086,SC3011,SC3024
 
-USAGE='[--pull] [--push] [--rebase] [--no-log] [--dry-run]'
+set -e
+
+# shellcheck disable=SC2034
+USAGE='[--pull] [--push] [--rebase] [--no-log-fetched] [--dry-run] [REMOTE [BRANCH]]'
+# shellcheck disable=SC2034
 SUBDIRECTORY_OK=Yes
 . git-sh-setup
 
 [ "$DEBUG" ] && set -x
 
 main () {
-    opt_logfetched=true
+    opt_pull=false
+    opt_push=false
+    opt_rebase=false
+    opt_log_fetched=true
+    opt_dry_run=false
+
+    opt_remote=''
+    opt_branch=''
+
+    # process incoming args
 
 	while [ $# != 0 ]
 	do
 		case "$1" in
-            --pull)    opt_pull=true ;;
-            --push)    opt_push=true ;;
-            --rebase)  opt_rebase=true ;;
-            --no-log)  opt_logfetched=false ;;
-            --dry-run) opt_dryrun=true ;;
-            *)         usage ;;
+            --pull)            opt_pull=true ;;
+            --push)            opt_push=true ;;
+            --rebase)          opt_rebase=true ;;
+            --no-log-fetched)  opt_log_fetched=false ;;
+            --dry-run)         opt_dry_run=true ;;
+            -*)                usage ;;
+            *) {
+                if [ -z "$opt_branch" ]; then
+                    opt_branch=$1
+                elif [ -z "$opt_remote" ]; then
+                    opt_remote=$opt_branch
+                    opt_branch=$1
+                else
+                    usage
+                fi
+            } ;;
 		esac
 		shift
 	done
 
-    if [ $opt_pull ]; then {
+    # detect remote and branch if not specified
+
+    # this will fatal if we don't have an upstream for the current branch (which is good)
+    REMOTE_BRANCH=$(git rev-parse --abbrev-ref @{u})
+    read -r git_remote git_branch <<< "$(echo $REMOTE_BRANCH | sed 's/\// /')"
+
+    if [ -z "$opt_remote" ]; then
+        opt_remote=$git_remote
+    fi
+    if [ -z "$opt_branch" ]; then
+        opt_branch=$git_branch
+    fi
+
+    # build up git args
+
+    if $opt_pull; then {
         args='pull --autostash'
-        if [ $opt_rebase ]; then
+        if $opt_rebase; then
             args+=' --rebase'
         else
             args+=' --ff-only'
@@ -35,21 +73,32 @@ main () {
         args='fetch'
     fi
 
-    # this will fatal if we don't have an upstream for the current branch (which is good)
-    read -r remote branch <<< "$(git rev-parse --abbrev-ref @{u} | sed 's/\// /')"
+    # save previous fetch (@{1} does not quite work how i want)
 
-    if [ $opt_dryrun ]; then
-        echo [dry-run] git $args "$remote" "$branch"
-    else
-        git $args "$remote" "$branch"
+    REMOTE_PRE=$(git rev-parse $REMOTE_BRANCH)
+    echo "Previous fetch head: $REMOTE_PRE"
+
+    # do the pull or fetch
+
+    echo git $args "$opt_remote" "$opt_branch"
+    if ! $opt_dry_run; then
+        git $args "$opt_remote" "$opt_branch"
     fi
 
-    if [ $opt_logfetched ]; then
-        git log --format='%h %s' HEAD@{1}..HEAD
+    # log what we got
+
+    echo "Post fetch head: $(git rev-parse $REMOTE_BRANCH)"
+    if $opt_log_fetched; then
+        git lx $REMOTE_PRE..
     fi
 
-    if [ $opt_push ]; then
-        git push "$remote" "$branch"
+    # do the push
+
+    if $opt_push; then
+        echo git push "$opt_remote" "$opt_branch"
+        if ! $opt_dry_run; then
+            git push "$opt_remote" "$opt_branch"
+        fi
     fi
 }
 
