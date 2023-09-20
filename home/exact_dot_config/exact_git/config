@@ -36,27 +36,23 @@
     b  = branch -vv
     c  = commit
     d  = diff
-    f  = fetch
     h  = help
-    i  = incoming
-    o  = outgoing
     # `npm i -g https://github.com/scottbilas/gitree`
     s  = !gitree -mcdn
     st = status
 
-    p = pull --ff-only
+    scobi-xfer = !sh ~/.config/git/git-scobi-xfer
 
-    # "pull head" - automates `git pull <tracking remote> <current branch name>` so can get current on latest branch without pulling a whole (or the wrong) remote
-    ph = "!function f() { set -e; set -o pipefail; arr=($(git rev-parse --abbrev-ref @{u} | sed 's/\\//\\n/')); git pull ${arr[0]} ${arr[1]}; }; f"
-    phrs = "!function f() { set -e; set -o pipefail; arr=($(git rev-parse --abbrev-ref @{u} | sed 's/\\//\\n/')); git pull --rebase --autostash ${arr[0]} ${arr[1]}; }; f"
-    fh = "!function f() { set -e; set -o pipefail; arr=($(git rev-parse --abbrev-ref @{u} | sed 's/\\//\\n/')); git fetch ${arr[0]} ${arr[1]}; }; f"
-    # get current while migrating current work
-    prs = pull --rebase --autostash
-    # pull before pushing
-    sync = !git phrs && git push
+    f  = scobi-xfer
+    p  = scobi-xfer --pull
+    pr = scobi-xfer --pull --rebase
 
-    outgoing = !git fh && git l FETCH_HEAD..
-    incoming = !git fh && git l ..FETCH_HEAD
+    sync = scobi-xfer --pull --rebase --push
+
+    # TODO: show state of incoming and outgoing including divergence..
+#    io = <make this a script>
+#    outgoing = !git scobi-xfer && git l FETCH_HEAD..
+#    incoming = !git scobi-xfer && git l ..FETCH_HEAD
 
     dd = difftool --dir-diff
     sui = submodule update --init

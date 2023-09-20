@@ -1,0 +1,56 @@
+#!/bin/sh
+set -e -o pipefail
+
+USAGE='[--pull] [--push] [--rebase] [--no-log] [--dry-run]'
+SUBDIRECTORY_OK=Yes
+. git-sh-setup
+
+[ "$DEBUG" ] && set -x
+
+main () {
+    opt_logfetched=true
+
+	while [ $# != 0 ]
+	do
+		case "$1" in
+            --pull)    opt_pull=true ;;
+            --push)    opt_push=true ;;
+            --rebase)  opt_rebase=true ;;
+            --no-log)  opt_logfetched=false ;;
+            --dry-run) opt_dryrun=true ;;
+            *)         usage ;;
+		esac
+		shift
+	done
+
+    if [ $opt_pull ]; then {
+        args='pull --autostash'
+        if [ $opt_rebase ]; then
+            args+=' --rebase'
+        else
+            args+=' --ff-only'
+        fi
+    }
+    else
+        args='fetch'
+    fi
+
+    # this will fatal if we don't have an upstream for the current branch (which is good)
+    read -r remote branch <<< "$(git rev-parse --abbrev-ref @{u} | sed 's/\// /')"
+
+    if [ $opt_dryrun ]; then
+        echo [dry-run] git $args "$remote" "$branch"
+    else
+        git $args "$remote" "$branch"
+    fi
+
+    if [ $opt_logfetched ]; then
+        git log --format='%h %s' HEAD@{1}..HEAD
+    fi
+
+    if [ $opt_push ]; then
+        git push "$remote" "$branch"
+    fi
+}
+
+main "$@"
