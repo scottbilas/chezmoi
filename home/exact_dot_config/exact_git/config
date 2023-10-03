@@ -240,6 +240,7 @@
 [merge]
     renamelimit = 50000
     stat = true
+    conflictStyle = diff3
 
 
 ;            _                        _
