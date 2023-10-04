@@ -16,6 +16,7 @@
     'PowerHTML' = 'latest'
     'powershell-yaml' = 'latest'
     'Profiler' = 'latest'
+    'PsIni' = 'latest'
     'PSReadLine' = @{
         Version = 'latest'
         Parameters = @{
