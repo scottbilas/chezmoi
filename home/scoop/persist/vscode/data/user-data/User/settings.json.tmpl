@@ -91,7 +91,7 @@
     "diffEditor.codeLens": true,
     "diffEditor.diffAlgorithm": "advanced",
     "diffEditor.experimental.useVersion2": true,
-    "diffEditor.experimental.collapseUnchangedRegions": true,
+    "diffEditor.hideUnchangedRegions.enabled": true,
     "diffEditor.renderSideBySide": true,
     "dotnet.codeLens.enableReferencesCodeLens": false,
     "editor.accessibilitySupport": "off", // without this, can't do word wrapping
@@ -322,8 +322,8 @@
     "window.openFilesInNewWindow": "default",
     "window.restoreFullscreen": true,
     "window.restoreWindows": "all",
-    "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}${separator}${appName}",
-    "window.titleSeparator": " > ",
+    "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}${separator}${focusedView}${separator}",
+    "window.titleSeparator": " → ",
     "workbench.activityBar.visible": false,
     "workbench.colorCustomizations": {
         "editorRuler.foreground": "#242424"
