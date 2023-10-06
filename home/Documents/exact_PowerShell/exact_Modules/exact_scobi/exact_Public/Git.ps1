@@ -141,7 +141,9 @@ function Git-FixConfigs {
         [string]$RepoRoot = $null # corresponds to git -C
     )
 
-    # TODO: also check for and include.path if exists in sync folder (remove if not..?)
+    # TODO: also check for and add/remove include.path if exists in sync folder
+    # TODO: check that local branch name matches tracking branch if any
+    # TODO: this really ought to be in git bash, not powershell, so works everywhere
 
     foreach ($wt in Git-WorktreeList -RepoRoot $RepoRoot) {
         if ($wt.ContainsKey('worktree_gitdir_raw') -and
