@@ -84,7 +84,7 @@ filter Git-ToDict([string]$Delim = ':') {
 }
 Export-ModuleMember Git-ToDict
 
-function Git-WorktreeList([string]$RepoRoot = $null) { # corresponds to git -C
+function Git-LsWorktrees([string]$RepoRoot = $null) { # corresponds to git -C
 
     $gitArgs = @()
     if ($RepoRoot) {
@@ -133,7 +133,7 @@ function Git-WorktreeList([string]$RepoRoot = $null) { # corresponds to git -C
         $wt
     }
 }
-Export-ModuleMember Git-WorktreeList
+Export-ModuleMember Git-LsWorktrees
 
 function Git-FixConfigs {
     [CmdletBinding(SupportsShouldProcess)]
@@ -141,11 +141,12 @@ function Git-FixConfigs {
         [string]$RepoRoot = $null # corresponds to git -C
     )
 
-    # TODO: also check for and add/remove include.path if exists in sync folder
     # TODO: check that local branch name matches tracking branch if any
     # TODO: this really ought to be in git bash, not powershell, so works everywhere
 
-    foreach ($wt in Git-WorktreeList -RepoRoot $RepoRoot) {
+    $wts = Git-LsWorktrees -RepoRoot $RepoRoot
+
+    foreach ($wt in $wts) {
         if ($wt.ContainsKey('worktree_gitdir_raw') -and
             [IO.Path]::IsPathRooted($wt.worktree_gitdir_raw) -and
             $PSCmdlet.ShouldProcess($wt.gitdir, 'Fix .git path to be relative')) {
@@ -181,6 +182,22 @@ function Git-FixConfigs {
         # test the worktree is ok
         if ((git -C $wt.worktree rev-parse --is-inside-work-tree) -ne 'true') {
             Write-Error "Worktree $($wt.worktree) is not ok"
+        }
+    }
+
+    # is there a common include? test it is there
+    $main = Split-Path -Leaf $wts[0].worktree
+    $common = "~/.local/share/private/git/repo-config-$main"
+    if (Test-Path $common) {
+        if (((git config --get-all include.path) -notcontains $common) -and
+            $PSCmdlet.ShouldProcess($common, 'Add include.path for common config to repo')) {
+
+            Write-Host "Adding include.path=$common to $($wts[0].gitconfig)"
+            git config --local --add include.path $common
+
+            if ((git config --get-all include.path) -notcontains $common) {
+                Write-Error "Failed to add common include $common"
+            }
         }
     }
 }
