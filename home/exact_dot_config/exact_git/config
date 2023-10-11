@@ -37,9 +37,10 @@
     c  = commit
     d  = diff
     h  = help
+    # TODO: gitree way too slow. use a wrapper for `git status --porcelain` that adds color and garphics
     # `npm i -g https://github.com/scottbilas/gitree`
-    s  = !gitree -mcdn
-    st = status
+    #s  = !gitree -mcdn
+    s  = status
 
     scobi-xfer = !sh ~/.config/git/git-scobi-xfer
 
@@ -68,7 +69,7 @@
         END=$((COLUMNS - 120)); \
         END=$((END < 0 ? 0 : END)); \
         COLUMNS=$((COLUMNS - END)); \
-        git log $@ --pretty=tformat:\"%Creset%<|($((COLUMNS-46)),trunc)%s%C(bold cyan)  %<(12,trunc)%al  %Cblue%<(14,trunc)%cr  %C(bold black)%<($((END+12)))%h  %C(auto)%d\"; \
+        git log --pretty=tformat:\"%Creset%<|($((COLUMNS-46)),trunc)%s%C(bold cyan)  %<(12,trunc)%al  %Cblue%<(14,trunc)%cr  %C(bold black)%<($((END+12)))%h  %C(auto)%d\" $@; \
     }; f"
 
     # t = "top"
