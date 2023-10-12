@@ -44,6 +44,7 @@ $Env:FZF_DEFAULT_COMMAND = 'fd --hidden -E .git'
 $Env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview-window=right:60% --bind 'alt-p:toggle-preview' --preview '$HOME\dotfiles\scripts\fzf-preview.cmd {} | head -500'"
 $Env:HOME = Resolve-Path ~
 $Env:LESS = '--tabs=4 -RFXi'
+$Env:MOAR = '-quit-if-one-screen -style dracula -no-statusbar -no-linenumbers -wrap'
 $Env:RIPGREP_CONFIG_PATH = (Resolve-Path ~/.config/ripgrep/config)
 $Env:SCOOP = Resolve-Path ~\scoop
 $Env:UNITY_MIXED_CALLSTACK = 1
@@ -125,13 +126,6 @@ if (Get-Command -ea:silent rg) {
 
 if (Get-Command -ea:silent fd) {
     function fdh { fd -HI @args }
-}
-
-$moarCommand = Get-Command -ea:silent moar
-if ($moarCommand) {
-    $Env:MOAR = '-quit-if-one-screen -style dracula -no-statusbar -no-linenumbers -wrap'
-    $Env:PAGER = $moarCommand.source # this probably won't do much on windows
-    Set-Alias less moar # muscle memory!
 }
 
 if (Get-Command -ea:silent exa) {
