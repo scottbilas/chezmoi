@@ -11,6 +11,13 @@ git:
     # not yet supported on windows (soon? https://github.com/jesseduffield/lazygit/issues/1453)
     pager: delta --dark --paging=never
 
+os:
+  edit: 'micro -- {{filename}}'
+  editAtLine: 'micro +{{line}} -- {{filename}}'
+  editAtLineAndWait: 'micro +{{line}} -- {{filename}}'
+  openDirInEditor: 'micro -- {{dir}}'
+  editInTerminal: true
+
 update:
   method: never
 
