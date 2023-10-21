@@ -103,6 +103,7 @@ addBucket nerd-fonts
 addBucket nirsoft
 addBucket nonportable
 addBucket twpayne https://github.com/twpayne/scoop-bucket
+addBucket j178 https://github.com/j178/scoop-bucket
 
 Write-Output '[scoop] Bucket presence ok'
 
@@ -137,7 +138,7 @@ foreach ($name in @(
         '7zip', 'autohotkey1.1', 'bat', 'delta', 'fd', 'file', 'fzf', 'git', 'git-lfs',
         'gsudo', 'highlight', 'kalk', 'gitui', 'micro', 'ripgrep', 'hexyl',
         # bigger things
-        'python', 'nodejs', 'rust', 'perl', 'go'
+        'python', 'nodejs', 'rust', 'perl', 'go', 'j178/chatgpt'
         'syncthingtray', 'linqpad', 'linqpadless', 'sysinternals', 'wiztree'
     )) {
     installScoopPackage($name)
