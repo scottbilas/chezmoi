@@ -4,7 +4,7 @@
 set -e
 
 # shellcheck disable=SC2034
-USAGE='[--pull] [--push] [--rebase] [--no-log-fetched] [--dry-run] [REMOTE [BRANCH]]'
+USAGE='[--pull] [--push] [--rebase] [--no-log-fetched] [--dry-run] [[REMOTE] BRANCH]'
 # shellcheck disable=SC2034
 SUBDIRECTORY_OK=Yes
 . git-sh-setup
@@ -48,16 +48,20 @@ main () {
 
     # detect remote and branch if not specified
 
-    # this will fatal if we don't have an upstream for the current branch (which is good)
-    REMOTE_BRANCH=$(git rev-parse --abbrev-ref @{u})
-    read -r git_remote git_branch <<< "$(echo $REMOTE_BRANCH | sed 's/\// /')"
+    if [ -n "$opt_remote" ]; then
+        REMOTE_BRANCH="$opt_remote/$opt_branch"
+    elif [ -n "$opt_branch" ]; then
+        opt_remote=origin
+        REMOTE_BRANCH="$opt_remote/$opt_branch"
+    else
+        # this will fatal if we don't have an upstream for the current branch (which is good)
+        REMOTE_BRANCH=$(git rev-parse --abbrev-ref @{u})
+        read -r opt_remote opt_branch <<< "$(echo $REMOTE_BRANCH | sed 's/\// /')"
+    fi
 
-    if [ -z "$opt_remote" ]; then
-        opt_remote=$git_remote
-    fi
-    if [ -z "$opt_branch" ]; then
-        opt_branch=$git_branch
-    fi
+    # save previous fetch (@{1} does not quite work how i want)
+
+    REMOTE_PRE=$(git rev-parse $REMOTE_BRANCH)
 
     # build up git args
 
@@ -73,11 +77,6 @@ main () {
         args='fetch'
     fi
 
-    # save previous fetch (@{1} does not quite work how i want)
-
-    REMOTE_PRE=$(git rev-parse $REMOTE_BRANCH)
-    echo "Previous fetch head: $REMOTE_PRE"
-
     # do the pull or fetch
 
     echo git $args "$opt_remote" "$opt_branch"
@@ -87,9 +86,12 @@ main () {
 
     # log what we got
 
-    echo "Post fetch head: $(git rev-parse $REMOTE_BRANCH)"
-    if $opt_log_fetched; then
-        git lx $REMOTE_PRE..
+    REMOTE_POST=$(git rev-parse $REMOTE_BRANCH)
+    if [ "$REMOTE_PRE" != "$REMOTE_POST" ]; then
+        echo "fetched: ${REMOTE_PRE:0:12}..${REMOTE_POST:0:12} (from $REMOTE_BRANCH)"
+        if $opt_log_fetched; then
+            git lx $REMOTE_PRE..$REMOTE_POST
+        fi
     fi
 
     # do the push
