@@ -76,10 +76,14 @@ Set-PSReadLineOption `
     }
 }
 
+if (Get-Command micro) {
+    Set-Alias m micro
+    $Env:EDITOR = 'micro'
+}
+
 # shortyshortcuts
 Set-Alias g git
 Set-Alias o explorer
-Set-Alias m micro
 Set-Alias cm chezmoi
 function cm-c { Set-Location (chezmoi source-path) }
 function cm-s { chezmoi status }
