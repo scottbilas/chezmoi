@@ -8,7 +8,6 @@
         {
           "foreground": "#26C6DA",
           "style": "plain",
-          //"template": "{{ if .WSL }}WSL at {{ end }}{{.Icon}} ",
           "template": "{{.Icon}} ",
           "type": "os"
         },
@@ -66,28 +65,6 @@
             "upstream_icons": {
               "github.cds": "\ue721", // 
               "github.com": "\uf09b" // 
-            },
-            "untracked_modes": {
-              "C:/UnitySrc/work/unity/":  "no",
-              "C:/UnitySrc/work/unity2/": "no",
-              "C:/UnitySrc/work/unity3/": "no",
-              "C:/UnitySrc/work/unity4/": "no",
-              "C:/UnitySrc/work/unity5/": "no",
-              "D:/UnitySrc/work/unity/":  "no",
-              "D:/UnitySrc/work/unity2/": "no",
-              "D:/UnitySrc/work/unity3/": "no",
-              "D:/UnitySrc/work/unity4/": "no",
-              "D:/UnitySrc/work/unity5/": "no",
-              "C:/UnitySrc/work/nu/":  "no",
-              "C:/UnitySrc/work/nu2/": "no",
-              "C:/UnitySrc/work/nu3/": "no",
-              "C:/UnitySrc/work/nu4/": "no",
-              "C:/UnitySrc/work/nu5/": "no",
-              "D:/UnitySrc/work/nu/":  "no",
-              "D:/UnitySrc/work/nu2/": "no",
-              "D:/UnitySrc/work/nu3/": "no",
-              "D:/UnitySrc/work/nu4/": "no",
-              "D:/UnitySrc/work/nu5/": "no"
             }
           },
           "style": "powerline",
