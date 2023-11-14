@@ -95,6 +95,9 @@ function Git-LsWorktrees([string]$RepoRoot = $null) { # corresponds to git -C
     }
     $gitArgs += 'worktree', 'list', '--porcelain'
 
+    # TODO: use `git rev-parse --git-path config.worktree` (see https://git-scm.com/docs/git-rev-parse for other variants and apply elsewhere in this script)
+    # can get rid of the path-specific stuff in here. though using rev-parse requires spawning processes and is slower, not sure we care about perf here
+
     foreach ($wt in git $gitArgs | Git-ToDict -Delim ' ') {
         if ($wt.ContainsKey('branch')) {
             if ($wt.branch.StartsWith("refs/heads/")) {
@@ -200,5 +203,15 @@ function Git-FixConfigs {
             }
         }
     }
+
+    # TODO:
+    # check `git update-index --index-version 4` (or just do it)
+
+    # TODO:
+    # test if we can enable caching for untracked files
+    #   git update-index --test-untracked-cache
+    # then if it's ok..
+    #   git config core.untrackedCache true
+    #   git update-index --untracked-cache
 }
 Export-ModuleMember Git-FixConfigs
