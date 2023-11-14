@@ -1,105 +1,176 @@
 #!/bin/sh
-# shellcheck disable=SC1083,SC1091,SC2086,SC3011,SC3024
+# shellcheck disable=SC1083,SC1091,SC2086,SC3006,SC3011,SC3024,SC3030,SC3054,SC3057
+
+# this script is highly specialized to my workflow at the office and how we
+# do centralized work on the giant monorepo.
 
 set -e
 
 # shellcheck disable=SC2034
-USAGE='[--pull] [--push] [--rebase] [--no-log-fetched] [--dry-run] [REMOTE [BRANCH]]'
+USAGE='[--merge|--ff|--rebase] [--push] [--all] [--no-log-fetched] [--dry-run] [BRANCH...]'
 # shellcheck disable=SC2034
 SUBDIRECTORY_OK=Yes
 . git-sh-setup
 
-[ "$DEBUG" ] && set -x
+opt_debug=false
 
-main () {
-    opt_pull=false
-    opt_push=false
+case "$DEBUG" in
+    1) opt_debug=true ;;
+    2) set -x ;;
+esac
+
+echo_d() {
+    if $opt_debug; then
+        echo "$@"
+    fi
+}
+
+echo_d "> $(basename "$0") $*"
+
+
+main() {
+    opt_merge=false
+    opt_ff=false
     opt_rebase=false
+    opt_push=false
+    opt_all=false
     opt_log_fetched=true
     opt_dry_run=false
-
-    opt_remote=''
-    opt_branch=''
+    opt_branches=()
 
     # process incoming args
 
-	while [ $# != 0 ]
-	do
+	while (($#)); do
 		case "$1" in
-            --pull)            opt_pull=true ;;
+            --merge)           opt_merge=true ;;
+            --ff)              opt_merge=true; opt_ff=true ;;
+            --rebase)          opt_merge=true; opt_rebase=true ;;
             --push)            opt_push=true ;;
-            --rebase)          opt_rebase=true ;;
+            --all)             opt_all=true ;;
             --no-log-fetched)  opt_log_fetched=false ;;
             --dry-run)         opt_dry_run=true ;;
             -*)                usage ;;
-            *) {
-                if [ -z "$opt_branch" ]; then
-                    opt_branch=$1
-                elif [ -z "$opt_remote" ]; then
-                    opt_remote=$opt_branch
-                    opt_branch=$1
-                else
-                    usage
-                fi
-            } ;;
+            *)                 opt_branches+=("$1") ;;
 		esac
 		shift
 	done
 
-    # detect remote and branch if not specified
-
-    # this will fatal if we don't have an upstream for the current branch (which is good)
-    REMOTE_BRANCH=$(git rev-parse --abbrev-ref @{u})
-    read -r git_remote git_branch <<< "$(echo $REMOTE_BRANCH | sed 's/\// /')"
-
-    if [ -z "$opt_remote" ]; then
-        opt_remote=$git_remote
-    fi
-    if [ -z "$opt_branch" ]; then
-        opt_branch=$git_branch
+    if $opt_ff && $opt_rebase; then
+        die "Cannot specify both --ff and --rebase"
     fi
 
-    # build up git args
+    # keep it simple for now
+    REMOTE='origin'
 
-    if $opt_pull; then {
-        args='pull --autostash'
-        if $opt_rebase; then
-            args+=' --rebase'
-        else
-            args+=' --ff-only'
-        fi
-    }
-    else
-        args='fetch'
+    if $opt_all; then
+        # find the fetch specs (TODO: support "fetch profiles")
+        echo_d "Retrieving fetch specs..."
+        for fetchSpec in $(git config --get-all remote.$REMOTE.fetch); do
+            fetchRemote=${fetchSpec#*:refs/remotes/"$REMOTE"/}
+            [ "$fetchRemote" != "$fetchSpec" ] || die "Unexpected fetch spec format: $fetchSpec"
+            opt_branches+=("$fetchRemote")
+        done
+    elif ((!${#opt_branches[@]})); then
+        # default to current branch if not specified (will fail on detached head)
+        echo_d "Getting default branch..."
+        opt_branches=("$(git symbolic-ref --short HEAD)")
     fi
 
-    # save previous fetch (@{1} does not quite work how i want)
+    # TODO: validate that local branches matching these remotes are 1:1 name match
 
-    REMOTE_PRE=$(git rev-parse $REMOTE_BRANCH)
-    echo "Previous fetch head: $REMOTE_PRE"
+    # TODO: we already got the hashes from ls-remote, so skip the fetch if our local matches it
 
-    # do the pull or fetch
+    # expand wildcards and validate branches
+    selected_branches=()
+    for opt_branch in "${opt_branches[@]}"; do
+        echo_d "Fetching branches from '$REMOTE' matching '$opt_branch'..."
+        while read -r line; do
+            [ -n "$line" ] || die "No remote branches found matching '$opt_branch'"
 
-    echo git $args "$opt_remote" "$opt_branch"
-    if ! $opt_dry_run; then
-        git $args "$opt_remote" "$opt_branch"
+            # TODO: support remote:local fetch spec for ffwd/create local
+
+            # get the branch name and strip off refs/heads prefix
+            read -r _ branch <<< $line
+            branch="${branch#refs/heads/}"
+
+            # only keep names that actually match our spec (git ls-remote is too loose)
+            # shellcheck disable=SC2254
+            case $branch in
+                $opt_branch) selected_branches+=("$branch") ;; 
+            esac
+        done <<< "$(git ls-remote $REMOTE $opt_branch)"
+    done
+
+    [ ${#selected_branches[@]} ] || die 'Nothing to do!'
+
+    if echo_d 'Xfer branches:'; then
+        for branch in "${selected_branches[@]}"; do
+            echo_d "  $branch"
+        done
     fi
 
-    # log what we got
+    # process fetches
 
-    echo "Post fetch head: $(git rev-parse $REMOTE_BRANCH)"
-    if $opt_log_fetched; then
-        git lx $REMOTE_PRE..
-    fi
+    set -- "${selected_branches[@]}"
+    while (($#)); do
+        BRANCH=$1; shift
 
-    # do the push
+        echo ''
+        echo "Fetching branch: $BRANCH"
 
-    if $opt_push; then
-        echo git push "$opt_remote" "$opt_branch"
+        # TODO: auto-create local branch when there is no upstream (be sure test dry-run first..)
+        # can use `git rev-parse --verify $REMOTE/$BRANCH 2>/dev/null`, will be hash if valid or empty if invalid
+
+        # save previous fetch (@{1} does not quite work how i want)
+        REMOTE_PRE=$(git rev-parse $REMOTE/$BRANCH)
+        echo_d "Previous $REMOTE/$BRANCH: ${REMOTE_PRE:0:12}"
+
+        # do the fetch (note: don't do x:y to ffwd the local, reserve that for second pass)
+        echo_d "> git fetch $REMOTE $BRANCH"
         if ! $opt_dry_run; then
-            git push "$opt_remote" "$opt_branch"
+            git fetch $REMOTE $BRANCH
         fi
-    fi
+
+        # log what we got
+        REMOTE_POST=$(git rev-parse $REMOTE/$BRANCH)
+        echo_d "New $REMOTE/$BRANCH: ${REMOTE_POST:0:12}"
+        if $opt_log_fetched; then
+            git lx --first-parent $REMOTE_PRE..$REMOTE_POST
+        fi
+    done
+
+exit 1
+
+    # process ff/rebase
+
+    # TODO: if a) rebase, and b) there are merges that would be moved, error and skip
+    # TODO: skip if a worktree has a branch checked out
+
+#    if $opt_merge; then
+#        if $opt_ff; then
+#            mergeArgs='--ff-only'
+#        elif $opt_rebase; then
+#            mergeArgs='--rebase'
+#        fi
+
+#        REMOTE_BRANCH=$(git rev-parse --abbrev-ref $branch@{u})
+#        echo git merge --autostash $mergeArgs $REMOTE_BRANCH
+#        if ! $opt_dry_run; then ...
+#    fi
+
+    # process push
+
+    set -- "${selected_branches[@]}"
+    while (($#)); do
+        branch=$1; shift
+
+        if $opt_push; then
+            echo git push $REMOTE $BRANCH
+            if ! $opt_dry_run; then
+                git push $REMOTE $BRANCH
+            fi
+        fi
+    done
 }
 
 main "$@"

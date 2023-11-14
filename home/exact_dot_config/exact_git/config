@@ -45,10 +45,11 @@
     scobi-xfer = !sh ~/.config/git/git-scobi-xfer
 
     f  = scobi-xfer
-    p  = scobi-xfer --pull
-    pr = scobi-xfer --pull --rebase
+    p  = scobi-xfer --ff
+    pr = scobi-xfer --rebase
+    pm = scobi-xfer --merge
 
-    sync = scobi-xfer --pull --rebase --push
+    sync = scobi-xfer --rebase --push
 
     # TODO: show state of incoming and outgoing including divergence..
 #    io = <make this a script>
