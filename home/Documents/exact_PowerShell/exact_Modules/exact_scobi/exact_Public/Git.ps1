@@ -131,6 +131,8 @@ function Git-LsWorktrees([string]$RepoRoot = $null) { # corresponds to git -C
             $wt.worktree_gitconfig = $wt.gitdir
         }
 
+        echo $wt.worktree_gitconfig config.worktree
+
         $wt.worktree_gitconfig = Resolve-Path (Join-Path $wt.worktree_gitconfig config.worktree)
 
         $wt

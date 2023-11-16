@@ -150,6 +150,7 @@
 
 [rerere]
     enabled = true
+    # TODO: add an alias that does `git -c rerere.enabled=false merge ...` for when rerere is not what i want (rare but still happens)
 
 [submodule]
     fetchJobs = 4

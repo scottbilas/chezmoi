@@ -40,3 +40,18 @@ function Invoke-FixExplorerIconCache {
 
 
 }
+
+function Get-WslIpAddress($iface = 'eth0', $port = 2222) {
+    ssh localhost -p $port "ip -4 address show $iface | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
+}
+Export-ModuleMember Get-WslIpAddress
+
+# requires sudo
+function Add-WslSshPortProxy($address = $null, $port = 2222) {
+    if ($null -eq $address) {
+        $address = Get-WslIpAddress -port $port
+    }
+
+    netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=$port connectaddress=$address connectport=$port
+}
+Export-ModuleMember Add-WslSshPortProxy
