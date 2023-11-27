@@ -140,7 +140,8 @@
     follow = true
 
 [pull]
-    rebase = merges
+;    rebase = merges  # needs more research on how/if i want to do pulls typically
+    rebase = false
 
 [push]
     default = simple
