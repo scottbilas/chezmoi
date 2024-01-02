@@ -6,6 +6,7 @@
 .config/elinks/socket*
 .config/lazygit/state.yml
 .config/gh/hosts.yml
+.config/git/gitk
 .config/alacritty/themes
 .config/zsh/.zcompcache
 .config/zsh/.zcompdump
