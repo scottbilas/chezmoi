@@ -237,6 +237,10 @@ function Title($title) {
 }
 Title posh
 
+$unityProfile = '~/.local/share/private/posh/unity-profile.ps1'
+if (Test-Path $unityProfile) {
+    . $unityProfile
+}
 
 ### FINISHED
 

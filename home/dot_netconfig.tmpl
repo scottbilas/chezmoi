@@ -1,16 +1,20 @@
 # OKUNITY
 
 [toolchains]
-spec=c:/UnitySrc/work/unity*/build/*editor/*/*
-spec=d:/UnitySrc/work/unity*/build/*editor/*/*
-spec=c:/UnitySrc/work/nu*/build/*editor/*/*
-spec=d:/UnitySrc/work/nu*/build/*editor/*/*
+spec=c:/UnitySrc/work/unity*/build/*editor*/*/*
+spec=d:/UnitySrc/work/unity*/build/*editor*/*/*
+spec=c:/UnitySrc/work/nu*/build/*editor*/*/*
+spec=d:/UnitySrc/work/nu*/build/*editor*/*/*
 ; older build style
-spec=c:/UnitySrc/work/unity*/build/*editor
-spec=d:/UnitySrc/work/unity*/build/*editor
+spec=c:/UnitySrc/work/unity*/build/*editor*
+spec=d:/UnitySrc/work/unity*/build/*editor*
 
 [install]
+{{- if eq (env "COMPUTERNAME") "SCOBEAST" }}
+root=X:/Editor
+{{- else }}
 root=C:/UnitySrc/_unity
+{{- end }}
 
 [unity]
 {{- if env "BEE_BUILD_THREADS" }}
