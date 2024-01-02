@@ -10,7 +10,7 @@ spec=c:/UnitySrc/work/unity*/build/*editor*
 spec=d:/UnitySrc/work/unity*/build/*editor*
 
 [install]
-{{- if eq (env "COMPUTERNAME") "SCOBEAST" }}
+{{- if eq .chezmoi.hostname "scobeast" }}
 root=X:/Editor
 {{- else }}
 root=C:/UnitySrc/_unity
