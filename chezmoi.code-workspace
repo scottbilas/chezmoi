@@ -40,6 +40,7 @@
             "titleBar.activeBackground": "#503956",
             "titleBar.inactiveForeground": "#714575",
             "titleBar.inactiveBackground": "#1a001d"
-        }
+		},
+		"powershell.cwd": "🐚 ~/Documents/PowerShell"
 	}
 }

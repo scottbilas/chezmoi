@@ -84,6 +84,16 @@ main () {
         git $args "$opt_remote" "$opt_branch"
     fi
 
+    ##### TODO:
+    #
+    # ...this still does not work for fetching just one branch and tracking it. i get a fatal
+    #  "fatal: cannot set up tracking information; starting point '$remote/$branch' is not a branch"
+    # even though .git/refs/remotes/$remote/$branch exists with the correct hash after the "git fetch".
+    # the checkout --track fails. if i drop the --track, it's ok, but then i can't do a --set-upstream-to on it or I get the same fatal.
+    #
+    # git fetch $remote $($branch):refs/remotes/$remote/$branch
+    # git checkout -b $branch $remote/$branch --track
+
     # log what we got
 
     REMOTE_POST=$(git rev-parse $REMOTE_BRANCH)

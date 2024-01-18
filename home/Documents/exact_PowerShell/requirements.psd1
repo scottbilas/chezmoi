@@ -13,6 +13,7 @@
     'Pester' = 'latest'
     'pinvoke' = 'latest'
     'plinqo' = 'latest'
+    'posh-git' = 'latest'
     'PowerHTML' = 'latest'
     'powershell-yaml' = 'latest'
     'Profiler' = 'latest'

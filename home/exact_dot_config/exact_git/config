@@ -66,7 +66,7 @@
     # - cap the terminal width to 120 to keep readability manageable, while maintaining the %d wrapping
     lx = "!function f() { \
         COLUMNS=$(tput cols); \
-        END=$((COLUMNS - 120)); \
+        END=$((COLUMNS - 160)); \
         END=$((END < 0 ? 0 : END)); \
         COLUMNS=$((COLUMNS - END)); \
         git log --pretty=tformat:\"%Creset%<|($((COLUMNS-46)),trunc)%s%C(bold cyan)  %<(12,trunc)%al  %Cblue%<(14,trunc)%cr  %C(bold black)%<($((END+12)))%h  %C(auto)%d\" $@; \
@@ -189,6 +189,7 @@
 [advice]
     statusHints = false
     detachedHead = false
+    skippedCherryPicks = false
 
 [color]
     ui = true

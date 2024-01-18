@@ -3339,10 +3339,25 @@ namespace Microsoft.Collections.Extensions
 
 #region Advanced - How to multi-target
 
-// The NET5 symbol can be useful when you want to run some queries under .NET 5 and others under .NET Core 3:
+// The NETx symbol is active when a query runs under .NET x or later.
+// (LINQPad also recognizes NETx_0_OR_GREATER in case you enjoy typing.)
 
-#if NET5
-// Code that requires .NET 5 or later
+#if NET8
+// Code that requires .NET 8 or later
+#endif
+
+#if NET7
+// Code that requires .NET 7 or later
+#endif
+
+#if NET6
+// Code that requires .NET 6 or later
+#endif
+
+#if NETCORE
+// Code that requires .NET Core or later
+#else
+// Code that runs under .NET Framework (LINQPad 5)
 #endif
 
 #endregion
