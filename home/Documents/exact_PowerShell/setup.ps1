@@ -115,7 +115,7 @@ if (Test-Path $env:ProgramData\scoop\apps) {
 }
 
 function installScoopPackage([string]$name, [switch]$sudo, [switch]$global) {
-    if ($scoopPackages -notcontains $name) {
+    if ($scoopPackages -notcontains ($name -split '/')[-1]) {
         if ($sudo) {
             Write-Host "[scoop] Asking for sudo to install $name.."
             if ($global) {
