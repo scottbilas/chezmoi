@@ -192,6 +192,9 @@ function zsh { wsl -e /home/linuxbrew/.linuxbrew/bin/zsh --login }
 & {
     $bc = Resolve-Path -ea:silent ~/scoop/apps/beyondcompare/current/bcomp.exe
     if (!$bc) {
+        $bc = Resolve-Path -ea:silent "$env:ProgramFiles\Beyond Compare 5\BComp.exe"
+    }
+    if (!$bc) {
         $bc = Resolve-Path -ea:silent "$env:ProgramFiles\Beyond Compare 4\BComp.exe"
     }
     if ($bc) {
