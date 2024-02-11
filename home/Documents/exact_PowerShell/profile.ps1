@@ -69,7 +69,7 @@ Set-PSReadLineOption `
 ### ALIASES AND ALIAS-ISHES
 
 # these aliases only cause problems or collide with other things or otherwise are lame
-'diff', 'rm', 'set', 'sort', 'r', 'kill', 'tee' | ForEach-Object {
+'diff', 'rm', 'mv', 'set', 'sort', 'r', 'kill', 'tee' | ForEach-Object {
     # remove from every scope (https://stackoverflow.com/a/24743647/14582)
     while (Test-Path Alias:$_) {
         Remove-Item -Force Alias:$_
@@ -132,12 +132,11 @@ if (Get-Command -ea:silent fd) {
     function fdh { fd -HI @args }
 }
 
-if (Get-Command -ea:silent exa) {
+if (Get-Command -ea:silent eza) {
     $Env:EXA_GRID_ROWS = 10
 
-    # cargo install --git https://github.com/ogham/exa.git
-    # (needed until they start doing releases of windows on CI)
-    function l { exa --all --group-directories-first --icons --classify ($args | Expand-Path) }
+    # scoop install eza
+    function l { eza --all --group-directories-first --icons --classify ($args | Expand-Path) }
     function ll { l --long --header @args }
     function llg { ll --git @args }
 }

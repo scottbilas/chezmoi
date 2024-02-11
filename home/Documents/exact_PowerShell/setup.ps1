@@ -136,7 +136,7 @@ foreach ($name in @(
         'busybox', 'echoargs', 'less', 'moar', 'wget', 'curl', 'which',
         # other core utils
         '7zip', 'autohotkey1.1', 'bat', 'delta', 'fd', 'file', 'fzf', 'git', 'git-lfs',
-        'gsudo', 'highlight', 'kalk', 'gitui', 'micro', 'ripgrep', 'hexyl',
+        'gsudo', 'highlight', 'kalk', 'gitui', 'micro', 'ripgrep', 'hexyl', 'eza',
         # bigger things
         'python', 'nodejs', 'rust', 'perl', 'go', 'j178/chatgpt'
         'syncthingtray', 'linqpad', 'linqpadless', 'sysinternals', 'wiztree'
