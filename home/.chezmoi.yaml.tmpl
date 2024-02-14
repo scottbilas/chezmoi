@@ -4,7 +4,10 @@
 # important: do not use ".profile" from here, because those values will not exist on first-init.
 
 format: yaml
+{{- /* TODO: detect delta existing */}}
+{{- if ne .chezmoi.os "android" }}
 pager: delta
+{{- end }}
 progress: true
 
 {{- /* TODO: autodetect this... */}}
