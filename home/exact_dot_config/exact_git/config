@@ -124,7 +124,6 @@
     hideDotFiles = false
     # longPaths = true   # not recommended to keep this on in general, only use on demand
     pager = delta
-    shell = /data/data/com.termux/files/usr/bin/zsh
     symlinks = true
 
 [sequence]
