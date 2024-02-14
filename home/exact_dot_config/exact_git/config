@@ -22,7 +22,7 @@
 
     wt = worktree
     wtl = worktree list
-    wts = "!function f() { echo ""; git worktree list | while read -r line; do dir=${line%*  *}; echo "$(tput setaf 4)${line%* [*}$(tput sgr 0)"; unset GIT_DIR; git -C $dir status -sb; echo ""; done }; f"
+    wts = "!f() { echo ""; git worktree list | while read -r line; do dir=${line%*  *}; echo "$(tput setaf 4)${line%* [*}$(tput sgr 0)"; unset GIT_DIR; git -C $dir status -sb; echo ""; done; }; f"
     # TODO: make this also go and do a `submodule update` on the new worktree
     wta = -c "submodule.recurse=" worktree add
     wtz = !dir=$(git root) && git co origin/master -B "z/$(basename "$dir")" --no-track
@@ -64,7 +64,7 @@
     # - make one of the columns (%s, the commit first line) expand so the line up to %d fills the terminal
     # - the terminal will wrap %d to the next line if it exists, otherwise no newline. this puts refs right after the commit they point to.
     # - cap the terminal width to 120 to keep readability manageable, while maintaining the %d wrapping
-    lx = "!function f() { \
+    lx = "!f() { \
         COLUMNS=$(tput cols); \
         END=$((COLUMNS - 160)); \
         END=$((END < 0 ? 0 : END)); \
@@ -106,6 +106,8 @@
     squash-all = ! "git reset $(git commit-tree HEAD^{tree} -m 'Initial commit')"
 
     # easily get into git environment for testing
+    zsh = !zsh
+    bash = !bash
     sh = !sh
 
 
@@ -122,6 +124,7 @@
     hideDotFiles = false
     # longPaths = true   # not recommended to keep this on in general, only use on demand
     pager = delta
+    shell = /data/data/com.termux/files/usr/bin/zsh
     symlinks = true
 
 [sequence]
