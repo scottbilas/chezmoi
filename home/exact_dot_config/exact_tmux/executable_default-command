@@ -8,4 +8,6 @@
 # 4 inherit whatever shell currently running in source pane
 # 5 detect if in wsl and if so don't do #1,2 above
 
-/mnt/c/Program\ Files/PowerShell/7/pwsh.exe --nologo -WorkingDirectory "~"
+if [[ -d /mnt/c/Program\ Files ]]; then
+    /mnt/c/Program\ Files/PowerShell/7/pwsh.exe --nologo -WorkingDirectory "~"
+fi
