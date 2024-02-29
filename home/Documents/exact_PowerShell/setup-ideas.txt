@@ -147,10 +147,6 @@
 # npm update -g
 
 
-# ensure this is set (HKLM probs)
-# _NT_SYMBOL_PATH=srv*c:\Symbols*https://msdl.microsoft.com/download/symbols
-
-
 # ensure that autoruns, procmon, etc. all have the admin property bit set on their exe
 
 

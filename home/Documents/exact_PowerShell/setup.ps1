@@ -25,6 +25,8 @@ trap {
 
 # chezmoi update << do safely
 
+$personalMachine = [bool]::parse((cm execute-template '{{- .profile.personal_machine -}}'))
+
 ## Posh
 
 # ! this must come before we pull in modules
@@ -104,6 +106,7 @@ addBucket nirsoft
 addBucket nonportable
 addBucket twpayne https://github.com/twpayne/scoop-bucket
 addBucket j178 https://github.com/j178/scoop-bucket
+addBucket versions
 
 Write-Output '[scoop] Bucket presence ok'
 
@@ -309,6 +312,31 @@ if ($scoopPackages -contains 'python') {
         installPipPackage($name)
     }
     #>
+}
+
+# check that our _NT_SYMBOL_PATH is cool
+
+if ($personalMachine) {
+    $ntSymbolPath = 'cache*C:\Symbols'
+}
+else {
+    $ntSymbolPath = 'cache*C:\UnitySrc\_cache\pdb'
+}
+
+$ntSymbolPath += ';SRV*https://msdl.microsoft.com/download/symbols'
+
+if ($personalMachine) {
+    $ntSymbolPath += ';SRV*https://symbolserver.unity3d.com' # public symbols
+}
+else {
+    $ntSymbolPath += ';SRV*http://symbolserver.hq.unity3d.com' # needs vpn
+}
+
+if ($env:_NT_SYMBOL_PATH -eq $ntSymbolPath) {
+    Write-Output '[check] _NT_SYMBOL_PATH is set ok'
+}
+else {
+    Write-Error "[check] _NT_SYMBOL_PATH is set to '$env:_NT_SYMBOL_PATH' but should be '$ntSymbolPath'"
 }
 
 # mute
