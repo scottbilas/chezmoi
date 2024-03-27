@@ -19,7 +19,7 @@ function Git-GetChangedFiles {
     # Check if any of the changed files match the paths you're interested in
     foreach ($path in $paths) {
         if ($changedFiles -match "^$path/") {
-            Write-Host "Changes detected in $path"
+            "Changes detected in $path"
         }
     }
 }
@@ -153,14 +153,17 @@ function Git-FixConfigs {
     # TODO: check that local branch name matches tracking branch if any
     # TODO: this really ought to be in git bash, not powershell, so works everywhere
 
-    $wts = Git-LsWorktrees -RepoRoot $RepoRoot
+    $wts = @(Git-LsWorktrees -RepoRoot $RepoRoot)
 
     foreach ($wt in $wts) {
+
+        "Processing $($wt.worktree)"
+
         if ($wt.ContainsKey('worktree_gitdir_raw') -and
             [IO.Path]::IsPathRooted($wt.worktree_gitdir_raw) -and
             $PSCmdlet.ShouldProcess($wt.gitdir, 'Fix .git path to be relative')) {
 
-            Write-Host "Fixing gitdir path to be relative in $($wt.gitdir)"
+            "Fixing gitdir path to be relative in $($wt.gitdir)"
             
             $rel = [IO.Path]::GetRelativePath($wt.worktree, $wt.worktree_gitdir).Replace('\', '/')
             $old = [IO.File]::ReadAllText($wt.gitdir)
@@ -180,7 +183,7 @@ function Git-FixConfigs {
                 [IO.Path]::IsPathRooted($include) -and
                 $PSCmdlet.ShouldProcess($wt.worktree_gitconfig, 'Fix include.path to be relative')) {
 
-                Write-Host "Fixing include.path to be relative in $($wt.worktree_gitconfig)"
+                "Fixing include.path to be relative in $($wt.worktree_gitconfig)"
 
                 $rel = [IO.Path]::GetRelativePath($wt.worktree, $include).Replace('\', '/')
                 $wtconfig['include']['path'] = $rel
@@ -201,7 +204,7 @@ function Git-FixConfigs {
         if (((git config --get-all include.path) -notcontains $common) -and
             $PSCmdlet.ShouldProcess($common, 'Add include.path for common config to repo')) {
 
-            Write-Host "Adding include.path=$common to $($wts[0].gitconfig)"
+            "Adding include.path=$common to $($wts[0].gitconfig)"
             git config --local --add include.path $common
 
             if ((git config --get-all include.path) -notcontains $common) {
