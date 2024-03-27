@@ -175,6 +175,10 @@ elseif (Get-Command -ea:silent chatgpt) {
     }
 }
 
+if (Get-Command -ea:silent gh) {
+    . $PSScriptRoot/gh-copilot.ps1
+}
+
 # default sort.exe is in system32; avoid that one
 & {
     $sort = Resolve-Path -ea:silent ~\scoop\apps\git\current\usr\bin\sort.exe
