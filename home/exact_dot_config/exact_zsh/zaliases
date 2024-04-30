@@ -7,15 +7,15 @@ alias ....="cd ../../.."
 alias ~="cd ~"
 alias -- -="cd -"
 
-if (($+commands[exa])); then
-  alias l='exa --all --classify --icons --group-directories-first'
+if (($+commands[eza])); then
+  alias l='eza --all --classify --icons --group-directories-first'
   if [[ -v TERMUX_VERSION ]]; then
     alias ll='l --long --grid --no-user --git'
   else
     alias ll='l --long --grid --git'
   fi
   alias llg='ll --git'
-  export EXA_GRID_ROWS=10
+  export EZA_GRID_ROWS=10
 else
   alias l='ls -ACF'
   alias ll='ls -AgGhF $@'
@@ -31,6 +31,7 @@ alias lg=lazygit
 alias ncdu='ncdu --color dark $@'
 alias rgh='rg --hidden --no-ignore $@'
 alias fdh='fd -HI $@'
+alias pwsh='/mnt/c/Program\ Files/PowerShell/7/pwsh.exe --nologo -WorkingDirectory "~"'
 
 # debian-isms
 if (($+commands[batcat])); then
