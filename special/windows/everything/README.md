@@ -11,3 +11,4 @@
 * `copy "$(cm source-path)\..\special\windows\everything\Everything.ini" $env:appdata\Everything\`
 * `sudo start-service everything` also start Everything
 * Ctrl-P back to options and fix _NTFS_ and _Folders_
+* Double check "Exclude" list, it's kind of out of date (need update the template source)
