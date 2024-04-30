@@ -212,12 +212,12 @@ function Flatten($a) {
     ,@($a | ForEach-Object{ $_ })
 }
 
-function Time([scriptblock]$exec) {
+function Time($exec) {
     $now = Get-Date
-    $result = Invoke-Command $exec -Args (Flatten $args)
+    Invoke-Command $exec
     $delta = (Get-Date) - $now
-    $result
-    Write-Host ("`n>>> seconds: {0}" -f $delta.TotalSeconds)
+
+    Write-Host ("`n>>> completed in {0:F3}s" -f $delta.TotalSeconds)
 }
 
 # https://stackoverflow.com/a/46583549/14582
