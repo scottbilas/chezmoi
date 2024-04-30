@@ -10,8 +10,12 @@
 .config/alacritty/themes
 .config/zsh/.zcompcache
 .config/zsh/.zcompdump
+.config/zsh/.zsh_sessions
 **/__pycache__
 **/*.orig
+
+# jetbrains seems to do this..
+.config/github-copilot
 
 {{ if eq .chezmoi.os "windows" }}
 
@@ -35,6 +39,21 @@ scoop
 .config/windows
 .config/scoop
 **/*.cmd
+
+{{ end }}
+
+{{ if eq .chezmoi.os "darwin" }}
+
+## MACOS
+
+# not ready to micromanage this yet
+.config/iterm2
+
+{{ else }}
+
+# NON-MACOS
+
+Library
 
 {{ end }}
 
