@@ -85,6 +85,7 @@ if (Get-Command micro) {
 Set-Alias g git
 Set-Alias o explorer
 Set-Alias cm chezmoi
+Set-Alias devenv 'C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\devenv.exe'
 function cm-c { Set-Location (chezmoi source-path) }
 function cm-s { chezmoi status }
 function cm-d { chezmoi diff --use-builtin-diff @args }
@@ -122,6 +123,10 @@ function Expand-Path {
             }
         }
     }
+}
+
+if (Test-Path 'C:\Program Files\WSL\wsl.exe') {
+    Set-Alias wsl 'C:\Program Files\WSL\wsl.exe'
 }
 
 if (Get-Command -ea:silent rg) {
