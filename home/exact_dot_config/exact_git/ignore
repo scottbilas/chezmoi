@@ -72,3 +72,4 @@ NDependOut
 
 # syncthing
 .stignore*
+.stversions*
