@@ -65,6 +65,9 @@ data:
     personal_machine: {{$personal_machine}}
     home_dirf: {{$home_dirf}}
     home_dirb: {{$home_dirb}}
+    chezmoi_dirf: {{ .chezmoi.config.sourceDir | replace "\\" "/" }}
+    chezmoi_dirb: {{ .chezmoi.config.sourceDir | replace "/" "\\" }}
+    chezmoi_dirbb: {{ .chezmoi.config.sourceDir | replace "/" "\\" | replace "\\" "\\\\" }}
 {{- if ne $beyond_compare_dirf "" }}
     beyond_compare_dirf: {{$beyond_compare_dirf}}
 {{- end }}
