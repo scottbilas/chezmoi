@@ -2,7 +2,7 @@
 rem http://www.scootersoftware.com/support.php?zz=kb_vcs#perforce
 
 {{ if get .profile "beyond_compare_dirf" -}}
-{{.profile.beyond_compare_dirf}}/BComp.exe %2 %3 %1 %4
+"{{.profile.beyond_compare_dirf}}/BComp.exe" %2 %3 %1 %4
 {{ else -}}
 echo ERROR! Beyond Compare NOT detected
 {{ end -}}
