@@ -1,49 +1,32 @@
 {
-    // movement
-    "CtrlUp": "ScrollUp",
-    "CtrlDown": "ScrollDown",
-    "Ctrl-G": "command-edit:goto ",
-
-    // selection
-    "ShiftHome": "SelectToStartOfLine",
-    "CtrlShiftHome": "SelectToStart",
-    "CtrlShiftEnd": "SelectToEnd",
-    "CtrlShiftLeft": "SelectWordLeft",
-    "CtrlShiftRight": "SelectWordRight",
-    //"ShiftPageUp": "SelectPageUp",  ...grrr...pageup/dn cant be combined with anything..
-    //"ShiftPageDown": "SelectPageDown",
-
-    // editing
-    "F3": "FindNext",
-    "Shift-F3": "FindPrevious",
+    "Alt-!": "ShellMode",
     "Alt-/": "lua:comment.comment",
-    "Alt-d": "DuplicateLine",
-
-    // multi-cursor
-    "Ctrl-D": "SpawnMultiCursor",
-    "Ctrl-K": "SkipMultiCursor",
-    "Alt-l": "SpawnMultiCursorSelect",
-    "Esc": "Escape,RemoveAllMultiCursors,ClearStatus",
-
-    // window mgmt
-    "Alt-h": "HSplit",
-    "Alt-v": "VSplit",
     "Alt-[": "PreviousSplit",
     "Alt-]": "NextSplit",
-
-    // commands
-    "Ctrl-W": "Quit",
+    "Alt-b": "AddTab,lua:filemanager.toggle_tree,NextSplit",
+    "Alt-d": "DuplicateLine",
+    "Alt-g": "None",
+    "Alt-h": "HSplit",
+    "Alt-l": "SpawnMultiCursorSelect",
     "Alt-q": "QuitAll",
+    "Alt-v": "VSplit",
+    "Ctrl-B": "lua:filemanager.toggle_tree",
+    "Ctrl-D": "SpawnMultiCursor",
+    "Ctrl-G": "command-edit:goto ",
+    "Ctrl-K": "SkipMultiCursor",
+    "Ctrl-W": "Quit",
     "Ctrl-p": "command:fzf",
-    "Alt-!": "ShellMode",
-    "Alt-g": "None", // disable default
-
-    // important: check for a default binding that would be rebound and include
-    // it in the new binding.
-
-    // tree
-    "Ctrl-B": "lua:filemanager.toggle_tree",  // toggle tree on current tab
-    "Alt-b": "AddTab,lua:filemanager.toggle_tree,NextSplit", // open new tab w/ file manager (TODO: would be nice to close that pane too, but micro doesnt do this reliably)
+    "CtrlDown": "ScrollDown",
+    "CtrlShiftEnd": "SelectToEnd",
+    "CtrlShiftHome": "SelectToStart",
+    "CtrlShiftLeft": "SelectWordLeft",
+    "CtrlShiftRight": "SelectWordRight",
+    "CtrlUnderscore": "lua:comment.comment",
+    "CtrlUp": "ScrollUp",
     "Enter": "InsertNewline,lua:filemanager.try_open_at_cursor",
+    "Esc": "Escape,RemoveAllMultiCursors,ClearStatus",
+    "F3": "FindNext",
     "Home": "StartOfLine,lua:filemanager.goto_parent_dir",
+    "Shift-F3": "FindPrevious",
+    "ShiftHome": "SelectToStartOfLine"
 }
