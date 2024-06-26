@@ -50,6 +50,7 @@ function Set-DarkMode {
 
     # update unity
     # try/catch because https://github.com/PowerShell/PowerShell/issues/5906
+    $unityreg = $null
     try { $unityreg = Get-ItemPropertyValue -ea:silent 'HKCU:Software\Unity Technologies\Unity Editor 5.x' UserSkin_h307680651 } catch {}
     if ($null -ne $unityreg) {
         $unitytheme = $Off ? 0 : 1

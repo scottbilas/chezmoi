@@ -9,6 +9,7 @@
     'ListFunctions' = 'latest'
     'Microsoft.PowerShell.ConsoleGuiTools' = 'latest'
     'Microsoft.PowerShell.Crescendo' = 'latest'
+    'Microsoft.PowerToys.Configure' = 'latest'
     'Native' = 'latest'
     'Pester' = 'latest'
     'pinvoke' = 'latest'
