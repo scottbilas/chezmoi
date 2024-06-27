@@ -1,22 +1,14 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions":
+    "actions": 
     [
-        {
-            "command":
-            {
-                "action": "moveFocus",
-                "direction": "right"
-            },
-            "keys": "ctrl+alt+l"
-        },
         {
             "command": "togglePaneZoom",
             "keys": "ctrl+alt+z"
         },
         {
-            "command":
+            "command": 
             {
                 "action": "moveFocus",
                 "direction": "left"
@@ -24,7 +16,15 @@
             "keys": "ctrl+alt+h"
         },
         {
-            "command":
+            "command": 
+            {
+                "action": "moveFocus",
+                "direction": "right"
+            },
+            "keys": "ctrl+alt+l"
+        },
+        {
+            "command": 
             {
                 "action": "splitPane",
                 "split": "right"
@@ -32,7 +32,7 @@
             "keys": "ctrl+alt+minus"
         },
         {
-            "command":
+            "command": 
             {
                 "action": "moveFocus",
                 "direction": "down"
@@ -40,15 +40,7 @@
             "keys": "ctrl+alt+j"
         },
         {
-            "command":
-            {
-                "action": "resizePane",
-                "direction": "up"
-            },
-            "keys": "ctrl+alt+shift+k"
-        },
-        {
-            "command":
+            "command": 
             {
                 "action": "moveFocus",
                 "direction": "up"
@@ -56,7 +48,15 @@
             "keys": "ctrl+alt+k"
         },
         {
-            "command":
+            "command": 
+            {
+                "action": "resizePane",
+                "direction": "up"
+            },
+            "keys": "ctrl+alt+shift+k"
+        },
+        {
+            "command": 
             {
                 "action": "resizePane",
                 "direction": "down"
@@ -64,7 +64,7 @@
             "keys": "ctrl+alt+shift+j"
         },
         {
-            "command":
+            "command": 
             {
                 "action": "resizePane",
                 "direction": "left"
@@ -72,7 +72,7 @@
             "keys": "ctrl+alt+shift+h"
         },
         {
-            "command":
+            "command": 
             {
                 "action": "resizePane",
                 "direction": "right"
@@ -80,7 +80,11 @@
             "keys": "ctrl+alt+shift+l"
         },
         {
-            "command":
+            "command": "unbound",
+            "keys": "f11"
+        },
+        {
+            "command": 
             {
                 "action": "splitPane",
                 "split": "down"
@@ -95,25 +99,25 @@
     "initialCols": 150,
     "initialPosition": "50,50",
     "initialRows": 50,
-    "newTabMenu":
+    "newTabMenu": 
     [
         {
             "type": "remainingProfiles"
         }
     ],
     "newTabPosition": "afterCurrentTab",
-    "profiles":
+    "profiles": 
     {
-        "defaults":
+        "defaults": 
         {
             "antialiasingMode": "cleartype",
-            "bellStyle":
+            "bellStyle": 
             [
                 "window",
                 "taskbar"
             ],
             "colorScheme": "One Half Dark",
-            "font":
+            "font": 
             {
                 "face": "FiraCode Nerd Font",
                 "size": 8.0,
@@ -123,10 +127,14 @@
             "padding": "3",
             "tabColor": "#005B8F"
         },
-        "list":
+        "list": 
         [
             {
-                "colorScheme": { "light": "Campbell Powershell", "dark": "Sonokai Shusia" },
+                "colorScheme": 
+                {
+                    "dark": "Sonokai Shusia",
+                    "light": "Campbell Powershell"
+                },
                 "commandline": "wsl -e bash --login -c tmux",
                 "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
                 "hidden": false,
@@ -154,7 +162,7 @@
 {{- includeTemplate "../../private/WindowsTerminal/settings.json.tmpl" . }}
         ]
     },
-    "schemes":
+    "schemes": 
     [
         {
             "background": "#0C0C0C",
