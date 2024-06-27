@@ -1,9 +1,9 @@
 ; Copyright © Microsoft Corp.
 
 [Theme]
-; Windows - IDS_THEME_DISPLAYNAME_AERO
-DisplayName=scobi-dark
-ThemeId={B72A1625-A0A3-4D56-BBEA-662609067440}
+; Windows - IDS_THEME_DISPLAYNAME_AERO_LIGHT
+DisplayName=scobi-scozi-light
+ThemeId={A2342220-2832-4A65-BFE1-DDD6970326FB}
 
 ; Computer - SHIDI_SERVER
 [CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\DefaultIcon]
@@ -23,30 +23,29 @@ Full=%SystemRoot%\System32\imageres.dll,-54
 Empty=%SystemRoot%\System32\imageres.dll,-55
 
 [Control Panel\Cursors]
-AppStarting=%SystemRoot%\cursors\wait_r.cur
-Arrow=%SystemRoot%\cursors\arrow_r.cur
-Crosshair=%SystemRoot%\cursors\cross_r.cur
-Hand=
-Help=%SystemRoot%\cursors\help_r.cur
-IBeam=%SystemRoot%\cursors\beam_r.cur
-No=%SystemRoot%\cursors\no_r.cur
-NWPen=%SystemRoot%\cursors\pen_r.cur
-SizeAll=%SystemRoot%\cursors\move_r.cur
-SizeNESW=%SystemRoot%\cursors\size1_r.cur
-SizeNS=%SystemRoot%\cursors\size4_r.cur
-SizeNWSE=%SystemRoot%\cursors\size2_r.cur
-SizeWE=%SystemRoot%\cursors\size3_r.cur
-UpArrow=%SystemRoot%\cursors\up_r.cur
-Wait=%SystemRoot%\cursors\busy_r.cur
-DefaultValue=Windows Black
+AppStarting=%SystemRoot%\cursors\aero_working_l.ani
+Arrow=%SystemRoot%\cursors\aero_arrow_l.cur
+Crosshair=
+Hand=%SystemRoot%\cursors\aero_link_l.cur
+Help=%SystemRoot%\cursors\aero_helpsel_l.cur
+IBeam=
+No=%SystemRoot%\cursors\aero_unavail_l.cur
+NWPen=%SystemRoot%\cursors\aero_pen_l.cur
+SizeAll=%SystemRoot%\cursors\aero_move_l.cur
+SizeNESW=%SystemRoot%\cursors\aero_nesw_l.cur
+SizeNS=%SystemRoot%\cursors\aero_ns_l.cur
+SizeNWSE=%SystemRoot%\cursors\aero_nwse_l.cur
+SizeWE=%SystemRoot%\cursors\aero_ew_l.cur
+UpArrow=%SystemRoot%\cursors\aero_up_l.cur
+Wait=%SystemRoot%\cursors\aero_busy_l.ani
+DefaultValue=Windows Default (large)
 
 [Control Panel\Desktop]
-Wallpaper=%USERPROFILE%\OneDrive\Pictures\Wallpaper\2048\Clean lines purple_tablet.jpg
+Wallpaper=%USERPROFILE%\onedrive\pictures\wallpaper\1680\classic-video-games.jpg
 Pattern=
 MultimonBackgrounds=0
 PicturePosition=4
-Wallpaper1=%USERPROFILE%\OneDrive\Pictures\Wallpaper\Themed\Lego\Grey Bricks - Desktop.jpg
-WallpaperWriteTime=130489255710000000
+WallpaperWriteTime=130920902610000000
 WindowsSpotlight=0
 
 [VisualStyles]
@@ -54,9 +53,9 @@ Path=%SystemRoot%\resources\themes\Aero\Aero.msstyles
 ColorStyle=NormalColor
 Size=NormalSize
 AutoColorization=0
-ColorizationColor=0XC4881798
-SystemMode=Dark
-AppMode=Dark
+ColorizationColor=0XC4AD53A2
+SystemMode=Light
+AppMode=Light
 VisualStyleVersion=10
 
 [boot]

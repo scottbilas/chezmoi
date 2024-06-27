@@ -6,26 +6,33 @@ $LightThemeRegPath = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Per
 
 function Get-DarkMode {
     $props = Get-ItemProperty -Path $LightThemeRegPath
-    !($props.AppsUseLightTheme -and $props.SystemUsesLightTheme)
+    $light = $props.AppsUseLightTheme -or $props.SystemUsesLightTheme
+
+    $chezmoiPath = '~\.config\chezmoi\chezmoi.yaml'
+    $theme = $light ? 'light' : 'dark'
+    ((Get-Content -Raw $chezmoiPath) -replace 'theme: \S+', "theme: $theme").TrimEnd() | Out-File -Encoding ascii $chezmoiPath
+
+    !$light
 }
 Export-ModuleMember Get-DarkMode
 
 function Set-DarkMode {
     [CmdletBinding()]
     param (
-        [switch]$Off
+        [switch]$Off,
+        [switch]$Force
     )
 
-    # update OS
-    $value = $Off.ToBool()
-    New-ItemProperty -Path $LightThemeRegPath -Name AppsUseLightTheme -Value $value -Type DWord -Force > $null
-    New-ItemProperty -Path $LightThemeRegPath -Name SystemUsesLightTheme -Value $value -Type DWord -Force > $null
+    $light = $Off.ToBool()
+    if (($light -eq !(Get-DarkMode)) -and !$force) {
+        Write-Host "DarkMode already set to $(!$light), skipping os/file updates (use -Force to override this)"
+        return
+    }
 
-    # update windows terminal chrome (necessary until https://github.com/microsoft/terminal/issues/1230 fixed)
-    $chezmoiPath = '~\.config\chezmoi\chezmoi.yaml'
-    $theme = $Off ? 'light' : 'dark'
-    ((Get-Content -Raw $chezmoiPath) -replace 'theme: \S+', "theme: $theme").TrimEnd() | Out-File -Encoding ascii $chezmoiPath
-    chezmoi apply ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json
+    # update OS
+    New-ItemProperty -Path $LightThemeRegPath -Name AppsUseLightTheme -Value $light -Type DWord -Force > $null
+    New-ItemProperty -Path $LightThemeRegPath -Name SystemUsesLightTheme -Value $light -Type DWord -Force > $null
+
     chezmoi apply ~/AppData/Roaming/LINQPad/RoamingUserOptions.xml
 
     # update p4v
@@ -68,6 +75,11 @@ function Set-DarkMode {
 Export-ModuleMember Set-DarkMode
 
 function Set-LightMode {
-    Set-DarkMode -Off
+    [CmdletBinding()]
+    param (
+        [switch]$Force
+    )
+
+    Set-DarkMode -Off -Force:$Force
 }
 Export-ModuleMember Set-LightMode
