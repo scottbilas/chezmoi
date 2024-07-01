@@ -1,0 +1,5 @@
+{{ if stat (joinPath .profile.home_dirf "Synk/Config") }}
+    {{ joinPath .profile.home_dirf "Synk/Config" }}
+{{ else }}
+ERROR MISSING 'Synk/Config'
+{{ end }}

@@ -1,14 +1,14 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
+    "actions":
     [
         {
             "command": "togglePaneZoom",
             "keys": "ctrl+alt+z"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "moveFocus",
                 "direction": "left"
@@ -16,7 +16,7 @@
             "keys": "ctrl+alt+h"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "moveFocus",
                 "direction": "right"
@@ -24,7 +24,7 @@
             "keys": "ctrl+alt+l"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "splitPane",
                 "split": "right"
@@ -32,7 +32,7 @@
             "keys": "ctrl+alt+minus"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "moveFocus",
                 "direction": "down"
@@ -40,7 +40,7 @@
             "keys": "ctrl+alt+j"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "moveFocus",
                 "direction": "up"
@@ -48,7 +48,7 @@
             "keys": "ctrl+alt+k"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "resizePane",
                 "direction": "up"
@@ -56,7 +56,7 @@
             "keys": "ctrl+alt+shift+k"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "resizePane",
                 "direction": "down"
@@ -64,7 +64,7 @@
             "keys": "ctrl+alt+shift+j"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "resizePane",
                 "direction": "left"
@@ -72,7 +72,7 @@
             "keys": "ctrl+alt+shift+h"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "resizePane",
                 "direction": "right"
@@ -84,7 +84,7 @@
             "keys": "f11"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "splitPane",
                 "split": "down"
@@ -99,25 +99,25 @@
     "initialCols": 150,
     "initialPosition": "50,50",
     "initialRows": 50,
-    "newTabMenu": 
+    "newTabMenu":
     [
         {
             "type": "remainingProfiles"
         }
     ],
     "newTabPosition": "afterCurrentTab",
-    "profiles": 
+    "profiles":
     {
-        "defaults": 
+        "defaults":
         {
             "antialiasingMode": "cleartype",
-            "bellStyle": 
+            "bellStyle":
             [
                 "window",
                 "taskbar"
             ],
             "colorScheme": "One Half Dark",
-            "font": 
+            "font":
             {
                 "face": "FiraCode Nerd Font",
                 "size": 8.0,
@@ -127,10 +127,10 @@
             "padding": "3",
             "tabColor": "#005B8F"
         },
-        "list": 
+        "list":
         [
             {
-                "colorScheme": 
+                "colorScheme":
                 {
                     "dark": "Sonokai Shusia",
                     "light": "Campbell Powershell"
@@ -159,10 +159,10 @@
                 "startingDirectory": "~",
                 "tabTitle": "zsh"
             }
-{{- includeTemplate "../../private/WindowsTerminal/settings.json.tmpl" . }}
+{{- includeTemplate "../../private-unity/WindowsTerminal/settings.json.tmpl" . }}
         ]
     },
-    "schemes": 
+    "schemes":
     [
         {
             "background": "#0C0C0C",
