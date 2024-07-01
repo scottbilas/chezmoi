@@ -1,17 +1,17 @@
-# registry code adapted from https://okms.github.io/2021/01/dark-mode-cli-for-windows-using-powershell.html
-
-# TODO: this is out of date with latest Win11, switch to theme-apply approach
-
 $LightThemeRegPath = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize'
+
+function Update-ProfileData($light) {
+    $chezmoiPath = '~\.config\chezmoi\chezmoi.yaml'
+    $theme = $light ? 'light' : 'dark'
+    ((Get-Content -Raw $chezmoiPath) -replace 'theme: \S+', "theme: $theme").TrimEnd() | Out-File -Encoding ascii $chezmoiPath
+}
+# noexport
 
 function Get-DarkMode {
     $props = Get-ItemProperty -Path $LightThemeRegPath
     $light = $props.AppsUseLightTheme -or $props.SystemUsesLightTheme
 
-    $chezmoiPath = '~\.config\chezmoi\chezmoi.yaml'
-    $theme = $light ? 'light' : 'dark'
-    ((Get-Content -Raw $chezmoiPath) -replace 'theme: \S+', "theme: $theme").TrimEnd() | Out-File -Encoding ascii $chezmoiPath
-
+    Update-ProfileData $light
     !$light
 }
 Export-ModuleMember Get-DarkMode
@@ -29,11 +29,38 @@ function Set-DarkMode {
         return
     }
 
-    # update OS
-    New-ItemProperty -Path $LightThemeRegPath -Name AppsUseLightTheme -Value $light -Type DWord -Force > $null
-    New-ItemProperty -Path $LightThemeRegPath -Name SystemUsesLightTheme -Value $light -Type DWord -Force > $null
+    # update OS - don't do the registry stuff that everyone online says to do, none of it works fully, and the workarounds
+    # really suck. dark/light theme file is way simpler and always works.
+    #
+    # just two issues with this:
+    #
+    #   1. it will apply everything in the theme file. themes are fully specified, too. if a wallpaper is not specified,
+    #      then you get a solid black background, not "leave wallpaper alone".
+    #
+    #      there is a "Custom.theme" that gets generated, could copy that (can't modify it, as it gets auto restored by
+    #      windows) to something else, set it to dark, and apply it. but when user simply sets the wallpaper without
+    #      doing it through a theme, it will get stored elsewhere, and then overwritten.
+    #
+    #      so instead, just maintain the windows themes according to each machine. it's not the end of the world.
+    #
+    #   2. the settings personalization app opens and needs to be manually closed.
+    #
+    #      would have to detect that the window actually opens and changes (don't want to close existing settings app
+    #      that was already open) which requires some window lookup and screen reader shit to detect it's in
+    #      "Personalization" panel. nope.
+    #
+    $themeName = $light ? 'light' : 'dark'
+    $themePath ="$env:LOCALAPPDATA\Microsoft\Windows\Themes\scobi-$($($env:COMPUTERNAME).ToLower())-$themeName.theme"
+
+    if (!(Test-Path $themePath)) {
+        throw "Missing theme file from '$themePath'"
+    }
+
+    & $themePath
+    Update-ProfileData $light
 
     chezmoi apply ~/AppData/Roaming/LINQPad/RoamingUserOptions.xml
+    chezmoi apply ~/.config/git/delta-current-theme.gitconfig
 
     # update p4v
     $p4vxpath = Resolve-Path -ea:silent '~\.p4qt\ApplicationSettings.xml'
