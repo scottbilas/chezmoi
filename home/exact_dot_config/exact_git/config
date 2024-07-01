@@ -260,8 +260,9 @@
 
 [include]
     path = ~/.config/git/delta-themes.gitconfig
+[include]
+    path = ~/.config/git/delta-current-theme.gitconfig
 [delta]
-    features = collared-trogon
     side-by-side = true
 
 ### TIG ###
