@@ -50,6 +50,7 @@ $Env:SCOOP = Resolve-Path ~\scoop
 $Env:UNITY_MIXED_CALLSTACK = 1
 $Env:WSL_UTF8 = 1
 
+Invoke-Expression (&scoop-search --hook) # this replaces crappy built-in scoop search with something very fast
 
 ### PSREADLINE
 
