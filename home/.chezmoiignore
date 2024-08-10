@@ -46,6 +46,9 @@ scoop
 
 ## MACOS
 
+# managed by rider
+.local/bin/rider
+
 # not ready to micromanage this yet
 .config/iterm2
 
