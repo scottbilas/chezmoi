@@ -73,3 +73,7 @@ NDependOut
 # syncthing
 .stignore*
 .stversions*
+.stfolder
+
+# commandline args plugin for rider
+*.ddargs.json
