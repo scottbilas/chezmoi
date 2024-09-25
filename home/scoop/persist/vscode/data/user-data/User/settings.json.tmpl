@@ -203,6 +203,7 @@
         "*.linq": "csharp",
         "*.log": "log",
         "*.meta": "yaml",
+        "*.msbuildproj": "xml",
         "*.prefab": "yaml",
         "*.tmpl": "go-template",
         "*.ttinclude": "t4",
@@ -255,6 +256,7 @@
     "gitlens.changes.toggleMode": "window",
     "gitlens.currentLine.enabled": false,
     "gitlens.heatmap.toggleMode": "window",
+    "gitlens.launchpad.indicator.enabled": false,
     "gitlens.showWelcomeOnInstall": false,
     "go.formatTool": "goimports",
     "go.toolsManagement.autoUpdate": true,
@@ -278,16 +280,6 @@
     "julia.symbolCacheDownload": true,
     "julia.enableTelemetry": true,
     "local-history.path": "~/.local/backups/vscode",
-    "logFileHighlighter.customPatterns": [
-        {
-            "pattern": "error",
-            "foreground": "#b40000",
-        },
-        {
-            "pattern": ".*error.*",
-            "background": "#3b0000",
-        }
-    ],
     "markdown.extension.italic.indicator": "_",
     "markdown.extension.toc.levels": "2..3",
     "markdown.preview.fontSize": 16,
@@ -344,7 +336,10 @@
     "window.titleSeparator": " → ",
     "workbench.activityBar.location": "hidden",
     "workbench.colorCustomizations": {
-        "editorRuler.foreground": "#242424"
+        "[*Dark*]": {
+            "editorRuler.foreground": "#304857",
+            "tab.activeBorderTop": "#f863ba",
+        }
     },
     "workbench.colorTheme": "Codecourse Contrast (rainglow)",
     "workbench.editor.empty.hint": "hidden",
