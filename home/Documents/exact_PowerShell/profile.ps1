@@ -130,6 +130,10 @@ if (Test-Path 'C:\Program Files\WSL\wsl.exe') {
     Set-Alias wsl 'C:\Program Files\WSL\wsl.exe'
 }
 
+if (Test-Path 'C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\Roslyn\csi.exe') {
+    Set-Alias csi 'C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\Roslyn\csi.exe'
+}
+
 if (Get-Command -ea:silent rg) {
     function rgh { rg --hidden --no-ignore @args }
 }

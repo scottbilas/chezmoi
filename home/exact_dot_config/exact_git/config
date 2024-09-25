@@ -33,6 +33,10 @@
     fcz = fc --filter=blob:none
     ss = stash show -p
 
+    # there has to be a better way to do this.. all i want to do is maintain a narrow fetchspec but get the exact same
+    # behavior as if i were to fetch the remote and check out a branch.
+    fnb = "!f() { git fetch origin $1:refs/remotes/origin/$1 && git remote set-branches --add origin $1 && git checkout -b $1 --track origin/$1; }; f"
+
     b  = branch -vv
     c  = commit
     d  = diff
