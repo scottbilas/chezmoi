@@ -1,95 +1,110 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions":
+    "actions": 
     [
         {
-            "command": "togglePaneZoom",
-            "keys": "ctrl+alt+z"
-        },
-        {
-            "command":
-            {
-                "action": "moveFocus",
-                "direction": "left"
-            },
-            "keys": "ctrl+alt+h"
-        },
-        {
-            "command":
-            {
-                "action": "moveFocus",
-                "direction": "right"
-            },
-            "keys": "ctrl+alt+l"
-        },
-        {
-            "command":
+            "command": 
             {
                 "action": "splitPane",
                 "split": "right"
             },
+            "id": "User.splitPane.864CD510",
             "keys": "ctrl+alt+minus"
         },
         {
-            "command":
+            "command": 
+            {
+                "action": "moveFocus",
+                "direction": "right"
+            },
+            "id": "User.moveFocus.87C324ED",
+            "keys": "ctrl+alt+l"
+        },
+        {
+            "command": "togglePaneZoom",
+            "id": "User.togglePaneZoom",
+            "keys": "ctrl+alt+z"
+        },
+        {
+            "command": 
+            {
+                "action": "moveFocus",
+                "direction": "left"
+            },
+            "id": "User.moveFocus.2A0DA8E0",
+            "keys": "ctrl+alt+h"
+        },
+        {
+            "command": 
             {
                 "action": "moveFocus",
                 "direction": "down"
             },
+            "id": "User.moveFocus.F747588A",
             "keys": "ctrl+alt+j"
         },
         {
-            "command":
+            "command": 
+            {
+                "action": "resizePane",
+                "direction": "up"
+            },
+            "id": "User.resizePane.6CD791B",
+            "keys": "ctrl+alt+shift+k"
+        },
+        {
+            "command": 
             {
                 "action": "moveFocus",
                 "direction": "up"
             },
+            "id": "User.moveFocus.6CD791B",
             "keys": "ctrl+alt+k"
         },
         {
-            "command":
-            {
-                "action": "resizePane",
-                "direction": "up"
-            },
-            "keys": "ctrl+alt+shift+k"
-        },
-        {
-            "command":
+            "command": 
             {
                 "action": "resizePane",
                 "direction": "down"
             },
+            "id": "User.resizePane.F747588A",
             "keys": "ctrl+alt+shift+j"
         },
         {
-            "command":
+            "command": 
             {
                 "action": "resizePane",
                 "direction": "left"
             },
+            "id": "User.resizePane.2A0DA8E0",
             "keys": "ctrl+alt+shift+h"
         },
         {
-            "command":
+            "command": 
             {
                 "action": "resizePane",
                 "direction": "right"
             },
+            "id": "User.resizePane.87C324ED",
             "keys": "ctrl+alt+shift+l"
+        },
+        {
+            "command": 
+            {
+                "action": "splitPane",
+                "split": "down"
+            },
+            "id": "User.splitPane.D5151347",
+            "keys": "ctrl+alt+\\"
         },
         {
             "command": "unbound",
             "keys": "f11"
         },
         {
-            "command":
-            {
-                "action": "splitPane",
-                "split": "down"
-            },
-            "keys": "ctrl+alt+\\"
+            "command": "unbound",
+            "keys": "win+sc(41)"
         }
     ],
     "alwaysShowTabs": false,
@@ -120,7 +135,7 @@
             "font":
             {
                 "face": "FiraCode Nerd Font",
-                "size": 8.0,
+                "size": 8,
                 "weight": "medium"
             },
             "historySize": 100000,
