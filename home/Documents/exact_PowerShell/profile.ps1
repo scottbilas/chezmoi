@@ -41,7 +41,7 @@ $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8NoBOM'
 $Env:BAT_CONFIG_PATH = "$HOME/.config/bat/bat.conf"
 $Env:DOTNET_CLI_TELEMETRY_OPTOUT = 1
 $Env:FZF_DEFAULT_COMMAND = 'fd --hidden -E .git'
-$Env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview-window=right:60% --bind 'alt-p:toggle-preview' --preview '$HOME\dotfiles\scripts\fzf-preview.cmd {} | head -500'"
+$Env:FZF_DEFAULT_OPTS = "--tabstop=4 --preview-window=right:60% --bind 'alt-p:toggle-preview' --preview '$HOME\.local\bin\fzf-preview.cmd {} | head -500'"
 $Env:HOME = Resolve-Path ~
 $Env:LESS = '--tabs=4 -RFXi'
 $Env:MOAR = '-quit-if-one-screen -style dracula -no-statusbar -no-linenumbers -wrap'
