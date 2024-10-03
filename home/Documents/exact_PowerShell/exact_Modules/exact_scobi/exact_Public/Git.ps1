@@ -164,7 +164,7 @@ function Git-FixConfigs {
             $PSCmdlet.ShouldProcess($wt.gitdir, 'Fix .git path to be relative')) {
 
             "Fixing gitdir path to be relative in $($wt.gitdir)"
-            
+
             $rel = [IO.Path]::GetRelativePath($wt.worktree, $wt.worktree_gitdir).Replace('\', '/')
             $old = [IO.File]::ReadAllText($wt.gitdir)
             $new = $old -replace 'gitdir:\s*?.*', "gitdir: $rel"
