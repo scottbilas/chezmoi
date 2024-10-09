@@ -19,6 +19,9 @@ function get-prs {
 }
 
 function Git-DeadBranches {
+    [CmdletBinding()]
+    param()
+
     $branches = git for-each-ref --format='%(refname:short) %(upstream:short)' refs/heads | Sort-Object | %{
         $v = $_ -split ' ', 2
         @{ local=$v[0]; tracked=$v[1] }
@@ -40,6 +43,12 @@ function Git-DeadBranches {
         }
 
         $pr = $prs | ?{ $_.branch -eq $branch.local }
+
+        Write-Verbose "Processing $($branch.local), state is $upstreamState"
+        if ($pr) {
+            Write-Verbose "PR is $($pr.url) at $($pr.commit)"
+        }
+
         if ($pr -and $pr.merged) {
             $any = $true
 
@@ -48,7 +57,7 @@ function Git-DeadBranches {
                     Write-Warning "Branch PR got merged, but is still tracking a sco remote: $($branch.tracked)"
                 }
                 else {
-                    Write-Error "Unexpected mismatch of a merged PR ($($pr.url)) but upstream state $($upstreamState): $($branch.local) -> $($branch.tracked)"
+                    Write-Warning "Branch PR got merged ($($pr.url)) but upstream branch still exists locally: $($branch.local) -> $($branch.tracked) (probably need to `git fetch`)"
                 }
                 continue
             }
