@@ -56,7 +56,11 @@ main () {
     else
         # this will fatal if we don't have an upstream for the current branch (which is good)
         REMOTE_BRANCH=$(git rev-parse --abbrev-ref @{u})
-        read -r opt_remote opt_branch <<< "$(echo $REMOTE_BRANCH | sed 's/\// /')"
+        opt_remote=$(echo "$REMOTE_BRANCH" | cut -d'/' -f1)
+        opt_branch=$(echo "$REMOTE_BRANCH" | cut -d'/' -f2-)
+
+        # TODO: why doesnt this work on my my environments
+        #read -r opt_remote opt_branch <<< "$(echo $REMOTE_BRANCH | sed 's/\// /')"
     fi
 
     # save previous fetch (@{1} does not quite work how i want)
@@ -65,14 +69,13 @@ main () {
 
     # build up git args
 
-    if $opt_pull; then {
+    if $opt_pull; then
         args='pull --autostash'
         if $opt_rebase; then
-            args+=' --rebase'
+            args="$args --rebase"   # TODO: why doesnt += work on all my environments..
         else
-            args+=' --ff-only'
+            args="$args --ff-only"
         fi
-    }
     else
         args='fetch'
     fi
