@@ -38,6 +38,7 @@ Documents
 scoop
 .config/windows
 .config/scoop
+**/*.exe
 **/*.cmd
 
 {{ end }}
