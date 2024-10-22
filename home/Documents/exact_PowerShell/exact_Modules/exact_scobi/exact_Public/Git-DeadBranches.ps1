@@ -42,7 +42,7 @@ function Git-DeadBranches {
             $upstreamState = 'deleted'
         }
 
-        $pr = $prs | ?{ $_.branch -eq $branch.local }
+        $pr = $prs | ?{ $_.branch -eq $branch.local } | Select-Object -First 1
 
         Write-Verbose "Processing $($branch.local), state is $upstreamState"
         if ($pr) {
@@ -71,20 +71,23 @@ function Git-DeadBranches {
             }
             $head = git rev-parse $branch.local
             if ($head -ne $pr.commit) {
-                Write-Warning "NOT safe to delete! HEAD $($head.Substring(0, 12)) is not the PR head $($pr.commit.Substring(0, 12)) (PR = $($pr.url))"
-                continue
+                # TODO: check to see if $head is an ancestor of $pr.commit (requires a different kind of gh query or possibly pullign those changes local)
+                "  ! potentially unsafe to delete (HEAD $($head.Substring(0, 12)) is not the PR head $($pr.commit.Substring(0, 12)) (PR = $($pr.url)/commits)"
+                git log -5 --oneline "main..$($branch.local)" | % { "    | $_" }
             }
-            "  merged PR was $($pr.url)"
-            "  local head matches PR head $($head.Substring(0, 12))"
+            else {
+                "  merged PR was $($pr.url)"
+                "  local head matches PR head $($head.Substring(0, 12))"
+            }
 
             $wt = $wts | ?{ $_.Branch -eq $branch.local }
             if ($wt) {
-                Write-Warning "$($branch.local) checked out at $($wt.worktree)"
-                Write-Warning "git -C $($wt.worktree) co --detach && git branch -D $($branch.local)"
+                "  ! $($branch.local) checked out at $($wt.worktree)"
+                "  > git -C $($wt.worktree) co --detach && git branch -D $($branch.local)"
             }
             else {
-                Write-Warning "$($branch.local) is safe to delete!!"
-                Write-Warning "git branch -D $($branch.local)"
+                "  ($($branch.local) not checked out in any worktree)"
+                "  > git branch -D $($branch.local)"
             }
         }
     }
