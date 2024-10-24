@@ -83,7 +83,15 @@ function Git-DeadBranches {
             $wt = $wts | ?{ $_.Branch -eq $branch.local }
             if ($wt) {
                 "  ! $($branch.local) checked out at $($wt.worktree)"
-                "  > git -C $($wt.worktree) co --detach && git branch -D $($branch.local)"
+                git -C $($wt.worktree) status --porcelain | %{ "  ! status: $_" }
+                $cmd = "git -C $($wt.worktree) co --detach && git branch -D $($branch.local)"
+                if ($LASTEXITCODE) {
+                    "  > git -C $($wt.worktree) diff"
+                    "  > git -C $($wt.worktree) trash && $cmd"
+                }
+                else {
+                    "  > $cmd"
+                }
             }
             else {
                 "  ($($branch.local) not checked out in any worktree)"
