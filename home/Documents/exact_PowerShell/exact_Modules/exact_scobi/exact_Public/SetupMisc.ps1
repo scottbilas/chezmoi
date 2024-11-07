@@ -55,3 +55,11 @@ function Add-WslSshPortProxy($address = $null, $port = 2222) {
     netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=$port connectaddress=$address connectport=$port
 }
 Export-ModuleMember Add-WslSshPortProxy
+
+# requires sudo
+function Add-WslSshFirewallRule($port = 2222) {
+    $name = 'WSL sshd Port 2222'
+    Get-NetFirewallRule -ea:silent -DisplayName $name | Remove-NetFirewallRule
+    New-NetFirewallRule -DisplayName $name -Direction Inbound -LocalPort 2222 -Protocol TCP -Action Allow -Profile Any -EdgeTraversalPolicy Allow
+}
+Export-ModuleMember Add-WslSshFirewallRule
