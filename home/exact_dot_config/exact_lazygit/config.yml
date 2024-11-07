@@ -10,6 +10,8 @@ git:
     colorArg: always
     # not yet supported on windows (soon? https://github.com/jesseduffield/lazygit/issues/1453)
     pager: delta --dark --paging=never
+  autoFetch: false
+  fetchAll: false
 
 os:
   edit: 'micro -- {{filename}}'
@@ -22,3 +24,4 @@ update:
   method: never
 
 reporting: off
+
