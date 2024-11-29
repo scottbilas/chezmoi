@@ -144,6 +144,19 @@ function Git-LsWorktrees([string]$RepoRoot = $null) { # corresponds to git -C
 }
 Export-ModuleMember Git-LsWorktrees
 
+function Git-ForEachWorkTree($what) {
+    try {
+        Push-Location
+        foreach ($wt in Git-LsWorktrees) {
+            Set-Location $wt.worktree
+            Write-Host "Entering $($wt.worktree)"
+            & $what
+        }
+    }
+    finally { Pop-Location }
+}
+Export-ModuleMember Git-ForEachWorkTree
+
 function Git-FixConfigs {
     [CmdletBinding(SupportsShouldProcess)]
     param (

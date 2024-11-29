@@ -189,11 +189,27 @@ if (Get-Command -ea:silent gh) {
     . $PSScriptRoot/gh-copilot.ps1
 }
 
+# default sudo.exe is in system32 but it's not pwsh friendly, so use gsudo
+& {
+    $sudo = Resolve-Path -ea:silent ~\scoop\apps\gsudo\current\gsudo.exe
+    if ($sudo) {
+        Set-Alias -Scope Global sudo $sudo
+    }
+}
+
 # default sort.exe is in system32; avoid that one
 & {
     $sort = Resolve-Path -ea:silent ~\scoop\apps\git\current\usr\bin\sort.exe
     if ($sort) {
         Set-Alias -Scope Global sort $sort
+    }
+}
+
+# default expand.exe is in system32; avoid that one
+& {
+    $expand = Resolve-Path -ea:silent ~\scoop\shims\expand.exe
+    if ($expand) {
+        Set-Alias -Scope Global expand $expand
     }
 }
 
