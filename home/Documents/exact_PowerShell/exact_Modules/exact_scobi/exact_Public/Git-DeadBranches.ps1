@@ -73,7 +73,7 @@ function Git-DeadBranches {
             if ($head -ne $pr.commit) {
                 # TODO: check to see if $head is an ancestor of $pr.commit (requires a different kind of gh query or possibly pullign those changes local)
                 "  ! potentially unsafe to delete (HEAD $($head.Substring(0, 12)) is not the PR head $($pr.commit.Substring(0, 12)) (PR = $($pr.url)/commits)"
-                git log -5 --oneline "main..$($branch.local)" | % { "    | $_" }
+                git log -5 --pretty=format:'    | %h %al, %ar: %s' "main..$($branch.local)"
             }
             else {
                 "  merged PR was $($pr.url)"

@@ -128,7 +128,6 @@
     excludesfile = ~/.config/git/ignore
     hideDotFiles = false
     # longPaths = true   # not recommended to keep this on in general, only use on demand
-    pager = delta
     symlinks = true
 
 [sequence]
@@ -141,7 +140,7 @@
     prune = true
 
 [init]
-	defaultBranch = dev
+    defaultBranch = dev
 
 [log]
     follow = true
@@ -245,6 +244,8 @@
     mnemonicprefix = true
     renames = copies
     renameLimit = 50000
+    # difftastic
+    external = difft
 
 [interactive]
     diffFilter = delta --color-only --features=interactive

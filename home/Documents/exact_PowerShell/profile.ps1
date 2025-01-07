@@ -84,7 +84,7 @@ if (Get-Command micro) {
 
 # shortyshortcuts
 Set-Alias g git
-Set-Alias o explorer
+function o($what) { explorer (Resolve-Path $what) }
 Set-Alias cm chezmoi
 Set-Alias devenv 'C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\devenv.exe'
 function cm-c { Set-Location (chezmoi source-path) }
