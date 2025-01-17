@@ -42,7 +42,11 @@ function Invoke-FixExplorerIconCache {
 }
 
 function Get-WslIpAddress($iface = 'eth0', $port = 2222) {
-    ssh localhost -p $port "ip -4 address show $iface | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
+    $addrs = (wsl hostname -I) -split ' '
+    if ($addrs.Length -eq 1) {
+        return $addrs[0]
+    }
+    throw "Unexpected multiple IP addresses returned from WSL: $addrs (restart wsl to fix)"
 }
 Export-ModuleMember Get-WslIpAddress
 
