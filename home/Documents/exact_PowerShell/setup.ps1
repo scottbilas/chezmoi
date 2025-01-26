@@ -10,17 +10,6 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue' # distracting and ends up with cursor in wrong vertical position sometimes (maybe exposes a terminal bug)
 
-$jobs = @()
-
-trap {
-    foreach ($job in $jobs) {
-        # $???$?
-    }
-
-#    "Error: $_"
-    break
-}
-
 ## Chezmoi
 
 # chezmoi update << do safely
@@ -64,7 +53,9 @@ else {
 
 ## Posh help
 
-$jobs += Start-Job { Update-Help }
+if ($Upgrade) {
+    Update-Help
+}
 
 ## Scoop pre
 
@@ -120,7 +111,7 @@ if (Test-Path $env:ProgramData\scoop\apps) {
 function installScoopPackage([string]$name, [switch]$sudo, [switch]$global) {
     if ($scoopPackages -notcontains ($name -split '/')[-1]) {
         if ($sudo) {
-            Write-Host "[scoop] Asking for sudo to install $name.."
+            Write-Output "[scoop] Asking for sudo to install $name.."
             if ($global) {
                 sudo iee scoop install -g $name
             }
@@ -187,24 +178,6 @@ unity-downloader-cli
 
 Write-Output '[scoop] Core packages ok'
 
-### TODO: sudo Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1
-### also look at existing powershell scripts that i already wrote to do registry stuff..
-
-# CHECKS
-
-$envPaths = Invoke-SetupEnvPaths
-$Env:PATH = $envPaths.ResultPath
-if ($envPaths.InvalidPaths) {
-    Write-Error -ea:cont "[check] PATH contains invalid paths: $(($envPaths.InvalidPaths | Sort-Object | ForEach-Object { "'$_'" }) -Join ', ')"
-}
-if ($envPaths.DuplicatePaths) {
-    Write-Error -ea:cont "[check] PATH contains duplicate paths: $(($envPaths.DuplicatePaths | Sort-Object | ForEach-Object { "'$_'" }) -Join ', ')"
-}
-
-if (!$envPaths.InvalidPaths -and !$envPaths.DuplicatePaths) {
-    Write-Output '[check] PATH ok'
-}
-
 # look for bad scoop installs
 $badScoop = @()
 foreach ($app in (Get-ChildItem ~/Scoop/Apps -Exclude scoop)) {
@@ -218,13 +191,14 @@ foreach ($app in (Get-ChildItem ~/Scoop/Apps -Exclude scoop)) {
     }
 }
 if ($badScoop) {
-    Write-Error "[check] Scoop has invalid installs: $($badScoop -join ', ')"
+    Write-Warning "[check] Scoop has invalid installs: $($badScoop -join ', ')"
+}
+else {
+    Write-Output '[check] Scoop apps ok'
 }
 
-Write-Output '[check] Scoop apps ok'
-
 # anything (else) going on with scoop?
-if ($badScoop -or $Upgrade) {
+if ($Upgrade) {
     Write-Output '[check] Scoop upgrade status (scoop update *)'
     scoop status
 }
@@ -233,6 +207,24 @@ if ($badScoop -or $Upgrade) {
 if ($Upgrade -and (Get-Command winget)) {
     Write-Output '[winget] Winget upgrade status (`invoke-wgupgrade -id *pattern*`)'
     winget upgrade
+}
+
+### TODO: sudo Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1
+### also look at existing powershell scripts that i already wrote to do registry stuff..
+
+# CHECKS
+
+$envPaths = Invoke-SetupEnvPaths
+$Env:PATH = $envPaths.ResultPath
+if ($envPaths.InvalidPaths) {
+    Write-Warning -ea:cont "[check] PATH contains invalid paths: $(($envPaths.InvalidPaths | Sort-Object | ForEach-Object { "'$_'" }) -Join ', ')"
+}
+if ($envPaths.DuplicatePaths) {
+    Write-Warning -ea:cont "[check] PATH contains duplicate paths: $(($envPaths.DuplicatePaths | Sort-Object | ForEach-Object { "'$_'" }) -Join ', ')"
+}
+
+if (!$envPaths.InvalidPaths -and !$envPaths.DuplicatePaths) {
+    Write-Output '[check] PATH ok'
 }
 
 # check for default shell not pointing at pwsh. this is important for a couple reasons:
@@ -256,11 +248,11 @@ if (Test-Path -ea:silent $sshDefaultShell) {
         Write-Output "[check] OpenSSH(d) default shell set to pwsh ok"
     }
     else {
-        Write-Error "[check] OpenSSH(d) default shell set to $sshDefaultShell rather than pwsh"
+        Write-Warning "[check] OpenSSH(d) default shell set to $sshDefaultShell rather than pwsh"
     }
 }
 else {
-    Write-Error "[check] OpenSSH(d) default shell is not set"
+    Write-Warning "[check] OpenSSH(d) default shell is not set"
     # sudo New-ItemProperty -PropertyType String -Force -Path HKLM:\SOFTWARE\OpenSSH -Name DefaultShell -Value C:\Program Files\PowerShell\7\pwsh.exe
 }
 
@@ -271,12 +263,12 @@ $bcShellPath = Get-ItemProperty -ea:silent 'HKCU:\SOFTWARE\Classes\CLSID\{57FA2D
 if (Test-Path alias:bc) {
     $bcPath = Get-Content alias:bc
     if (!$bcShellPath -or ((Split-Path $bcShellPath) -ne (Split-Path $bcPath))) {
-        Write-Error "[check] Beyond Compare Explorer integration mismatch; run bcomp4-shell-integration.reg (bc=$bcPath, reg=$bcShellPath)"
+        Write-Warning "[check] Beyond Compare Explorer integration mismatch; run bcomp4-shell-integration.reg (bc=$bcPath, reg=$bcShellPath)"
     }
     Write-Output "[check] Beyond Compare Explorer integration ok"
 }
 elseif ($bcShellPath) {
-    Write-Error '[check] Beyond Compare Explorer integration is registered, but bc cannot be found; install bc or run bcomp4-shell-integration-remove.reg'
+    Write-Warning '[check] Beyond Compare Explorer integration is registered, but bc cannot be found; install bc or run bcomp4-shell-integration-remove.reg'
 }
 #>
 
@@ -286,14 +278,16 @@ if ($scoopPackages -contains 'python') {
     if ((iee python --version) -notmatch 'Python 3') {
         Write-Error '[python] Python 3 not found or is not default'
     }
-    if ((iee pip config list) -match 'global.index-url') {
-        # this can slip in from a copy-pasta of an install command intended for CI server
-        Write-Host '[python] Found override of global index for pip, clearing it'
-        iee pip config unset global.index-url
-    }
-    if ($Upgrade) {
-        Write-Host '[python] Ensuring pip is the latest version'
-        iee python -m pip install --upgrade pip
+    else {
+        if ((iee pip config list) -match 'global.index-url') {
+            # this can slip in from a copy-pasta of an install command intended for CI server
+            Write-Output '[python] Found override of global index for pip, clearing it'
+            iee pip config unset global.index-url
+        }
+        if ($Upgrade) {
+            Write-Output '[python] Ensuring pip is the latest version'
+            iee python -m pip install --upgrade pip
+        }
     }
 
     <# not sure i want to use git yet..
@@ -339,7 +333,23 @@ if ($env:_NT_SYMBOL_PATH -eq $ntSymbolPath) {
     Write-Output '[check] _NT_SYMBOL_PATH is set ok'
 }
 else {
-    Write-Error "[check] _NT_SYMBOL_PATH is set to '$env:_NT_SYMBOL_PATH' but should be '$ntSymbolPath'"
+    Write-Warning "[check] _NT_SYMBOL_PATH is set to '$env:_NT_SYMBOL_PATH' but should be '$ntSymbolPath'"
+}
+
+# check that we've enabled that nice feature i like
+
+$shell = New-Object -ComObject WScript.Shell
+$edgePath = 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk'
+if (Test-Path $edgePath) {
+    $edgeShortcut = $shell.CreateShortcut($edgePath)
+    $edgeArgs = '--enable-features=msEdgeSplitWindowDragAndDrop'
+    if ($edgeShortcut.Arguments.Contains($edgeArgs)) {
+        Write-Output '[check] Edge split window drag-drop is set ok'
+    }
+    else {
+        Write-Warning '[check] Edge shortcut need split drag and drop set'
+        Write-Warning "        Edit $edgePath and add this to args: $edgeArgs"
+    }
 }
 
 # mute
