@@ -8,6 +8,7 @@
 .config/gh/hosts.yml
 .config/git/gitk
 .config/alacritty/themes
+.config/nushell/history.txt
 .config/zsh/.zcompcache
 .config/zsh/.zcompdump
 .config/zsh/.zsh_sessions
