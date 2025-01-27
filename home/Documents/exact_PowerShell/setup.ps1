@@ -1,7 +1,7 @@
 #Requires -Version 7
 #Requires -Modules scobi # do not add any more to this
 
-[CmdletBinding()]
+[CmdletBinding(SupportsShouldProcess)]
 param (
     [switch]$Upgrade
 )
@@ -22,7 +22,9 @@ $personalMachine = [bool]::parse((cm execute-template '{{- .profile.personal_mac
 
 if ((Get-PSRepository PSGallery).InstallationPolicy -ne 'Trusted') {
     Write-Output '[posh] Trusting PSGallery...'
-    Set-PSRepository PSGallery -InstallationPolicy Trusted
+    if ($PSCmdlet.ShouldProcess("PSGallery", "set policy trusted")) {
+        Set-PSRepository PSGallery -InstallationPolicy Trusted
+    }
 }
 else {
     Write-Output '[posh] PSGallery ok'
@@ -45,7 +47,9 @@ if (!$invokePSDepend) {
 
 if ($invokePSDepend) {
     Write-Output '[posh] Pulling modules...'
-    Invoke-PSDepend -Force $PSScriptRoot
+    if ($PSCmdlet.ShouldProcess("PSDepend", "Invoke")) {
+        Invoke-PSDepend -Force $PSScriptRoot
+    }
 }
 else {
     Write-Output '[posh] Modules ok'
@@ -53,7 +57,7 @@ else {
 
 ## Posh help
 
-if ($Upgrade) {
+if ($Upgrade -and $PSCmdlet.ShouldProcess("Help", "Update")) {
     Update-Help
 }
 
@@ -68,8 +72,16 @@ if (!(Get-Command -ea:silent powershell)) {
     Write-Error "[scoop] powershell.exe not detected on path (required by scoop); add $poshPath to path"
 }
 
+function ieew { # iee with whatif
+    if ($PSCmdlet.ShouldProcess("$args")) {
+        iee @args
+    }
+}
+
 if ((iee scoop config show_update_log) -match 'not set') {
-    iee scoop config show_update_log $false
+    if ($PSCmdlet.ShouldProcess("show_update_log", "scoop config")) {
+        ieew scoop config show_update_log $false
+    }        
 }
 else {
     Write-Output '[scoop] Config ok'
@@ -79,15 +91,24 @@ else {
 
 if ($Upgrade) {
     Write-Output '[scoop] Updating buckets'
-    iee scoop update
+    if ($PSCmdlet.ShouldProcess("scoop", "update")) {
+        ieew scoop update
+    }
 }
 
 ### FAILS SOMEWHERE IN HERE....
 
+$oldWhatIf = $WhatIfPreference # scoop bucket list uses whatif for some reasons
+$WhatIfPreference = $false
 $buckets = scoop bucket list | % name
+$WhatIfPreference = $oldWhatIf
 
 function addBucket([string]$name, [string]$url = $null) {
-    if ($buckets -notcontains $name) { iee scoop bucket add $name $url }
+    if ($buckets -notcontains $name) {
+        if ($PSCmdlet.ShouldProcess($name, "scoop bucket add")) {
+            ieew scoop bucket add $name $url
+        }
+    }
 }
 
 addBucket extras
@@ -109,19 +130,20 @@ if (Test-Path $env:ProgramData\scoop\apps) {
 }
 
 function installScoopPackage([string]$name, [switch]$sudo, [switch]$global) {
-    if ($scoopPackages -notcontains ($name -split '/')[-1]) {
-        if ($sudo) {
-            Write-Output "[scoop] Asking for sudo to install $name.."
-            if ($global) {
-                sudo iee scoop install -g $name
-            }
-            else {
-                sudo iee scoop install $name
-            }
+    if ($scoopPackages -contains ($name -split '/')[-1]) { return }
+    if (!$PSCmdlet.ShouldProcess($name, "scoop install")) { return }
+
+    if ($sudo) {
+        Write-Output "[scoop] Asking for sudo to install $name.."
+        if ($global) {
+            sudo ieew scoop install -g $name
         }
         else {
-            iee scoop install $name
+            sudo ieew scoop install $name
         }
+    }
+    else {
+        ieew scoop install $name
     }
 }
 
@@ -144,7 +166,9 @@ installScoopPackage -sudo -global CascadiaCode-NF
 installScoopPackage -sudo -global JetBrainsMono-NF
 
 if ((iee scoop config MSIEXTRACT_USE_LESSMSI) -match 'not set') {
-    iee scoop config MSIEXTRACT_USE_LESSMSI $true
+    if ($PSCmdlet.ShouldProcess("MSIEXTRACT_USE_LESSMSI", "scoop config")) {
+        ieew scoop config MSIEXTRACT_USE_LESSMSI $true
+    }
 }
 
 <#
@@ -200,13 +224,17 @@ else {
 # anything (else) going on with scoop?
 if ($Upgrade) {
     Write-Output '[check] Scoop upgrade status (scoop update *)'
-    scoop status
+    if ($PSCmdlet.ShouldProcess("scoop", "status")) {
+        scoop status
+    }
 }
 
 # winget also
 if ($Upgrade -and (Get-Command winget)) {
     Write-Output '[winget] Winget upgrade status (`invoke-wgupgrade -id *pattern*`)'
-    winget upgrade
+    if ($PSCmdlet.ShouldProcess("winget", "upgrade")) {
+        winget upgrade
+    }
 }
 
 ### TODO: sudo Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1
@@ -282,11 +310,11 @@ if ($scoopPackages -contains 'python') {
         if ((iee pip config list) -match 'global.index-url') {
             # this can slip in from a copy-pasta of an install command intended for CI server
             Write-Output '[python] Found override of global index for pip, clearing it'
-            iee pip config unset global.index-url
+            ieew pip config unset global.index-url
         }
         if ($Upgrade) {
             Write-Output '[python] Ensuring pip is the latest version'
-            iee python -m pip install --upgrade pip
+            ieew python -m pip install --upgrade pip
         }
     }
 
@@ -298,7 +326,7 @@ if ($scoopPackages -contains 'python') {
 
     function installPipPackage([string]$name) {
         if ($pipPackages -notcontains $name) {
-            iee Pip install $name
+            ieew Pip install $name
         }
     }
 
@@ -311,29 +339,56 @@ if ($scoopPackages -contains 'python') {
     #>
 }
 
+# keep this quiet
+
+if ($PSCmdlet.ShouldProcess("notice", "oh-my-posh disable")) {
+    oh-my-posh disable notice
+}
+
+## Env Vars
+
+function getEnv($name) {
+    (Get-Item -ea:silent env:$name)?.Value
+}
+function setEnv($name, $value) {
+    Write-Output "[fix] Setting env:$name to '$value'"
+    if ($PSCmdlet.ShouldProcess($name, "set env var")) {
+        setx $name $value
+        Set-Item env:$name $value
+    }
+}
+
 # check that our _NT_SYMBOL_PATH is cool
 
 if ($personalMachine) {
-    $ntSymbolPath = 'cache*C:\Symbols'
+    $ntSymbolCache = 'C:\temp\_symbols'
+    $ntSymbolSrv = 'https://symbolserver.unity3d.com' # public symbols
 }
 else {
-    $ntSymbolPath = 'cache*C:\UnitySrc\_cache\pdb'
+    $ntSymbolCache = 'C:\UnitySrc\_cache\pdb'
+    $ntSymbolSrv = 'http://symbolserver.hq.unity3d.com' # needs vpn
 }
 
-$ntSymbolPath += ';SRV*https://msdl.microsoft.com/download/symbols'
-
-if ($personalMachine) {
-    $ntSymbolPath += ';SRV*https://symbolserver.unity3d.com' # public symbols
+$ntSymbolPath = "cache*$ntSymbolCache;SRV*$ntSymbolSrv;SRV*https://msdl.microsoft.com/download/symbols"
+$ntSymbolEnv = '_NT_SYMBOL_PATH'
+$ntSymbolPathPrev = getEnv $ntSymbolEnv
+if ($ntSymbolPathPrev -and $ntSymbolPathPrev -ne $ntSymbolPath) {
+    Write-Warning "[check] $ntSymbolEnv is set to '$ntSymbolPathPrev' but should be '$ntSymbolPath'"
 }
 else {
-    $ntSymbolPath += ';SRV*http://symbolserver.hq.unity3d.com' # needs vpn
-}
+    if ($ntSymbolPathPrev) {
+        Write-Output "[check] $ntSymbolEnv set ok"
+    }
+    else {
+        Write-Warning "[check] $ntSymbolEnv not set"
+        setEnv $ntSymbolEnv $ntSymbolpath
+    }
 
-if ($env:_NT_SYMBOL_PATH -eq $ntSymbolPath) {
-    Write-Output '[check] _NT_SYMBOL_PATH is set ok'
-}
-else {
-    Write-Warning "[check] _NT_SYMBOL_PATH is set to '$env:_NT_SYMBOL_PATH' but should be '$ntSymbolPath'"
+    if (!(Test-Path $ntSymbolCache)) {
+        Write-Warning "[check] Missing '$ntSymbolCache'"
+        Write-Output "[fix] Creating '$ntSymbolCache'"
+        mkdir $ntSymbolCache >$null
+    }
 }
 
 # check that we've enabled that nice feature i like
@@ -352,6 +407,24 @@ if (Test-Path $edgePath) {
     }
 }
 
-# mute
+# check other env vars
 
-oh-my-posh disable notice
+function setEnvVarPath($name, $path) {
+    $var = (Get-Item -ea:silent env:$name)?.Value
+    $path = Resolve-Path $path
+    if (!$var) {
+        Write-Warning "[check] env:$name not set"
+        setEnv $name $path
+    }
+    elseif (!(Test-Path $var)) {
+        Write-Warning "[check] env:$name set to path that does not exist: $var"
+    }
+    else {
+        Write-Output "[check] env:$name set ok to $var"
+    }
+}
+
+setEnvVarPath XDG_CONFIG_HOME ~/.config
+setEnvVarPath XDG_DATA_HOME   ~/.local/share
+setEnvVarPath XDG_STATE_HOME  ~/.local/state
+setEnvVarPath XDG_CACHE_HOME  ~/.cache
