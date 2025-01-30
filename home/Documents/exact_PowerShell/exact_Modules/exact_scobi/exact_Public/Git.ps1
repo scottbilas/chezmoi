@@ -163,6 +163,10 @@ function Git-FixConfigs {
         [string]$RepoRoot = $null # corresponds to git -C
     )
 
+    # double-check
+    git update-index --test-untracked-cache
+    if ($LASTEXITCODE) { throw "Untracked cache not supported!! Something be wrong" }
+
     # TODO: check that local branch name matches tracking branch if any
     # TODO: this really ought to be in git bash, not powershell, so works everywhere
 
@@ -204,6 +208,20 @@ function Git-FixConfigs {
             }
         }
 
+        $indexVersion = git -C $wt.worktree update-index --show-index-version
+        if ($indexVersion -ne '4') {
+            "Upgrading index version from $indexVersion to 4 in $($wt.worktree)"
+            git -C $wt.worktree update-index --index-version 4
+        }
+
+        if ((git config core.untrackedCache) -eq 'true') {
+            # just do it to double check (will be fast if already done)
+            git update-index --untracked-cache
+        }
+        else {
+            Write-Error "core.untrackedCache not set for this repo"
+        }
+
         # test the worktree is ok
         if ((git -C $wt.worktree rev-parse --is-inside-work-tree) -ne 'true') {
             Write-Error "Worktree $($wt.worktree) is not ok"
@@ -225,15 +243,5 @@ function Git-FixConfigs {
             }
         }
     }
-
-    # TODO:
-    # check `git update-index --index-version 4` (or just do it)
-
-    # TODO:
-    # test if we can enable caching for untracked files
-    #   git update-index --test-untracked-cache
-    # then if it's ok..
-    #   git config core.untrackedCache true
-    #   git update-index --untracked-cache
 }
 Export-ModuleMember Git-FixConfigs
