@@ -84,7 +84,7 @@ if (Get-Command micro) {
 
 # shortyshortcuts
 Set-Alias g git
-function o($what) { explorer (Resolve-Path $what) }
+Set-Alias o explorer
 Set-Alias cm chezmoi
 Set-Alias devenv 'C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\devenv.exe'
 function cm-c { Set-Location (chezmoi source-path) }
@@ -95,6 +95,20 @@ function mcd($name) { [void](mkdir $name) && Set-Location $name }
 function up { Set-Location .. }
 function ov($what) { Set-Location ../$what }
 function ~ { Set-Location ~ }
+
+if (Get-Command -ea:silent rtm) {
+    function rtm-a { 
+        if (!$args) { throw 'what to add?' }
+
+        rtm add "$args !1 ^today"
+    }
+    function rtm-groc {
+        rtm -x false ls 'list:groceries'
+    }
+    function rtm-today {
+        rtm -x false ls 'dueBefore:today and priority:1'
+    }
+}
 
 function Get-ConfigToml {
     $baseDir = '~\.local\share\private\keys'
@@ -217,6 +231,7 @@ Set-Alias psdev (Join-Path $PSScriptRoot dev.ps1)
 Set-Alias pssetup (Join-Path $PSScriptRoot setup.ps1)
 function psup { & (Join-Path $PSScriptRoot setup.ps1) -Upgrade }
 function zsh { wsl -e /home/linuxbrew/.linuxbrew/bin/zsh --login }
+function nchat { wsl nchat }
 
 & {
     $bc = Resolve-Path -ea:silent ~/scoop/apps/beyondcompare/current/bcomp.exe
