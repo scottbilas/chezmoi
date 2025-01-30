@@ -104,6 +104,8 @@ function Git-DeadBranches {
                 "  ($($branch.local) not checked out in any worktree)"
                 "  > git branch -D $($branch.local)"
             }
+
+            ''
         }
     }
 

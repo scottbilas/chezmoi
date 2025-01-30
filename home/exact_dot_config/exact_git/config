@@ -33,6 +33,9 @@
     fcz = fc --filter=blob:none
     ss = stash show -p
 
+    # TODO: consider also a 'git branch -r | %{ git branch -rd $_.trim() } && git tag | %{ git tag -d $_ } && git fetch' 
+    gc-full = !git -c core.longPaths=true gc --aggressive && git lfs prune --verify-remote
+
     # there has to be a better way to do this.. all i want to do is maintain a narrow fetchspec but get the exact same
     # behavior as if i were to fetch the remote and check out a branch.
     # conb = 'checkout new branch'
@@ -193,9 +196,10 @@
 ;  \__|_| |_|\___|_| |_| |_|\___|
 
 [advice]
-    statusHints = false
     detachedHead = false
+    diverging = false
     skippedCherryPicks = false
+    statusHints = false
 
 [color]
     ui = true
