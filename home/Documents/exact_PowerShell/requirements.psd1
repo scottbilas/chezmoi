@@ -9,7 +9,7 @@
     'ListFunctions' = 'latest'
     'Microsoft.PowerShell.ConsoleGuiTools' = 'latest'
     'Microsoft.PowerShell.Crescendo' = 'latest'
-    'Native' = 'latest'
+    'Native' = 'latest' # includes 'iee'
     'Pester' = 'latest'
     'pinvoke' = 'latest'
     'plinqo' = 'latest'
