@@ -42,7 +42,7 @@ function Invoke-FixExplorerIconCache {
 }
 
 function Get-WslIpAddress($iface = 'eth0', $port = 2222) {
-    $addrs = (wsl hostname -I) -split ' '
+    $addrs = (wsl hostname -I).trim() -split ' '
     if ($addrs.Length -eq 1) {
         return $addrs[0]
     }
