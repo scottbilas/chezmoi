@@ -15,6 +15,9 @@
 
 {{-   if get .profile "beyond_compare_dirf" }}
 {{-     $dmtool = eq $dmtool "" | ternary "bc" $dmtool }}
+[bcdiff]
+    exe = "{{.profile.beyond_compare_dirf}}/BComp.exe"
+    maxConcurrent = 15
 [difftool "bc"]
     cmd = {{.profile.home_dirf}}/.config/beyondcompare/bcomp-gitdd.cmd "$LOCAL" "$REMOTE"
 [mergetool "bc"]

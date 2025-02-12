@@ -33,7 +33,7 @@
     fcz = fc --filter=blob:none
     ss = stash show -p
 
-    # TODO: consider also a 'git branch -r | %{ git branch -rd $_.trim() } && git tag | %{ git tag -d $_ } && git fetch' 
+    # TODO: consider also a 'git branch -r | %{ git branch -rd $_.trim() } && git tag | %{ git tag -d $_ } && git fetch'
     gc-full = !git -c core.longPaths=true gc --aggressive && git lfs prune --verify-remote
 
     # there has to be a better way to do this.. all i want to do is maintain a narrow fetchspec but get the exact same
@@ -50,7 +50,7 @@
     #s  = !gitree -mcdn
     s  = status
 
-    scobi-xfer = !sh ~/.config/git/git-scobi-xfer
+    scobi-xfer = !~/.config/git/git-scobi-xfer
 
     f  = scobi-xfer
     p  = scobi-xfer --pull
@@ -63,7 +63,9 @@
 #    outgoing = !git scobi-xfer && git l FETCH_HEAD..
 #    incoming = !git scobi-xfer && git l ..FETCH_HEAD
 
-    dd = difftool --dir-diff
+    difft = difftool -t difftastic
+    diffdir = difftool --dir-diff
+    bcd = !~/.config/git/git-bcdiff
     sui = submodule update --init
 
     # this does a couple things:
@@ -248,8 +250,13 @@
     mnemonicprefix = true
     renames = copies
     renameLimit = 50000
-    # difftastic
     external = difft
+
+[difftool "difftastic"]
+    cmd = difft --color always "$MERGED" "$LOCAL" "abcdef1" "100644" "$REMOTE" "abcdef2" "100644"
+
+[pager]
+    difftool = true
 
 [interactive]
     diffFilter = delta --color-only --features=interactive

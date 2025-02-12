@@ -1,0 +1,262 @@
+#!/bin/bash
+# shellcheck disable=SC1083,SC1091,SC2086,SC3011,SC3024
+
+# this script is not meant to run as a git diff extension feature (diff.external or a difftool).
+# git does not give enough info to such tools to do what i want, which is full management of
+# the multi-file diff experience into a gui tool.
+
+# shellcheck disable=SC2034
+USAGE='[--verbose] [--keep-tmp] <ARGS-TO-GIT-DIFF>'
+# shellcheck disable=SC2034
+SUBDIRECTORY_OK=Yes
+. git-sh-setup
+
+
+### LOGS AND ERRORS
+
+# set this after git-sh-setup, which doesn't run clean
+set -euo pipefail
+
+# shellcheck disable=SC2317
+on_err() {
+    local exit_code=$?
+    local line_number=$1
+    echo "Error: Script failed at line $line_number with exit code $exit_code"
+    exit $exit_code
+}
+trap 'on_err $LINENO' ERR
+
+err_count=0
+opt_verbose=0
+opt_keep_tmp=0
+
+log() {
+    echo "$@" >&2
+}
+warn() {
+    printf "\e[93m[warning] %s\e[0m\n" "$*" >&2
+}
+error() {
+    printf "\e[31m[error] %s\e[0m\n" "$*" >&2
+    (( err_count++ )) || true
+}
+verbose() {
+    if (( opt_verbose )); then
+        printf "\e[90m[verbose] %s\e[0m\n" "$*" >&2
+    fi
+}
+
+
+### ARG PROCESSING AND SETUP
+
+while [ $# != 0 ]
+do
+    case "$1" in
+        --verbose)   opt_verbose=1;  ;;
+        --keep-tmp)  opt_keep_tmp=1; ;;
+        *) break ;;
+    esac
+    shift
+done
+
+verbose Verbose mode enabled
+(( opt_keep_tmp )) && verbose Keeping temp files enabled
+
+bcdiff_exe=$(git config --get bcdiff.exe || true)
+[[ -z "$bcdiff_exe" ]] && die "Error: bcdiff.exe is not set in Git config"
+[[ -f "$bcdiff_exe" ]] || die "Error: bcdiff.exe not found at '$bcdiff_exe'"
+verbose bcdiff_exe: $bcdiff_exe
+
+max_concurrent=$(git config --get bcdiff.maxConcurrent || echo 50) # this many would be insane but need some kind of limit..
+verbose "max_concurrent: $max_concurrent"
+
+
+### FETCH DIFF ENTRIES
+
+mapfile -t diff_lines < <(git diff --raw --no-abbrev "$@")
+
+files_count=${#diff_lines[@]}
+
+if (( ! files_count )); then
+    log No changes to diff
+    exit 0
+fi
+
+if (( files_count > max_concurrent )); then
+    log "Diffing $files_count files with max $max_concurrent concurrent..."
+else
+    log "Diffing $files_count files..."
+fi
+
+(( opt_verbose )) && for diff_line in "${diff_lines[@]}"; do
+    verbose "  $diff_line"
+done
+
+
+### SETUP TEMP DIFF LOCATION
+
+dir_tmp="/tmp/$(basename "$0")-$(date +%s%N)"
+verbose "Creating dir $dir_tmp"
+mkdir -p "$dir_tmp"
+
+# shellcheck disable=SC2317
+on_exit() {
+    if (( opt_keep_tmp )); then
+        log "Keeping temp files at $dir_tmp ($(cygpath -w "$dir_tmp"))"
+    else
+        verbose "Removing dir $dir_tmp"
+        rm -rf "$dir_tmp"
+    fi
+}
+trap on_exit EXIT
+
+
+### DIFF MAINLOOP
+
+# track background processes
+declare -a tracked_pids=()
+
+# track loop iterations
+diff_index=0
+
+write_file() {
+    local what=$1; shift
+    local hash=$1; shift
+    local allowWorktree=$1; shift
+    local file=$1; shift
+
+    [[ -z $file ]] && die "Error: empty $what file"
+
+    if [[ ! $hash =~ ^0+$ ]]; then
+        filename=$(basename "$file")
+        path="${dir_tmp}/${diff_index}_${what}_${filename// /_}"
+        verbose "  Writing $what to $path ($hash)"
+        git show $hash > $path
+    elif (( allowWorktree )); then
+        path="$(realpath --canonicalize-missing "$(git rev-parse --show-toplevel)/$file")"
+        verbose "  Using $what as $path (working-tree)"
+    else
+        die "Error: unexpected $what zero hash for $file"
+    fi
+
+    echo $path
+}
+
+for diff_line in "${diff_lines[@]}"; do
+    verbose "Processing $diff_line"
+
+    # reset for-locals 
+    unset l_diff r_diff l_diffwin r_diffwin l_label r_label
+
+    IFS=$'\t' read -r info l_file r_file <<< "$diff_line"
+    IFS=' ' read -r l_mode r_mode l_hash r_hash status <<< "$info"
+    l_mode=${l_mode:1}
+
+    if [[ "$l_mode" != "000000" && "$r_mode" != "000000" && "$l_mode" != "$r_mode" ]]; then
+        warn "Warning: mode change detected $l_mode ($l_file) -> $r_mode ($r_file)"
+    fi
+
+    # in-place edit  :100644 100644 bcd1234 0123456 M file0
+    # copy-edit      :100644 100644 abcd123 1234567 C68 file1 file2
+    # rename-edit    :100644 100644 abcd123 1234567 R86 file1 file3
+    # create         :000000 100644 0000000 1234567 A file4
+    # delete         :100644 000000 1234567 0000000 D file5
+    # unmerged       :000000 000000 0000000 0000000 U file6
+
+    # l_file is 0{40} if creation or unmerged
+    # r_file is 0{40} if deletion, unmerged or "work tree out of sync with the index"
+
+    case $status in
+
+            # addition of a file
+        A)  r_diff="$(write_file dst $r_hash 0 "$r_file")"
+            l_label='« new »'
+            r_label="$r_file"
+            ;;
+
+            # deletion of a file
+        D)  l_diff="$(write_file src $l_hash 0 "$l_file")"
+            r_label='« deleted »'
+            l_label="$l_file"
+            ;;
+
+            # copy of a file into a new one
+        C*) l_diff="$(write_file src $l_hash 0 "$l_file")"
+            r_diff="$(write_file dst $r_hash 0 "$r_file")"
+            l_label="$l_file"
+            r_label="$r_file « copied »"
+            ;;
+
+            # renaming of a file
+        R*) l_diff="$(write_file src $l_hash 0 "$l_file")"
+            r_diff="$(write_file dst $r_hash 0 "$r_file")"
+            l_label="$l_file"
+            r_label="$r_file « renamed »"
+            ;;
+
+            # modification of the contents or mode of a file
+        M)  l_diff="$(write_file src $l_hash 1 "$l_file")"
+            r_diff="$(write_file dst $r_hash 1 "${r_file:-$l_file}")"
+            l_label="$l_file"
+            r_label="${r_file:-$l_file}"
+            ;; 
+
+            # T = change in the type of the file - regular file, symbolic link or submodule
+            # U = file is unmerged - you must complete the merge before it can be committed
+            # X = "unknown" change type - most probably a bug, please report it
+        *)  error "Unsupported change type '$status' ($l_file)"
+            continue
+            ;;
+    esac
+    
+    [[ -n "${l_diff-}" ]] && l_diffwin=$(cygpath -w "$l_diff")
+    [[ -n "${r_diff-}" ]] && r_diffwin=$(cygpath -w "$r_diff")
+
+    verbose "Diffing $l_label (${l_diff:-<null>} -> ${l_diffwin:-<null>}) and $r_label (${r_diff:-<null>} -> ${r_diffwin:-<null>})"
+
+    log_line="  [$diff_index/$files_count] $l_label"
+    log_line="  [$((diff_index + 1))/$files_count] $l_label"
+    if [[ "$l_label" != "$r_label" ]]; then
+        log_line+=" <-> $r_label"
+    fi
+    log "$log_line"
+
+    "$bcdiff_exe" -title1="$l_label" -title2="$r_label" -- "$l_diffwin" "${r_diffwin-}" &
+    tracked_pids+=($!)
+    verbose "Started diff with PID $!"
+
+    # if we reach the max, wait for one to exit
+    while [[ ${#tracked_pids[@]} -ge $max_concurrent ]]; do
+        #verbose "Waiting for open diffs to close... ($diff_index/$files_count diff_index)"
+        #read -r -p "Press Enter to continue or type 'abort' to cancel: " user_input
+        #if [[ "$user_input" == "abort" ]]; then
+        #    warn Aborting diff session, killing all open diffs...
+        #    kill "${tracked_pids[@]}" 2>/dev/null
+        #    exit 1
+        #fi
+
+        # update tracked_pids with processes that are still running 
+        new_pids=()
+        for pid in "${tracked_pids[@]}"; do
+            kill -0 "$pid" 2>/dev/null && new_pids+=("$pid")
+        done
+        tracked_pids=("${new_pids[@]}")
+
+        # be nice
+        sleep 0.25
+    done
+
+    ((++diff_index))
+done
+
+for pid in "${tracked_pids[@]}"; do
+    verbose "Waiting for PID $pid to close..."
+    wait "$pid" 2>/dev/null || true  # process may already be done
+done
+
+if (( err_count > 0 )); then
+    log "Script completed with $err_count errors."
+    exit 1
+fi
+
+exit 0
