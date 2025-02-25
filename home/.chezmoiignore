@@ -1,13 +1,15 @@
 # GENERAL
 
 .editorconfig
+.config/alacritty/themes
 .config/elinks/cookies
 .config/elinks/*hist
 .config/elinks/socket*
 .config/lazygit/state.yml
 .config/gh/hosts.yml
 .config/git/gitk
-.config/alacritty/themes
+.config/go/telemetry
+.config/nchat
 .config/nushell/history.txt
 .config/zsh/.zcompcache
 .config/zsh/.zcompdump
@@ -17,6 +19,9 @@
 
 # jetbrains seems to do this..
 .config/github-copilot
+
+# FIGURE OUT LATER
+.config/superfile
 
 {{ if eq .chezmoi.os "windows" }}
 
