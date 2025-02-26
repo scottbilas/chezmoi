@@ -26,6 +26,13 @@
     exact = true
     stripComponents = 1
 
+[".local/share/windows/keyboard"]
+    type = "archive"
+    url = "https://github.com/scottbilas/win-us-intl-altgr/archive/refs/heads/master.tar.gz"
+    refreshPeriod = "168h"
+    exact = true
+    stripComponents = 1
+
 {{ else }}
 
 # UNIX
