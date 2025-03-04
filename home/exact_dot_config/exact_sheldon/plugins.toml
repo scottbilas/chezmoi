@@ -22,3 +22,6 @@ apply = ["defer"]
 github = "chriskempson/base16-shell"
 apply = ["defer"]
 
+[plugins.zsh-z]
+github = "agkozak/zsh-z"
+
