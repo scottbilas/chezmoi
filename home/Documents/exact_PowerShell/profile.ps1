@@ -97,7 +97,7 @@ function ov($what) { Set-Location ../$what }
 function ~ { Set-Location ~ }
 
 if (Get-Command -ea:silent rtm) {
-    function rtm-a { 
+    function rtm-a {
         if (!$args) { throw 'what to add?' }
 
         rtm add "$args !1 ^today"

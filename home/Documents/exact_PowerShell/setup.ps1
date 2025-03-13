@@ -149,6 +149,9 @@ function installScoopPackage([string]$name, [switch]$sudo, [switch]$global) {
 
 foreach ($name in @(
         # shell stuff
+        # NOTE: try to find a replacement for 'busybox'. its existence on the path causes git to
+        # try to use it when resolving aliases (don't know why!) and this adds ~.3s to the command execution.
+        # i tried coreutils but it has bugs (`tee` in particular failing to stdout midstream).
         'scoop-search', 'busybox', 'echoargs', 'less', 'moar', 'wget', 'curl', 'which',
         # other core utils
         '7zip', 'autohotkey1.1', 'bat', 'delta', 'difftastic', 'fd', 'file', 'fzf',
