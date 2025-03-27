@@ -20,7 +20,7 @@ function get-prs {
 
 function Git-DeadBranches {
     [CmdletBinding()]
-    param()
+    param($mainBranch)
 
     $branches = git for-each-ref --format='%(refname:short) %(upstream:short)' refs/heads | Sort-Object | %{
         $v = $_ -split ' ', 2
@@ -73,7 +73,7 @@ function Git-DeadBranches {
             if ($head -ne $pr.commit) {
                 # TODO: check to see if $head is an ancestor of $pr.commit (requires a different kind of gh query or possibly pullign those changes local)
                 "  ! potentially unsafe to delete (HEAD $($head.Substring(0, 12)) is not the PR head $($pr.commit.Substring(0, 12)) (PR = $($pr.url)/commits)"
-                git log -5 --pretty=format:'    | %h %al, %ar: %s' "main..$($branch.local)"
+                git log -5 --pretty=format:'    | %h %al, %ar: %s' "$mainBranch..$($branch.local)"
             }
             else {
                 "  merged PR was $($pr.url)"
@@ -91,7 +91,7 @@ function Git-DeadBranches {
                         "  ! (truncated...$remain more...)"
                     }
                 }
-                $cmd = "git -C $($wt.worktree) co --detach origin/main && git branch -D $($branch.local)"
+                $cmd = "git -C $($wt.worktree) co --detach origin/$mainBranch && git branch -D $($branch.local)"
                 if ($status) {
                     "  > git -C $($wt.worktree) diff"
                     "  > git -C $($wt.worktree) trash && $cmd"
