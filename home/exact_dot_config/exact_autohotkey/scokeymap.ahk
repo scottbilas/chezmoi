@@ -42,6 +42,9 @@ return
     ; other fun
     '::`
 
+    ; match the keychron
+    b::`
+
     ; multimedia
     q::Media_Prev
     w::Media_Play_Pause
