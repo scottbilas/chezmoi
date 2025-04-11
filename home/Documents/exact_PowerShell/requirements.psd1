@@ -10,7 +10,12 @@
     'Microsoft.PowerShell.ConsoleGuiTools' = 'latest'
     'Microsoft.PowerShell.Crescendo' = 'latest'
     'Native' = 'latest' # includes 'iee'
-    'Pester' = 'latest'
+    'Pester' = @{
+        Version = 'latest'
+        Parameters = @{
+            SkipPublisherCheck = $true
+        }
+    }
     'pinvoke' = 'latest'
     'plinqo' = 'latest'
     'posh-git' = 'latest'
@@ -24,7 +29,6 @@
             AllowPrerelease = $true
         }
     }
-
     'Terminal-Icons' = 'latest'
     'PSToml' = 'latest'
     'ugit' = 'latest'
