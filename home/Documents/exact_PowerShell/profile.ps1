@@ -96,6 +96,9 @@ function up { Set-Location .. }
 function ov($what) { Set-Location ../$what }
 function ~ { Set-Location ~ }
 
+function md5 { (Get-FileHash -Algorithm MD5 @args).Hash }
+function sha256 { (Get-FileHash -Algorithm SHA256 @args).Hash }
+
 if (Get-Command -ea:silent rtm) {
     function rtm-a {
         if (!$args) { throw 'what to add?' }

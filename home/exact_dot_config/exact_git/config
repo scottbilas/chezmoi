@@ -190,6 +190,10 @@
 [merge "lfs-text"]
     driver = git lfs merge-driver --ancestor %O --current %A --other %B --marker-size %L --output %A
 
+# in my testing on a couple workstations, this got up to 25% faster clone time on unity monorepo. default concurrency is 8.
+[lfs]
+    concurrenttransfers = 24
+
 
 ;  _   _
 ; | |_| |__   ___ _ __ ___   ___
