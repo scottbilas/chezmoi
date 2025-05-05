@@ -21,6 +21,7 @@
     'posh-git' = 'latest'
     'PowerHTML' = 'latest'
     'powershell-yaml' = 'latest'
+    'PowerShellHumanizer' = 'latest'
     'Profiler' = 'latest'
     'PsIni' = 'latest'
     'PSReadLine' = @{
