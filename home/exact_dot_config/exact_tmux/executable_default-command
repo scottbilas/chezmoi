@@ -8,8 +8,17 @@
 # 4 inherit whatever shell currently running in source pane
 # 5 detect if in wsl and if so don't do #1,2 above
 
-if [ -d /mnt/c/Program\ Files ]; then
-    /mnt/c/Program\ Files/PowerShell/7/pwsh.exe --nologo -WorkingDirectory "~"
+if [ -d '/mnt/c/Program Files' ]; then
+
+# to make this really work, i need to have either pwsh/nu publish its cwd changes to a file (process-specific..reachable from wsl)
+# or have wsl extract the cwd from the pwsh process.
+#
+#    cwd=~
+#    if winpath=$(wslpath -w . 2>/dev/null); then
+#        cwd="$winpath"
+#    fi
+
+    exec '/mnt/c/Program Files/PowerShell/7/pwsh.exe' --nologo -WorkingDirectory "~"
 else
     exec "$SHELL"
 fi
