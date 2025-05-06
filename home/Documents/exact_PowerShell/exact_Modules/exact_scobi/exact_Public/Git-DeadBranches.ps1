@@ -20,7 +20,18 @@ function get-prs {
 
 function Git-DeadBranches {
     [CmdletBinding()]
-    param($mainBranch)
+    param($mainBranch, $upstream = 'origin')
+
+    if ((git remote) -notcontains $upstream) {
+        throw "Upstream remote '$upstream' not found"
+    }
+
+    if (!$mainBranch) {
+        $mainBranch = if ((git remote show origin | out-string) -match 'HEAD branch: (.+)') { $matches[1].trim() }
+        if (!$mainBranch) {
+            throw 'No main branch specified and no default found'
+        }
+    }
 
     $branches = git for-each-ref --format='%(refname:short) %(upstream:short)' refs/heads | Sort-Object | %{
         $v = $_ -split ' ', 2
@@ -91,7 +102,7 @@ function Git-DeadBranches {
                         "  ! (truncated...$remain more...)"
                     }
                 }
-                $cmd = "git -C $($wt.worktree) co --detach origin/$mainBranch && git branch -D $($branch.local)"
+                $cmd = "git -C $($wt.worktree) co --detach $upstream/$mainBranch && git branch -D $($branch.local)"
                 if ($status) {
                     "  > git -C $($wt.worktree) diff"
                     "  > git -C $($wt.worktree) trash && $cmd"
