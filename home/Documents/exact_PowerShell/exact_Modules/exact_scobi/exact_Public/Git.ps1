@@ -91,7 +91,10 @@ function Git-LsWorktrees([string]$RepoRoot = $null) { # corresponds to git -C
         $gitArgs += '-C', $RepoRoot
     }
     else {
-        $RepoRoot = '.'
+        $RepoRoot = git rev-parse --show-toplevel
+        if ($LASTEXITCODE) {
+            throw "Failed to get repo root"
+        }
     }
     $gitArgs += 'worktree', 'list', '--porcelain'
 
