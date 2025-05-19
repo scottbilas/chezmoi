@@ -17,6 +17,8 @@
 ;  \__,_|_|_|\__,_|___/\___||___/
 
 [alias]
+    aliases = "!git config --get-regexp alias | sed 's/^alias\\.//' | awk '{name=$1; cmd=substr($0, length(name)+2); printf \"%s%-12s%s = %s\\n\", \"\\033[1;34m\", name, \"\\033[0m\", cmd}' | sort"
+
     unstage = reset HEAD --
     last = log -1 HEAD
 
@@ -34,7 +36,7 @@
     ss = stash show -p
 
     # TODO: consider also a 'git branch -r | %{ git branch -rd $_.trim() } && git tag | %{ git tag -d $_ } && git fetch'
-    gc-full = !git -c core.longPaths=true gc --aggressive && git lfs prune --verify-remote
+    gc-full = !git -c core.longPaths=true gc --aggressive --prune=now && git lfs prune --verify-remote
 
     # there has to be a better way to do this.. all i want to do is maintain a narrow fetchspec but get the exact same
     # behavior as if i were to fetch the remote and check out a branch.
