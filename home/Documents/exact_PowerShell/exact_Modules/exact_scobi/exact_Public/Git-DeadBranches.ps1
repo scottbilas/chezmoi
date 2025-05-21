@@ -27,10 +27,11 @@ function Git-DeadBranches {
     }
 
     if (!$mainBranch) {
-        $mainBranch = if ((git remote show origin | out-string) -match 'HEAD branch: (.+)') { $matches[1].trim() }
+        $mainBranch = (git symbolic-ref refs/remotes/$upstream/HEAD) -replace "^refs/remotes/$upstream/", ""
         if (!$mainBranch) {
-            throw 'No main branch specified and no default found'
+            throw 'No main branch specified and failed to find a default'
         }
+        Write-Verbose "Detected $upstream$mainBranch as main branch"
     }
 
     $branches = git for-each-ref --format='%(refname:short) %(upstream:short)' refs/heads | Sort-Object | %{
