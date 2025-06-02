@@ -95,7 +95,7 @@ function Git-DeadBranches {
             $wt = $wts | ?{ $_.Branch -eq $branch.local }
             if ($wt) {
                 "  ! $($branch.local) checked out at $($wt.worktree)"
-                $status = git -C $($wt.worktree) status --porcelain
+                $status = @(git -C $($wt.worktree) status --porcelain)
                 if ($status) {
                     $status | select-object -first 8 | %{ "  ! status: $_" }
                     $remain = $status.Length - 8
