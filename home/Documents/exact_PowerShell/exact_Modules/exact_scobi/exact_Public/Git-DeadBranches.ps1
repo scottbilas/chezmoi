@@ -31,7 +31,7 @@ function Git-DeadBranches {
         if (!$mainBranch) {
             throw 'No main branch specified and failed to find a default'
         }
-        Write-Verbose "Detected $upstream$mainBranch as main branch"
+        Write-Verbose "Detected $mainBranch as main branch"
     }
 
     $branches = git for-each-ref --format='%(refname:short) %(upstream:short)' refs/heads | Sort-Object | %{
