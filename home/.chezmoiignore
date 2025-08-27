@@ -2,6 +2,8 @@
 
 .editorconfig
 .config/alacritty/themes
+.config/btop
+.config/configstore
 .config/elinks/cookies
 .config/elinks/*hist
 .config/elinks/socket*
@@ -53,11 +55,11 @@ scoop
 
 ## MACOS
 
+.config/karabiner/assets
+.config/karabiner/automatic_backups
+
 # managed by rider
 .local/bin/rider
-
-# not ready to micromanage this yet
-.config/iterm2
 
 {{ else }}
 
@@ -107,4 +109,10 @@ Library
 
 .termux
 
+{{ end }}
+
+# PRIVATE
+
+{{ if stat (joinPath .profile.home_dirf ".local/share/private/chezmoi/ignore") }}
+    {{ include (joinPath .profile.home_dirf ".local/share/private/chezmoi/ignore") }}
 {{ end }}
