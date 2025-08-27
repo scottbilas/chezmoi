@@ -1,5 +1,5 @@
 # reload the shell (does not nest; SHLVL unchanged)
-alias reload="exec $SHELL -l"
+alias realias="exec \$SHELL -l"
 
 alias ..="cd .."
 alias ...="cd ../.."
@@ -18,20 +18,25 @@ if (($+commands[eza])); then
   export EZA_GRID_ROWS=10
 else
   alias l='ls -ACF'
-  alias ll='ls -AgGhF $@'
+  alias ll='ls -AgGhF'
 fi
 
-mcd() { mkdir $1 && cd $1 }
+mcd() { mkdir -- "$1" && cd -- "$1" || return; }
+
 alias rd=rmdir
 alias path='echo -e ${PATH//:/\\n}'
 
 alias m=micro
 alias g=git
 alias lg=lazygit
-alias ncdu='ncdu --color dark $@'
-alias rgh='rg --hidden --no-ignore $@'
-alias fdh='fd -HI $@'
-alias pwsh='/mnt/c/Program\ Files/PowerShell/7/pwsh.exe --nologo -WorkingDirectory "~"'
+alias ncdu='ncdu --color dark'
+alias rgh='rg --hidden --no-ignore'
+alias fdh='fd -HI'
+
+if ((! $+commands[pwsh])); then
+  # wsl?
+  alias pwsh='/mnt/c/Program\ Files/PowerShell/7/pwsh.exe --nologo -WorkingDirectory "~"'
+fi
 
 # debian-isms
 if (($+commands[batcat])); then
@@ -52,6 +57,8 @@ alias cm-s='cm status'
 alias cm-d='cm diff'
 alias cm-c='cm cd'
 
+alias o=open
+
 if [[ -f ~/.local/share/repos/prettyping/prettyping ]]; then
   alias ping='~/.local/share/repos/prettyping/prettyping --nolegend'
 fi
@@ -60,16 +67,19 @@ fi
 # (https://superuser.com/a/1436077/4518)
 function ranger {
   local IFS=$'\t\n'
-  local tempfile="$(mktemp -t tmp.XXXXXX)"
-  local ranger_cmd=(
+  local tempfile
+  tempfile="$(mktemp -t tmp.XXXXXX)"
+  local -a ranger_cmd=(
     command
     ranger
     --cmd="map Q chain shell echo %d > \"$tempfile\"; quitall"
   )
 
-  ${ranger_cmd[@]} "$@"
-  if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$PWD" ]]; then
-    cd -- "$(cat -- "$tempfile")" || return
+  "${ranger_cmd[@]}" "$@"
+
+  if [[ -f "$tempfile" ]]; then
+    local newdir; newdir="$(<"$tempfile")"
+    [[ "$newdir" != "$PWD" ]] && cd -- "$newdir" || return
   fi
 
   command rm -f -- "$tempfile" 2>/dev/null

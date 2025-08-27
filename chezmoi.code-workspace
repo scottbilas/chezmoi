@@ -6,15 +6,15 @@
 		},
 		{
 			"name": "🙉 ~/.local/share/private",
-			"path": "..\\private"
+			"path": "../private"
 		},
 		{
 			"name": "⚙️ ~/.config",
-			"path": "..\\..\\..\\.config"
+			"path": "../../../.config"
 		},
 		{
 			"name": "🔒 ~/.ssh",
-			"path": "..\\..\\..\\.ssh"
+			"path": "../../../.ssh"
 		},
 		{
 			"name": "🐚 ~/Documents/PowerShell",
@@ -22,7 +22,7 @@
 		},
 		{
 			"name": "💔 ~/dotfiles",
-			"path": "..\\..\\..\\dotfiles"
+			"path": "../../../dotfiles"
 		},
 		{
 			"name": "🤘 wsl/.local/share/chezmoi",

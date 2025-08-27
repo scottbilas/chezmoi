@@ -13,13 +13,16 @@ else
     export PAGER=less
 fi
 
-# todo: why did i add this..?
-[[ "$OSTYPE" == darwin* ]] && export BROWSER=open
+is-macos() { [[ "$OSTYPE" == darwin* ]] }
+
+# default behavior for terminal app opening a browser window
+is-macos && export BROWSER=open
 
 ## reroute configs and set paths
 
 export WEECHAT_HOME=$HOME/.config/weechat
 export ELINKS_CONFDIR=$HOME/.config/elinks
+export NPM_CONFIG_USERCONFIG=$HOME/.config/npm/npmrc
 
 if (( $+commands[fasd] )); then
   # move out of root (folder not autocreated by fasd)
@@ -73,7 +76,9 @@ fi
 # completion
 
 autoload -U compinit && compinit
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'  # case insensitive matching
+zstyle ':completion:*' completer _complete _files       # if a command has no specific completer, just complete paths
 
 # todo: figure out why getting compdef error after uncommenting below
 # (see https://github.com/sorin-ionescu/prezto/issues/1138)
@@ -91,18 +96,17 @@ source $HOME/.config/fzf/fzf/shell/key-bindings.zsh 2> /dev/null
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
 
-cdpath=(
-  $cdpath
-  ~
-)
-
 path=(
+  # system
   /usr/local/{bin,sbin}
   $path
   ~/.local/bin
+  # runtimes
   $GOPATH/bin
-  ~/.local/share/repos/dasht/bin
+  ~/.local/share/npm/bin
   ~/.poetry/bin
+  # other
+  ~/.local/share/repos/dasht/bin
 )
 
 #####
@@ -120,6 +124,12 @@ fi
 (( $+commands[chezmoi] )) && eval "$(chezmoi completion zsh)"
 # fzf. fasd, etc.
 
+if is-macos; then
+  set-lightmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false' }
+  set-darkmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true' }
+  toggle-lightdark() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to not dark mode' }
+fi
+
 #### LAST
 
 # keep these last so they override any modules
@@ -127,6 +137,7 @@ fi
 ## OPTIONS
 
 setopt auto_pushd
+setopt globdots # include dotfiles in tab completion and other globbing (i don't care they are "hidden")
 
 ## history-related
 
