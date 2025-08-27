@@ -4,3 +4,14 @@ add_newline = false
 truncation_length = 0
 truncate_to_repo = false
 home_symbol = '󰋜'
+
+[shell]
+disabled=false
+
+# Define the overall format for the shell module.
+# $symbol is the default symbol, $indicator is the shell-specific one.
+format = "[$symbol$indicator]($style)"
+
+zsh_indicator        = "󰬇"
+powershell_indicator = ""
+nu_indicator         = ""
