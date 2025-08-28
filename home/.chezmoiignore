@@ -57,6 +57,7 @@ scoop
 
 .config/karabiner/assets
 .config/karabiner/automatic_backups
+Library/Application Support/xbar/cache
 
 # managed by rider
 .local/bin/rider
