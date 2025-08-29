@@ -1,7 +1,11 @@
 --italic-text=always
 --style=changes
 --tabs=4
+{{- if eq .profile.theme "dark"}}
 --theme="Monokai Extended Bright"
+{{- else}}
+--theme="OneHalfLight"
+{{- end}}
 --map-syntax "*.csproj:XML"
 --map-syntax "*.meta:YAML"
 --map-syntax "*.props:XML"

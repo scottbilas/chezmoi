@@ -1,0 +1,5 @@
+{{- if eq .profile.theme "dark"}}
+{{ joinPath .profile.home_dirf ".local/share/eza/themes/tokyonight.yml" }}
+{{- else}}
+{{ joinPath .profile.home_dirf ".local/share/eza/themes/gruvbox-light.yml" }}
+{{- end}}

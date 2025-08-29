@@ -1,23 +1,36 @@
 local wezterm = require 'wezterm'
+local theme_switcher = require 'theme_switcher'
+
 local config = wezterm.config_builder()
 local act = wezterm.action
 
 config.initial_cols = 200
 config.initial_rows = 50
 config.default_prog = { 'zsh', '-l', '-c', 'exec tmux' }
+config.skip_close_confirmation_for_processes_named = {}  -- i always want confirmation!
 
--- i always want confirmation!
-config.skip_close_confirmation_for_processes_named = {}
+local DARK_THEME  = 'Monokai (terminal.sexy)'
+local LIGHT_THEME = 'Alabaster'
 
 function theme(appearance)
---  if appearance:find 'Dark' then
-    return 'Monokai (terminal.sexy)'
---  else
---    return 'Monokai (light) (terminal.sexy)'
---  end
+  return appearance:find 'Dark' and DARK_THEME or LIGHT_THEME
 end
 
 config.color_scheme = theme(wezterm.gui.get_appearance())
-config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
+config.font = wezterm.font('JetBrainsMono Nerd Font Mono')
+
+-- hook the picker
+wezterm.on('pick-theme', theme_switcher.theme_switcher)
+
+-- command palette is ctrl-shift-p
+wezterm.on('augment-command-palette', function(window, pane)
+  return {
+    {
+      brief = 'Pick Theme',
+      icon = 'md_color_lens',
+      action = act.EmitEvent('pick-theme'),
+    },
+  }
+end)
 
 return config

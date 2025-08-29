@@ -8,11 +8,11 @@
     include = ["*", "*/*.md"]
     stripComponents = 1
 
-[".config/alacritty/themes"]
+[".local/share/eza/themes"]
     type = "archive"
-    url = "https://github.com/alacritty/alacritty-theme/archive/refs/heads/master.tar.gz"
+    url = "https://github.com/eza-community/eza-themes/archive/refs/heads/main.tar.gz"
     refreshPeriod = "168h"
-    exact = true
+    include = ["eza-themes-main/themes/*.yml"]
     stripComponents = 2
 
 {{ if eq .chezmoi.os "windows" }}
@@ -64,7 +64,11 @@
     url = "https://github.com/sunaku/dasht"
     refreshPeriod = "168h"
 
+{{ if ne .chezmoi.os "darwin" }}
+
 # windows fonts are available through scoop nerd-fonts bucket
+# mac fonts go through nix
+#
 # also note that in nerd font naming, "mono" means "no ligatures", and "book" means "proportional"
 # (note that something like "jetbrains mono" will therefore have mono twice in the name for non-ligature fonts..)
 [".local/fonts/delugia"]
@@ -80,4 +84,5 @@
     exact = true
     exclude = ["*Windows Compatible*", "* Mono.ttf"]
 
+{{- end }}
 {{- end }}

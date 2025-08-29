@@ -15,6 +15,7 @@ if (($+commands[eza])); then
     alias ll='l --long --grid --git'
   fi
   alias llg='ll --git'
+  export EZA_CONFIG_DIR="$HOME/.config/eza"
   export EZA_GRID_ROWS=10
 else
   alias l='ls -ACF'

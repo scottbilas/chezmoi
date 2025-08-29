@@ -126,9 +126,19 @@ fi
 # fzf. fasd, etc.
 
 if is-macos; then
-  set-lightmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false' }
-  set-darkmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true' }
-  toggle-lightdark() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to not dark mode' }
+
+  _updateChezmoiTheme() {
+    local cfg="$(chezmoi execute-template '{{ .chezmoi.configFile }}')"
+    yq -i -y ".data.profile.theme = \"$1\"" "$cfg"
+
+    chezmoi apply ~/.config/bat/bat.conf
+    chezmoi apply ~/.config/git/delta-current-theme.gitconfig
+    chezmoi apply ~/.config/eza/theme.yml
+  }
+
+  set-lightmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false' && _updateChezmoiTheme light; }
+  set-darkmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true' && _updateChezmoiTheme dark; }
+#  toggle-lightdark() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to not dark mode' } << needs updateconfig too
 fi
 
 #### LAST
