@@ -49,12 +49,9 @@ merge:
   args: [{{$home_dirf}}/.config/chezmoi/merge.ps1, -KDiff3, -Destination, '{{`{{ .Destination }}`}}', -Source, '{{`{{ .Source }}`}}', -Target, '{{`{{ .Target }}`}}']
 {{-  end }}
 {{-  else if eq .chezmoi.os "darwin" }}
-diff:
-  command: bcomp
-
 merge:
   command: bcomp
-  args: ['{{`{{ .Destination }}`}}', '{{`{{ .Source }}`}}', '{{`{{ .Target }}`}}']
+  args: ['{{`{{ .Destination }}`}}', '{{`{{ .Source }}`}}', '{{`{{ .Target }}`}}', '{{`{{ .Source }}`}}']
 
 {{ else }}
 merge:
