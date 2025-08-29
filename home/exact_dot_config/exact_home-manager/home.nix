@@ -17,14 +17,17 @@ in {
     pkgs.bat
     pkgs.chezmoi
     pkgs.delta
+    pkgs.difftastic
     pkgs.eza
     pkgs.fd
     pkgs.git
     pkgs.git-lfs
     pkgs.ripgrep
+    pkgs.scrcpy
     pkgs.sheldon
     pkgs.starship
     pkgs.wget
+    pkgs.yq
 
     # shells
     pkgs.nushell
