@@ -1,0 +1,41 @@
+add_newline = false
+
+[directory]
+truncation_length = 0
+truncate_to_repo = false
+home_symbol = '󰋜'
+read_only = " 󰌾"
+style = "{{ if eq .profile.theme "light" }}bold black{{ else }}bold green{{ end }}"
+
+[git_branch]
+style = "{{ if eq .profile.theme "light" }}bold blue{{ else }}bold magenta{{ end }}"
+
+[git_status]
+style = "{{ if eq .profile.theme "light" }}italic black{{ else }}yellow{{ end }}"
+
+[cmd_duration]
+style = "{{ if eq .profile.theme "light" }}bold gray{{ else }}bold cyan{{ end }}"
+
+[shell]
+disabled=false
+# $symbol is the default symbol, $indicator is the shell-specific one.
+format = "[$symbol$indicator]($style)"
+style = "{{ if eq .profile.theme "light" }}bold blue{{ else }}bold purple{{ end }}"
+
+zsh_indicator        = "󰬇"
+powershell_indicator = ""
+nu_indicator         = ""
+
+[shlvl]
+disabled = false
+threshold = 2
+format = "[$shlvl]($style):"
+style = "{{ if eq .profile.theme "light" }}bold gray{{ else }}bold red{{ end }}"
+
+[username]
+style_root = "bold red"
+style_user = "{{ if eq .profile.theme "light" }}bold black{{ else }}bold yellow{{ end }}"
+
+[character]
+success_symbol = "{{ if eq .profile.theme "light" }}[❯](bold black){{ else }}[❯](bold green){{ end }}"
+error_symbol   = "[❯](bold red)"
