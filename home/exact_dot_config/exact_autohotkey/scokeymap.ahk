@@ -1,30 +1,32 @@
-; add to startup:
+#Requires AutoHotkey v2.0
+#SingleInstance Force
+
+TraySetIcon(A_ScriptDir "\scokeymap.ico")
+
+; to add to windows startup:
 ;
 ; <ctrl-c> on .ahk
 ; <win-r> shell:startup
 ; right-click in startup folder, "paste shortcut"
 
 ; emulate term
-; TEMP: disabled because it interferes with Notion ^[ ^] hotkeys :(
-;^[::Send {Esc}
+^[::Send("{Esc}")
 
 ; capslock-shift state management
 ; (credit: https://autohotkey.com/board/topic/51959-using-capslock-as-another-modifier-key/)
 ;
 $*Capslock::
-    if (A_PriorHotkey = "$*Capslock" and A_TimeSincePriorHotkey < 300) { ; Detect double-tap on Caps Lock
-        SetCapsLockState, % GetKeyState("CapsLock", "T") ? "Off" : "On"
-        return
-    }
-    Gui, 99:+ToolWindow
-    Gui, 99:Show, NoActivate, Capslock Is Down
-    keywait, Capslock
-    Gui, 99:Destroy
-return
+{
+    myGui := Gui("+ToolWindow")
+    myGui.Title := "Capslock Is Down"
+    myGui.Show("NoActivate")
+    KeyWait("Capslock")
+    myGui.Destroy()
+}
 
 ; capslock-shifted hotkeys
 ;
-#IfWinExist, Capslock Is Down
+#HotIf WinExist("Capslock Is Down")
 
     ; vimish
     [::Esc
@@ -68,4 +70,4 @@ return
     -::F11
     =::F12
 
-#IfWinExist
+#HotIf
