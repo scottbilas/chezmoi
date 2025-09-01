@@ -25,6 +25,10 @@
 			"path": "../../../dotfiles"
 		},
 		{
+			"name": "🇬 ~/.gemini",
+			"path": "../../../.gemini"
+		},
+		{
 			"name": "🤘 wsl/.local/share/chezmoi",
 			"path": "\\\\wsl.localhost\\Debian\\home\\scott\\.local\\share\\chezmoi"
 		},

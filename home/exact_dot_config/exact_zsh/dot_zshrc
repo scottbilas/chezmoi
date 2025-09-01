@@ -132,11 +132,11 @@ if is-macos; then
     yq -i -y ".data.profile.theme = \"$1\"" "$cfg"
 
     chezmoi apply ~/.config/bat/bat.conf
-    chezmoi apply ~/.config/git/delta-current-theme.gitconfig
     chezmoi apply ~/.config/eza/theme.yml
     chezmoi apply ~/.config/lazygit/config.yml
     chezmoi apply ~/.config/micro/settings.json
     chezmoi apply ~/.config/starship.toml
+    chezmoi apply ~/.gemini/settings.json
   }
 
   set-lightmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false' && _updateChezmoiTheme light; }
