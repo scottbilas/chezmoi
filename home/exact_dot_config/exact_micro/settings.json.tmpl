@@ -2,7 +2,7 @@
     "autoclose": false,
     "backupdir": "~/.local/share/micro/backups",
     "colorcolumn": 80,
-    "colorscheme": "twilight",
+    "colorscheme": "{{ if eq .profile.theme "light" }}solarized{{ else }}twilight{{ end }}"
     "comment": true,
     "diff": true,
     "diffgutter": true,
