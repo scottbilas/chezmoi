@@ -7,6 +7,9 @@ alias ....="cd ../../.."
 alias ~="cd ~"
 alias -- -="cd -"
 
+alias up="cd .."
+alias upp="cd ../.."
+
 if (($+commands[eza])); then
   alias l='eza --all --classify --icons --group-directories-first'
   if [[ -v TERMUX_VERSION ]]; then
@@ -57,6 +60,7 @@ alias cm=chezmoi
 alias cm-s='cm status'
 alias cm-d='cm diff'
 alias cm-c='cm cd'
+alias dotf='code ~/.local/share/chezmoi/chezmoi.code-workspace'
 
 alias o=open
 
