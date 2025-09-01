@@ -287,10 +287,6 @@
 
 ### DELTA ###
 
-[include]
-    path = ~/.config/git/delta-themes.gitconfig
-[include]
-    path = ~/.config/git/delta-current-theme.gitconfig
 [delta]
     side-by-side = true
 
