@@ -1,0 +1,18 @@
+git:
+  paging:
+    colorArg: always
+    # i can't get delta's dark-light detection to work inside lazygit
+    pager: delta --{{.profile.theme}} --paging=never
+  autoFetch: false
+  fetchAll: false
+
+os:
+  edit: 'micro -- `{{`filename`}}`'
+  editAtLine: 'micro +`{{`line`}}` -- `{{`filename`}}`'
+  editAtLineAndWait: 'micro +`{{`line`}}` -- `{{`filename`}}`'
+  openDirInEditor: 'micro -- `{{`dir`}}`'
+  editInTerminal: true
+
+update:
+  method: never
+
