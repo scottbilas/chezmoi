@@ -44,6 +44,7 @@ AppData/Local/Microsoft/Windows/Themes/Custom.theme
 AppData
 Documents
 scoop
+.config/.android
 .config/windows
 .config/scoop
 **/*.exe
@@ -59,8 +60,9 @@ scoop
 .config/karabiner/automatic_backups
 Library/Application Support/xbar/cache
 
-# managed by rider
-.local/bin/rider
+# managed by jb toolbox
+.local/bin/rider*
+.local/bin/studio
 
 {{ else }}
 
