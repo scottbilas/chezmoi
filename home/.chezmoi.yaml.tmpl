@@ -50,9 +50,16 @@ merge:
 {{-  end }}
 {{-  else if eq .chezmoi.os "darwin" }}
 merge:
-  command: bcomp
-  args: ['{{`{{ .Destination }}`}}', '{{`{{ .Source }}`}}', '{{`{{ .Target }}`}}', '{{`{{ .Source }}`}}']
-
+  # this is here to drop the exit code of bcomp, which is non-zero if there are differences (and aborts cm merge)
+  command: sh
+  args:
+    - -c
+    - bcomp "$1" "$2" "$3" "$4"; exit 0
+    - --
+    - '{{`{{ .Destination }}`}}'
+    - '{{`{{ .Source }}`}}'
+    - '{{`{{ .Target }}`}}'
+    - '{{`{{ .Source }}`}}'
 {{ else }}
 merge:
   command: nvim
