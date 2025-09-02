@@ -6,6 +6,7 @@
                 "rules": [
                     {
                         "description": "Modifier keys - caps to enable vimish, ctrl to cmd except in terminals, and var setting to avoid ordering issues",
+                        "enabled": true,
                         "manipulators": [
                             {
                                 "from":            { "key_code": "caps_lock", "modifiers": { "optional": ["any"] }},
@@ -20,6 +21,15 @@
                                 "to_after_key_up": [{ "set_variable": { "name": "is_left_control_held", "value": 0 }}],
                                 "conditions":      [
                                     { "type": "variable_if", "name": "is_caps_lock_held", "value": 0 },
+                                    { "type": "frontmost_application_unless", "bundle_identifiers": [ "\\.wezterm$", "\\.Terminal$" ]}],
+                                "type":            "basic"
+                            },
+                            {
+                                "from":            { "key_code": "left_control", "modifiers": { "optional": ["any"] } },
+                                "to":              [{ "set_variable": { "name": "is_left_control_held", "value": 1 }}],
+                                "to_after_key_up": [{ "set_variable": { "name": "is_left_control_held", "value": 0 }}],
+                                "conditions":      [
+                                    { "type": "variable_if", "name": "is_caps_lock_held", "value": 1 },
                                     { "type": "frontmost_application_unless", "bundle_identifiers": [ "\\.wezterm$", "\\.Terminal$" ]}],
                                 "type":            "basic"
                             },
@@ -40,6 +50,7 @@
                     },
                     {
                         "description": "Ctrl -> Cmd except in terminals",
+                        "enabled": true,
                         "manipulators": [
                             {
                                 "from":       { "key_code": "left_control", "modifiers": { "optional": ["any"] }},
@@ -189,7 +200,7 @@
                             },
                             {
                                 "from":       { "key_code": "u", "modifiers": { "optional": ["any"] }},
-                                "to":         [{ "key_code": "home" }],
+                                "to":         [{ "key_code": "left_arrow", "modifiers": ["left_command"] }],
                                 "conditions": [{ "type": "variable_if", "name": "is_caps_lock_held", "value": 1 }],
                                 "type":       "basic"
                             },
@@ -213,7 +224,7 @@
                             },
                             {
                                 "from":       { "key_code": "m", "modifiers": { "optional": ["any"] }},
-                                "to":         [{ "key_code": "end" }],
+                                "to":         [{ "key_code": "right_arrow", "modifiers": ["left_command"] }],
                                 "conditions": [{ "type": "variable_if", "name": "is_caps_lock_held", "value": 1 }],
                                 "type":       "basic"
                             },
