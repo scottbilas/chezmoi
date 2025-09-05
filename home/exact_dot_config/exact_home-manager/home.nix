@@ -22,6 +22,8 @@ in {
     pkgs.fd
     pkgs.git
     pkgs.git-lfs
+    pkgs.jsonnet
+    pkgs.numbat
     pkgs.ripgrep
     pkgs.scrcpy
     pkgs.sheldon
@@ -43,6 +45,10 @@ in {
     pkgs.ranger
     pkgs.tmux
 
+    # python
+    pkgs.python3
+    pkgs.uv
+
     # other environments
     pkgs.go
     pkgs.nodejs_24
@@ -54,7 +60,6 @@ in {
     # gui
     pkgs.keka
     pkgs.obsidian
-    pkgs.syncthing-macos
     pkgs.vscode
     pkgs.wezterm
   ];

@@ -26,7 +26,7 @@
 
       modules = [
 
-        ({ pkgs, ... }: {
+        ({ pkgs, lib, ... }: {
           environment.systemPackages = [
             pkgs.home-manager
           ];

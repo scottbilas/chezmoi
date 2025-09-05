@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+# backup and keep only latest 10
+mkdir -p backups
+if [[ -f karabiner.json ]]; then
+  mv -- karabiner.json "backups/karabiner-$(date +"%Y%m%d-%H%M%S").json"
+fi
+ls -t backups/karabiner-*.json 2>/dev/null | tail -n +11 | xargs rm -f --
+
+# now regen and check
+jsonnet karabiner.jsonnet -o karabiner.json
+# no worky, schema is only about the rules, need to put in subdir
+####npx ajv-cli --strict=false validate -s jsonschema/schema.json -d ./karabiner.json

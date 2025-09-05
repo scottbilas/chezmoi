@@ -58,6 +58,7 @@ scoop
 
 .config/karabiner/assets
 .config/karabiner/automatic_backups
+.config/karabiner/backups
 Library/Application Support/xbar/cache
 
 # managed by jb toolbox
