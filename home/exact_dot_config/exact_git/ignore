@@ -16,6 +16,7 @@ __pycache__
 .sync
 .vs
 .last_tmp.*
+.DS_Store
 *_i.c
 *_p.c
 *.1.tlog
