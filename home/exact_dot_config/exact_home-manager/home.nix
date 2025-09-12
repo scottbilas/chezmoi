@@ -29,7 +29,7 @@ in {
     pkgs.sheldon
     pkgs.starship
     pkgs.wget
-    pkgs.yq
+    pkgs.yq-go
 
     # shells
     pkgs.nushell

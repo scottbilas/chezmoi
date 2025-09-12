@@ -129,7 +129,7 @@ if is-macos; then
 
   _updateChezmoiTheme() {
     local cfg="$(chezmoi execute-template '{{ .chezmoi.configFile }}')"
-    yq -i -y ".data.profile.theme = \"$1\"" "$cfg"
+    yq e -i ".data.profile.theme = \"$1\"" "$cfg"
 
     chezmoi apply ~/.config/bat/bat.conf
     chezmoi apply ~/.config/eza/theme.yml
