@@ -1,9 +1,20 @@
 local lib = import 'karabiner.libsonnet';
 
-local passthru = [ "\\.wezterm$", "\\.Terminal$", "^com\\.parallels\\.winapp\\.", "^com\\.microsoft\\.rdc\\." ];
+local appTerminal = ["\\.wezterm$", "\\.Terminal$"];
+local appRdc = ["^com\\.parallels\\.winapp\\.", "^com\\.microsoft\\.rdc\\."];
+local appDevtool = ["^com\\.microsoft\\.VSCode$"];
 
-local ifPassthru = lib.ifApp(passthru);
-local noPassthru = lib.noApp(passthru);
+local ifPassthruCtrl = lib.ifApp(appTerminal + appRdc);
+local noPassthruCtrl = lib.noApp(appTerminal + appRdc);
+
+local ifDevtool = lib.ifApp(appDevtool);
+local noDevtool = lib.noApp(appDevtool);
+
+local ifMac = lib.noApp(appTerminal + appRdc);
+local noMac = lib.noApp(appTerminal + appRdc);
+
+local ifGlobalCtrl = lib.ifApp(appTerminal + appRdc + appDevtool);
+local noGlobalCtrl = lib.noApp(appTerminal + appRdc + appDevtool);
 
 local varCAPS = 'is_caps_lock_held';
 local ifCaps = lib.ifVar(varCAPS);
@@ -29,12 +40,12 @@ local noCtrl = lib.ifNotVar(varCTRL);
               "to_after_key_up": [ lib.clear(varCAPS) ],
             },
 
-            # pass through left_control in passthru
+            # pass through left_control
             {
               "from":            { "key_code": "left_control", "modifiers": { "optional": ["any"] }},
               "to":              [ lib.set(varCTRL), { "key_code": "left_control", "lazy": true }],
               "to_after_key_up": [ lib.clear(varCTRL) ],
-              "conditions":      [ ifPassthru ],
+              "conditions":      [ ifPassthruCtrl ],
             },
 
             # eat left_control under other circumstances (but track it) because we'll sometimes convert to option or command
@@ -44,62 +55,66 @@ local noCtrl = lib.ifNotVar(varCTRL);
               "to_after_key_up": [ lib.clear(varCTRL) ],
             },
 
-            # direct support for global ctrl ops
+            # when we 'pass thru' by generating ctrl, we also need to directly support other global ctrl-related hotkeys
             {
-              "from":       {  "key_code": "tab", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "tab", "modifiers": ["left_control"] }],
-              "conditions": [noPassthru, ifCtrl],
+              "from":            {  "key_code": "tab", "modifiers": { "optional": ["any"] }},
+              "to":              [{ "key_code": "tab", "modifiers": ["left_control"] }],
+              "conditions":      [ifGlobalCtrl, ifCtrl],
             },
           ]),
 
           lib.rule('Misc caps-hotkeys', [
             {
-              "from":      { "key_code": "q" },
-              "to":        [{ "consumer_key_code": "rewind" }],
+              "from":       { "key_code": "q" },
+              "to":         [{ "consumer_key_code": "rewind" }],
               "conditions": [ifCaps],
             },
             {
-              "from":      { "key_code": "w" },
-              "to":        [{ "consumer_key_code": "play_or_pause" }],
+              "from":       { "key_code": "w" },
+              "to":         [{ "consumer_key_code": "play_or_pause" }],
               "conditions": [ifCaps],
             },
             {
-              "from":      { "key_code": "e" },
-              "to":        [{ "consumer_key_code": "fastforward" }],
+              "from":       { "key_code": "e" },
+              "to":         [{ "consumer_key_code": "fastforward" }],
               "conditions": [ifCaps],
             },
           ]),
 
           lib.rule('Vim-ish navigation etc. (Windows style)', [
             // arrows
-            lib.manip('h',                   ['any'], 'left_arrow',     ['left_option'],  [ifCaps, ifCtrl]),
-            lib.manip('h',                   ['any'], 'left_arrow',     null,             [ifCaps]),
-            lib.manip('j',                   ['any'], 'down_arrow',     ['left_option'],  [ifCaps, ifCtrl]),
-            lib.manip('j',                   ['any'], 'down_arrow',     null,             [ifCaps]),
-            lib.manip('k',                   ['any'], 'up_arrow',       ['left_option'],  [ifCaps, ifCtrl]),
-            lib.manip('k',                   ['any'], 'up_arrow',       null,             [ifCaps]),
-            lib.manip('l',                   ['any'], 'right_arrow',    ['left_option'],  [ifCaps, ifCtrl]),
-            lib.manip('l',                   ['any'], 'right_arrow',    null,             [ifCaps]),
+            lib.manip('h',                   ['any'], 'left_arrow',     ['left_option'],   [ifCaps, ifCtrl, ifMac]),
+            lib.manip('h',                   ['any'], 'left_arrow',     ['left_control'],  [ifCaps, ifCtrl, noMac]),
+            lib.manip('h',                   ['any'], 'left_arrow',     null,              [ifCaps]),
+            lib.manip('j',                   ['any'], 'down_arrow',     ['left_option'],   [ifCaps, ifCtrl, ifMac]),
+            lib.manip('j',                   ['any'], 'down_arrow',     ['left_control'],  [ifCaps, ifCtrl, noMac]),
+            lib.manip('j',                   ['any'], 'down_arrow',     null,              [ifCaps]),
+            lib.manip('k',                   ['any'], 'up_arrow',       ['left_option'],   [ifCaps, ifCtrl, ifMac]),
+            lib.manip('k',                   ['any'], 'up_arrow',       ['left_control'],  [ifCaps, ifCtrl, noMac]),
+            lib.manip('k',                   ['any'], 'up_arrow',       null,              [ifCaps]),
+            lib.manip('l',                   ['any'], 'right_arrow',    ['left_option'],   [ifCaps, ifCtrl, ifMac]),
+            lib.manip('l',                   ['any'], 'right_arrow',    ['left_control'],  [ifCaps, ifCtrl, noMac]),
+            lib.manip('l',                   ['any'], 'right_arrow',    null,              [ifCaps]),
 
             // pgup/down
-            lib.manip('i',                   ['any'], 'page_up',        null,             [ifCaps]),
-            lib.manip('comma',               ['any'], 'page_down',      null,             [ifCaps]),
+            lib.manip('i',                   ['any'], 'page_up',        null,              [ifCaps]),
+            lib.manip('comma',               ['any'], 'page_down',      null,              [ifCaps]),
 
             // home/end
-            lib.manip('u',                   ['any'], 'up_arrow',       ['left_command'], [ifCaps, ifCtrl]),
-            lib.manip('u',                   ['any'], 'home',           null,             [ifCaps, ifPassthru]),
-            lib.manip('u',                   ['any'], 'left_arrow',     ['left_command'], [ifCaps]),
-            lib.manip('m',                   ['any'], 'down_arrow',     ['left_command'], [ifCaps, ifCtrl]),
-            lib.manip('m',                   ['any'], 'end',            null,             [ifCaps, ifPassthru]),
-            lib.manip('m',                   ['any'], 'right_arrow',    ['left_command'], [ifCaps]),
+            lib.manip('u',                   ['any'], 'up_arrow',       ['left_command'],  [ifCaps, ifCtrl]),
+            lib.manip('u',                   ['any'], 'home',           null,              [ifCaps, ifPassthruCtrl]),
+            lib.manip('u',                   ['any'], 'left_arrow',     ['left_command'],  [ifCaps]),
+            lib.manip('m',                   ['any'], 'down_arrow',     ['left_command'],  [ifCaps, ifCtrl]),
+            lib.manip('m',                   ['any'], 'end',            null,              [ifCaps, ifPassthruCtrl]),
+            lib.manip('m',                   ['any'], 'right_arrow',    ['left_command'],  [ifCaps]),
 
             // other
-            lib.manip('delete_or_backspace', ['any'], 'delete_forward', null,             [ifCaps]),
-            lib.manip('open_bracket',        ['any'], 'escape',         null,             [ifCaps]),
+            lib.manip('delete_or_backspace', ['any'], 'delete_forward', null,              [ifCaps]),
+            lib.manip('open_bracket',        ['any'], 'escape',         null,              [ifCaps]),
           ]),
 
           lib.rule('Ctrl to cmd', // must map individual chars because we use ctrl in a complex way in this file
-            lib.ctrlToCmd(lib.A_TO_Z, [ifCtrl, noPassthru]),
+            lib.ctrlToCmd(lib.A_TO_Z, [ifCtrl, noPassthruCtrl]),
           ),
 
           lib.rule('Emulate Windows taskbar selection', [
