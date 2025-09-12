@@ -1,16 +1,16 @@
 local lib = import 'karabiner.libsonnet';
 
-local terminals = [ "\\.wezterm$", "\\.Terminal$" ];
+local passthru = [ "\\.wezterm$", "\\.Terminal$", "^com\\.parallels\\.winapp\\.", "^com\\.microsoft\\.rdc\\." ];
 
-local ifTerminal = lib.ifApp(terminals);
-local noTerminal = lib.noApp(terminals);
+local ifPassthru = lib.ifApp(passthru);
+local noPassthru = lib.noApp(passthru);
 
-local CAPS = 'is_caps_lock_held';
-local ifCaps = lib.ifVar(CAPS);
-local noCaps = lib.ifNotVar(CAPS);
-local CTRL = 'is_left_control_held';
-local ifCtrl = lib.ifVar(CTRL);
-local noCtrl = lib.ifNotVar(CTRL);
+local varCAPS = 'is_caps_lock_held';
+local ifCaps = lib.ifVar(varCAPS);
+local noCaps = lib.ifNotVar(varCAPS);
+local varCTRL = 'is_left_control_held';
+local ifCtrl = lib.ifVar(varCTRL);
+local noCtrl = lib.ifNotVar(varCTRL);
 
 {
   machine_specific: { "krbn-859b4276-5fb1-4196-98d4-675ea5affd43": { enable_multitouch_extension: true } },
@@ -22,179 +22,102 @@ local noCtrl = lib.ifNotVar(CTRL);
 
       complex_modifications: {
         rules: [
-          lib.rule('Modifier keys - caps to enable vimish, ctrl to cmd except in terminals, and var setting to avoid ordering issues', [
+          lib.rule('Modifier keys - caps to enable vimish, ctrl to cmd except in passthru, and var setting to avoid ordering issues', [
             {
               "from":            { "key_code": "caps_lock", "modifiers": { "optional": ["any"] }},
-              "to":              [ lib.set(CAPS) ],
-              "to_after_key_up": [ lib.clear(CAPS) ],
-              "type":            "basic"
+              "to":              [ lib.set(varCAPS) ],
+              "to_after_key_up": [ lib.clear(varCAPS) ],
             },
 
-            # pass through left_control in terminals
+            # pass through left_control in passthru
             {
               "from":            { "key_code": "left_control", "modifiers": { "optional": ["any"] }},
-              "to":              [ lib.set(CTRL), { "key_code": "left_control", "lazy": true }],
-              "to_after_key_up": [ lib.clear(CTRL) ],
-              "conditions":      [ ifTerminal ],
-              "type":            "basic"
+              "to":              [ lib.set(varCTRL), { "key_code": "left_control", "lazy": true }],
+              "to_after_key_up": [ lib.clear(varCTRL) ],
+              "conditions":      [ ifPassthru ],
             },
 
             # eat left_control under other circumstances (but track it) because we'll sometimes convert to option or command
             {
               "from":            { "key_code": "left_control", "modifiers": { "optional": ["any"] }},
-              "to":              [ lib.set(CTRL) ],
-              "to_after_key_up": [ lib.clear(CTRL) ],
-              "type":            "basic"
+              "to":              [ lib.set(varCTRL) ],
+              "to_after_key_up": [ lib.clear(varCTRL) ],
             },
 
             # direct support for global ctrl ops
             {
               "from":       {  "key_code": "tab", "modifiers": { "optional": ["any"] }},
               "to":         [{ "key_code": "tab", "modifiers": ["left_control"] }],
-              "conditions": [noTerminal, ifCtrl],
-              "type":       "basic"
+              "conditions": [noPassthru, ifCtrl],
+            },
+          ]),
+
+          lib.rule('Misc caps-hotkeys', [
+            {
+              "from":      { "key_code": "q" },
+              "to":        [{ "consumer_key_code": "rewind" }],
+              "conditions": [ifCaps],
+            },
+            {
+              "from":      { "key_code": "w" },
+              "to":        [{ "consumer_key_code": "play_or_pause" }],
+              "conditions": [ifCaps],
+            },
+            {
+              "from":      { "key_code": "e" },
+              "to":        [{ "consumer_key_code": "fastforward" }],
+              "conditions": [ifCaps],
             },
           ]),
 
           lib.rule('Vim-ish navigation etc. (Windows style)', [
-            {
-              "from":       { "key_code": "h", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "left_arrow", "modifiers": ["left_option"] }],
-              "conditions": [ifCaps, ifCtrl],
-              "type":       "basic"
-            },
-            {
-              "from":       { "key_code": "h", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "left_arrow" }],
-              "conditions": [ifCaps],
-              "type":       "basic"
-            },
+            // arrows
+            lib.manip('h',                   ['any'], 'left_arrow',     ['left_option'],  [ifCaps, ifCtrl]),
+            lib.manip('h',                   ['any'], 'left_arrow',     null,             [ifCaps]),
+            lib.manip('j',                   ['any'], 'down_arrow',     ['left_option'],  [ifCaps, ifCtrl]),
+            lib.manip('j',                   ['any'], 'down_arrow',     null,             [ifCaps]),
+            lib.manip('k',                   ['any'], 'up_arrow',       ['left_option'],  [ifCaps, ifCtrl]),
+            lib.manip('k',                   ['any'], 'up_arrow',       null,             [ifCaps]),
+            lib.manip('l',                   ['any'], 'right_arrow',    ['left_option'],  [ifCaps, ifCtrl]),
+            lib.manip('l',                   ['any'], 'right_arrow',    null,             [ifCaps]),
 
-            {
-              "from":       { "key_code": "j", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "down_arrow", "modifiers": ["left_option"] }],
-              "conditions": [ifCaps, ifCtrl],
-              "type":       "basic"
-            },
-            {
-              "from":       { "key_code": "j", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "down_arrow" }],
-              "conditions": [ifCaps],
-              "type":       "basic"
-            },
+            // pgup/down
+            lib.manip('i',                   ['any'], 'page_up',        null,             [ifCaps]),
+            lib.manip('comma',               ['any'], 'page_down',      null,             [ifCaps]),
 
-            {
-              "from":       { "key_code": "k", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "up_arrow", "modifiers": ["left_option"] }],
-              "conditions": [ifCaps, ifCtrl],
-              "type":       "basic"
-            },
-            {
-              "from":       { "key_code": "k", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "up_arrow" }],
-              "conditions": [ifCaps],
-              "type":       "basic"
-            },
+            // home/end
+            lib.manip('u',                   ['any'], 'up_arrow',       ['left_command'], [ifCaps, ifCtrl]),
+            lib.manip('u',                   ['any'], 'home',           null,             [ifCaps, ifPassthru]),
+            lib.manip('u',                   ['any'], 'left_arrow',     ['left_command'], [ifCaps]),
+            lib.manip('m',                   ['any'], 'down_arrow',     ['left_command'], [ifCaps, ifCtrl]),
+            lib.manip('m',                   ['any'], 'end',            null,             [ifCaps, ifPassthru]),
+            lib.manip('m',                   ['any'], 'right_arrow',    ['left_command'], [ifCaps]),
 
-            {
-              "from":       { "key_code": "l", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "right_arrow", "modifiers": ["left_option"] }],
-              "conditions": [ifCaps, ifCtrl],
-              "type":       "basic"
-            },
-            {
-              "from":       { "key_code": "l", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "right_arrow" }],
-              "conditions": [ifCaps],
-              "type":       "basic"
-            },
-
-            {
-              "from":       { "key_code": "i", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "page_up" }],
-              "conditions": [ifCaps],
-              "type":       "basic"
-            },
-            {
-              "from":       { "key_code": "comma", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "page_down" }],
-              "conditions": [ifCaps],
-              "type":       "basic"
-            },
-
-
-            {
-              "from":       { "key_code": "u", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "up_arrow", "modifiers": ["left_command"] }],
-              "conditions": [ifCaps, ifCtrl],
-              "type":       "basic"
-            },
-            {
-              "from":       { "key_code": "u", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "home" }],
-              "conditions": [ifCaps, ifTerminal],
-              "type":       "basic"
-            },
-            {
-              "from":       { "key_code": "u", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "left_arrow", "modifiers": ["left_command"] }],
-              "conditions": [ifCaps],
-              "type":       "basic"
-            },
-
-            {
-              "from":       { "key_code": "m", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "down_arrow", "modifiers": ["left_command"] }],
-              "conditions": [ifCaps, ifCtrl],
-              "type":       "basic"
-            },
-            {
-              "from":       { "key_code": "m", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "end" }],
-              "conditions": [ifCaps, ifTerminal],
-              "type":       "basic"
-            },
-            {
-              "from":       { "key_code": "m", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "right_arrow", "modifiers": ["left_command"] }],
-              "conditions": [ifCaps],
-              "type":       "basic"
-            },
-
-            {
-              "from":       { "key_code": "delete_or_backspace", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "delete_forward" }],
-              "conditions": [ifCaps],
-              "type":       "basic"
-            },
-            {
-              "from":       { "key_code": "open_bracket", "modifiers": { "optional": ["any"] }},
-              "to":         [{ "key_code": "escape" }],
-              "conditions": [ifCaps],
-              "type":       "basic"
-            }
+            // other
+            lib.manip('delete_or_backspace', ['any'], 'delete_forward', null,             [ifCaps]),
+            lib.manip('open_bracket',        ['any'], 'escape',         null,             [ifCaps]),
           ]),
+
+          lib.rule('Ctrl to cmd', // must map individual chars because we use ctrl in a complex way in this file
+            lib.ctrlToCmd(lib.A_TO_Z, [ifCtrl, noPassthru]),
+          ),
 
           lib.rule('Emulate Windows taskbar selection', [
             {
               "from": { "key_code": "1", "modifiers": { "mandatory": ["option"] }},
               "to":   [{ "shell_command": "open -a 'Microsoft Edge'" }],
-              "type": "basic"
             },
             {
               "from": { "key_code": "1", "modifiers": { "mandatory": ["option", "shift"] }},
-              "to":   [{ "shell_command": "open -n -a 'Microsoft Edge'" }],
-              "type": "basic"
+              "to":   [{ "shell_command": "osascript -e 'tell application \"Microsoft Edge\" to make new window'" }],
             },
             {
               "from": { "key_code": "2", "modifiers": { "mandatory": ["option"] }},
               "to":   [{ "shell_command": "open -a wezterm" }],
-              "type": "basic"
             },
             {
               "from": { "key_code": "2", "modifiers": { "mandatory": ["option", "shift"] }},
               "to":   [{ "shell_command": "open -n -a wezterm" }],
-              "type": "basic"
             }
           ]),
 
@@ -204,14 +127,12 @@ local noCtrl = lib.ifNotVar(CTRL);
               "from":       { "key_code": "h", "modifiers": { "mandatory": ["command", "shift"] }},
               "to":         [],
               "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.microsoft\\.edgemac$"] }],
-              "type":       "basic"
             },
             {
               # simply cannot lose the alt-d muscle memory (makes a bookmark on mac, don't want it)
               "from":       { "key_code": "d", "modifiers": { "mandatory": ["command"] }},
               "to":         [{ "key_code": "l", "modifiers": ["command"] }],
               "conditions": [{ "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.microsoft\\.edgemac$"] }],
-              "type":       "basic"
             }
           ]),
         ]
