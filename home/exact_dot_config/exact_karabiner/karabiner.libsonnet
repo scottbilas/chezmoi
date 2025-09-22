@@ -43,4 +43,10 @@
     function(i) std.char(i),
     std.range(std.codepoint('a'), std.codepoint('z'))
   ),
+
+  // returns ['0', '1', ..., '9']
+  DIGITS :: std.map(
+    function(i) std.toString(i),
+    std.range(0, 9)
+  ),
 }

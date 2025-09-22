@@ -173,6 +173,10 @@ zle -N down-line-or-beginning-search
 bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 
+# mac-only, cmd-backspace
+bindkey "^[[3~" delete-char
+
+
 ## line editing
 
 # ctrl left/right to move word left/right

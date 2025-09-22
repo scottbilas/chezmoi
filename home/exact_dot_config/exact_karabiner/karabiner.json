@@ -42,9 +42,14 @@
                         "conditions": [
                            {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_if"
@@ -110,16 +115,6 @@
                      {
                         "conditions": [
                            {
-                              "bundle_identifiers": [
-                                 "\\.wezterm$",
-                                 "\\.Terminal$",
-                                 "^com\\.parallels\\.winapp\\.",
-                                 "^com\\.microsoft\\.rdc\\.",
-                                 "^com\\.microsoft\\.VSCode$"
-                              ],
-                              "type": "frontmost_application_if"
-                           },
-                           {
                               "name": "is_left_control_held",
                               "type": "variable_if",
                               "value": 1
@@ -146,7 +141,7 @@
                   ]
                },
                {
-                  "description": "Misc caps-hotkeys",
+                  "description": "Misc caps-hotkeys because bad aim on fn keys in the dark",
                   "manipulators": [
                      {
                         "conditions": [
@@ -201,14 +196,110 @@
                            }
                         ],
                         "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "is_caps_lock_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "hyphen"
+                        },
+                        "to": [
+                           {
+                              "key_code": "display_brightness_decrement"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "is_caps_lock_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "equal_sign"
+                        },
+                        "to": [
+                           {
+                              "key_code": "display_brightness_increment"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "is_caps_lock_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "hyphen",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "illumination_decrement"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "is_caps_lock_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "equal_sign",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "illumination_increment"
+                           }
+                        ],
+                        "type": "basic"
                      }
                   ]
                },
                {
-                  "description": "Vim-ish navigation etc. (Windows style)",
+                  "description": "Vim-ish navigation etc. (Mac-specific forwarding)",
                   "manipulators": [
                      {
                         "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
                            {
                               "name": "is_caps_lock_held",
                               "type": "variable_if",
@@ -218,15 +309,6 @@
                               "name": "is_left_control_held",
                               "type": "variable_if",
                               "value": 1
-                           },
-                           {
-                              "bundle_identifiers": [
-                                 "\\.wezterm$",
-                                 "\\.Terminal$",
-                                 "^com\\.parallels\\.winapp\\.",
-                                 "^com\\.microsoft\\.rdc\\."
-                              ],
-                              "type": "frontmost_application_unless"
                            }
                         ],
                         "from": {
@@ -250,6 +332,20 @@
                      {
                         "conditions": [
                            {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
                               "name": "is_caps_lock_held",
                               "type": "variable_if",
                               "value": 1
@@ -258,15 +354,302 @@
                               "name": "is_left_control_held",
                               "type": "variable_if",
                               "value": 1
-                           },
+                           }
+                        ],
+                        "from": {
+                           "key_code": "j",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "down_arrow",
+                              "modifiers": [
+                                 "left_option"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
                            {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_caps_lock_held",
+                              "type": "variable_if",
+                              "value": 1
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "k",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "up_arrow",
+                              "modifiers": [
+                                 "left_option"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_caps_lock_held",
+                              "type": "variable_if",
+                              "value": 1
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "l",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "right_arrow",
+                              "modifiers": [
+                                 "left_option"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_caps_lock_held",
+                              "type": "variable_if",
+                              "value": 1
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "up_arrow",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_caps_lock_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "left_arrow",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_caps_lock_held",
+                              "type": "variable_if",
+                              "value": 1
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "m",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "down_arrow",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_caps_lock_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "m",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "right_arrow",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     }
+                  ]
+               },
+               {
+                  "description": "Vim-ish navigation etc.",
+                  "manipulators": [
+                     {
+                        "conditions": [
+                           {
+                              "name": "is_caps_lock_held",
+                              "type": "variable_if",
+                              "value": 1
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -321,55 +704,6 @@
                               "name": "is_left_control_held",
                               "type": "variable_if",
                               "value": 1
-                           },
-                           {
-                              "bundle_identifiers": [
-                                 "\\.wezterm$",
-                                 "\\.Terminal$",
-                                 "^com\\.parallels\\.winapp\\.",
-                                 "^com\\.microsoft\\.rdc\\."
-                              ],
-                              "type": "frontmost_application_unless"
-                           }
-                        ],
-                        "from": {
-                           "key_code": "j",
-                           "modifiers": {
-                              "optional": [
-                                 "any"
-                              ]
-                           }
-                        },
-                        "to": [
-                           {
-                              "key_code": "down_arrow",
-                              "modifiers": [
-                                 "left_option"
-                              ]
-                           }
-                        ],
-                        "type": "basic"
-                     },
-                     {
-                        "conditions": [
-                           {
-                              "name": "is_caps_lock_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
-                              "bundle_identifiers": [
-                                 "\\.wezterm$",
-                                 "\\.Terminal$",
-                                 "^com\\.parallels\\.winapp\\.",
-                                 "^com\\.microsoft\\.rdc\\."
-                              ],
-                              "type": "frontmost_application_unless"
                            }
                         ],
                         "from": {
@@ -424,55 +758,6 @@
                               "name": "is_left_control_held",
                               "type": "variable_if",
                               "value": 1
-                           },
-                           {
-                              "bundle_identifiers": [
-                                 "\\.wezterm$",
-                                 "\\.Terminal$",
-                                 "^com\\.parallels\\.winapp\\.",
-                                 "^com\\.microsoft\\.rdc\\."
-                              ],
-                              "type": "frontmost_application_unless"
-                           }
-                        ],
-                        "from": {
-                           "key_code": "k",
-                           "modifiers": {
-                              "optional": [
-                                 "any"
-                              ]
-                           }
-                        },
-                        "to": [
-                           {
-                              "key_code": "up_arrow",
-                              "modifiers": [
-                                 "left_option"
-                              ]
-                           }
-                        ],
-                        "type": "basic"
-                     },
-                     {
-                        "conditions": [
-                           {
-                              "name": "is_caps_lock_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
-                              "bundle_identifiers": [
-                                 "\\.wezterm$",
-                                 "\\.Terminal$",
-                                 "^com\\.parallels\\.winapp\\.",
-                                 "^com\\.microsoft\\.rdc\\."
-                              ],
-                              "type": "frontmost_application_unless"
                            }
                         ],
                         "from": {
@@ -527,55 +812,6 @@
                               "name": "is_left_control_held",
                               "type": "variable_if",
                               "value": 1
-                           },
-                           {
-                              "bundle_identifiers": [
-                                 "\\.wezterm$",
-                                 "\\.Terminal$",
-                                 "^com\\.parallels\\.winapp\\.",
-                                 "^com\\.microsoft\\.rdc\\."
-                              ],
-                              "type": "frontmost_application_unless"
-                           }
-                        ],
-                        "from": {
-                           "key_code": "l",
-                           "modifiers": {
-                              "optional": [
-                                 "any"
-                              ]
-                           }
-                        },
-                        "to": [
-                           {
-                              "key_code": "right_arrow",
-                              "modifiers": [
-                                 "left_option"
-                              ]
-                           }
-                        ],
-                        "type": "basic"
-                     },
-                     {
-                        "conditions": [
-                           {
-                              "name": "is_caps_lock_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
-                              "bundle_identifiers": [
-                                 "\\.wezterm$",
-                                 "\\.Terminal$",
-                                 "^com\\.parallels\\.winapp\\.",
-                                 "^com\\.microsoft\\.rdc\\."
-                              ],
-                              "type": "frontmost_application_unless"
                            }
                         ],
                         "from": {
@@ -688,9 +924,9 @@
                         },
                         "to": [
                            {
-                              "key_code": "up_arrow",
+                              "key_code": "home",
                               "modifiers": [
-                                 "left_command"
+                                 "left_control"
                               ]
                            }
                         ],
@@ -702,15 +938,6 @@
                               "name": "is_caps_lock_held",
                               "type": "variable_if",
                               "value": 1
-                           },
-                           {
-                              "bundle_identifiers": [
-                                 "\\.wezterm$",
-                                 "\\.Terminal$",
-                                 "^com\\.parallels\\.winapp\\.",
-                                 "^com\\.microsoft\\.rdc\\."
-                              ],
-                              "type": "frontmost_application_if"
                            }
                         ],
                         "from": {
@@ -724,32 +951,6 @@
                         "to": [
                            {
                               "key_code": "home"
-                           }
-                        ],
-                        "type": "basic"
-                     },
-                     {
-                        "conditions": [
-                           {
-                              "name": "is_caps_lock_held",
-                              "type": "variable_if",
-                              "value": 1
-                           }
-                        ],
-                        "from": {
-                           "key_code": "u",
-                           "modifiers": {
-                              "optional": [
-                                 "any"
-                              ]
-                           }
-                        },
-                        "to": [
-                           {
-                              "key_code": "left_arrow",
-                              "modifiers": [
-                                 "left_command"
-                              ]
                            }
                         ],
                         "type": "basic"
@@ -777,9 +978,9 @@
                         },
                         "to": [
                            {
-                              "key_code": "down_arrow",
+                              "key_code": "end",
                               "modifiers": [
-                                 "left_command"
+                                 "left_control"
                               ]
                            }
                         ],
@@ -791,15 +992,6 @@
                               "name": "is_caps_lock_held",
                               "type": "variable_if",
                               "value": 1
-                           },
-                           {
-                              "bundle_identifiers": [
-                                 "\\.wezterm$",
-                                 "\\.Terminal$",
-                                 "^com\\.parallels\\.winapp\\.",
-                                 "^com\\.microsoft\\.rdc\\."
-                              ],
-                              "type": "frontmost_application_if"
                            }
                         ],
                         "from": {
@@ -813,32 +1005,6 @@
                         "to": [
                            {
                               "key_code": "end"
-                           }
-                        ],
-                        "type": "basic"
-                     },
-                     {
-                        "conditions": [
-                           {
-                              "name": "is_caps_lock_held",
-                              "type": "variable_if",
-                              "value": 1
-                           }
-                        ],
-                        "from": {
-                           "key_code": "m",
-                           "modifiers": {
-                              "optional": [
-                                 "any"
-                              ]
-                           }
-                        },
-                        "to": [
-                           {
-                              "key_code": "right_arrow",
-                              "modifiers": [
-                                 "left_command"
-                              ]
                            }
                         ],
                         "type": "basic"
@@ -897,18 +1063,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -932,18 +1103,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -969,18 +1145,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1004,18 +1185,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1041,18 +1227,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1076,18 +1267,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1113,18 +1309,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1148,18 +1349,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1185,18 +1391,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1220,18 +1431,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1257,18 +1473,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1292,18 +1513,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1329,18 +1555,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1364,18 +1595,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1401,18 +1637,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1436,18 +1677,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1473,18 +1719,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1508,18 +1759,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1545,18 +1801,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1580,18 +1841,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1617,18 +1883,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1652,18 +1923,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1689,18 +1965,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1724,18 +2005,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1761,18 +2047,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1796,18 +2087,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1833,18 +2129,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1868,18 +2169,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1905,18 +2211,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1940,18 +2251,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -1977,18 +2293,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2012,18 +2333,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2049,18 +2375,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2084,18 +2415,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2121,18 +2457,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2156,18 +2497,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2193,18 +2539,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2228,18 +2579,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2265,18 +2621,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2300,18 +2661,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2337,18 +2703,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2372,18 +2743,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2409,18 +2785,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2444,18 +2825,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2481,18 +2867,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2516,18 +2907,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2553,18 +2949,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2588,18 +2989,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2625,18 +3031,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2660,18 +3071,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2697,18 +3113,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2732,18 +3153,23 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
-                              "type": "variable_if",
-                              "value": 1
-                           },
-                           {
                               "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\."
                               ],
                               "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
                            }
                         ],
                         "from": {
@@ -2758,6 +3184,990 @@
                         "to": [
                            {
                               "key_code": "z",
+                              "modifiers": [
+                                 "left_command",
+                                 "shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "0",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "0",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "0",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "0",
+                              "modifiers": [
+                                 "left_command",
+                                 "shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "1",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "1",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "1",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "1",
+                              "modifiers": [
+                                 "left_command",
+                                 "shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "2",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "2",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "2",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "2",
+                              "modifiers": [
+                                 "left_command",
+                                 "shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "3",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "3",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "3",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "3",
+                              "modifiers": [
+                                 "left_command",
+                                 "shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "4",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "4",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "4",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "4",
+                              "modifiers": [
+                                 "left_command",
+                                 "shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "5",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "5",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "5",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "5",
+                              "modifiers": [
+                                 "left_command",
+                                 "shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "6",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "6",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "6",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "6",
+                              "modifiers": [
+                                 "left_command",
+                                 "shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "7",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "7",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "7",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "7",
+                              "modifiers": [
+                                 "left_command",
+                                 "shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "8",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "8",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "8",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "8",
+                              "modifiers": [
+                                 "left_command",
+                                 "shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "9",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "9",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "9",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "9",
+                              "modifiers": [
+                                 "left_command",
+                                 "shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "hyphen",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "hyphen",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "hyphen",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "hyphen",
+                              "modifiers": [
+                                 "left_command",
+                                 "shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "equal_sign",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "equal_sign",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "\\.wezterm$",
+                                 "\\.Terminal$",
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           },
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "equal_sign",
+                           "modifiers": {
+                              "optional": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "equal_sign",
                               "modifiers": [
                                  "left_command",
                                  "shift"
@@ -2769,7 +4179,7 @@
                   ]
                },
                {
-                  "description": "Emulate Windows taskbar selection",
+                  "description": "Emulate Windows global hotkeys",
                   "manipulators": [
                      {
                         "from": {
@@ -2805,6 +4215,16 @@
                         "type": "basic"
                      },
                      {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           }
+                        ],
                         "from": {
                            "key_code": "2",
                            "modifiers": {
@@ -2821,6 +4241,16 @@
                         "type": "basic"
                      },
                      {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           }
+                        ],
                         "from": {
                            "key_code": "2",
                            "modifiers": {
@@ -2833,6 +4263,32 @@
                         "to": [
                            {
                               "shell_command": "open -n -a wezterm"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.parallels\\.winapp\\.",
+                                 "^com\\.parallels\\.desktop\\.console$",
+                                 "^com\\.microsoft\\.rdc\\."
+                              ],
+                              "type": "frontmost_application_unless"
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e",
+                           "modifiers": {
+                              "mandatory": [
+                                 "option"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "shell_command": "open -a Finder"
                            }
                         ],
                         "type": "basic"

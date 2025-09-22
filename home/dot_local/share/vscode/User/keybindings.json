@@ -92,11 +92,6 @@
         "when": "textInputFocus"
     },
     {
-        "key": "shift+alt+left",
-        "command": "cursorColumnSelectLeft",
-        "when": "textInputFocus"
-    },
-    {
         "key": "ctrl+shift+alt+left",
         "command": "-cursorColumnSelectLeft",
         "when": "textInputFocus"
@@ -119,11 +114,6 @@
     {
         "key": "ctrl+shift+alt+pageup",
         "command": "-cursorColumnSelectPageUp",
-        "when": "textInputFocus"
-    },
-    {
-        "key": "shift+alt+right",
-        "command": "cursorColumnSelectRight",
         "when": "textInputFocus"
     },
     {
@@ -330,5 +320,24 @@
         "key": "ctrl+alt+j",
         "command": "-editor.action.insertSnippet",
         "when": "editorTextFocus && editorLangId == 'powershell'"
+    },
+    {
+        "key": "shift+cmd+c",
+        "command": "-workbench.action.terminal.openNativeConsole",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "shift+cmd+c",
+        "command": "copyFilePath",
+        "when": "editorFocus"
+    },
+    {
+        "key": "alt+cmd+c",
+        "command": "copyFilePath"
+    },
+    {
+        "key": "alt+cmd+c",
+        "command": "-copyFilePath",
+        "when": "!editorFocus"
     }
 ]

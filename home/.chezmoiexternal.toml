@@ -64,7 +64,27 @@
     url = "https://github.com/sunaku/dasht"
     refreshPeriod = "168h"
 
-{{ if ne .chezmoi.os "darwin" }}
+{{ if eq .chezmoi.os "darwin" }}
+
+# MAC
+
+[".hammerspoon/Spoons/SkyRocket.spoon"]
+    type = "archive"
+    url = "https://github.com/franzbu/SkyRocket.spoon/archive/refs/heads/master.zip"
+    refreshPeriod = "168h"
+    exact = true
+    stripComponents = 1
+
+[".config/karabiner/jsonschema"]
+    type = "archive"
+    url = "https://gitlab.com/notpushkin/karabiner-jsonschema/-/archive/master/karabiner-jsonschema-master.zip?ref_type=heads"
+    refreshPeriod = "168h"
+    exact = true
+    stripComponents = 1
+
+{{ else }}
+
+# NON-MAC UNIX
 
 # windows fonts are available through scoop nerd-fonts bucket
 # mac fonts go through nix

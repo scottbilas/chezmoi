@@ -77,6 +77,11 @@ data:
     personal_machine: {{$personal_machine}}
     home_dirf: {{$home_dirf}}
     chezmoi_dirf: {{ .chezmoi.sourceDir | replace "\\" "/" }}
+{{ if $personal_machine }}
+    keyfile: {{$home_dirf}}/.local/share/private/keys/scott.toml
+{{ else }}
+    keyfile: {{$home_dirf}}/.local/share/private/keys/scobly.toml
+{{ end }}
 {{ if eq .chezmoi.os "windows" }}
     home_dirb: {{$home_dirb}}
     chezmoi_dirb: {{ .chezmoi.sourceDir | replace "/" "\\" }}
