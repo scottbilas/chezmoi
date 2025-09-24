@@ -97,47 +97,51 @@ local simple_caps(key_code, modifiers, to) = {
 
           lib.rule('Vim-ish navigation etc. (Mac-specific forwarding)', [
             // ctrl-arrows (ctrl->option)
-            lib.manip('h',                   ['any'], 'left_arrow',     ['left_option'],   [ifMacApp, ifCaps, ifCtrl]),
-            lib.manip('j',                   ['any'], 'down_arrow',     ['left_option'],   [ifMacApp, ifCaps, ifCtrl]),
-            lib.manip('k',                   ['any'], 'up_arrow',       ['left_option'],   [ifMacApp, ifCaps, ifCtrl]),
-            lib.manip('l',                   ['any'], 'right_arrow',    ['left_option'],   [ifMacApp, ifCaps, ifCtrl]),
+            lib.manip('h',                   'any', 'left_arrow',     ['left_option'],   [ifMacApp, ifCaps, ifCtrl]),
+            lib.manip('j',                   'any', 'down_arrow',     ['left_option'],   [ifMacApp, ifCaps, ifCtrl]),
+            lib.manip('k',                   'any', 'up_arrow',       ['left_option'],   [ifMacApp, ifCaps, ifCtrl]),
+            lib.manip('l',                   'any', 'right_arrow',    ['left_option'],   [ifMacApp, ifCaps, ifCtrl]),
 
             // home/end
-            lib.manip('u',                   ['any'], 'up_arrow',       ['left_command'],  [ifMacApp, ifCaps, ifCtrl]),
-            lib.manip('u',                   ['any'], 'left_arrow',     ['left_command'],  [ifMacApp, ifCaps]),
-            lib.manip('m',                   ['any'], 'down_arrow',     ['left_command'],  [ifMacApp, ifCaps, ifCtrl]),
-            lib.manip('m',                   ['any'], 'right_arrow',    ['left_command'],  [ifMacApp, ifCaps]),
+            lib.manip('u',                   'any', 'up_arrow',       ['left_command'],  [ifMacApp, ifCaps, ifCtrl]),
+            lib.manip('u',                   'any', 'left_arrow',     ['left_command'],  [ifMacApp, ifCaps]),
+            lib.manip('m',                   'any', 'down_arrow',     ['left_command'],  [ifMacApp, ifCaps, ifCtrl]),
+            lib.manip('m',                   'any', 'right_arrow',    ['left_command'],  [ifMacApp, ifCaps]),
           ]),
 
           lib.rule('Vim-ish navigation etc.', [
             // arrows
-            lib.manip('h',                   ['any'], 'left_arrow',     ['left_control'],  [ifCaps, ifCtrl]),
-            lib.manip('h',                   ['any'], 'left_arrow',     null,              [ifCaps]),
-            lib.manip('j',                   ['any'], 'down_arrow',     ['left_control'],  [ifCaps, ifCtrl]),
-            lib.manip('j',                   ['any'], 'down_arrow',     null,              [ifCaps]),
-            lib.manip('k',                   ['any'], 'up_arrow',       ['left_control'],  [ifCaps, ifCtrl]),
-            lib.manip('k',                   ['any'], 'up_arrow',       null,              [ifCaps]),
-            lib.manip('l',                   ['any'], 'right_arrow',    ['left_control'],  [ifCaps, ifCtrl]),
-            lib.manip('l',                   ['any'], 'right_arrow',    null,              [ifCaps]),
+            lib.manip('h',                   'any', 'left_arrow',     ['left_control'],  [ifCaps, ifCtrl]),
+            lib.manip('h',                   'any', 'left_arrow',     null,              [ifCaps]),
+            lib.manip('j',                   'any', 'down_arrow',     ['left_control'],  [ifCaps, ifCtrl]),
+            lib.manip('j',                   'any', 'down_arrow',     null,              [ifCaps]),
+            lib.manip('k',                   'any', 'up_arrow',       ['left_control'],  [ifCaps, ifCtrl]),
+            lib.manip('k',                   'any', 'up_arrow',       null,              [ifCaps]),
+            lib.manip('l',                   'any', 'right_arrow',    ['left_control'],  [ifCaps, ifCtrl]),
+            lib.manip('l',                   'any', 'right_arrow',    null,              [ifCaps]),
 
             // pgup/down
-            lib.manip('i',                   ['any'], 'page_up',        null,              [ifCaps]),
-            lib.manip('comma',               ['any'], 'page_down',      null,              [ifCaps]),
+            lib.manip('i',                   'any', 'page_up',        null,              [ifCaps]),
+            lib.manip('comma',               'any', 'page_down',      null,              [ifCaps]),
 
             // home/end
-            lib.manip('u',                   ['any'], 'home',           ['left_control'],  [ifCaps, ifCtrl]),
-            lib.manip('u',                   ['any'], 'home',           null,              [ifCaps]),
-            lib.manip('m',                   ['any'], 'end',            ['left_control'],  [ifCaps, ifCtrl]),
-            lib.manip('m',                   ['any'], 'end',            null,              [ifCaps]),
+            lib.manip('u',                   'any', 'home',           ['left_control'],  [ifCaps, ifCtrl]),
+            lib.manip('u',                   'any', 'home',           null,              [ifCaps]),
+            lib.manip('m',                   'any', 'end',            ['left_control'],  [ifCaps, ifCtrl]),
+            lib.manip('m',                   'any', 'end',            null,              [ifCaps]),
 
             // other
-            lib.manip('delete_or_backspace', ['any'], 'delete_forward', null,              [ifCaps]),
-            lib.manip('open_bracket',        ['any'], 'escape',         null,              [ifCaps]),
+            lib.manip('delete_or_backspace', 'any', 'delete_forward', null,              [ifCaps]),
+            lib.manip('open_bracket',        'any', 'escape',         null,              [ifCaps]),
           ]),
 
-          lib.rule('Ctrl to cmd', // must map individual chars because we use ctrl in a complex way in this file
-            lib.ctrlToCmd(lib.A_TO_Z + lib.DIGITS + ['hyphen', 'equal_sign'], [ifMacApp, ifCtrl]),
-          ),
+          // must map individual chars because we use ctrl in a complex way in this file
+          lib.rule('Ctrl to cmd', std.flattenArrays(std.map(function(k) [
+              lib.manip(k, { mandatory: [                       ] }, k, [                'left_command'         ], [ifMacApp, ifCtrl]),
+              lib.manip(k, { mandatory: [                'shift'] }, k, [                'left_command', 'shift'], [ifMacApp, ifCtrl]),
+              lib.manip(k, { mandatory: ['left_command'         ] }, k, ['left_control', 'left_command'         ], [ifMacApp, ifCtrl]),
+              lib.manip(k, { mandatory: ['left_command', 'shift'] }, k, ['left_control', 'left_command', 'shift'], [ifMacApp, ifCtrl]),
+            ], lib.A_TO_Z + lib.DIGITS + ['hyphen', 'equal_sign']))),
 
           lib.rule('Emulate Windows global hotkeys', [
             {

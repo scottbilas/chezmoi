@@ -11,7 +11,9 @@
     {
       from: {
         key_code: fromKey,
-        modifiers: if fromMods == null || fromMods == [] then {} else { optional: fromMods },
+        modifiers:
+          if fromMods == 'any' then { optional: ['any'] }
+          else fromMods,
       },
       to: [ if toKey == null then {} else (
         if toMods == null || toMods == [] then { key_code: toKey }
@@ -19,12 +21,6 @@
       ) ],
       conditions: conds,
     } + opts,
-
-  ctrlToCmd(keys, conds=[]) ::
-    std.flattenArrays(std.map(function(k) [
-      $.manip(k, ['left_control'         ], k, ['left_command'         ], conds),
-      $.manip(k, ['left_control', 'shift'], k, ['left_command', 'shift'], conds),
-    ], keys)),
 
   ifApp(bundles) ::
     { type: 'frontmost_application_if', bundle_identifiers: bundles },
