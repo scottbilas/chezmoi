@@ -62,6 +62,7 @@ scoop
 Library/Application Support/xbar/cache
 
 # managed by jb toolbox
+.local/bin/pycharm*
 .local/bin/rider*
 .local/bin/studio
 
