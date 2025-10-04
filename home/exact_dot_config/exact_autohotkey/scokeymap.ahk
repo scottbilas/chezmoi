@@ -1,13 +1,35 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
-TraySetIcon(A_ScriptDir "\scokeymap.ico")
-
-; to add to windows startup:
+; to add this script to run at login:
 ;
 ; <ctrl-c> on .ahk
 ; <win-r> shell:startup
 ; right-click in startup folder, "paste shortcut"
+;
+; TODO: have chezmoi install shortcut
+
+TraySetIcon(A_ScriptDir "\scokeymap.ico")
+wmi := ComObject("WbemScripting.SWbemLocator").ConnectServer(".", "root\wmi")
+
+; there is a delay from setting brightness to it actually changing, so to avoid
+; bounce problems with repeatedly hitting adjust+/-, just use our own tracking
+; value.
+global brightness := 0
+for property in wmi.ExecQuery("SELECT * FROM WmiMonitorBrightness")
+    brightness := property.CurrentBrightness
+
+AdjustBrightness(adjust) {
+    global brightness
+    brightness += adjust
+    if (brightness < 0)
+        brightness := 0
+    if (brightness > 100)
+        brightness := 100
+
+    for property in wmi.ExecQuery("SELECT * FROM WmiMonitorBrightnessMethods")
+        property.WmiSetBrightness(1, brightness)
+}
 
 ; emulate term
 ^[::Send("{Esc}")
@@ -69,5 +91,10 @@ $*Capslock::
     0::F10
     -::F11
     =::F12
+
+    ; brightness control
+
+    r::AdjustBrightness(-10)  ; caps -: darker
+    t::AdjustBrightness(10)   ; caps =: brighter
 
 #HotIf
