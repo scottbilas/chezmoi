@@ -29,6 +29,9 @@
 
 # WINDOWS
 
+.hammerspoon
+.config/home-manager
+.config/karabiner
 .config/lazygit
 .config/ranger
 .config/tmux
