@@ -5,22 +5,14 @@ Host *
     IdentityFile ~/.local/share/private/ssh/id_rsa
     UserKnownHostsFile ~/.local/share/private/ssh/known_hosts
 {{- if ne .chezmoi.os "windows" }}
-
     # speed up multiple identical connects with multiplexing
     ControlMaster auto
     ControlPath ~/.cache/ssh/mux/%C
 {{- end }}
 
-Host github.com
-    HostName github.com
-    IdentityFile ~/.local/share/private/ssh/github_rsa
-    User git
-
 {{ if stat (joinPath .chezmoi.homeDir ".local/share/private/ssh/config-home") -}}
-
 {{   include "../../../../.local/share/private/ssh/config-home" }}
 {{ end -}}
 {{ if stat (joinPath .chezmoi.homeDir ".local/share/private/ssh/config-work") -}}
-
 {{   include "../../../../.local/share/private/ssh/config-work" }}
 {{ end -}}
