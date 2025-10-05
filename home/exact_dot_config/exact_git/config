@@ -31,8 +31,8 @@
     wtz = !dir=$(git root) && git co origin/master -B "z/$(basename "$dir")" --no-track
     dad = !curl https://icanhazdadjoke.com/ && echo "" && git add
 
-    co = checkout
-    fc = clone --recurse --jobs 7
+    co = checkout --progress
+    fc = "!f() { GIT_LFS_FORCE_PROGRESS=1 git clone --progress --recurse --jobs 7 \"$@\"; }; f"
     fcz = fc --filter=blob:none
     ss = stash show -p
 
@@ -80,7 +80,7 @@
     difft = difftool -t difftastic
     diffdir = difftool --dir-diff
     bcd = !~/.config/git/git-bcdiff
-    sui = submodule update --init
+    sui = submodule update --init --progress
 
     # this does a couple things:
     # - detect terminal width (`sh` does not do this)
