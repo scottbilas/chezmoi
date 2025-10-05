@@ -1,4 +1,5 @@
 add_newline = false
+command_timeout = 1000
 
 [directory]
 truncation_length = 0
@@ -28,7 +29,8 @@ nu_indicator         = ""
 
 [shlvl]
 disabled = false
-threshold = 2
+# unsure about 3..this is assuming we're in tmux. need something better.
+threshold = 3
 format = "[$shlvl]($style):"
 style = "{{ if eq .profile.theme "light" }}black bg:yellow{{ else }}bold red{{ end }}"
 
