@@ -69,6 +69,12 @@ if (( $+commands[oh-my-posh] )); then
   eval "$(oh-my-posh init zsh -c ~/.config/oh-my-posh/prompt.json)"
 elif (( $+commands[starship] )); then
   eval "$(starship init zsh)"
+
+  # can't get starship putting time where i want it, but this works really great
+  rprompt_up_one_line() {
+    RPROMPT=$'%{\e[1A\e[2;3;90m%}'"$(date +%H:%M:%S)"$'%{\e[0m\e[1B%}'
+  }
+  precmd_functions+=(rprompt_up_one_line)
 fi
 
 # other
