@@ -108,6 +108,7 @@ path=(
   $path
   ~/.local/bin
   # runtimes
+  /usr/local/share/dotnet
   ~/.dotnet/tools
   $GOPATH/bin
   ~/.local/share/npm/bin
@@ -115,6 +116,13 @@ path=(
   # other
   ~/.local/share/repos/dasht/bin
 )
+
+# filter to existing directories
+valid_path=()
+for p in $path; do
+  [[ -d $p ]] && valid_path+=$p
+done
+path=(${(u)valid_path})
 
 #####
 

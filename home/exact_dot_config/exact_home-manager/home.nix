@@ -1,9 +1,11 @@
+# nix flake update --flake ~/.config/home-manager
 # home-manager switch
 
 { pkgs, ... }:
 
 let
   username = "scott.bilas";
+
 in {
   nixpkgs.config.allowUnfree = true;
 
@@ -20,11 +22,13 @@ in {
     pkgs.difftastic
     pkgs.eza
     pkgs.fd
+    pkgs.fzf
     pkgs.git
     pkgs.git-lfs
     pkgs.jsonnet
     pkgs.numbat
     pkgs.ripgrep
+    pkgs.rsync
     pkgs.scrcpy
     pkgs.sheldon
     pkgs.starship
@@ -53,10 +57,6 @@ in {
     # other environments
     pkgs.go
     pkgs.nodejs_24
-    (pkgs.dotnetCorePackages.combinePackages [
-      pkgs.dotnet-sdk_8
-      pkgs.dotnet-sdk_9
-    ])
 
     # gui
     pkgs.keka
