@@ -206,7 +206,7 @@
                            }
                         ],
                         "from": {
-                           "key_code": "hyphen"
+                           "key_code": "r"
                         },
                         "to": [
                            {
@@ -224,7 +224,7 @@
                            }
                         ],
                         "from": {
-                           "key_code": "equal_sign"
+                           "key_code": "t"
                         },
                         "to": [
                            {
@@ -242,7 +242,7 @@
                            }
                         ],
                         "from": {
-                           "key_code": "hyphen",
+                           "key_code": "r",
                            "modifiers": {
                               "mandatory": [
                                  "shift"
@@ -265,7 +265,7 @@
                            }
                         ],
                         "from": {
-                           "key_code": "equal_sign",
+                           "key_code": "t",
                            "modifiers": {
                               "mandatory": [
                                  "shift"
@@ -1005,6 +1005,29 @@
                         "to": [
                            {
                               "key_code": "end"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "is_caps_lock_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde"
                            }
                         ],
                         "type": "basic"
@@ -7261,6 +7284,22 @@
                   "manipulators": [
                      {
                         "from": {
+                           "key_code": "0",
+                           "modifiers": {
+                              "mandatory": [
+                                 "option"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "shell_command": "open -a ChatGPT"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
                            "key_code": "1",
                            "modifiers": {
                               "mandatory": [
@@ -7341,6 +7380,23 @@
                         "to": [
                            {
                               "shell_command": "open -n -a wezterm"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "escape",
+                           "modifiers": {
+                              "mandatory": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "shell_command": "open -a 'Activity Monitor'"
                            }
                         ],
                         "type": "basic"

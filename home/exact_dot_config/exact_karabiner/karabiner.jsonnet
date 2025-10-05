@@ -80,6 +80,20 @@ local simple_caps(key_code, modifiers, to) = {
             },
           ]),
 
+          // ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+          // │Esc│F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│PrScPa │
+          // ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+          // │  `  │F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│ Del │
+          // ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬────┤
+          // │ Tab  │rew│ply│fwd│br+│br-│ y │ ⇐ │ ⇑ │ o │ p │esc│ ] │ \  │
+          // ├──────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴────┤
+          // │ Caps  │ a │ s │ d │ f │ g │ ← │ ↓ │ ↑ │ → │ ; │ ' │ Enter │
+          // ├───────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴───────┤
+          // │ Shift  │ z │ x │ c │ v │ b │ n │ ⇒ │ ⇓ │ . │ / │  Shift   │
+          // ├─────┬──┴┬──┴───┼───┴───┴───┴───┴───┴───┴───┴──┬┴──┬───┬───┤
+          // │Ctrl │Win│ Alt  │           Space              │Alt│Win│Ctl│
+          // └─────┴───┴──────┴──────────────────────────────┴───┴───┴───┘
+
           lib.rule('Misc caps-hotkeys because bad aim on fn keys in the dark', [
             // media
             simple_caps('q', [], { consumer_key_code: 'rewind' }),
@@ -87,52 +101,53 @@ local simple_caps(key_code, modifiers, to) = {
             simple_caps('e', [], { consumer_key_code: 'fastforward' }),
 
             // screen brightness
-            simple_caps('hyphen',     [], { key_code: 'display_brightness_decrement' }),
-            simple_caps('equal_sign', [], { key_code: 'display_brightness_increment' }),
+            simple_caps('r', [], { key_code: 'display_brightness_decrement' }),
+            simple_caps('t', [], { key_code: 'display_brightness_increment' }),
 
             // keyboard brightness
-            simple_caps('hyphen',     ['shift'], { key_code: 'illumination_decrement' }),
-            simple_caps('equal_sign', ['shift'], { key_code: 'illumination_increment' }),
+            simple_caps('r', ['shift'], { key_code: 'illumination_decrement' }),
+            simple_caps('t', ['shift'], { key_code: 'illumination_increment' }),
           ]),
 
           lib.rule('Vim-ish navigation etc. (Mac-specific forwarding)', [
             // ctrl-arrows (ctrl->option)
-            lib.manip('h',                   'any', 'left_arrow',     ['left_option'],   [ifMacApp, ifCaps, ifCtrl]),
-            lib.manip('j',                   'any', 'down_arrow',     ['left_option'],   [ifMacApp, ifCaps, ifCtrl]),
-            lib.manip('k',                   'any', 'up_arrow',       ['left_option'],   [ifMacApp, ifCaps, ifCtrl]),
-            lib.manip('l',                   'any', 'right_arrow',    ['left_option'],   [ifMacApp, ifCaps, ifCtrl]),
+            lib.manip('h', 'any', 'left_arrow',  ['left_option'],  [ifMacApp, ifCaps, ifCtrl]),
+            lib.manip('j', 'any', 'down_arrow',  ['left_option'],  [ifMacApp, ifCaps, ifCtrl]),
+            lib.manip('k', 'any', 'up_arrow',    ['left_option'],  [ifMacApp, ifCaps, ifCtrl]),
+            lib.manip('l', 'any', 'right_arrow', ['left_option'],  [ifMacApp, ifCaps, ifCtrl]),
 
             // home/end
-            lib.manip('u',                   'any', 'up_arrow',       ['left_command'],  [ifMacApp, ifCaps, ifCtrl]),
-            lib.manip('u',                   'any', 'left_arrow',     ['left_command'],  [ifMacApp, ifCaps]),
-            lib.manip('m',                   'any', 'down_arrow',     ['left_command'],  [ifMacApp, ifCaps, ifCtrl]),
-            lib.manip('m',                   'any', 'right_arrow',    ['left_command'],  [ifMacApp, ifCaps]),
+            lib.manip('u', 'any', 'up_arrow',    ['left_command'], [ifMacApp, ifCaps, ifCtrl]),
+            lib.manip('u', 'any', 'left_arrow',  ['left_command'], [ifMacApp, ifCaps]),
+            lib.manip('m', 'any', 'down_arrow',  ['left_command'], [ifMacApp, ifCaps, ifCtrl]),
+            lib.manip('m', 'any', 'right_arrow', ['left_command'], [ifMacApp, ifCaps]),
           ]),
 
           lib.rule('Vim-ish navigation etc.', [
             // arrows
-            lib.manip('h',                   'any', 'left_arrow',     ['left_control'],  [ifCaps, ifCtrl]),
-            lib.manip('h',                   'any', 'left_arrow',     null,              [ifCaps]),
-            lib.manip('j',                   'any', 'down_arrow',     ['left_control'],  [ifCaps, ifCtrl]),
-            lib.manip('j',                   'any', 'down_arrow',     null,              [ifCaps]),
-            lib.manip('k',                   'any', 'up_arrow',       ['left_control'],  [ifCaps, ifCtrl]),
-            lib.manip('k',                   'any', 'up_arrow',       null,              [ifCaps]),
-            lib.manip('l',                   'any', 'right_arrow',    ['left_control'],  [ifCaps, ifCtrl]),
-            lib.manip('l',                   'any', 'right_arrow',    null,              [ifCaps]),
+            lib.manip('h', 'any', 'left_arrow',  ['left_control'], [ifCaps, ifCtrl]),
+            lib.manip('h', 'any', 'left_arrow',  null,             [ifCaps]),
+            lib.manip('j', 'any', 'down_arrow',  ['left_control'], [ifCaps, ifCtrl]),
+            lib.manip('j', 'any', 'down_arrow',  null,             [ifCaps]),
+            lib.manip('k', 'any', 'up_arrow',    ['left_control'], [ifCaps, ifCtrl]),
+            lib.manip('k', 'any', 'up_arrow',    null,             [ifCaps]),
+            lib.manip('l', 'any', 'right_arrow', ['left_control'], [ifCaps, ifCtrl]),
+            lib.manip('l', 'any', 'right_arrow', null,             [ifCaps]),
 
             // pgup/down
-            lib.manip('i',                   'any', 'page_up',        null,              [ifCaps]),
-            lib.manip('comma',               'any', 'page_down',      null,              [ifCaps]),
+            lib.manip('i',     'any', 'page_up',   null, [ifCaps]),
+            lib.manip('comma', 'any', 'page_down', null, [ifCaps]),
 
             // home/end
-            lib.manip('u',                   'any', 'home',           ['left_control'],  [ifCaps, ifCtrl]),
-            lib.manip('u',                   'any', 'home',           null,              [ifCaps]),
-            lib.manip('m',                   'any', 'end',            ['left_control'],  [ifCaps, ifCtrl]),
-            lib.manip('m',                   'any', 'end',            null,              [ifCaps]),
+            lib.manip('u', 'any', 'home', ['left_control'], [ifCaps, ifCtrl]),
+            lib.manip('u', 'any', 'home', null,             [ifCaps]),
+            lib.manip('m', 'any', 'end',  ['left_control'], [ifCaps, ifCtrl]),
+            lib.manip('m', 'any', 'end',  null,             [ifCaps]),
 
             // other
-            lib.manip('delete_or_backspace', 'any', 'delete_forward', null,              [ifCaps]),
-            lib.manip('open_bracket',        'any', 'escape',         null,              [ifCaps]),
+            lib.manip('escape',              'any', 'grave_accent_and_tilde', null, [ifCaps]), // for my keychron
+            lib.manip('delete_or_backspace', 'any', 'delete_forward',         null, [ifCaps]),
+            lib.manip('open_bracket',        'any', 'escape',                 null, [ifCaps]),
           ]),
 
           // must map individual chars because we use ctrl in a complex way in this file
@@ -144,6 +159,10 @@ local simple_caps(key_code, modifiers, to) = {
             ], lib.A_TO_Z + lib.DIGITS + ['hyphen', 'equal_sign']))),
 
           lib.rule('Emulate Windows global hotkeys', [
+            {
+              from:       { key_code: '0', modifiers: { mandatory: ['option'] }},
+              to:         [{ shell_command: "open -a ChatGPT" }],
+            },
             {
               from:       { key_code: '1', modifiers: { mandatory: ['option'] }},
               to:         [{ shell_command: "open -a 'Microsoft Edge'" }],
@@ -162,9 +181,14 @@ local simple_caps(key_code, modifiers, to) = {
               to:         [{ shell_command: "open -n -a wezterm" }],
               conditions: [noWinRemote],
             },
+
             {
-              from: { key_code: 'e', modifiers: { mandatory: ['option'] }},
-              to:   [{ shell_command: "open -a Finder" }],
+              from:       { key_code: 'escape', modifiers: { mandatory: ['left_control', 'shift'] }},
+              to:         [{ shell_command: "open -a 'Activity Monitor'" }],
+            },
+            {
+              from:       { key_code: 'e', modifiers: { mandatory: ['option'] }},
+              to:         [{ shell_command: "open -a Finder" }],
               conditions: [noWinRemote],
             }
           ]),
