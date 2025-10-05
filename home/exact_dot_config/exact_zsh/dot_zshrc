@@ -75,7 +75,13 @@ fi
 
 # completion
 
-autoload -U compinit && compinit
+export _ZO_RESOLVE_SYMLINKS=0
+eval "$(zoxide init zsh --cmd z)"
+
+if [[ -d "$HOME/.nix-profile/share/zsh/site-functions" ]]; then
+  fpath=($HOME/.nix-profile/share/zsh/site-functions $fpath)
+fi
+autoload -Uz compinit && compinit
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'  # case insensitive matching
 zstyle ':completion:*' completer _complete _files       # if a command has no specific completer, just complete paths

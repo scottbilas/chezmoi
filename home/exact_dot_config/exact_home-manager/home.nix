@@ -30,6 +30,7 @@ in {
     pkgs.starship
     pkgs.wget
     pkgs.yq-go
+    pkgs.zoxide
 
     # shells
     pkgs.nushell
