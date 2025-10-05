@@ -29,6 +29,7 @@
         ({ pkgs, lib, ... }: {
           environment.systemPackages = [
             pkgs.home-manager
+            pkgs.pam-reattach
           ];
 
           # nix-darwin by default makes a ca-certificates.crt, but some tools (like git) need it be named ca-bundle.crt
@@ -41,7 +42,11 @@
           networking.localHostName = "scomac";  # bonjour networking
           networking.computerName = "scomac";   # user-friendly name used in finder etc
 
-          security.pam.services.sudo_local.touchIdAuth = true; # ??? unsure this works
+          security.pam.services.sudo_local.touchIdAuth = true;
+          security.pam.services.sudo_local.text = ''
+            auth optional ${pkgs.pam-reattach}/lib/pam/pam_reattach.so
+            auth sufficient pam_tid.so
+          '';
 
           system.primaryUser = "scott.bilas";
           system.configurationRevision = self.rev or self.dirtyRev or null;
