@@ -59,7 +59,7 @@ fi
 
 alias cm=chezmoi
 alias cm-s='cm status'
-alias cm-d='cm diff'
+alias cm-d='cm -R=never diff'
 alias cm-c='cm cd'
 alias dotf='code ~/.local/share/chezmoi/chezmoi.code-workspace'
 
