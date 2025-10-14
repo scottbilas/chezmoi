@@ -1081,6 +1081,164 @@
                   ]
                },
                {
+                  "description": "Ctrl to cmd - / = (vscode)",
+                  "manipulators": [
+                     {
+                        "conditions": [
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "hyphen",
+                           "modifiers": {
+                              "mandatory": [ ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "hyphen",
+                              "modifiers": [
+                                 "left_control"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "hyphen",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "hyphen",
+                              "modifiers": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "equal_sign",
+                           "modifiers": {
+                              "mandatory": [ ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "equal_sign",
+                              "modifiers": [
+                                 "left_control"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "equal_sign",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "equal_sign",
+                              "modifiers": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "g",
+                           "modifiers": {
+                              "mandatory": [ ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "g",
+                              "modifiers": [
+                                 "left_control"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "is_left_control_held",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "g",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "g",
+                              "modifiers": [
+                                 "left_control",
+                                 "shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     }
+                  ]
+               },
+               {
                   "description": "Ctrl to cmd",
                   "manipulators": [
                      {
@@ -7280,6 +7438,1336 @@
                   ]
                },
                {
+                  "description": "Intl keys (right-cmd as altgr)",
+                  "manipulators": [
+                     {
+                        "from": {
+                           "key_code": "a",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "e",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "i",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "o",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "u",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "a",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "e",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "i",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "o",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "u",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "quote",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "dead_acute_active",
+                                 "value": 1
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a"
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e"
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i"
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o"
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u"
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape"
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "grave_accent_and_tilde",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "dead_backtick_active",
+                                 "value": 1
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a"
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e"
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i"
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o"
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u"
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape"
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "l",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "l",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "right_option",
+                                 "right_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "c",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "c",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "c",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "c",
+                              "modifiers": [
+                                 "right_option",
+                                 "right_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "grave_accent_and_tilde",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "dead_tilde_active",
+                                 "value": 1
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_tilde_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "n"
+                        },
+                        "to": [
+                           {
+                              "key_code": "n",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "n"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_tilde_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_tilde_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "n",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "n",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "n",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_tilde_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_tilde_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a"
+                        },
+                        "to": [
+                           {
+                              "key_code": "n",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_tilde_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_tilde_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "n",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_tilde_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_tilde_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o"
+                        },
+                        "to": [
+                           {
+                              "key_code": "n",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_tilde_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_tilde_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "n",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "left_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "dead_tilde_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "dead_tilde_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape"
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "dead_tilde_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     }
+                  ]
+               },
+               {
                   "description": "Emulate Windows global hotkeys",
                   "manipulators": [
                      {
@@ -7287,7 +8775,7 @@
                            "key_code": "0",
                            "modifiers": {
                               "mandatory": [
-                                 "option"
+                                 "left_option"
                               ]
                            }
                         },
@@ -7303,7 +8791,7 @@
                            "key_code": "1",
                            "modifiers": {
                               "mandatory": [
-                                 "option"
+                                 "left_option"
                               ]
                            }
                         },
@@ -7319,7 +8807,7 @@
                            "key_code": "1",
                            "modifiers": {
                               "mandatory": [
-                                 "option",
+                                 "left_option",
                                  "shift"
                               ]
                            }
@@ -7346,7 +8834,7 @@
                            "key_code": "2",
                            "modifiers": {
                               "mandatory": [
-                                 "option"
+                                 "left_option"
                               ]
                            }
                         },
@@ -7372,7 +8860,7 @@
                            "key_code": "2",
                            "modifiers": {
                               "mandatory": [
-                                 "option",
+                                 "left_option",
                                  "shift"
                               ]
                            }
@@ -7416,7 +8904,7 @@
                            "key_code": "e",
                            "modifiers": {
                               "mandatory": [
-                                 "option"
+                                 "left_option"
                               ]
                            }
                         },
@@ -7445,7 +8933,7 @@
                            "key_code": "h",
                            "modifiers": {
                               "mandatory": [
-                                 "command",
+                                 "left_command",
                                  "shift"
                               ]
                            }
@@ -7466,7 +8954,7 @@
                            "key_code": "d",
                            "modifiers": {
                               "mandatory": [
-                                 "command"
+                                 "left_command"
                               ]
                            }
                         },
@@ -7474,7 +8962,42 @@
                            {
                               "key_code": "l",
                               "modifiers": [
-                                 "command"
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     }
+                  ]
+               },
+               {
+                  "description": "Keychron K11",
+                  "manipulators": [
+                     {
+                        "conditions": [
+                           {
+                              "identifiers": [
+                                 {
+                                    "is_keyboard": true,
+                                    "vendor_id": 13364
+                                 }
+                              ],
+                              "type": "device_if"
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape",
+                           "modifiers": {
+                              "mandatory": [
+                                 "left_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "left_command"
                               ]
                            }
                         ],

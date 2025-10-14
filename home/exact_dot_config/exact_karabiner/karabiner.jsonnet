@@ -12,7 +12,7 @@ local noWinRemote = lib.noApp(appWinRemote);
 local appWinOther = [
 
   // IDEs that have win style mappings
-  //'^com\\.microsoft\\.VSCode$',
+  //'^com\\.microsoft\\.VSCode$',  // not ready for this until i redo the vscode keymap
   '^com\\.jetbrains\\.(rider|pycharm)$',
 
   // terminals expect win style
@@ -25,12 +25,16 @@ local appWin = appWinRemote + appWinOther;
 local ifWinApp = lib.ifApp(appWin);
 local ifMacApp = lib.noApp(appWin);
 
-local varCAPS = 'is_caps_lock_held';
-local ifCaps = lib.ifVar(varCAPS);
-local noCaps = lib.ifNotVar(varCAPS);
-local varCTRL = 'is_left_control_held';
-local ifCtrl = lib.ifVar(varCTRL);
-local noCtrl = lib.ifNotVar(varCTRL);
+local varHeldCaps = 'scoob:held_caps_lock';
+local ifCaps = lib.ifVar(varHeldCaps);
+local noCaps = lib.ifNotVar(varHeldCaps);
+local varHeldCtrl = 'scoob:held_left_control';
+local ifCtrl = lib.ifVar(varHeldCtrl);
+local noCtrl = lib.ifNotVar(varHeldCtrl);
+
+local ifKeychron = lib.ifDevice(13364);
+local ifVscode = lib.ifApp(['^com\\.microsoft\\.VSCode$']); 
+local noVscode = lib.noApp(['^com\\.microsoft\\.VSCode$']); 
 
 local simple_caps(key_code, modifiers, to) = {
   from: if std.length(modifiers) > 0
@@ -39,6 +43,10 @@ local simple_caps(key_code, modifiers, to) = {
   to: [ to ],
   conditions: [ ifCaps ],
 };
+
+# general notes:
+#   * left ctrl/cmd is the main remapped set
+#   * right cmd is used for altgr dead key intl stuff
 
 {
   machine_specific: { 'krbn-859b4276-5fb1-4196-98d4-675ea5affd43': { enable_multitouch_extension: true } },
@@ -53,23 +61,23 @@ local simple_caps(key_code, modifiers, to) = {
           lib.rule('Modifier keys - caps to enable vimish, ctrl to cmd except in passthru, and var setting to avoid ordering issues', [
             {
               from:            { key_code: 'caps_lock', modifiers: { optional: ['any'] }},
-              to:              [ lib.set(varCAPS) ],
-              to_after_key_up: [ lib.clear(varCAPS) ],
+              to:              [ lib.set(varHeldCaps) ],
+              to_after_key_up: [ lib.clear(varHeldCaps) ],
             },
 
             # pass through left_control
             {
               from:            { key_code: 'left_control', modifiers: { optional: ['any'] }},
-              to:              [ lib.set(varCTRL), { key_code: 'left_control', lazy: true }],
-              to_after_key_up: [ lib.clear(varCTRL) ],
+              to:              [ lib.set(varHeldCtrl), { key_code: 'left_control', lazy: true }],
+              to_after_key_up: [ lib.clear(varHeldCtrl) ],
               conditions:      [ ifWinApp ],
             },
 
             # eat left_control under other circumstances (but track it) because we'll sometimes convert to option or command
             {
               from:            { key_code: 'left_control', modifiers: { optional: ['any'] }},
-              to:              [ lib.set(varCTRL) ],
-              to_after_key_up: [ lib.clear(varCTRL) ],
+              to:              [ lib.set(varHeldCtrl) ],
+              to_after_key_up: [ lib.clear(varHeldCtrl) ],
             },
 
             # directly support other global ctrl-related hotkeys
@@ -150,34 +158,71 @@ local simple_caps(key_code, modifiers, to) = {
             lib.manip('open_bracket',        'any', 'escape',                 null, [ifCaps]),
           ]),
 
+          // my current vscode keymap has some things that shouldn't be cmd-remapped
+          lib.rule('Ctrl to cmd - / = (vscode)', std.flattenArrays(std.map(function(k) [
+            lib.manip(k, { mandatory: [       ] }, k, ['left_control'         ], [ifCtrl]),
+            lib.manip(k, { mandatory: ['shift'] }, k, ['left_control', 'shift'], [ifCtrl]),
+          ], ['hyphen', 'equal_sign', 'g']))),
+
           // must map individual chars because we use ctrl in a complex way in this file
           lib.rule('Ctrl to cmd', std.flattenArrays(std.map(function(k) [
-              lib.manip(k, { mandatory: [                       ] }, k, [                'left_command'         ], [ifMacApp, ifCtrl]),
-              lib.manip(k, { mandatory: [                'shift'] }, k, [                'left_command', 'shift'], [ifMacApp, ifCtrl]),
-              lib.manip(k, { mandatory: ['left_command'         ] }, k, ['left_control', 'left_command'         ], [ifMacApp, ifCtrl]),
-              lib.manip(k, { mandatory: ['left_command', 'shift'] }, k, ['left_control', 'left_command', 'shift'], [ifMacApp, ifCtrl]),
-            ], lib.A_TO_Z + lib.DIGITS + ['hyphen', 'equal_sign']))),
+            lib.manip(k, { mandatory: [                       ] }, k, [                'left_command'         ], [ifMacApp, ifCtrl]),
+            lib.manip(k, { mandatory: [                'shift'] }, k, [                'left_command', 'shift'], [ifMacApp, ifCtrl]),
+            lib.manip(k, { mandatory: ['left_command'         ] }, k, ['left_control', 'left_command'         ], [ifMacApp, ifCtrl]),
+            lib.manip(k, { mandatory: ['left_command', 'shift'] }, k, ['left_control', 'left_command', 'shift'], [ifMacApp, ifCtrl]),
+          ], lib.A_TO_Z + lib.DIGITS + ['hyphen', 'equal_sign']))),
+
+          lib.rule('Windows-style intl keeb (right-cmd as altgr)', std.flattenArrays([
+
+            lib.altgrAcute(['a', 'e', 'i', 'o', 'u']), // á é í ó ú
+            lib.altgrDead('quote', 'scoob:dead_acute_active', keyMap=[ // dead key: '
+              { from: 'a', to: 'a', macDead: 'e' },  // á/Á
+              { from: 'e', to: 'e', macDead: 'e' },  // é/É
+              { from: 'i', to: 'i', macDead: 'e' },  // í/Í
+              { from: 'o', to: 'o', macDead: 'e' },  // ó/Ó
+              { from: 'u', to: 'u', macDead: 'e' },  // ú/Ú
+            ]),
+
+            lib.altgrDead('grave_accent_and_tilde', 'scoob:dead_backtick_active', [ // dead key: `
+              { from: 'a', to: 'a', macDead: 'grave_accent_and_tilde' },  // à
+              { from: 'e', to: 'e', macDead: 'grave_accent_and_tilde' },  // è
+              { from: 'i', to: 'i', macDead: 'grave_accent_and_tilde' },  // ì
+              { from: 'o', to: 'o', macDead: 'grave_accent_and_tilde' },  // ò
+              { from: 'u', to: 'u', macDead: 'grave_accent_and_tilde' },  // ù
+            ]),
+
+            lib.altgrDirect([
+              { from: 'l', to: 'o' }, // ø/Ø
+              { from: 'c', to: 'c' }, // ç/Ç
+            ]),
+
+            lib.altgrDead('grave_accent_and_tilde', 'scoob:dead_tilde_active', shift=true, keyMap=[ // dead key: ~
+              { from: 'n', to: 'n', macDead: 'n' },   // ñ/Ñ
+              { from: 'a', to: 'a', macDead: 'n' },   // ã/Ã
+              { from: 'o', to: 'o', macDead: 'n' },   // õ/Õ
+            ]),
+          ])),
 
           lib.rule('Emulate Windows global hotkeys', [
             {
-              from:       { key_code: '0', modifiers: { mandatory: ['option'] }},
+              from:       { key_code: '0', modifiers: { mandatory: ['left_option'] }},
               to:         [{ shell_command: "open -a ChatGPT" }],
             },
             {
-              from:       { key_code: '1', modifiers: { mandatory: ['option'] }},
+              from:       { key_code: '1', modifiers: { mandatory: ['left_option'] }},
               to:         [{ shell_command: "open -a 'Microsoft Edge'" }],
             },
             {
-              from:       { key_code: '1', modifiers: { mandatory: ['option', 'shift'] }},
+              from:       { key_code: '1', modifiers: { mandatory: ['left_option', 'shift'] }},
               to:         [{ shell_command: "osascript -e 'tell application \"Microsoft Edge\" to make new window'" }],
             },
             {
-              from:       { key_code: '2', modifiers: { mandatory: ['option'] }},
+              from:       { key_code: '2', modifiers: { mandatory: ['left_option'] }},
               to:         [{ shell_command: "open -a wezterm" }],
               conditions: [noWinRemote], // on windows want win-2 to go to windows term
             },
             {
-              from:       { key_code: '2', modifiers: { mandatory: ['option', 'shift'] }},
+              from:       { key_code: '2', modifiers: { mandatory: ['left_option', 'shift'] }},
               to:         [{ shell_command: "open -n -a wezterm" }],
               conditions: [noWinRemote],
             },
@@ -187,7 +232,7 @@ local simple_caps(key_code, modifiers, to) = {
               to:         [{ shell_command: "open -a 'Activity Monitor'" }],
             },
             {
-              from:       { key_code: 'e', modifiers: { mandatory: ['option'] }},
+              from:       { key_code: 'e', modifiers: { mandatory: ['left_option'] }},
               to:         [{ shell_command: "open -a Finder" }],
               conditions: [noWinRemote],
             }
@@ -196,16 +241,24 @@ local simple_caps(key_code, modifiers, to) = {
           lib.rule('MS Edge Fixes', [
             {
               # prevent shift-cmd-h nuking browse history for the tab wtf ms why',
-              from:       { key_code: 'h', modifiers: { mandatory: ['command', 'shift'] }},
+              from:       { key_code: 'h', modifiers: { mandatory: ['left_command', 'shift'] }},
               to:         [],
               conditions: [{ type: 'frontmost_application_if', bundle_identifiers: ['^com\\.microsoft\\.edgemac$'] }],
             },
             {
               # simply cannot lose the alt-d muscle memory (makes a bookmark on mac, don't want it)
-              from:       { key_code: 'd', modifiers: { mandatory: ['command'] }},
-              to:         [{ key_code: 'l', modifiers: ['command'] }],
+              from:       { key_code: 'd', modifiers: { mandatory: ['left_command'] }},
+              to:         [{ key_code: 'l', modifiers: ['left_command'] }],
               conditions: [{ type: 'frontmost_application_if', bundle_identifiers: ['^com\\.microsoft\\.edgemac$'] }],
             }
+          ]),
+
+          lib.rule('Keychron K11', [
+            {
+              from:       { key_code: 'escape', modifiers: { mandatory: ['left_command'] }},
+              to:         [{ key_code: 'grave_accent_and_tilde', modifiers: ['left_command'] }],
+              conditions: [ ifKeychron ],
+            },
           ]),
         ]
       },
