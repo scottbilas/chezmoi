@@ -40,6 +40,13 @@
             "titleBar.inactiveForeground": "#714575",
             "titleBar.inactiveBackground": "#1a001d"
 		},
-		"powershell.cwd": "🐚 ~/Documents/PowerShell"
+		"powershell.cwd": "🐚 ~/Documents/PowerShell",
+		"AHK++.v2.file": {
+			"compileBaseFile": "",
+			"helpPath": "C:/Program Files/AutoHotkey/v2/AutoHotkey.chm",
+			"interpreterPath": "c:\\Users\\scott\\scoop\\shims\\autohotkey.exe",
+			"maxScanDepth": 2,
+			"templateSnippetName": "AhkTemplateV2"
+		}
 	}
 }
