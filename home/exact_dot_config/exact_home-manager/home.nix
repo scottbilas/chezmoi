@@ -4,7 +4,7 @@
 { pkgs, ... }:
 
 let
-  username = "scott.bilas";
+  username = "scott.bilas"; # builtins.getEnv "USER";
 
 in {
   nixpkgs.config.allowUnfree = true;
@@ -25,12 +25,14 @@ in {
     pkgs.fzf
     pkgs.git
     pkgs.git-lfs
+    pkgs.git-sizer
     pkgs.jsonnet
     pkgs.numbat
     pkgs.ripgrep
     pkgs.rsync
     pkgs.scrcpy
     pkgs.sheldon
+    pkgs.shellcheck
     pkgs.starship
     pkgs.wget
     pkgs.yq-go
@@ -51,12 +53,14 @@ in {
     pkgs.tmux
 
     # python
+    pkgs.pipx
     pkgs.python3
     pkgs.uv
 
     # other environments
     pkgs.go
     pkgs.nodejs_24
+    pkgs.ollama
 
     # gui
     pkgs.keka
