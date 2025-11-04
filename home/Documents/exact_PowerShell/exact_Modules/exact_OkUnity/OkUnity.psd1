@@ -12,7 +12,7 @@ ModuleVersion = '0.1.0'
 GUID = '2793319c-9f14-4358-b00a-da7f9c783977'
 
 # Author of this module
-Author = 'Scott Bilas <scottbilas@gmail.com>'
+Author = 'Scott Bilas'
 
 # Copyright statement for this module
 # Copyright = ''
