@@ -33,18 +33,28 @@
       from: { key_code: key, modifiers: { mandatory: ['right_command', 'shift'] } },
       to: [ 
         { key_code: 'e', modifiers: ['right_option'] },  // acute dead key
-        { key_code: key, modifiers: ['left_shift'] }
+        { key_code: key, modifiers: ['right_shift'] }
       ]
     }, keys),
 
   altgrDirect(charMap)::
-    std.flattenArrays(std.map(function(mapping) [{
-      from: { key_code: mapping.from, modifiers: { mandatory: ['right_command'] } },
-      to: [{ key_code: mapping.to, modifiers: ['right_option'] }]
-    }, {
-      from: { key_code: mapping.from, modifiers: { mandatory: ['right_command', 'shift'] } },
-      to: [{ key_code: mapping.to, modifiers: ['right_option', 'right_shift'] }]
-    }], charMap)),
+    std.flattenArrays(std.map(function(mapping)
+      if std.objectHas(mapping, 'to_modifiers') then [
+        {
+          from: { key_code: mapping.from, modifiers: { mandatory: ['right_command'] } },
+          to: [{ key_code: mapping.to, modifiers: ['right_option'] + mapping.to_modifiers }]
+        }
+      ] else [
+        {
+          from: { key_code: mapping.from, modifiers: { mandatory: ['right_command'] } },
+          to: [{ key_code: mapping.to, modifiers: ['right_option'] }]
+        },
+        {
+          from: { key_code: mapping.from, modifiers: { mandatory: ['right_command', 'shift'] } },
+          to: [{ key_code: mapping.to, modifiers: ['right_option', 'right_shift'] }]
+        }
+      ], charMap)
+    ),
 
   altgrDead(winDead, deadVar, keyMap, shift=false)::
     // 1) detect and activate dead key
@@ -56,19 +66,25 @@
     // 2) valid chars get remapped and clear dead key (support lowercase and uppercase)
     std.flattenArrays(std.map(function(mapping) [{
       from: { key_code: mapping.from },
-      to: [ 
-        { key_code: mapping.macDead, modifiers: ['right_option'] },
-        { key_code: mapping.to },
-        { set_variable: { name: deadVar, value: 0 } }
-      ],
+      to: 
+        (if std.objectHas(mapping, 'macDead') then [
+          { key_code: mapping.macDead, modifiers: ['right_option'] },
+          { key_code: mapping.to }
+        ] else [
+          { key_code: mapping.to, modifiers: ['right_option'] }
+        ]) +
+        [ { set_variable: { name: deadVar, value: 0 } } ],
       conditions: [{ type: 'variable_if', name: deadVar, value: 1 }]
     }, {
       from: { key_code: mapping.from, modifiers: { mandatory: ['shift'] } },
-      to: [ 
-        { key_code: mapping.macDead, modifiers: ['right_option'] },
-        { key_code: mapping.to, modifiers: ['left_shift'] },
-        { set_variable: { name: deadVar, value: 0 } }
-      ],
+      to: 
+        (if std.objectHas(mapping, 'macDead') then [
+          { key_code: mapping.macDead, modifiers: ['right_option'] },
+          { key_code: mapping.to, modifiers: ['right_shift'] }
+        ] else [
+          { key_code: mapping.to, modifiers: ['right_option', 'right_shift'] }
+        ]) +
+        [ { set_variable: { name: deadVar, value: 0 } } ],
       conditions: [{ type: 'variable_if', name: deadVar, value: 1 }]
     }], keyMap)) +
     // 3) escape cancels dead key

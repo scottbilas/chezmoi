@@ -23,7 +23,7 @@
                         "to": [
                            {
                               "set_variable": {
-                                 "name": "is_caps_lock_held",
+                                 "name": "scoob:held_caps_lock",
                                  "value": 1
                               }
                            }
@@ -31,7 +31,7 @@
                         "to_after_key_up": [
                            {
                               "set_variable": {
-                                 "name": "is_caps_lock_held",
+                                 "name": "scoob:held_caps_lock",
                                  "value": 0
                               }
                            }
@@ -66,7 +66,7 @@
                         "to": [
                            {
                               "set_variable": {
-                                 "name": "is_left_control_held",
+                                 "name": "scoob:held_left_control",
                                  "value": 1
                               }
                            },
@@ -78,7 +78,7 @@
                         "to_after_key_up": [
                            {
                               "set_variable": {
-                                 "name": "is_left_control_held",
+                                 "name": "scoob:held_left_control",
                                  "value": 0
                               }
                            }
@@ -97,7 +97,7 @@
                         "to": [
                            {
                               "set_variable": {
-                                 "name": "is_left_control_held",
+                                 "name": "scoob:held_left_control",
                                  "value": 1
                               }
                            }
@@ -105,7 +105,7 @@
                         "to_after_key_up": [
                            {
                               "set_variable": {
-                                 "name": "is_left_control_held",
+                                 "name": "scoob:held_left_control",
                                  "value": 0
                               }
                            }
@@ -115,7 +115,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -146,7 +146,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -164,7 +164,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -182,7 +182,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -200,7 +200,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -218,7 +218,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -236,7 +236,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -259,7 +259,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -301,12 +301,12 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -346,12 +346,12 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -391,12 +391,12 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -436,12 +436,12 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -481,12 +481,12 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -526,7 +526,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -566,12 +566,12 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -611,7 +611,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -642,12 +642,12 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -673,7 +673,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -696,12 +696,12 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -727,7 +727,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -750,12 +750,12 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -781,7 +781,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -804,12 +804,12 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -835,7 +835,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -858,7 +858,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -881,7 +881,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -904,12 +904,12 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -935,7 +935,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -958,12 +958,12 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -989,7 +989,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1012,7 +1012,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1035,7 +1035,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1058,7 +1058,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_caps_lock_held",
+                              "name": "scoob:held_caps_lock",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1086,7 +1086,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1110,7 +1110,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1137,7 +1137,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1161,7 +1161,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1188,7 +1188,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1212,7 +1212,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1258,7 +1258,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1296,7 +1296,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1337,7 +1337,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1378,7 +1378,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1421,7 +1421,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1459,7 +1459,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1500,7 +1500,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1541,7 +1541,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1584,7 +1584,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1622,7 +1622,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1663,7 +1663,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1704,7 +1704,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1747,7 +1747,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1785,7 +1785,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1826,7 +1826,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1867,7 +1867,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1910,7 +1910,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1948,7 +1948,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -1989,7 +1989,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2030,7 +2030,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2073,7 +2073,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2111,7 +2111,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2152,7 +2152,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2193,7 +2193,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2236,7 +2236,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2274,7 +2274,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2315,7 +2315,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2356,7 +2356,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2399,7 +2399,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2437,7 +2437,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2478,7 +2478,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2519,7 +2519,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2562,7 +2562,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2600,7 +2600,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2641,7 +2641,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2682,7 +2682,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2725,7 +2725,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2763,7 +2763,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2804,7 +2804,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2845,7 +2845,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2888,7 +2888,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2926,7 +2926,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -2967,7 +2967,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3008,7 +3008,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3051,7 +3051,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3089,7 +3089,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3130,7 +3130,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3171,7 +3171,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3214,7 +3214,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3252,7 +3252,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3293,7 +3293,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3334,7 +3334,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3377,7 +3377,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3415,7 +3415,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3456,7 +3456,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3497,7 +3497,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3540,7 +3540,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3578,7 +3578,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3619,7 +3619,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3660,7 +3660,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3703,7 +3703,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3741,7 +3741,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3782,7 +3782,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3823,7 +3823,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3866,7 +3866,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3904,7 +3904,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3945,7 +3945,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -3986,7 +3986,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4029,7 +4029,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4067,7 +4067,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4108,7 +4108,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4149,7 +4149,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4192,7 +4192,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4230,7 +4230,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4271,7 +4271,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4312,7 +4312,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4355,7 +4355,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4393,7 +4393,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4434,7 +4434,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4475,7 +4475,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4518,7 +4518,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4556,7 +4556,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4597,7 +4597,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4638,7 +4638,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4681,7 +4681,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4719,7 +4719,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4760,7 +4760,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4801,7 +4801,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4844,7 +4844,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4882,7 +4882,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4923,7 +4923,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -4964,7 +4964,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5007,7 +5007,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5045,7 +5045,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5086,7 +5086,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5127,7 +5127,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5170,7 +5170,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5208,7 +5208,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5249,7 +5249,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5290,7 +5290,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5333,7 +5333,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5371,7 +5371,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5412,7 +5412,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5453,7 +5453,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5496,7 +5496,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5534,7 +5534,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5575,7 +5575,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5616,7 +5616,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5659,7 +5659,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5697,7 +5697,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5738,7 +5738,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5779,7 +5779,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5822,7 +5822,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5860,7 +5860,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5901,7 +5901,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5942,7 +5942,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -5985,7 +5985,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6023,7 +6023,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6064,7 +6064,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6105,7 +6105,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6148,7 +6148,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6186,7 +6186,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6227,7 +6227,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6268,7 +6268,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6311,7 +6311,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6349,7 +6349,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6390,7 +6390,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6431,7 +6431,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6474,7 +6474,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6512,7 +6512,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6553,7 +6553,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6594,7 +6594,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6637,7 +6637,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6675,7 +6675,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6716,7 +6716,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6757,7 +6757,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6800,7 +6800,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6838,7 +6838,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6879,7 +6879,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6920,7 +6920,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -6963,7 +6963,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7001,7 +7001,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7042,7 +7042,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7083,7 +7083,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7126,7 +7126,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7164,7 +7164,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7205,7 +7205,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7246,7 +7246,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7289,7 +7289,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7327,7 +7327,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7368,7 +7368,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7409,7 +7409,7 @@
                               "type": "frontmost_application_unless"
                            },
                            {
-                              "name": "is_left_control_held",
+                              "name": "scoob:held_left_control",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7438,7 +7438,288 @@
                   ]
                },
                {
-                  "description": "Intl keys (right-cmd as altgr)",
+                  "description": "Caps -> function keys",
+                  "manipulators": [
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:held_caps_lock",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "1",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "f1"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:held_caps_lock",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "2",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "f2"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:held_caps_lock",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "3",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "f3"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:held_caps_lock",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "4",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "f4"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:held_caps_lock",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "5",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "f5"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:held_caps_lock",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "6",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "f6"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:held_caps_lock",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "7",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "f7"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:held_caps_lock",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "8",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "f8"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:held_caps_lock",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "9",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "f9"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:held_caps_lock",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "0",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "f10"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:held_caps_lock",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "hyphen",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "f11"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:held_caps_lock",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "equal_sign",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "f12"
+                           }
+                        ],
+                        "type": "basic"
+                     }
+                  ]
+               },
+               {
+                  "description": "Windows-style intl keeb (right-cmd as altgr)",
                   "manipulators": [
                      {
                         "from": {
@@ -7570,7 +7851,7 @@
                            {
                               "key_code": "a",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            }
                         ],
@@ -7596,7 +7877,7 @@
                            {
                               "key_code": "e",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            }
                         ],
@@ -7622,7 +7903,7 @@
                            {
                               "key_code": "i",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            }
                         ],
@@ -7648,7 +7929,7 @@
                            {
                               "key_code": "o",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            }
                         ],
@@ -7674,7 +7955,7 @@
                            {
                               "key_code": "u",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            }
                         ],
@@ -7692,7 +7973,7 @@
                         "to": [
                            {
                               "set_variable": {
-                                 "name": "dead_acute_active",
+                                 "name": "scoob:dead_acute_active",
                                  "value": 1
                               }
                            }
@@ -7702,7 +7983,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_acute_active",
+                              "name": "scoob:dead_acute_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7722,7 +8003,7 @@
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_acute_active",
+                                 "name": "scoob:dead_acute_active",
                                  "value": 0
                               }
                            }
@@ -7732,7 +8013,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_acute_active",
+                              "name": "scoob:dead_acute_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7755,12 +8036,12 @@
                            {
                               "key_code": "a",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_acute_active",
+                                 "name": "scoob:dead_acute_active",
                                  "value": 0
                               }
                            }
@@ -7770,7 +8051,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_acute_active",
+                              "name": "scoob:dead_acute_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7790,7 +8071,7 @@
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_acute_active",
+                                 "name": "scoob:dead_acute_active",
                                  "value": 0
                               }
                            }
@@ -7800,7 +8081,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_acute_active",
+                              "name": "scoob:dead_acute_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7823,12 +8104,12 @@
                            {
                               "key_code": "e",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_acute_active",
+                                 "name": "scoob:dead_acute_active",
                                  "value": 0
                               }
                            }
@@ -7838,7 +8119,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_acute_active",
+                              "name": "scoob:dead_acute_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7858,7 +8139,7 @@
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_acute_active",
+                                 "name": "scoob:dead_acute_active",
                                  "value": 0
                               }
                            }
@@ -7868,7 +8149,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_acute_active",
+                              "name": "scoob:dead_acute_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7891,12 +8172,12 @@
                            {
                               "key_code": "i",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_acute_active",
+                                 "name": "scoob:dead_acute_active",
                                  "value": 0
                               }
                            }
@@ -7906,7 +8187,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_acute_active",
+                              "name": "scoob:dead_acute_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7926,7 +8207,7 @@
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_acute_active",
+                                 "name": "scoob:dead_acute_active",
                                  "value": 0
                               }
                            }
@@ -7936,7 +8217,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_acute_active",
+                              "name": "scoob:dead_acute_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7959,12 +8240,12 @@
                            {
                               "key_code": "o",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_acute_active",
+                                 "name": "scoob:dead_acute_active",
                                  "value": 0
                               }
                            }
@@ -7974,7 +8255,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_acute_active",
+                              "name": "scoob:dead_acute_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -7994,7 +8275,7 @@
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_acute_active",
+                                 "name": "scoob:dead_acute_active",
                                  "value": 0
                               }
                            }
@@ -8004,7 +8285,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_acute_active",
+                              "name": "scoob:dead_acute_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8027,12 +8308,12 @@
                            {
                               "key_code": "u",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_acute_active",
+                                 "name": "scoob:dead_acute_active",
                                  "value": 0
                               }
                            }
@@ -8042,7 +8323,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_acute_active",
+                              "name": "scoob:dead_acute_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8053,7 +8334,7 @@
                         "to": [
                            {
                               "set_variable": {
-                                 "name": "dead_acute_active",
+                                 "name": "scoob:dead_acute_active",
                                  "value": 0
                               }
                            }
@@ -8072,7 +8353,7 @@
                         "to": [
                            {
                               "set_variable": {
-                                 "name": "dead_backtick_active",
+                                 "name": "scoob:dead_backtick_active",
                                  "value": 1
                               }
                            }
@@ -8082,7 +8363,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_backtick_active",
+                              "name": "scoob:dead_backtick_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8102,7 +8383,7 @@
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_backtick_active",
+                                 "name": "scoob:dead_backtick_active",
                                  "value": 0
                               }
                            }
@@ -8112,7 +8393,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_backtick_active",
+                              "name": "scoob:dead_backtick_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8135,12 +8416,12 @@
                            {
                               "key_code": "a",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_backtick_active",
+                                 "name": "scoob:dead_backtick_active",
                                  "value": 0
                               }
                            }
@@ -8150,7 +8431,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_backtick_active",
+                              "name": "scoob:dead_backtick_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8170,7 +8451,7 @@
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_backtick_active",
+                                 "name": "scoob:dead_backtick_active",
                                  "value": 0
                               }
                            }
@@ -8180,7 +8461,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_backtick_active",
+                              "name": "scoob:dead_backtick_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8203,12 +8484,12 @@
                            {
                               "key_code": "e",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_backtick_active",
+                                 "name": "scoob:dead_backtick_active",
                                  "value": 0
                               }
                            }
@@ -8218,7 +8499,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_backtick_active",
+                              "name": "scoob:dead_backtick_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8238,7 +8519,7 @@
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_backtick_active",
+                                 "name": "scoob:dead_backtick_active",
                                  "value": 0
                               }
                            }
@@ -8248,7 +8529,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_backtick_active",
+                              "name": "scoob:dead_backtick_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8271,12 +8552,12 @@
                            {
                               "key_code": "i",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_backtick_active",
+                                 "name": "scoob:dead_backtick_active",
                                  "value": 0
                               }
                            }
@@ -8286,7 +8567,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_backtick_active",
+                              "name": "scoob:dead_backtick_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8306,7 +8587,7 @@
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_backtick_active",
+                                 "name": "scoob:dead_backtick_active",
                                  "value": 0
                               }
                            }
@@ -8316,7 +8597,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_backtick_active",
+                              "name": "scoob:dead_backtick_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8339,12 +8620,12 @@
                            {
                               "key_code": "o",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_backtick_active",
+                                 "name": "scoob:dead_backtick_active",
                                  "value": 0
                               }
                            }
@@ -8354,7 +8635,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_backtick_active",
+                              "name": "scoob:dead_backtick_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8374,7 +8655,7 @@
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_backtick_active",
+                                 "name": "scoob:dead_backtick_active",
                                  "value": 0
                               }
                            }
@@ -8384,7 +8665,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_backtick_active",
+                              "name": "scoob:dead_backtick_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8407,12 +8688,12 @@
                            {
                               "key_code": "u",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_backtick_active",
+                                 "name": "scoob:dead_backtick_active",
                                  "value": 0
                               }
                            }
@@ -8422,7 +8703,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_backtick_active",
+                              "name": "scoob:dead_backtick_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8433,7 +8714,869 @@
                         "to": [
                            {
                               "set_variable": {
-                                 "name": "dead_backtick_active",
+                                 "name": "scoob:dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "6",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 1
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a"
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e"
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i"
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o"
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u"
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape"
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "quote",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 1
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape"
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "comma",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_cedilla_active",
+                                 "value": 1
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_cedilla_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "c"
+                        },
+                        "to": [
+                           {
+                              "key_code": "c",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_cedilla_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_cedilla_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "c",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "c",
+                              "modifiers": [
+                                 "right_option",
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_cedilla_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_cedilla_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape"
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_cedilla_active",
                                  "value": 0
                               }
                            }
@@ -8522,6 +9665,106 @@
                      },
                      {
                         "from": {
+                           "key_code": "z",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "quote",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "z",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "quote",
+                              "modifiers": [
+                                 "right_option",
+                                 "right_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "w",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "w",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "right_option",
+                                 "right_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "5",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "2",
+                              "modifiers": [
+                                 "right_option",
+                                 "right_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
                            "key_code": "grave_accent_and_tilde",
                            "modifiers": {
                               "mandatory": [
@@ -8533,7 +9776,7 @@
                         "to": [
                            {
                               "set_variable": {
-                                 "name": "dead_tilde_active",
+                                 "name": "scoob:dead_tilde_active",
                                  "value": 1
                               }
                            }
@@ -8543,7 +9786,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_tilde_active",
+                              "name": "scoob:dead_tilde_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8563,7 +9806,7 @@
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_tilde_active",
+                                 "name": "scoob:dead_tilde_active",
                                  "value": 0
                               }
                            }
@@ -8573,7 +9816,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_tilde_active",
+                              "name": "scoob:dead_tilde_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8596,12 +9839,12 @@
                            {
                               "key_code": "n",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_tilde_active",
+                                 "name": "scoob:dead_tilde_active",
                                  "value": 0
                               }
                            }
@@ -8611,7 +9854,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_tilde_active",
+                              "name": "scoob:dead_tilde_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8631,7 +9874,7 @@
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_tilde_active",
+                                 "name": "scoob:dead_tilde_active",
                                  "value": 0
                               }
                            }
@@ -8641,7 +9884,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_tilde_active",
+                              "name": "scoob:dead_tilde_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8664,12 +9907,12 @@
                            {
                               "key_code": "a",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_tilde_active",
+                                 "name": "scoob:dead_tilde_active",
                                  "value": 0
                               }
                            }
@@ -8679,7 +9922,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_tilde_active",
+                              "name": "scoob:dead_tilde_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8699,7 +9942,7 @@
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_tilde_active",
+                                 "name": "scoob:dead_tilde_active",
                                  "value": 0
                               }
                            }
@@ -8709,7 +9952,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_tilde_active",
+                              "name": "scoob:dead_tilde_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8732,12 +9975,12 @@
                            {
                               "key_code": "o",
                               "modifiers": [
-                                 "left_shift"
+                                 "right_shift"
                               ]
                            },
                            {
                               "set_variable": {
-                                 "name": "dead_tilde_active",
+                                 "name": "scoob:dead_tilde_active",
                                  "value": 0
                               }
                            }
@@ -8747,7 +9990,7 @@
                      {
                         "conditions": [
                            {
-                              "name": "dead_tilde_active",
+                              "name": "scoob:dead_tilde_active",
                               "type": "variable_if",
                               "value": 1
                            }
@@ -8758,7 +10001,7 @@
                         "to": [
                            {
                               "set_variable": {
-                                 "name": "dead_tilde_active",
+                                 "name": "scoob:dead_tilde_active",
                                  "value": 0
                               }
                            }
@@ -8911,6 +10154,30 @@
                         "to": [
                            {
                               "shell_command": "open -a Finder"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:held_left_control",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "d",
+                           "modifiers": {
+                              "mandatory": [
+                                 "left_shift",
+                                 "left_option"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "shell_command": "zsh -ic toggle-lightdarkmode"
                            }
                         ],
                         "type": "basic"

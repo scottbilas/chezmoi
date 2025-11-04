@@ -172,6 +172,21 @@ local simple_caps(key_code, modifiers, to) = {
             lib.manip(k, { mandatory: ['left_command', 'shift'] }, k, ['left_control', 'left_command', 'shift'], [ifMacApp, ifCtrl]),
           ], lib.A_TO_Z + lib.DIGITS + ['hyphen', 'equal_sign']))),
 
+          lib.rule('Caps -> function keys', [
+            lib.manip('1',          'any', 'f1',  null, [ ifCaps ]),
+            lib.manip('2',          'any', 'f2',  null, [ ifCaps ]),
+            lib.manip('3',          'any', 'f3',  null, [ ifCaps ]),
+            lib.manip('4',          'any', 'f4',  null, [ ifCaps ]),
+            lib.manip('5',          'any', 'f5',  null, [ ifCaps ]),
+            lib.manip('6',          'any', 'f6',  null, [ ifCaps ]),
+            lib.manip('7',          'any', 'f7',  null, [ ifCaps ]),
+            lib.manip('8',          'any', 'f8',  null, [ ifCaps ]),
+            lib.manip('9',          'any', 'f9',  null, [ ifCaps ]),
+            lib.manip('0',          'any', 'f10', null, [ ifCaps ]),
+            lib.manip('hyphen',     'any', 'f11', null, [ ifCaps ]),
+            lib.manip('equal_sign', 'any', 'f12', null, [ ifCaps ]),
+          ]),
+
           lib.rule('Windows-style intl keeb (right-cmd as altgr)', std.flattenArrays([
 
             lib.altgrAcute(['a', 'e', 'i', 'o', 'u']), // á é í ó ú
@@ -191,9 +206,32 @@ local simple_caps(key_code, modifiers, to) = {
               { from: 'u', to: 'u', macDead: 'grave_accent_and_tilde' },  // ù
             ]),
 
-            lib.altgrDirect([
-              { from: 'l', to: 'o' }, // ø/Ø
+            lib.altgrDead('6', 'scoob:dead_circumflex_active', shift=true, keyMap=[ // dead key: ^
+              { from: 'a', to: 'a', macDead: 'i' },  // â/Â
+              { from: 'e', to: 'e', macDead: 'i' },  // ê/Ê
+              { from: 'i', to: 'i', macDead: 'i' },  // î/Î
+              { from: 'o', to: 'o', macDead: 'i' },  // ô/Ô
+              { from: 'u', to: 'u', macDead: 'i' },  // û/Û
+            ]),
+
+            lib.altgrDead('quote', 'scoob:dead_umlaut_active', shift=true, keyMap=[ // dead key: "
+              { from: 'a', to: 'a', macDead: 'u' },  // ä/Ä
+              { from: 'e', to: 'e', macDead: 'u' },  // ë/Ë
+              { from: 'i', to: 'i', macDead: 'u' },  // ï/Ï
+              { from: 'o', to: 'o', macDead: 'u' },  // ö/Ö
+              { from: 'u', to: 'u', macDead: 'u' },  // ü/Ü
+            ]),
+
+            lib.altgrDead('comma', 'scoob:dead_cedilla_active', [ // dead key: ,
               { from: 'c', to: 'c' }, // ç/Ç
+            ]),
+
+            lib.altgrDirect([
+              { from: 'l', to: 'o'     }, // ø/Ø
+              { from: 'c', to: 'c'     }, // ç/Ç
+              { from: 'z', to: 'quote' }, // æ/Æ
+              { from: 'w', to: 'a'     }, // å/Å
+              { from: '5', to: '2', to_modifiers: ['right_shift'] }, // €
             ]),
 
             lib.altgrDead('grave_accent_and_tilde', 'scoob:dead_tilde_active', shift=true, keyMap=[ // dead key: ~
@@ -235,7 +273,14 @@ local simple_caps(key_code, modifiers, to) = {
               from:       { key_code: 'e', modifiers: { mandatory: ['left_option'] }},
               to:         [{ shell_command: "open -a Finder" }],
               conditions: [noWinRemote],
-            }
+            },
+
+            // match my powertoys
+            {
+              from:       { key_code: 'd', modifiers: { mandatory: ['left_shift', 'left_option'] }},
+              to:         [{ shell_command: "zsh -ic toggle-lightdarkmode" }],
+              conditions: [ifCtrl],
+            },
           ]),
 
           lib.rule('MS Edge Fixes', [
