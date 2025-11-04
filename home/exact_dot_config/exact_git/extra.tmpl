@@ -74,3 +74,8 @@
     path = nvim
 
 {{- end }}
+
+{{- if eq .chezmoi.hostname "scomac" }}
+[lfs]
+    storage = /Volumes/ext/cache/git-lfs
+{{- end }}
