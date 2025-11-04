@@ -74,10 +74,15 @@ elif (( $+commands[starship] )); then
   rprompt_up_one_line() {
     RPROMPT=$'%{\e[1A\e[2;3;90m%}'"$(date +%H:%M:%S)"$'%{\e[0m\e[1B%}'
   }
-  precmd_functions+=(rprompt_up_one_line)
+  # avoid problem where cwd on an external drive gets stale if drive remounted because laptop sleep (at least macos)
+  refresh_cwd_if_stale() {
+    builtin test -d . || builtin cd .
+  }
+
+  precmd_functions=(refresh_cwd_if_stale rprompt_up_one_line)
 fi
 
-# other
+### other
 
 # completion
 
@@ -161,7 +166,24 @@ if is-macos; then
 
   set-lightmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false' && _updateChezmoiTheme light; }
   set-darkmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true' && _updateChezmoiTheme dark; }
-#  toggle-lightdark() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to not dark mode' } << needs updateconfig too
+  
+  is-darkmode() {
+    local cur
+    cur=$(osascript -e 'tell application "System Events" to tell appearance preferences to get dark mode' 2>/dev/null) || cur=''
+    [[ "$cur" == "true" ]]
+  }
+
+  is-lightmode() {
+    ! is-darkmode
+  }
+
+  toggle-lightdarkmode() {
+    if is-darkmode; then
+      set-lightmode
+    else
+      set-darkmode
+    fi
+  }
 fi
 
 #### LAST
