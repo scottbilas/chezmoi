@@ -93,7 +93,7 @@
         END=$((COLUMNS - 160)); \
         END=$((END < 0 ? 0 : END)); \
         COLUMNS=$((COLUMNS - END)); \
-        git log --pretty=tformat:\"%Creset%<|($((COLUMNS-46)),trunc)%s%C(bold cyan)  %<(12,trunc)%al  %Cblue%<(14,trunc)%cr  %C(bold black)%<($((END+12)))%h  %C(auto)%d\" $@; \
+        git log --pretty=tformat:\"%Creset%<|($((COLUMNS-46)),trunc)%s%C(bold cyan)  %<(12,trunc)%al  %Cblue%<(14,trunc)%cr  %C(bold black)%<($((END+12)))%h  %C(auto)%d\" \"$@\"; \
     }; f"
 
     # t = "top"
@@ -101,7 +101,7 @@
     t  = t0 --max-count=15
     t2 = t0 --max-count=30
 
-    l0 = lx --first-parent
+    l0 = "!f() { git rev-parse @{u} >/dev/null 2>&1 && git lx --first-parent HEAD @{u} \"$@\" || git lx --first-parent \"$@\"; }; f"
     l  = l0 --max-count=15
     l2 = l0 --max-count=30
 
