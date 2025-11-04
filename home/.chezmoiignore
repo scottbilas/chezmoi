@@ -24,6 +24,7 @@
 
 # FIGURE OUT LATER
 .config/superfile
+.local/bin/parllama
 
 {{ if eq .chezmoi.os "windows" }}
 
@@ -62,7 +63,6 @@ scoop
 .config/karabiner/assets
 .config/karabiner/automatic_backups
 .config/karabiner/backups
-Library/Application Support/xbar/cache
 
 # managed by jb toolbox
 .local/bin/pycharm*
