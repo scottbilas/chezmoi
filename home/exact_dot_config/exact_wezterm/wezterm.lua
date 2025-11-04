@@ -6,7 +6,13 @@ local act = wezterm.action
 
 config.initial_cols = 200
 config.initial_rows = 50
-config.default_prog = { 'zsh', '-l', '-c', 'exec tmux' }
+
+if wezterm.target_triple:find("-windows-") then
+  config.default_prog = { 'wsl', 'tmux' } -- does the same as below..wsl runs zsh which runs tmux
+else
+  config.default_prog = { 'zsh', '-l', '-c', 'exec tmux' }
+end
+
 config.skip_close_confirmation_for_processes_named = {}  -- i always want confirmation!
 
 local DARK_THEME  = 'Monokai (terminal.sexy)'

@@ -14,7 +14,7 @@ $ProgressPreference = 'SilentlyContinue' # distracting and ends up with cursor i
 
 # chezmoi update << do safely
 
-$personalMachine = [bool]::parse((cm execute-template '{{- .profile.personal_machine -}}'))
+$personalMachine = [bool]::parse((chezmoi execute-template '{{- .profile.personal_machine -}}'))
 
 ## Posh
 
@@ -81,7 +81,7 @@ function ieew { # iee with whatif
 if ((iee scoop config show_update_log) -match 'not set') {
     if ($PSCmdlet.ShouldProcess("show_update_log", "scoop config")) {
         ieew scoop config show_update_log $false
-    }        
+    }
 }
 else {
     Write-Output '[scoop] Config ok'
