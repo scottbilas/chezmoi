@@ -37,7 +37,7 @@
     ss = stash show -p
 
     # TODO: consider also a 'git branch -r | %{ git branch -rd $_.trim() } && git tag | %{ git tag -d $_ } && git fetch'
-    gc-full = !git -c core.longPaths=true gc --aggressive --prune=now && git lfs prune --verify-remote
+    gc-full = "!f() { git gc --aggressive --prune=now; git lfs prune --verify-remote; git lfs dedup }; f"
 
     # there has to be a better way to do this.. all i want to do is maintain a narrow fetchspec but get the exact same
     # behavior as if i were to fetch the remote and check out a branch.
@@ -189,6 +189,11 @@
     # this is convenient, but causes way too many problems
     # (like `reset` or `checkout` ruining the .git:gitdir of the submodule when working with worktrees and extensions.worktreeConfig=true)
     #recurse = true
+
+[url "git@gitlab.com:"]
+    insteadOf = "https://gitlab.com/"
+[url "git@github.com:"]
+    insteadOf = "https://github.com/"
 
 
 ;            _                 _
