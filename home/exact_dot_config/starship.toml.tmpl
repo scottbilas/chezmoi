@@ -14,6 +14,18 @@ style = "{{ if eq .profile.theme "light" }}bold blue{{ else }}bold magenta{{ end
 [git_status]
 style = "{{ if eq .profile.theme "light" }}italic black{{ else }}yellow{{ end }}"
 
+stashed     = "⚑"
+staged      = "●"
+modified    = "✚"
+deleted     = "✖"
+renamed     = "➜"
+untracked   = "⁇"
+conflicted  = "‼"
+ahead       = "↑"
+behind      = "↓"
+diverged    = "↕"
+typechanged = "↺"
+
 [cmd_duration]
 style = "{{ if eq .profile.theme "light" }}bold gray{{ else }}bold cyan{{ end }}"
 
