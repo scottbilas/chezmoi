@@ -150,41 +150,50 @@ fi
 (( $+commands[chezmoi] )) && eval "$(chezmoi completion zsh)"
 # fzf. fasd, etc.
 
+set-shell-theme() {
+  local -r theme="$1"
+
+  local cfg="$(chezmoi execute-template '{{ .chezmoi.configFile }}')"
+  yq e -i ".data.profile.theme = \"$theme\"" "$cfg"
+
+  chezmoi apply ~/.config/bat/bat.conf
+  chezmoi apply ~/.config/eza/theme.yml
+  chezmoi apply ~/.config/lazygit/config.yml
+  chezmoi apply ~/.config/micro/settings.json
+  chezmoi apply ~/.config/starship.toml
+  chezmoi apply ~/.gemini/settings.json
+
+  if (( $+commands[fast-theme] )); then
+    if [[ "$theme" == "dark" ]]; then
+      fast-theme free
+    else
+      fast-theme base16
+    fi
+  fi
+}
+
 if is-macos; then
-
-  _updateChezmoiTheme() {
-    local cfg="$(chezmoi execute-template '{{ .chezmoi.configFile }}')"
-    yq e -i ".data.profile.theme = \"$1\"" "$cfg"
-
-    chezmoi apply ~/.config/bat/bat.conf
-    chezmoi apply ~/.config/eza/theme.yml
-    chezmoi apply ~/.config/lazygit/config.yml
-    chezmoi apply ~/.config/micro/settings.json
-    chezmoi apply ~/.config/starship.toml
-    chezmoi apply ~/.gemini/settings.json
-  }
-
-  set-lightmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false' && _updateChezmoiTheme light; }
-  set-darkmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true' && _updateChezmoiTheme dark; }
+  set-lightmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false' && set-shell-theme light; }
+  set-darkmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true' && set-shell-theme dark; }
   
   is-darkmode() {
     local cur
     cur=$(osascript -e 'tell application "System Events" to tell appearance preferences to get dark mode' 2>/dev/null) || cur=''
     [[ "$cur" == "true" ]]
   }
-
-  is-lightmode() {
-    ! is-darkmode
-  }
-
-  toggle-lightdarkmode() {
-    if is-darkmode; then
-      set-lightmode
-    else
-      set-darkmode
-    fi
-  }
 fi
+
+is-lightmode() {
+  ! is-darkmode
+}
+
+toggle-lightdarkmode() {
+  if is-darkmode; then
+    set-lightmode
+  else
+    set-darkmode
+  fi
+}
 
 #### LAST
 
