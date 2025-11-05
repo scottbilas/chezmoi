@@ -315,25 +315,41 @@ local simple_caps(key_code, modifiers, to) = {
           },
           entries),
       
-      devices: [{
+      devices: [
+        // remap apple fn to left ctrl to match windows typical laptop keyboards
+        {
           identifiers: { is_keyboard: true },
           simple_modifications: map([
             { from: 'keyboard_fn', from_type: 'apple_vendor_top_case_key_code', to: 'left_control' },
             { from: 'left_control', to: 'keyboard_fn', to_type: 'apple_vendor_top_case_key_code' },
           ])
         },
+
+        // important: go to karabiner devices view and enable "modify events" for any new device, then
+        // copy its device block in here to work with. generally need to match exactly for it to modify
+        // events for any given device.
+
+        // keychron k11 max on bluetooth
         {
-          identifiers: { is_keyboard: true, product_id: 1957, vendor_id: 1118 },
-          ignore_vendor_events: true,
+          identifiers: { is_keyboard: true, is_pointing_device: true, product_id: 2739, vendor_id: 13364 },
+          ignore: false,
+
+          // can just leave the switch set to win/android
           simple_modifications: map([
             { from: 'left_command',  to: 'left_option' },
             { from: 'left_option',   to: 'left_command' },
             { from: 'right_command', to: 'right_option' },
             { from: 'right_option',  to: 'right_command'},
-          ])
+          ]),
         },
-        { identifiers: { is_keyboard: true, product_id: 50475, vendor_id: 1133 }, ignore: true },
-        { identifiers: { is_pointing_device: true, product_id: 50475, vendor_id: 1133 }, ignore: false, ignore_vendor_events: true, mouse_flip_vertical_wheel: true }
+        // logi mx anywhere 3s
+        {
+          identifiers: { is_pointing_device: true, product_id: 45111, vendor_id: 1133 },
+          ignore: false,
+
+          // sanity
+          mouse_flip_vertical_wheel: true,
+        }
       ],
     }
   ]

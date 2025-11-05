@@ -10305,10 +10305,11 @@
             {
                "identifiers": {
                   "is_keyboard": true,
-                  "product_id": 1957,
-                  "vendor_id": 1118
+                  "is_pointing_device": true,
+                  "product_id": 2739,
+                  "vendor_id": 13364
                },
-               "ignore_vendor_events": true,
+               "ignore": false,
                "simple_modifications": [
                   {
                      "from": {
@@ -10354,20 +10355,11 @@
             },
             {
                "identifiers": {
-                  "is_keyboard": true,
-                  "product_id": 50475,
-                  "vendor_id": 1133
-               },
-               "ignore": true
-            },
-            {
-               "identifiers": {
                   "is_pointing_device": true,
-                  "product_id": 50475,
+                  "product_id": 45111,
                   "vendor_id": 1133
                },
                "ignore": false,
-               "ignore_vendor_events": true,
                "mouse_flip_vertical_wheel": true
             }
          ],
