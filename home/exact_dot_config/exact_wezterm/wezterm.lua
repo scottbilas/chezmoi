@@ -24,6 +24,7 @@ end
 
 config.color_scheme = theme(wezterm.gui.get_appearance())
 config.font = wezterm.font('JetBrainsMono Nerd Font Mono')
+config.adjust_window_size_when_changing_font_size = false
 
 -- hook the picker
 wezterm.on('pick-theme', theme_switcher.theme_switcher)
