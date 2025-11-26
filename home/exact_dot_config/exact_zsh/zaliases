@@ -14,9 +14,9 @@ alias upp="cd ../.."
 if (($+commands[eza])); then
   alias l='eza --all --classify --icons --group-directories-first'
   if [[ -v TERMUX_VERSION ]]; then
-    alias ll='l --long --grid --no-user --git'
+    alias ll='l --long --no-user --git'
   else
-    alias ll='l --long --grid --git'
+    alias ll='l --long --git'
   fi
   alias llg='ll --git'
   export EZA_CONFIG_DIR="$HOME/.config/eza"
