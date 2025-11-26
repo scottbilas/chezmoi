@@ -1,8 +1,12 @@
 {
-  rule(name, items) :: {
+  rule(name, items, conditions=[]) :: {
     description: name,
     manipulators: [
-      { type: "basic" } + item
+      { type: "basic" } + item + (
+        if std.length(conditions) > 0 then
+          { conditions: std.get(item, 'conditions', []) + conditions }
+        else {}
+      )
       for item in items
     ]
   },

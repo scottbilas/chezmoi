@@ -32,7 +32,10 @@ local varHeldCtrl = 'scoob:held_left_control';
 local ifCtrl = lib.ifVar(varHeldCtrl);
 local noCtrl = lib.ifNotVar(varHeldCtrl);
 
-local ifKeychron = lib.ifDevice(13364);
+local ifK11MaxBT = lib.ifDevice(13364, 2739);
+local ifK11MaxG = lib.ifDevice(13364, 53296);
+local ifK11Max = [ifK11MaxBT, ifK11MaxG];
+local ifG602 = lib.ifDevice(1133, 50487);
 local ifVscode = lib.ifApp(['^com\\.microsoft\\.VSCode$']); 
 local noVscode = lib.noApp(['^com\\.microsoft\\.VSCode$']); 
 
@@ -42,6 +45,13 @@ local simple_caps(key_code, modifiers, to) = {
     else { key_code: key_code },
   to: [ to ],
   conditions: [ ifCaps ],
+};
+
+# use this to keep the ctrl-hotkey without converting to cmd- or eating it
+local ctrl_passthrough(key_code) = {
+  from: { key_code: key_code, modifiers: { optional: ['any'] }},
+  to:   [{ key_code: key_code, modifiers: ['left_control'] }],
+  conditions: [ifCtrl],
 };
 
 # general notes:
@@ -80,12 +90,10 @@ local simple_caps(key_code, modifiers, to) = {
               to_after_key_up: [ lib.clear(varHeldCtrl) ],
             },
 
-            # directly support other global ctrl-related hotkeys
-            {
-              from:            {  key_code: 'tab', modifiers: { optional: ['any'] }},
-              to:              [{ key_code: 'tab', modifiers: ['left_control'] }],
-              conditions:      [ifCtrl],
-            },
+            # don't mess with these ctrl-hotkeys
+            ctrl_passthrough('tab'),
+            ctrl_passthrough('spacebar'),
+            ctrl_passthrough('fn')
           ]),
 
           // ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
@@ -242,6 +250,7 @@ local simple_caps(key_code, modifiers, to) = {
           ])),
 
           lib.rule('Emulate Windows global hotkeys', [
+            // task bar stuff
             {
               from:       { key_code: '0', modifiers: { mandatory: ['left_option'] }},
               to:         [{ shell_command: "open -a ChatGPT" }],
@@ -265,18 +274,22 @@ local simple_caps(key_code, modifiers, to) = {
               conditions: [noWinRemote],
             },
 
-            {
+            // misc windows global hotkeys
+
+            { // taskman
               from:       { key_code: 'escape', modifiers: { mandatory: ['left_control', 'shift'] }},
               to:         [{ shell_command: "open -a 'Activity Monitor'" }],
             },
-            {
+            { // "explorer"
               from:       { key_code: 'e', modifiers: { mandatory: ['left_option'] }},
               to:         [{ shell_command: "open -a Finder" }],
               conditions: [noWinRemote],
             },
-
-            // match my powertoys
-            {
+            { // lock
+              from:       { key_code: 'l', modifiers: { mandatory: ['left_option'] } },
+              to:         [{ key_code: 'q', modifiers: ['left_control', 'left_command'] }],
+            },
+            { // dark/light (powertoys)
               from:       { key_code: 'd', modifiers: { mandatory: ['left_shift', 'left_option'] }},
               to:         [{ shell_command: "zsh -ic toggle-lightdarkmode" }],
               conditions: [ifCtrl],
@@ -298,13 +311,30 @@ local simple_caps(key_code, modifiers, to) = {
             }
           ]),
 
-          lib.rule('Keychron K11', [
-            {
-              from:       { key_code: 'escape', modifiers: { mandatory: ['left_command'] }},
-              to:         [{ key_code: 'grave_accent_and_tilde', modifiers: ['left_command'] }],
-              conditions: [ ifKeychron ],
-            },
-          ]),
+          // no tilde key on this keyboard..
+          std.map(function(cond)
+            lib.rule('Keychron K11 Max (G)', [
+              {
+                from:       { key_code: 'escape', modifiers: { mandatory: ['left_command'] }},
+                to:         [{ key_code: 'grave_accent_and_tilde', modifiers: ['left_command'] }],
+              },
+            ], conditions=[cond]),
+            ifK11Max),
+
+          // g602 still has mappings programmed from something else. just have to work with what i've got - their
+          // old LGS software doesn't work on current mac os, and their newer G Hub or Options+ doesn't support this
+          // mouse any more.
+          lib.rule('Logitech G602', [
+            // front pair
+            { /*G7*/ from: { key_code: '6'      }, to: [{ key_code: '7' }] },
+            { /*G4*/ from: { key_code: '7'      }, to: [{ key_code: '4' }] },
+            // mid pair
+            { /*G8*/ from: { key_code: '8'      }, to: [{ key_code: 'tab', modifiers: ['left_option'] }] },                   // expose all apps
+            { /*G5*/ from: { key_code: '9'      }, to: [{ key_code: 'tab', modifiers: ['left_option', 'left_shift'] }] },     // expose current app
+            // back pair
+            { /*G9*/ from: { key_code: '0'      }, to: [{ key_code: 'close_bracket', modifiers: ['left_command'] }] },        // next tab in browser
+            { /*G6*/ from: { key_code: 'escape' }, to: [{ key_code: 'open_bracket', modifiers: ['left_command'] }] },         // previous tab in browser
+          ], conditions=[ ifG602 ]), 
         ]
       },
       
@@ -329,9 +359,9 @@ local simple_caps(key_code, modifiers, to) = {
         // copy its device block in here to work with. generally need to match exactly for it to modify
         // events for any given device.
 
-        // keychron k11 max on bluetooth
+        // keychron k11 max on bluetooth (TODO: do G mode without duplication)
         {
-          identifiers: { is_keyboard: true, is_pointing_device: true, product_id: 2739, vendor_id: 13364 },
+          identifiers: { is_keyboard: true, is_pointing_device: true, vendor_id: 13364, product_id: 2739 },
           ignore: false,
 
           // can just leave the switch set to win/android
@@ -344,7 +374,15 @@ local simple_caps(key_code, modifiers, to) = {
         },
         // logi mx anywhere 3s
         {
-          identifiers: { is_pointing_device: true, product_id: 45111, vendor_id: 1133 },
+          identifiers: { is_pointing_device: true, vendor_id: 1133, product_id: 45111 },
+          ignore: false,
+
+          // sanity
+          mouse_flip_vertical_wheel: true,
+        },
+        // logi g602
+        {
+          identifiers: { is_pointing_device: true, vendor_id: 1133, product_id: 50487 },
           ignore: false,
 
           // sanity

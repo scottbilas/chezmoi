@@ -181,6 +181,11 @@ if is-macos; then
     cur=$(osascript -e 'tell application "System Events" to tell appearance preferences to get dark mode' 2>/dev/null) || cur=''
     [[ "$cur" == "true" ]]
   }
+
+  # these things hang a lot
+  kill-parallels-vms()  {
+    ps aux | grep prl_vm | grep -v grep | awk '{print $2}' | xargs sudo kill -9
+  }
 fi
 
 is-lightmode() {

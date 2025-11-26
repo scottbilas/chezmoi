@@ -137,6 +137,58 @@
                            }
                         ],
                         "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:held_left_control",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "spacebar",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "spacebar",
+                              "modifiers": [
+                                 "left_control"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:held_left_control",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "fn",
+                           "modifiers": {
+                              "optional": [
+                                 "any"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "fn",
+                              "modifiers": [
+                                 "left_control"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
                      }
                   ]
                },
@@ -10159,6 +10211,26 @@
                         "type": "basic"
                      },
                      {
+                        "from": {
+                           "key_code": "l",
+                           "modifiers": {
+                              "mandatory": [
+                                 "left_option"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "q",
+                              "modifiers": [
+                                 "left_control",
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
                         "conditions": [
                            {
                               "name": "scoob:held_left_control",
@@ -10237,8 +10309,82 @@
                      }
                   ]
                },
+               [
+                  {
+                     "description": "Keychron K11 Max (G)",
+                     "manipulators": [
+                        {
+                           "conditions": [
+                              {
+                                 "identifiers": [
+                                    {
+                                       "is_keyboard": true,
+                                       "product_id": 2739,
+                                       "vendor_id": 13364
+                                    }
+                                 ],
+                                 "type": "device_if"
+                              }
+                           ],
+                           "from": {
+                              "key_code": "escape",
+                              "modifiers": {
+                                 "mandatory": [
+                                    "left_command"
+                                 ]
+                              }
+                           },
+                           "to": [
+                              {
+                                 "key_code": "grave_accent_and_tilde",
+                                 "modifiers": [
+                                    "left_command"
+                                 ]
+                              }
+                           ],
+                           "type": "basic"
+                        }
+                     ]
+                  },
+                  {
+                     "description": "Keychron K11 Max (G)",
+                     "manipulators": [
+                        {
+                           "conditions": [
+                              {
+                                 "identifiers": [
+                                    {
+                                       "is_keyboard": true,
+                                       "product_id": 53296,
+                                       "vendor_id": 13364
+                                    }
+                                 ],
+                                 "type": "device_if"
+                              }
+                           ],
+                           "from": {
+                              "key_code": "escape",
+                              "modifiers": {
+                                 "mandatory": [
+                                    "left_command"
+                                 ]
+                              }
+                           },
+                           "to": [
+                              {
+                                 "key_code": "grave_accent_and_tilde",
+                                 "modifiers": [
+                                    "left_command"
+                                 ]
+                              }
+                           ],
+                           "type": "basic"
+                        }
+                     ]
+                  }
+               ],
                {
-                  "description": "Keychron K11",
+                  "description": "Logitech G602",
                   "manipulators": [
                      {
                         "conditions": [
@@ -10246,23 +10392,144 @@
                               "identifiers": [
                                  {
                                     "is_keyboard": true,
-                                    "vendor_id": 13364
+                                    "product_id": 50487,
+                                    "vendor_id": 1133
                                  }
                               ],
                               "type": "device_if"
                            }
                         ],
                         "from": {
-                           "key_code": "escape",
-                           "modifiers": {
-                              "mandatory": [
-                                 "left_command"
-                              ]
-                           }
+                           "key_code": "6"
                         },
                         "to": [
                            {
-                              "key_code": "grave_accent_and_tilde",
+                              "key_code": "7"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "identifiers": [
+                                 {
+                                    "is_keyboard": true,
+                                    "product_id": 50487,
+                                    "vendor_id": 1133
+                                 }
+                              ],
+                              "type": "device_if"
+                           }
+                        ],
+                        "from": {
+                           "key_code": "7"
+                        },
+                        "to": [
+                           {
+                              "key_code": "4"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "identifiers": [
+                                 {
+                                    "is_keyboard": true,
+                                    "product_id": 50487,
+                                    "vendor_id": 1133
+                                 }
+                              ],
+                              "type": "device_if"
+                           }
+                        ],
+                        "from": {
+                           "key_code": "8"
+                        },
+                        "to": [
+                           {
+                              "key_code": "tab",
+                              "modifiers": [
+                                 "left_option"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "identifiers": [
+                                 {
+                                    "is_keyboard": true,
+                                    "product_id": 50487,
+                                    "vendor_id": 1133
+                                 }
+                              ],
+                              "type": "device_if"
+                           }
+                        ],
+                        "from": {
+                           "key_code": "9"
+                        },
+                        "to": [
+                           {
+                              "key_code": "tab",
+                              "modifiers": [
+                                 "left_option",
+                                 "left_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "identifiers": [
+                                 {
+                                    "is_keyboard": true,
+                                    "product_id": 50487,
+                                    "vendor_id": 1133
+                                 }
+                              ],
+                              "type": "device_if"
+                           }
+                        ],
+                        "from": {
+                           "key_code": "0"
+                        },
+                        "to": [
+                           {
+                              "key_code": "close_bracket",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "identifiers": [
+                                 {
+                                    "is_keyboard": true,
+                                    "product_id": 50487,
+                                    "vendor_id": 1133
+                                 }
+                              ],
+                              "type": "device_if"
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape"
+                        },
+                        "to": [
+                           {
+                              "key_code": "open_bracket",
                               "modifiers": [
                                  "left_command"
                               ]
@@ -10357,6 +10624,15 @@
                "identifiers": {
                   "is_pointing_device": true,
                   "product_id": 45111,
+                  "vendor_id": 1133
+               },
+               "ignore": false,
+               "mouse_flip_vertical_wheel": true
+            },
+            {
+               "identifiers": {
+                  "is_pointing_device": true,
+                  "product_id": 50487,
                   "vendor_id": 1133
                },
                "ignore": false,

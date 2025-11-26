@@ -60,12 +60,14 @@ in {
     # other environments
     pkgs.go
     pkgs.nodejs_24
+    (pkgs.pnpm.override { nodejs = pkgs.nodejs_24; }) # nix default is node 22
     pkgs.ollama
 
     # gui
     pkgs.keka
     pkgs.obsidian
     pkgs.vscode
+    pkgs.yt-dlp
     pkgs.wezterm
   ];
 }

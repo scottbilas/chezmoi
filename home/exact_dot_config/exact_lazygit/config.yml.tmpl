@@ -1,8 +1,8 @@
 git:
-  paging:
-    colorArg: always
-    # i can't get delta's dark-light detection to work inside lazygit
-    pager: delta --{{.profile.theme}} --paging=never
+  pagers:
+    - colorArg: always
+      # i can't get delta's dark-light detection to work inside lazygit
+      pager: delta --{{.profile.theme}} --paging=never
   autoFetch: false
   fetchAll: false
 
