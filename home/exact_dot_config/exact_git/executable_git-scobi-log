@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1083,SC1091,SC2086,SC3011,SC3024
+
+set -e
+
+# shellcheck disable=SC2034
+SUBDIRECTORY_OK=Yes
+. git-sh-setup
+
+[ "$DEBUG" ] && set -x
+
+readonly FG_GREEN=$'\e[32m'
+readonly STYLE_UNDERLINE=$'\e[4m'
+readonly STYLE_ITALIC=$'\e[3m'
+readonly STYLE_DIM=$'\e[2m'
+readonly RESET_ALL=$'\e[0m'
+
+header() {
+    echo -e "${FG_GREEN}${STYLE_UNDERLINE}-- $* --${RESET_ALL}" >&2
+}
+
+quiet_warn() {
+    echo -e "${STYLE_ITALIC}${STYLE_DIM}[$*]${RESET_ALL}" >&2
+}
+
+main() {
+    # TODO: move git lx into here
+
+    local REV="" HAS_MAX_COUNT=0
+
+    for arg in "$@"; do
+        case "$arg" in
+            --max-count=*)
+                HAS_MAX_COUNT=1
+                ;;
+            -* )
+                ;;
+            *)
+                if [[ -n "$REV" ]]; then
+                    echo "ERROR: multiple non-option arguments detected" >&2
+                    exit 1
+                fi
+                REV="$arg"
+                ;;
+        esac
+    done
+
+    REV="${REV:-HEAD}"
+
+    UP_ONLY="$(git rev-list --cherry-pick --first-parent ${REV}...@{u} 2>/dev/null || true)"
+
+    local MAX_UPSTREAM=10
+
+    if [ -n "$UP_ONLY" ]; then
+        header "UPSTREAM"
+        if (( HAS_MAX_COUNT )); then
+            COUNT=$(echo "$UP_ONLY" | wc -l)
+            LAST=$(echo "$UP_ONLY" | tail -n $MAX_UPSTREAM)
+            (( "$COUNT" > 5 )) &&
+                echo "... $((COUNT - MAX_UPSTREAM)) upstream commits ($(git rev-parse --abbrev-ref @{u})) ..."
+            # shellcheck disable=SC2046,2116
+            git lx --no-walk $(echo "$LAST")
+        fi
+        git lx --first-parent "$UPSTREAM"..HEAD "${ARGS[@]}"
+
+        header "LOCAL"
+    elif git rev-parse --abbrev-ref @{u} >/dev/null 2>&1; then
+        quiet_warn "No upstream commits found"
+    else
+        quiet_warn "No upstream branch"
+    fi
+
+    git lx --first-parent "$@"
+    exit
+}
+
+main "$@"
