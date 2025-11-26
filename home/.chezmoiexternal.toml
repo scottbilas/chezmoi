@@ -69,11 +69,9 @@
 # MAC
 
 [".hammerspoon/Spoons/SkyRocket.spoon"]
-    type = "archive"
-    url = "https://github.com/franzbu/SkyRocket.spoon/archive/refs/heads/master.zip"
-    refreshPeriod = "168h"
-    exact = true
-    stripComponents = 1
+    type = "git-repo"
+    branch = "dev"
+    url = "https://github.com/scottbilas/SkyRocket.spoon"
 
 [".config/karabiner/jsonschema"]
     type = "archive"
