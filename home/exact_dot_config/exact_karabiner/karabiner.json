@@ -10309,80 +10309,78 @@
                      }
                   ]
                },
-               [
-                  {
-                     "description": "Keychron K11 Max (G)",
-                     "manipulators": [
-                        {
-                           "conditions": [
-                              {
-                                 "identifiers": [
-                                    {
-                                       "is_keyboard": true,
-                                       "product_id": 2739,
-                                       "vendor_id": 13364
-                                    }
-                                 ],
-                                 "type": "device_if"
-                              }
-                           ],
-                           "from": {
-                              "key_code": "escape",
-                              "modifiers": {
-                                 "mandatory": [
-                                    "left_command"
-                                 ]
-                              }
-                           },
-                           "to": [
-                              {
-                                 "key_code": "grave_accent_and_tilde",
-                                 "modifiers": [
-                                    "left_command"
-                                 ]
-                              }
-                           ],
-                           "type": "basic"
-                        }
-                     ]
-                  },
-                  {
-                     "description": "Keychron K11 Max (G)",
-                     "manipulators": [
-                        {
-                           "conditions": [
-                              {
-                                 "identifiers": [
-                                    {
-                                       "is_keyboard": true,
-                                       "product_id": 53296,
-                                       "vendor_id": 13364
-                                    }
-                                 ],
-                                 "type": "device_if"
-                              }
-                           ],
-                           "from": {
-                              "key_code": "escape",
-                              "modifiers": {
-                                 "mandatory": [
-                                    "left_command"
-                                 ]
-                              }
-                           },
-                           "to": [
-                              {
-                                 "key_code": "grave_accent_and_tilde",
-                                 "modifiers": [
-                                    "left_command"
-                                 ]
-                              }
-                           ],
-                           "type": "basic"
-                        }
-                     ]
-                  }
-               ],
+               {
+                  "description": "Keychron K11 Max",
+                  "manipulators": [
+                     {
+                        "conditions": [
+                           {
+                              "identifiers": [
+                                 {
+                                    "is_keyboard": true,
+                                    "product_id": 2739,
+                                    "vendor_id": 13364
+                                 }
+                              ],
+                              "type": "device_if"
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape",
+                           "modifiers": {
+                              "mandatory": [
+                                 "left_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     }
+                  ]
+               },
+               {
+                  "description": "Keychron K11 Max",
+                  "manipulators": [
+                     {
+                        "conditions": [
+                           {
+                              "identifiers": [
+                                 {
+                                    "is_keyboard": true,
+                                    "product_id": 53296,
+                                    "vendor_id": 13364
+                                 }
+                              ],
+                              "type": "device_if"
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape",
+                           "modifiers": {
+                              "mandatory": [
+                                 "left_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     }
+                  ]
+               },
                {
                   "description": "Logitech G602",
                   "manipulators": [
@@ -10574,6 +10572,56 @@
                   "is_keyboard": true,
                   "is_pointing_device": true,
                   "product_id": 2739,
+                  "vendor_id": 13364
+               },
+               "ignore": false,
+               "simple_modifications": [
+                  {
+                     "from": {
+                        "key_code": "left_command"
+                     },
+                     "to": [
+                        {
+                           "key_code": "left_option"
+                        }
+                     ]
+                  },
+                  {
+                     "from": {
+                        "key_code": "left_option"
+                     },
+                     "to": [
+                        {
+                           "key_code": "left_command"
+                        }
+                     ]
+                  },
+                  {
+                     "from": {
+                        "key_code": "right_command"
+                     },
+                     "to": [
+                        {
+                           "key_code": "right_option"
+                        }
+                     ]
+                  },
+                  {
+                     "from": {
+                        "key_code": "right_option"
+                     },
+                     "to": [
+                        {
+                           "key_code": "right_command"
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "identifiers": {
+                  "is_keyboard": true,
+                  "product_id": 53296,
                   "vendor_id": 13364
                },
                "ignore": false,

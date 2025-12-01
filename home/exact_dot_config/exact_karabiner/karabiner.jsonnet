@@ -32,9 +32,13 @@ local varHeldCtrl = 'scoob:held_left_control';
 local ifCtrl = lib.ifVar(varHeldCtrl);
 local noCtrl = lib.ifNotVar(varHeldCtrl);
 
-local ifK11MaxBT = lib.ifDevice(13364, 2739);
-local ifK11MaxG = lib.ifDevice(13364, 53296);
+local keychronVendorId = 13364;
+local k11MaxBTProductId = 2739;
+local k11MaxGProductId = 53296;
+local ifK11MaxBT = lib.ifDevice(keychronVendorId, k11MaxBTProductId);
+local ifK11MaxG = lib.ifDevice(keychronVendorId, k11MaxGProductId);
 local ifK11Max = [ifK11MaxBT, ifK11MaxG];
+
 local ifG602 = lib.ifDevice(1133, 50487);
 local ifVscode = lib.ifApp(['^com\\.microsoft\\.VSCode$']); 
 local noVscode = lib.noApp(['^com\\.microsoft\\.VSCode$']); 
@@ -312,14 +316,15 @@ local ctrl_passthrough(key_code) = {
           ]),
 
           // no tilde key on this keyboard..
-          std.map(function(cond)
-            lib.rule('Keychron K11 Max (G)', [
+          ]+std.map(function(cond)
+            lib.rule('Keychron K11 Max', [
               {
                 from:       { key_code: 'escape', modifiers: { mandatory: ['left_command'] }},
                 to:         [{ key_code: 'grave_accent_and_tilde', modifiers: ['left_command'] }],
               },
             ], conditions=[cond]),
-            ifK11Max),
+            ifK11Max
+          )+[
 
           // g602 still has mappings programmed from something else. just have to work with what i've got - their
           // old LGS software doesn't work on current mac os, and their newer G Hub or Options+ doesn't support this
@@ -337,14 +342,14 @@ local ctrl_passthrough(key_code) = {
           ], conditions=[ ifG602 ]), 
         ]
       },
-      
+
       local map(entries) = std.map(
           function(obj) {
             from: { [std.get(obj, 'from_type', 'key_code')]: obj.from },
             to:   [{ [std.get(obj, 'to_type', 'key_code')]: obj.to }],
           },
           entries),
-      
+
       devices: [
         // remap apple fn to left ctrl to match windows typical laptop keyboards
         {
@@ -359,19 +364,29 @@ local ctrl_passthrough(key_code) = {
         // copy its device block in here to work with. generally need to match exactly for it to modify
         // events for any given device.
 
-        // keychron k11 max on bluetooth (TODO: do G mode without duplication)
-        {
-          identifiers: { is_keyboard: true, is_pointing_device: true, vendor_id: 13364, product_id: 2739 },
-          ignore: false,
+        // keychron k11 max
+        ]+std.map(function(identifiers)
+          {
+            identifiers: identifiers,
+            ignore: false,
 
-          // can just leave the switch set to win/android
-          simple_modifications: map([
-            { from: 'left_command',  to: 'left_option' },
-            { from: 'left_option',   to: 'left_command' },
-            { from: 'right_command', to: 'right_option' },
-            { from: 'right_option',  to: 'right_command'},
-          ]),
-        },
+            // can just leave the switch set to win/android
+            simple_modifications: map([
+              { from: 'left_command',  to: 'left_option' },
+              { from: 'left_option',   to: 'left_command' },
+              { from: 'right_command', to: 'right_option' },
+              { from: 'right_option',  to: 'right_command'},
+            ]),
+          },
+          [
+            // this is the specific way each mode of the keyboard needs to be selected or it won't work. i want to keep
+            // the mac/win switch set to win mode always (so as not to care what kind of laptop is connected to the k11),
+            // but also be able to go between BT and G modes based on desk setup.
+            { is_keyboard: true, vendor_id: keychronVendorId, product_id: k11MaxBTProductId, is_pointing_device: true },
+            { is_keyboard: true, vendor_id: keychronVendorId, product_id: k11MaxGProductId }
+          ]
+        )+[
+
         // logi mx anywhere 3s
         {
           identifiers: { is_pointing_device: true, vendor_id: 1133, product_id: 45111 },

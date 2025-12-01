@@ -26,6 +26,7 @@ in {
     pkgs.git
     pkgs.git-lfs
     pkgs.git-sizer
+    pkgs.hyperfine
     pkgs.jsonnet
     pkgs.numbat
     pkgs.ripgrep
