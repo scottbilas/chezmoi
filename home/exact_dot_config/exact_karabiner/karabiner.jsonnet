@@ -234,6 +234,15 @@ local ctrl_passthrough(key_code) = {
               { from: 'u', to: 'u', macDead: 'u' },  // ü/Ü
             ]),
 
+            lib.altgrDead('semicolon', 'scoob:dead_colon_umlaut_active', shift=true, keyMap=[ // dead key: :
+              { from: 'a', to: 'a', macDead: 'u' },  // ä/Ä
+              { from: 'e', to: 'e', macDead: 'u' },  // ë/Ë
+              { from: 'i', to: 'i', macDead: 'u' },  // ï/Ï
+              { from: 'o', to: 'o', macDead: 'u' },  // ö/Ö
+              { from: 'u', to: 'u', macDead: 'u' },  // ü/Ü
+              { from: 'y', to: 'y', macDead: 'u' },  // ÿ/Ÿ
+            ]),
+
             lib.altgrDead('comma', 'scoob:dead_cedilla_active', [ // dead key: ,
               { from: 'c', to: 'c' }, // ç/Ç
             ]),
@@ -331,8 +340,8 @@ local ctrl_passthrough(key_code) = {
           // mouse any more.
           lib.rule('Logitech G602', [
             // front pair
-            { /*G7*/ from: { key_code: '6'      }, to: [{ key_code: '7' }] },
-            { /*G4*/ from: { key_code: '7'      }, to: [{ key_code: '4' }] },
+            { /*G7*/ from: { key_code: '6'      }, to: [{ key_code: 'right_arrow', modifiers: ['left_command', 'left_option', 'left_shift'] }] },  // virtual desktop to the right
+            { /*G4*/ from: { key_code: '7'      }, to: [{ key_code: 'left_arrow', modifiers: ['left_command', 'left_option', 'left_shift'] }] },   // virtual desktop to the left
             // mid pair
             { /*G8*/ from: { key_code: '8'      }, to: [{ key_code: 'tab', modifiers: ['left_option'] }] },                   // expose all apps
             { /*G5*/ from: { key_code: '9'      }, to: [{ key_code: 'tab', modifiers: ['left_option', 'left_shift'] }] },     // expose current app
@@ -349,7 +358,7 @@ local ctrl_passthrough(key_code) = {
             to:   [{ [std.get(obj, 'to_type', 'key_code')]: obj.to }],
           },
           entries),
-
+      
       devices: [
         // remap apple fn to left ctrl to match windows typical laptop keyboards
         {
