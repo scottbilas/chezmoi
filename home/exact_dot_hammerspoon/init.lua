@@ -10,6 +10,8 @@ sky = SkyRocket:new({
     { bundleID = 'us.zoom.xos', title = 'Annotation - Zoom', action = 'passthrough' },
   },
 
+  moveColor = { red = 0.313, green = 0.223, blue = 0.337, alpha = 0.3 },
+
   moveModifiers = {'cmd', 'alt'},
   moveMouseButton = 'left',
   resizeModifiers = {'cmd', 'shift'},
