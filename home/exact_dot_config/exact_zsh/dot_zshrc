@@ -1,5 +1,9 @@
 ## COMMON ENV
 
+# prevent ctrl-d from exiting shell and also autocompleting the world
+setopt IGNORE_EOF
+bindkey "^D" undefined-key
+
 if (( $+commands[micro] )); then
   export EDITOR=micro
   export VISUAL=micro
@@ -258,6 +262,23 @@ bindkey '^[[6~' do-nothing
 # (read all the answers...)
 # would be nice to get it like posh
 # is this in any zsh module currently?
+
+## darwin system upgrade
+
+if is-macos; then
+  nix-darwin-upgrade() {
+    echo "🔄 Updating nix-darwin flake inputs..."
+    nix flake update --flake ~/.config/nix-darwin || return 1
+  
+    echo "🔨 Rebuilding darwin system configuration..."
+    sudo darwin-rebuild switch --flake ~/.config/nix-darwin || return 1
+  
+    echo "📦 Upgrading Homebrew packages..."
+    brew upgrade || return 1
+  
+    echo "✅ All systems upgraded successfully!"
+  }
+fi
 
 ## aliases
 
