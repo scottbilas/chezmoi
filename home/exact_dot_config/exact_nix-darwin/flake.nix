@@ -15,11 +15,17 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # homebrew
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    homebrew-core = { url = "github:homebrew/homebrew-core"; flake = false; };
+    homebrew-cask = { url = "github:homebrew/homebrew-cask"; flake = false; };    
   };
 
-  outputs = inputs@{ self, nixpkgs, nix-darwin, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, nix-darwin, home-manager, nix-homebrew, ... }:
   let
     system = "aarch64-darwin";
+    username = "scott.bilas"; # builtins.getEnv "USER"; (no work)
   in {
     darwinConfigurations."scomac" = nix-darwin.lib.darwinSystem {
       specialArgs = { inherit inputs; };
@@ -37,6 +43,9 @@
             source = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
           };
 
+          # add zsh to /etc/shells (must manually do `chsh $(which zsh)` after rebuild, not supported by nix-darwin currently)
+          environment.shells = [ pkgs.zsh ];
+
           # name of this mac
           networking.hostName = "scomac";       # used for dns and the shell prompt
           networking.localHostName = "scomac";  # bonjour networking
@@ -48,7 +57,7 @@
             auth sufficient pam_tid.so
           '';
 
-          system.primaryUser = "scott.bilas";
+          system.primaryUser = username;
           system.configurationRevision = self.rev or self.dirtyRev or null;
           system.stateVersion = 6;
           nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -70,6 +79,34 @@
           '';
         })
 
+        nix-homebrew.darwinModules.nix-homebrew {
+          nix-homebrew = {
+            enable = true;
+            user = username;
+            autoMigrate = true;
+
+            taps = with inputs; {
+              "homebrew/homebrew-core" = homebrew-core;
+              "homebrew/homebrew-cask" = homebrew-cask;
+            };
+            mutableTaps = false; # taps can no longer be added imperatively with `brew tap`.
+          };
+        }
+        # align homebrew taps config with nix-homebrew
+        ({config, ...}: {
+          homebrew.taps = builtins.attrNames config.nix-homebrew.taps;
+        })
+
+        # used to generate a Brewfile
+        {
+          homebrew.enable = true;
+          homebrew.brews = [];
+          homebrew.casks = [];
+          
+          # automatically remove packages and prefs and supporting files not listed in the configuration
+          homebrew.onActivation.cleanup = "zap";
+        }
+
         home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
@@ -78,21 +115,3 @@
     };
   };
 }
-
-# failed experiments
-#
-# keeping these here for now so i have some record of it (until i get this into gh)
-#
-# https://github.com/nix-darwin/nix-darwin/issues/1041#issuecomment-2893976650
-# UPDATE: fuck it, can't get this working. background services issue still. abort.
-# services.karabiner-elements = {
-#   enable = true;
-#   package = pkgs.karabiner-elements.overrideAttrs (old: {
-#     version = "14.13.0";
-#     src = pkgs.fetchurl {
-#       inherit (old.src) url;
-#       hash = "sha256-gmJwoht/Tfm5qMecmq1N6PSAIfWOqsvuHU8VDJY8bLw=";
-#     };
-#     dontFixup = true;
-#   });
-# };

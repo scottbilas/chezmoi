@@ -26,6 +26,8 @@ in {
     pkgs.git
     pkgs.git-lfs
     pkgs.git-sizer
+    pkgs.glab
+    pkgs.gh  # gh auth login
     pkgs.hyperfine
     pkgs.jsonnet
     pkgs.numbat
@@ -59,6 +61,7 @@ in {
     pkgs.uv
 
     # other environments
+    pkgs.cmake
     pkgs.go
     pkgs.nodejs_24
     (pkgs.pnpm.override { nodejs = pkgs.nodejs_24; }) # nix default is node 22

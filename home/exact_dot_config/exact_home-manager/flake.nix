@@ -1,3 +1,4 @@
+# home-manager switch --flake ~/.config/home-manager
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -10,7 +11,6 @@
   outputs = { self, nixpkgs, home-manager }: {
     homeManagerModules.default = import ./home.nix;
 
-    # home-manager switch --flake ~/.config/nix-home
     homeConfigurations."scott.bilas" = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.aarch64-darwin;
       modules = [ ./home.nix ];
