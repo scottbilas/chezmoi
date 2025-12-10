@@ -47,21 +47,22 @@ main() {
 
     REV="${REV:-HEAD}"
 
-    UP_ONLY="$(git rev-list --cherry-pick --first-parent ${REV}...@{u} 2>/dev/null || true)"
+    # get any commits in upstream that we don't have locally
+    UP_ONLY="$(git rev-list --cherry-pick --right-only --first-parent ${REV}...@{u} 2>/dev/null || true)"
 
     local MAX_UPSTREAM=10
 
     if [ -n "$UP_ONLY" ]; then
         header "UPSTREAM"
-        if (( HAS_MAX_COUNT )); then
-            COUNT=$(echo "$UP_ONLY" | wc -l)
+        COUNT=$(echo "$UP_ONLY" | wc -l)
+        if (( COUNT > MAX_UPSTREAM )) && (( HAS_MAX_COUNT == 0 )); then
             LAST=$(echo "$UP_ONLY" | tail -n $MAX_UPSTREAM)
-            (( "$COUNT" > 5 )) &&
-                echo "... $((COUNT - MAX_UPSTREAM)) upstream commits ($(git rev-parse --abbrev-ref @{u})) ..."
+            echo "... $((COUNT - MAX_UPSTREAM)) more upstream commits ($(git rev-parse --abbrev-ref @{u})) ..."
             # shellcheck disable=SC2046,2116
             git lx --no-walk $(echo "$LAST")
+        else
+            git lx --first-parent @{u}..${REV} "$@"
         fi
-        git lx --first-parent "$UPSTREAM"..HEAD "${ARGS[@]}"
 
         header "LOCAL"
     elif git rev-parse --abbrev-ref @{u} >/dev/null 2>&1; then
