@@ -1,15 +1,24 @@
+    "chat.agent.maxRequests": 100,
 {
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": true
+        },
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"
     },
     "[markdown]": {
         "editor.tabSize": 4
-    },
-    "[yaml]": {
-        "editor.tabSize": 2
-    },
-    "[powershell]": {
-        "editor.codeLens": false
     },
     "[plaintext]": {
         "editor.quickSuggestions": {
@@ -18,15 +27,48 @@
             "other": "off"
         } // often annoying in a txt file - picks random stuff to be helpful, is too aggressive
     },
+    "[powershell]": {
+        "editor.codeLens": false
+    },
+    "[yaml]": {
+        "editor.tabSize": 2
+    },
+    "breadcrumbs.enabled": false,
+    "chat.agent.maxRequests": 100,
+    "chat.tools.terminal.autoApprove": {
+        "/dev/null": true,
+        "man": true,
+        "sed": true,
+        "true": true,
+        "while": true,
+        "do": true,
+        "done": true,
+        "shellcheck": true,
+        "pnpm": true,
+        "npx": true,
+        "nix": true
+        "git for-each-ref": true,
+        "git help": true,
+        "git rev-list": true,
+        "dotnet new": true,
+        "dotnet sln": true,
+        "dotnet add": true,
+        "dotnet restore": true,
+        "dotnet build": true,
+        "dotnet test": true,
+        "dotnet publish": true,
+    },
     "cmake.configureOnOpen": false,
+    "cmake.showOptionsMovedNotification": false,
     "cSpell.allowCompoundWords": true,
     "cSpell.ignorePaths": [
         "**/package-lock.json",
         "**/node_modules/**",
         "**/vscode-extension/**",
+        "**/vscode/**/User/settings.json",
         "**/.git/objects/**",
         ".vscode",
-        "**/vscode/**/User/settings.json",
+        "*.nix",
     ],
     "cSpell.ignoreRegExpList": [
         "[./]\\w+",       // things that look like filenames/paths/extensions
@@ -75,6 +117,7 @@
         "Reserialized",
         "Resilio",
         "Resizable",
+        "resizer",
         "scottbilas",
         "serializable",
         "Shouldly",
@@ -97,6 +140,7 @@
     "diffEditor.diffAlgorithm": "advanced",
     "diffEditor.hideUnchangedRegions.enabled": true,
     "diffEditor.renderSideBySide": true,
+    "docker.extension.enableComposeLanguageServer": false,
     "dotnet.codeLens.enableReferencesCodeLens": false,
     "editor.accessibilitySupport": "off", // without this, can't do word wrapping
     "editor.autoClosingBrackets": "never",
@@ -132,6 +176,7 @@
         100,
         120
     ],
+    "editor.semanticHighlighting.enabled": true,
     "editor.smoothScrolling": true,
     "editor.snippetSuggestions": "bottom",
     "editor.suggestOnTriggerCharacters": false,
@@ -246,6 +291,7 @@
         "**/.vs": true,
         "**/__pycache__": true
     },
+    "git.blame.editorDecoration.enabled": false,
     "git.confirmSync": false,
     "git.openRepositoryInParentFolders": "always",
     "github.copilot.enable": {
@@ -263,16 +309,18 @@
     "gitlens.changes.toggleMode": "window",
     "gitlens.heatmap.toggleMode": "window",
     "gitlens.launchpad.indicator.enabled": false,
+    "gitlens.showWelcomeOnInstall": false,
     "go.formatTool": "goimports",
     "go.toolsManagement.autoUpdate": true,
     "go.useLanguageServer": true,
     "graphviz-interactive-preview.renderLockAdditionalTimeout": 10000,
     "indentRainbow.excludedLanguages": [
-        "t4",
+        "diff",
         "il",
         "go-template",
         "plaintext",
-        "xml"
+        "t4",
+        "xml",
     ],
     "indentRainbow.colors": [
         "rgba(255,255,64,0.03)",
@@ -284,6 +332,8 @@
     "json.schemas": [
         { "fileMatch": [ "*.asmdef" ], "url": "http://json.schemastore.org/asmdef" }
     ],
+    "julia.symbolCacheDownload": true,
+    "julia.enableTelemetry": true,
     "local-history.path": "~/.local/backups/vscode",
     "luahelper.format.continuation_indent_width": 2,
     "luahelper.format.indent_width": 2,
@@ -360,8 +410,12 @@
     "workbench.editorAssociations": {
         "*.copilotmd": "vscode.markdown.preview.editor",
         "*.ipynb": "jupyter-notebook",
-        "*.sln": "default"
+        "*.sln": "default",
+        "*.xlsx": "default",
     },
+    "workbench.panel.showLabels": false,
+    "workbench.preferredHighContrastLightColorTheme": "Solarized Light",
+    "workbench.preferredHighContrastColorTheme": "Default Dark+",
     "workbench.iconTheme": "material-icon-theme",
     "workbench.list.smoothScrolling": true,
     "workbench.panel.defaultLocation": "right",
@@ -379,4 +433,5 @@
     "zenMode.restore": true,
     "zenMode.showTabs": "single",
     "zenMode.silentNotifications": true,
+
 }

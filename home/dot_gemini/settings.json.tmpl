@@ -1,8 +1,16 @@
 {
-  "selectedAuthType": "oauth-personal",
-  "hideBanner": true,
-  "hideTips": true,
-  "showMemoryUsage": true,
-  "ideMode": true,
-  "theme": "{{ if eq .profile.theme "light" }}ANSI Light{{ else }}Dracula{{ end }}"
+  "ui": {
+    "hideTips": true,
+    "hideBanner": true,
+    "showMemoryUsage": true,
+    "theme": "{{ if eq .profile.theme "light" }}ANSI Light{{ else }}Dracula{{ end }}"
+  },
+  "ide": {
+    "enabled": true
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  }
 }
