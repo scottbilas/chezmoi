@@ -1,6 +1,7 @@
 # GENERAL
 
 .editorconfig
+.config/.copilot/logs
 .config/alacritty/themes
 .config/btop
 .config/configstore
@@ -19,10 +20,8 @@
 **/__pycache__
 **/*.orig
 
-# jetbrains seems to do this..
-.config/github-copilot
-
 # FIGURE OUT LATER
+.config/glab-cli
 .config/superfile
 .local/bin/parllama
 
