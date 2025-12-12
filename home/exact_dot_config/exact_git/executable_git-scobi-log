@@ -10,13 +10,18 @@ SUBDIRECTORY_OK=Yes
 [ "$DEBUG" ] && set -x
 
 readonly FG_GREEN=$'\e[32m'
+readonly FG_BRIGHTBLACK=$'\e[90m'
 readonly STYLE_UNDERLINE=$'\e[4m'
 readonly STYLE_ITALIC=$'\e[3m'
 readonly STYLE_DIM=$'\e[2m'
 readonly RESET_ALL=$'\e[0m'
 
 header() {
-    echo -e "${FG_GREEN}${STYLE_UNDERLINE}-- $* --${RESET_ALL}" >&2
+    local output="${FG_GREEN}${STYLE_UNDERLINE}-- $1 --${RESET_ALL}"
+    if [[ -n "$2" ]]; then
+        output+=" ${STYLE_ITALIC}${FG_BRIGHTBLACK}$2${RESET_ALL}"
+    fi
+    echo -e "$output" >&2
 }
 
 quiet_warn() {
@@ -50,21 +55,22 @@ main() {
     # get any commits in upstream that we don't have locally
     UP_ONLY="$(git rev-list --cherry-pick --right-only --first-parent ${REV}...@{u} 2>/dev/null || true)"
 
-    local MAX_UPSTREAM=10
+    local MAX_UPSTREAM=20
 
     if [ -n "$UP_ONLY" ]; then
-        header "UPSTREAM"
+        header UPSTREAM
         COUNT=$(echo "$UP_ONLY" | wc -l)
-        if (( COUNT > MAX_UPSTREAM )) && (( HAS_MAX_COUNT == 0 )); then
-            LAST=$(echo "$UP_ONLY" | tail -n $MAX_UPSTREAM)
+
+        # only truncate if we want to limit the total count but also have a lot of upstream
+        if (( COUNT > MAX_UPSTREAM )) && (( HAS_MAX_COUNT != 0 )); then
             echo "... $((COUNT - MAX_UPSTREAM)) more upstream commits ($(git rev-parse --abbrev-ref @{u})) ..."
-            # shellcheck disable=SC2046,2116
-            git lx --no-walk $(echo "$LAST")
-        else
-            git lx --first-parent @{u}..${REV} "$@"
+            UP_ONLY=$(echo "$UP_ONLY" | head -n $MAX_UPSTREAM)
         fi
 
-        header "LOCAL"
+        # shellcheck disable=SC2046,2116
+        git lx --no-walk $(echo "$UP_ONLY")
+
+        header LOCAL
     elif git rev-parse --abbrev-ref @{u} >/dev/null 2>&1; then
         quiet_warn "No upstream commits found"
     else
