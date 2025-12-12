@@ -31,8 +31,8 @@ class fzf_select(Command):
         # TODO: switch to ag (check zprofile)
         if self.quantifier:
             # match only directories
-            command="find -L . \( -path '*/\.git' -o -fstype 'dev' -o -fstype 'proc' \) -prune \
-            -o -type d -print 2> /dev/null | sed 1d | cut -b3- | fzf +m"
+            command=r"""find -L . \( -path '*/\.git' -o -fstype 'dev' -o -fstype 'proc' \) -prune \
+                -o -type d -print 2> /dev/null | sed 1d | cut -b3- | fzf +m"""
         else:
             # match files and directories
             #command="rg --hidden --files -g \!.git | fzf +m"
