@@ -2,7 +2,7 @@ Compression yes
 #LogLevel DEBUG3
 
 Host *
-    IdentityFile ~/.local/share/private/ssh/id_rsa
+    IdentityFile ~/.local/share/private/ssh/id
     UserKnownHostsFile ~/.local/share/private/ssh/known_hosts
 {{- if ne .chezmoi.os "windows" }}
     # speed up multiple identical connects with multiplexing
