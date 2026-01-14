@@ -33,6 +33,9 @@
         "editor.tabSize": 2
     },
     "breadcrumbs.enabled": false,
+    "chat.agent.maxRequests": 100,
+    "chat.agent.thinkingStyle": "collapsedPreview",
+    "chat.agentSessionsViewLocation": "view",
     "chat.tools.terminal.autoApprove": {
         "/dev/null": true,
         "man": true,
@@ -56,6 +59,7 @@
         "dotnet test": true,
         "dotnet publish": true,
     },
+    "chat.viewSessions.orientation": "stacked",
     "cmake.configureOnOpen": false,
     "cSpell.allowCompoundWords": true,
     "cSpell.ignorePaths": [
@@ -136,6 +140,7 @@
     "diffEditor.codeLens": true,
     "diffEditor.diffAlgorithm": "advanced",
     "diffEditor.hideUnchangedRegions.enabled": true,
+    "diffEditor.ignoreTrimWhitespace": false,
     "diffEditor.renderSideBySide": true,
     "docker.extension.enableComposeLanguageServer": false,
     "editor.accessibilitySupport": "off", // without this, can't do word wrapping
@@ -289,7 +294,20 @@
     },
     "git.blame.editorDecoration.enabled": false,
     "git.confirmSync": false,
+    "git.autoRepositoryDetection": "openEditors",
     "git.openRepositoryInParentFolders": "always",
+    "github.copilot.chat.customOAIModels": {
+        "gpt-oss-20b": {
+            "name": "gpt-oss:20b (Ollama local)",
+            "url": "http://localhost:11434/v1/",
+            "requiresAPIKey": false,
+            "maxInputTokens": 8192,
+            "maxOutputTokens": 2048,
+            "toolCalling": true,
+            "thinking": true,
+            "vision": false,
+        }
+    },
     "github.copilot.enable": {
         "*": true,
         "plaintext": false,
@@ -391,7 +409,7 @@
     "window.openFilesInNewWindow": "default",
     "window.restoreFullscreen": true,
     "window.restoreWindows": "all",
-    "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}${separator}${focusedView}${separator}",
+    "window.title": "${dirty}${separator}${rootName} [${activeRepositoryName}:${activeRepositoryBranchName}] ${focusedView}",
     "window.titleSeparator": " → ",
     "workbench.activityBar.location": "hidden",
     "workbench.colorCustomizations": {

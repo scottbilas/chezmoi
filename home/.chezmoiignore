@@ -21,6 +21,8 @@
 **/*.orig
 
 # FIGURE OUT LATER
+.config/github-copilot
+.config/gitlab
 .config/glab-cli
 .config/superfile
 .local/bin/parllama

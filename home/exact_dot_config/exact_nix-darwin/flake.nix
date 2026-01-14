@@ -19,7 +19,8 @@
     # homebrew
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     homebrew-core = { url = "github:homebrew/homebrew-core"; flake = false; };
-    homebrew-cask = { url = "github:homebrew/homebrew-cask"; flake = false; };    
+    homebrew-cask = { url = "github:homebrew/homebrew-cask"; flake = false; };
+    sinelaw-homebrew-fresh = { url = "github:sinelaw/homebrew-fresh"; flake = false; };
   };
 
   outputs = inputs@{ self, nixpkgs, nix-darwin, home-manager, nix-homebrew, ... }:
@@ -88,6 +89,7 @@
             taps = with inputs; {
               "homebrew/homebrew-core" = homebrew-core;
               "homebrew/homebrew-cask" = homebrew-cask;
+              "sinelaw/homebrew-fresh" = sinelaw-homebrew-fresh;
             };
             mutableTaps = false; # taps can no longer be added imperatively with `brew tap`.
           };
@@ -98,10 +100,15 @@
         })
 
         # used to generate a Brewfile
+        # FUTURE: figure out how to make brew user-local (without sudo) for most things
         {
           homebrew.enable = true;
-          homebrew.brews = [];
-          homebrew.casks = [];
+          homebrew.brews = [
+            "fresh"
+          ];
+          homebrew.casks = [
+            "coteditor"
+          ];
           
           # automatically remove packages and prefs and supporting files not listed in the configuration
           homebrew.onActivation.cleanup = "zap";
