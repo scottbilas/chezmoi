@@ -4,6 +4,9 @@ local theme_switcher = require 'theme_switcher'
 local config = wezterm.config_builder()
 local act = wezterm.action
 
+-- getting colored block mess sometimes, chatgpt says this might help
+config.front_end = "OpenGL"
+
 config.initial_cols = 200
 config.initial_rows = 50
 
