@@ -81,7 +81,7 @@
         "wc": true,
         "while": true,
         "git cat-file": true,
-        "/^git (--no-pager )?( lfs)?(add|annotate|blame|cat-file|describe|diff|grep|help|log|ls-files|ls-remote|ls-tree|merge-base|rev-list|rev-parse|shortlog|show|status)( |$)/": true,
+        "/^git (-C \\S+ |--no-pager |lfs )*(add|annotate|blame|cat-file|describe|diff|grep|help|log|ls-files|ls-remote|ls-tree|merge-base|rev-list|rev-parse|shortlog|show|status)( |$)/": true,
         "/^git (help\\b|.*--help( |$))/": true,
         "/^git config (--get|--get-all|--get-regexp|--list|-l)\\b/": true,
         "git branch -r": true,

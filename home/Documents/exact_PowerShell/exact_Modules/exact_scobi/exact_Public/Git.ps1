@@ -248,3 +248,57 @@ function Git-FixConfigs {
     }
 }
 Export-ModuleMember Git-FixConfigs
+
+function Git-ExtractHunks {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory, Position=0)]
+        [string]$File,
+
+        [Parameter(Mandatory, Position=1)]
+        [int[]]$Hunks
+    )
+
+    $diff = git --no-pager diff --no-ext-diff -U3 $File
+    if (!$diff) { throw "No diff output for $File" }
+
+    # split into diff header lines and hunk blocks
+    $header = @()
+    $allHunks = @()
+    $cur = @()
+
+    foreach ($line in $diff) {
+        if ($line -match '^@@') {
+            if ($cur.Count) { $allHunks += ,@($cur) }
+            $cur = @($line)
+        }
+        elseif (-not $allHunks.Count -and -not $cur.Count) {
+            $header += $line
+        }
+        else {
+            $cur += $line
+        }
+    }
+    if ($cur.Count) { $allHunks += ,@($cur) }
+
+    # validate requested hunk numbers
+    foreach ($n in $Hunks) {
+        if ($n -lt 1 -or $n -gt $allHunks.Count) {
+            throw "Hunk $n out of range (file has $($allHunks.Count) hunks)"
+        }
+    }
+
+    $selected = foreach ($n in $Hunks) { $allHunks[$n - 1] }
+    $patch = (($header + $selected) -join "`n") + "`n"
+
+    $tmpFile = Join-Path (Get-Location) _tmp_hunks.patch
+    try {
+        [IO.File]::WriteAllText($tmpFile, $patch)
+        git apply --cached $tmpFile
+        if ($LASTEXITCODE) { throw "git apply failed for $File hunks: $($Hunks -join ', ')" }
+    }
+    finally {
+        if (Test-Path $tmpFile) { Remove-Item $tmpFile }
+    }
+}
+Export-ModuleMember Git-ExtractHunks
