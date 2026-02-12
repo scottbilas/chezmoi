@@ -29,37 +29,80 @@
     "[powershell]": {
         "editor.codeLens": false
     },
+    "[python]": {
+        "diffEditor.ignoreTrimWhitespace": true
+    },
     "[yaml]": {
         "editor.tabSize": 2
     },
+    "accessibility.signals.chatResponseReceived": {
+        "sound": "on"
+    },
+    "accessibility.signals.chatUserActionRequired": {
+        "sound": "on"
+    },
+    "accessibility.signalOptions.volume": 80,
     "breadcrumbs.enabled": false,
     "chat.agent.maxRequests": 100,
     "chat.agent.thinkingStyle": "collapsedPreview",
-    "chat.agentSessionsViewLocation": "view",
+    "chat.customAgentInSubagent.enabled": true,
+    "chat.todoListTool.descriptionField": true,
     "chat.tools.terminal.autoApprove": {
         "/dev/null": true,
-        "man": true,
-        "sed": true,
-        "true": true,
-        "while": true,
+        "/./run (test|format)/": true,
+        "cat": true,
+        "cd": true,
+        "cut": true,
         "do": true,
         "done": true,
-        "shellcheck": true,
-        "pnpm": true,
-        "npx": true,
+        "echo": true,
+        "filterdiff": true,
+        "grep": true,
+        "head": true,
+        "man": true,
         "nix": true,
-        "git for-each-ref": true,
-        "git help": true,
-        "git rev-list": true,
-        "dotnet new": true,
-        "dotnet sln": true,
-        "dotnet add": true,
-        "dotnet restore": true,
-        "dotnet build": true,
-        "dotnet test": true,
-        "dotnet publish": true,
+        "npx": true,
+        "pdftotext": true,
+        "pip": true,
+        "pnpm": true,
+        "read": true,
+        "sed": true,
+        "shasum": true,
+        "shellcheck": true,
+        "sort": true,
+        "strings": true,
+        "tail": true,
+        "test": true,
+        "time": true,
+        "tr": true,
+        "true": true,
+        "uniq": true,
+        "uv": true,
+        "wc": true,
+        "while": true,
+        "git cat-file": true,
+        "/^git (--no-pager )?( lfs)?(add|annotate|blame|cat-file|describe|diff|grep|help|log|ls-files|ls-remote|ls-tree|merge-base|rev-list|rev-parse|shortlog|show|status)( |$)/": true,
+        "/^git (help\\b|.*--help( |$))/": true,
+        "/^git config (--get|--get-all|--get-regexp|--list|-l)\\b/": true,
+        "git branch -r": true,
+        "/^dotnet (add|build|new|publish|restore|sln|test)\\b/": true,
+        "/^rm (\\/tmp\\/|.*_TEMP$)/": true,
     },
-    "chat.viewSessions.orientation": "stacked",
+    "chat.tools.terminal.ignoreDefaultAutoApproveRules": true,
+    "chat.tools.urls.autoApprove": {
+        "https://*.kernel.org": true,
+        "https://*.visualstudio.com": true,
+        "https://docs.github.com": true,
+        "https://git-scm.com": true,
+        "https://github.blog": true,
+        "https://github.com/git-lfs": true,
+        "https://github.com/git": true,
+        "https://pypi.org": true,
+        "https://raw.githubusercontent.com/git-lfs": true,
+        "https://stackoverflow.com": true,
+    },
+    "chat.useAgentSkills": true,
+    "chat.useNestedAgentsMdFiles": true,
     "cmake.configureOnOpen": false,
     "cSpell.allowCompoundWords": true,
     "cSpell.ignorePaths": [
@@ -70,6 +113,7 @@
         "**/.git/objects/**",
         ".vscode",
         "*.nix",
+        "pyproject.toml",
     ],
     "cSpell.ignoreRegExpList": [
         "[./]\\w+",       // things that look like filenames/paths/extensions
@@ -318,11 +362,20 @@
     },
     "github.copilot.nextEditSuggestions.enabled": true,
     "githubPullRequests.pullBranch": "never",
+    "gitlab.duo.enabledWithoutGitlabProject": false,
+    "gitlab.duoCodeSuggestions.enabled": false,
+    "gitlab.duoChat.enabled": false,
+    "gitlab.duoAgentPlatform.enabled": false,
+    "gitlab.keybindingHints.enabled": false,
+    "gitlens.ai.model": "vscode",
+    "gitlens.ai.vscode.model": "copilot:claude-sonnet-4.5",
     "gitlens.advanced.fileHistoryShowAllBranches": true,
     "gitlens.blame.format": "${email|10} ${message|25?}${agoOrDate|14-}",
     "gitlens.changes.toggleMode": "window",
+    "gitlens.graph.layout": "editor",
     "gitlens.heatmap.toggleMode": "window",
     "gitlens.launchpad.indicator.enabled": false,
+    "gitlens.plusFeatures.enabled": false,
     "go.formatTool": "goimports",
     "go.toolsManagement.autoUpdate": true,
     "go.useLanguageServer": true,
@@ -342,6 +395,7 @@
         "rgba(79,236,236,0.03)"
     ],
     "indentRainbow.indicatorStyle": "light",
+    "indentRainbow.errorColor": "rgba(255,0,0,0.03)",
     "json.schemas": [
         { "fileMatch": [ "*.asmdef" ], "url": "http://json.schemastore.org/asmdef" }
     ],
@@ -354,6 +408,7 @@
     "markdown.extension.italic.indicator": "_",
     "markdown.extension.toc.levels": "2..3",
     "markdown.preview.fontSize": 16,
+    "mermaid-chat.enabled": true,
     "notebook.cellToolbarLocation": {
         "default": "right",
         "jupyter-notebook": "left"
@@ -377,19 +432,17 @@
 {{- end }}
     ],
     "scm.defaultViewMode": "tree",
+    "search.useParentIgnoreFiles": true,
     "shellcheck.customArgs": [ "-x" ],
     "shellformat.flag": "-i 4 -s",
-    "terminal.integrated.commandsToSkipShell": [
-        "github.copilot.terminal.suggestCommand",
-        "language-julia.interrupt"
-    ],
+    "terminal.integrated.allowChords": false,
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.enableImages": true,
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.lineHeight": 0,
     "terminal.integrated.scrollback": 10000,
-    "terminal.integrated.tabs.enabled": false,
+    "terminal.integrated.sendKeybindingsToShell": true,
     "todohighlight.keywords": [
         {
             "text": "TODO:",
@@ -411,14 +464,12 @@
     "window.restoreWindows": "all",
     "window.title": "${dirty}${separator}${rootName} [${activeRepositoryName}:${activeRepositoryBranchName}] ${focusedView}",
     "window.titleSeparator": " → ",
-    "workbench.activityBar.location": "hidden",
     "workbench.colorCustomizations": {
         "[*Dark*]": {
             "editorRuler.foreground": "#304857",
             "tab.activeBorderTop": "#f863ba",
         }
     },
-    "workbench.colorTheme": "Codecourse Contrast (rainglow)",
     "workbench.editor.empty.hint": "hidden",
     "workbench.editorAssociations": {
         "*.copilotmd": "vscode.markdown.preview.editor",
@@ -427,7 +478,7 @@
         "*.xlsx": "default",
     },
     "workbench.panel.showLabels": false,
-    "workbench.preferredHighContrastLightColorTheme": "Solarized Light",
+    "workbench.preferredHighContrastLightColorTheme": "Base16 Light Atelier Heath",
     "workbench.preferredHighContrastColorTheme": "Default Dark+",
     "workbench.iconTheme": "material-icon-theme",
     "workbench.list.smoothScrolling": true,
@@ -446,4 +497,5 @@
     "zenMode.restore": true,
     "zenMode.showTabs": "single",
     "zenMode.silentNotifications": true,
+    "workbench.activityBar.location": "top",
 }

@@ -12,109 +12,109 @@ SUBDIRECTORY_OK=Yes
 [ "$DEBUG" ] && set -x
 
 main () {
-    opt_pull=false
-    opt_push=false
-    opt_rebase=false
-    opt_log_fetched=true
-    opt_dry_run=false
+  opt_pull=false
+  opt_push=false
+  opt_rebase=false
+  opt_log_fetched=true
+  opt_dry_run=false
 
-    opt_remote=''
-    opt_branch=''
+  opt_remote=''
+  opt_branch=''
 
-    # process incoming args
+  # process incoming args
 
-	while [ $# != 0 ]
-	do
-		case "$1" in
-            --pull)            opt_pull=true ;;
-            --push)            opt_push=true ;;
-            --rebase)          opt_rebase=true ;;
-            --no-log-fetched)  opt_log_fetched=false ;;
-            --dry-run)         opt_dry_run=true ;;
-            -*)                usage ;;
-            *) {
-                if [ -z "$opt_branch" ]; then
-                    opt_branch=$1
-                elif [ -z "$opt_remote" ]; then
-                    opt_remote=$opt_branch
-                    opt_branch=$1
-                else
-                    usage
-                fi
-            } ;;
-		esac
-		shift
-	done
-
-    # detect remote and branch if not specified
-
-    if [ -n "$opt_remote" ]; then
-        REMOTE_BRANCH="$opt_remote/$opt_branch"
-    elif [ -n "$opt_branch" ]; then
-        opt_remote=origin
-        REMOTE_BRANCH="$opt_remote/$opt_branch"
-    else
-        # this will fatal if we don't have an upstream for the current branch (which is good)
-        REMOTE_BRANCH=$(git rev-parse --abbrev-ref @{u})
-        opt_remote=$(echo "$REMOTE_BRANCH" | cut -d'/' -f1)
-        opt_branch=$(echo "$REMOTE_BRANCH" | cut -d'/' -f2-)
-
-        # TODO: why doesnt this work on my my environments
-        #read -r opt_remote opt_branch <<< "$(echo $REMOTE_BRANCH | sed 's/\// /')"
-    fi
-
-    # save previous fetch (@{1} does not quite work how i want)
-
-    REMOTE_PRE=$(git rev-parse $REMOTE_BRANCH)
-
-    # build up git args
-
-    if $opt_pull; then
-        args='pull --autostash'
-        if $opt_rebase; then
-            args="$args --rebase"   # TODO: why doesnt += work on all my environments..
+  while [ $# != 0 ]
+  do
+    case "$1" in
+      --pull)            opt_pull=true ;;
+      --push)            opt_push=true ;;
+      --rebase)          opt_rebase=true ;;
+      --no-log-fetched)  opt_log_fetched=false ;;
+      --dry-run)         opt_dry_run=true ;;
+      -*)                usage ;;
+      *) {
+        if [ -z "$opt_branch" ]; then
+          opt_branch=$1
+        elif [ -z "$opt_remote" ]; then
+          opt_remote=$opt_branch
+          opt_branch=$1
         else
-            args="$args --ff-only"
+          usage
         fi
+      } ;;
+    esac
+    shift
+  done
+
+  # detect remote and branch if not specified
+
+  if [ -n "$opt_remote" ]; then
+    REMOTE_BRANCH="$opt_remote/$opt_branch"
+  elif [ -n "$opt_branch" ]; then
+    opt_remote=origin
+    REMOTE_BRANCH="$opt_remote/$opt_branch"
+  else
+    # this will fatal if we don't have an upstream for the current branch (which is good)
+    REMOTE_BRANCH=$(git rev-parse --abbrev-ref @{u})
+    opt_remote=$(echo "$REMOTE_BRANCH" | cut -d'/' -f1)
+    opt_branch=$(echo "$REMOTE_BRANCH" | cut -d'/' -f2-)
+
+    # TODO: why doesnt this work on my my environments
+    #read -r opt_remote opt_branch <<< "$(echo $REMOTE_BRANCH | sed 's/\// /')"
+  fi
+
+  # save previous fetch (@{1} does not quite work how i want)
+
+  REMOTE_PRE=$(git rev-parse $REMOTE_BRANCH)
+
+  # build up git args
+
+  if $opt_pull; then
+    args='pull --autostash'
+    if $opt_rebase; then
+      args="$args --rebase"   # TODO: why doesnt += work on all my environments..
     else
-        args='fetch'
+      args="$args --ff-only"
     fi
+  else
+    args='fetch'
+  fi
 
-    # do the pull or fetch
+  # do the pull or fetch
 
-    echo git $args "$opt_remote" "$opt_branch"
+  echo git $args "$opt_remote" "$opt_branch"
+  if ! $opt_dry_run; then
+    git $args "$opt_remote" "$opt_branch"
+  fi
+
+  ##### TODO:
+  #
+  # ...this still does not work for fetching just one branch and tracking it. i get a fatal
+  #  "fatal: cannot set up tracking information; starting point '$remote/$branch' is not a branch"
+  # even though .git/refs/remotes/$remote/$branch exists with the correct hash after the "git fetch".
+  # the checkout --track fails. if i drop the --track, it's ok, but then i can't do a --set-upstream-to on it or I get the same fatal.
+  #
+  # git fetch $remote $($branch):refs/remotes/$remote/$branch
+  # git checkout -b $branch $remote/$branch --track
+
+  # log what we got
+
+  REMOTE_POST=$(git rev-parse $REMOTE_BRANCH)
+  if [ "$REMOTE_PRE" != "$REMOTE_POST" ]; then
+    echo "fetched: ${REMOTE_PRE:0:12}..${REMOTE_POST:0:12} (from $REMOTE_BRANCH)"
+    if $opt_log_fetched; then
+      git lx $REMOTE_PRE..$REMOTE_POST
+    fi
+  fi
+
+  # do the push
+
+  if $opt_push; then
+    echo git push "$opt_remote" "$opt_branch"
     if ! $opt_dry_run; then
-        git $args "$opt_remote" "$opt_branch"
+      git push "$opt_remote" "$opt_branch"
     fi
-
-    ##### TODO:
-    #
-    # ...this still does not work for fetching just one branch and tracking it. i get a fatal
-    #  "fatal: cannot set up tracking information; starting point '$remote/$branch' is not a branch"
-    # even though .git/refs/remotes/$remote/$branch exists with the correct hash after the "git fetch".
-    # the checkout --track fails. if i drop the --track, it's ok, but then i can't do a --set-upstream-to on it or I get the same fatal.
-    #
-    # git fetch $remote $($branch):refs/remotes/$remote/$branch
-    # git checkout -b $branch $remote/$branch --track
-
-    # log what we got
-
-    REMOTE_POST=$(git rev-parse $REMOTE_BRANCH)
-    if [ "$REMOTE_PRE" != "$REMOTE_POST" ]; then
-        echo "fetched: ${REMOTE_PRE:0:12}..${REMOTE_POST:0:12} (from $REMOTE_BRANCH)"
-        if $opt_log_fetched; then
-            git lx $REMOTE_PRE..$REMOTE_POST
-        fi
-    fi
-
-    # do the push
-
-    if $opt_push; then
-        echo git push "$opt_remote" "$opt_branch"
-        if ! $opt_dry_run; then
-            git push "$opt_remote" "$opt_branch"
-        fi
-    fi
+  fi
 }
 
 main "$@"

@@ -72,12 +72,24 @@ fi
 if (( $+commands[oh-my-posh] )); then
   eval "$(oh-my-posh init zsh -c ~/.config/oh-my-posh/prompt.json)"
 elif (( $+commands[starship] )); then
+  STARSHIP_LOG=error
   eval "$(starship init zsh)"
 
-  # can't get starship putting time where i want it, but this works really great
+  _cmd_duration_min=2
+
+  # can't get starship putting time where i want it, but this works ok enough.
+  _cmd_start_time=""
+  preexec_record_start() { _cmd_start_time=$EPOCHREALTIME }
   rprompt_up_one_line() {
-    RPROMPT=$'%{\e[1A\e[2;3;90m%}'"$(date +%H:%M:%S)"$'%{\e[0m\e[1B%}'
+    local duration=""
+    if [[ -n "$_cmd_start_time" ]]; then
+      local secs=$(( EPOCHREALTIME - _cmd_start_time ))
+      (( secs >= _cmd_duration_min )) && duration=$(printf "%.2fs " $secs)
+    fi
+    _cmd_start_time=""
+    RPROMPT=$'%{\e[1A%}%B%F{cyan}'"${duration}"$'%f%b%{\e[2;3;90m%}'"$(date +%H:%M:%S)"$'%{\e[0m\e[1B%}'
   }
+  preexec_functions=(preexec_record_start)
   # avoid problem where cwd on an external drive gets stale if drive remounted because laptop sleep (at least macos)
   refresh_cwd_if_stale() {
     builtin test -d . || builtin cd .

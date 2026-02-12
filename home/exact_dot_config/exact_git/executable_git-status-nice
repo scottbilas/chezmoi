@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+# shellcheck disable=SC2034
+USAGE=''
+# shellcheck disable=SC2034
+SUBDIRECTORY_OK=Yes
+. git-sh-setup
+
+[ "$DEBUG" ] && set -x
+
+BOLD='\033[1m'
+MAGENTA='\033[35m'
+RESET='\033[0m'
+
+main () {
+  require_work_tree_exists
+
+  opt_recurse=true
+  orig_args="$*"
+
+  while [ $# != 0 ]
+  do
+    case "$1" in
+      --no-recurse) opt_recurse=false ;;
+      *) echo "bad: $orig_args" >&2; usage ;;
+    esac
+    shift
+  done
+
+  top=$(git rev-parse --show-toplevel)
+  status_cmd="git -c color.status=always status --short --branch --show-stash --ignore-submodules=none"
+  
+  if [ -s "$top/.gitmodules" ] && $opt_recurse; then
+    echo -e "${BOLD}${MAGENTA}[.]${RESET}"
+    $status_cmd | sed 's/^/  /'
+    echo
+    git submodule foreach --quiet --recursive "\
+      echo -e \"${BOLD}${MAGENTA}[\$path]${RESET}\"; \
+      \"$0\" --no-recurse | sed 's/^/  /'"
+  else
+    $status_cmd
+  fi
+}
+
+main "$@"

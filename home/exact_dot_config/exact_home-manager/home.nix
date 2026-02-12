@@ -12,6 +12,7 @@ in {
   home.stateVersion = "24.05";
   home.username = username;
   home.homeDirectory = "/Users/${username}";
+  news.display = "silent";
 
   home.packages = [
 
@@ -31,6 +32,7 @@ in {
     pkgs.hyperfine
     pkgs.jsonnet
     pkgs.numbat
+    pkgs.patchutils
     pkgs.ripgrep
     pkgs.rsync
     pkgs.scrcpy
@@ -70,7 +72,6 @@ in {
     # gui
     pkgs.keka
     pkgs.obsidian
-    pkgs.vscode
     pkgs.yt-dlp
     pkgs.wezterm
   ];

@@ -1,0 +1,169 @@
+#!/bin/bash
+set -euo pipefail
+
+RED=$'\033[0;31m'
+GREEN=$'\033[0;32m'
+YELLOW=$'\033[1;33m'
+BLUE=$'\033[0;34m'
+CYAN=$'\033[0;36m'
+RESET=$'\033[0m'
+
+OPT_NUKE_GIT=0
+OPT_NUKE_FSMONITOR=0
+OPT_NUKE_ALL=0
+OPT_DRY_RUN=0
+OPT_ALL_WORKTREES=0
+ARG_REPO_DIR=""
+
+show_help() {
+  cat <<EOF
+${CYAN}Usage:${RESET} $(basename "$0") [OPTIONS]
+
+Clean up git processes and/or fsmonitor data for the current worktree.
+
+${CYAN}Options:${RESET}
+  --nuke-git       Kill git processes operating on the worktree
+  --nuke-fsmonitor Remove fsmonitor folders and files
+  --nuke-all       Enable all --nuke-* options
+  --dry-run        Show what would be done without actually doing it
+  --all-worktrees  Process all worktrees in the repository
+  --repo DIR       Use DIR as the repository (default: current directory)
+  --help           Show this help message
+
+${CYAN}Description:${RESET}
+  --nuke-git: Finds and kills all git processes with matching GIT_DIR
+  --nuke-fsmonitor: Removes all fsmonitor folders and files from git directory
+
+${CYAN}Example:${RESET}
+  $(basename "$0") --nuke-fsmonitor --dry-run  # Preview fsmonitor cleanup
+  $(basename "$0") --nuke-git --nuke-fsmonitor # Kill git processes and clean fsmonitor
+  $(basename "$0") --nuke-git --all-worktrees  # Kill git processes in all worktrees
+EOF
+  exit 0
+}
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --nuke-git)       OPT_NUKE_GIT=1;       shift ;;
+    --nuke-fsmonitor) OPT_NUKE_FSMONITOR=1; shift ;;
+    --nuke-all)       OPT_NUKE_ALL=1;       shift ;;
+    --dry-run)        OPT_DRY_RUN=1;        shift ;;
+    --all-worktrees)  OPT_ALL_WORKTREES=1;  shift ;;
+    --repo)           ARG_REPO_DIR="$2";   shift 2 ;;
+    --help|-h)        show_help ;;
+    *)
+      echo -e "${RED}Unknown option: $1${RESET}"
+      echo "Use --help for usage information"
+      exit 1
+      ;;
+  esac
+done
+
+if (( OPT_NUKE_ALL )); then
+  OPT_NUKE_GIT=1
+  OPT_NUKE_FSMONITOR=1
+fi
+
+if (( !OPT_NUKE_GIT && !OPT_NUKE_FSMONITOR )); then
+  echo -e "${RED}Error: At least one --nuke operation must be specified${RESET}"
+  echo
+  show_help
+fi
+
+clean_worktree() {
+  local worktree_path="$1"
+  local worktree_gitdir
+  worktree_gitdir="$(git -C "$worktree_path" rev-parse --git-dir 2>/dev/null || echo ".git")"
+  local git_dir
+  git_dir="$worktree_gitdir"
+  
+  echo -e "${CYAN}Cleaning worktree:${RESET} $worktree_path"
+  
+  if (( OPT_NUKE_GIT )); then
+    echo -n -e "${BLUE}Scanning for git processes...${RESET}"
+    
+    local git_pids
+    git_pids=$(pgrep git 2>/dev/null || true)
+    local pid_count
+    pid_count=$(echo "$git_pids" | wc -w | tr -d ' ')
+    
+    echo " found $pid_count"
+    echo "${BLUE}Looking for processes with GIT_DIR in $worktree_gitdir...${RESET}"
+    
+    for pid in $git_pids; do
+      local proc_pwd
+      proc_pwd=$(ps eww -p "$pid" 2>/dev/null | tr ' ' '\n' | grep '^PWD=' | cut -d= -f2- || true)
+      local proc_gitdir
+      proc_gitdir=$(ps eww -p "$pid" 2>/dev/null | tr ' ' '\n' | grep '^GIT_DIR=' | cut -d= -f2- || true)
+      
+      if [[ -n "$proc_gitdir" && "$worktree_gitdir" == *"$proc_gitdir"* ]]; then
+        local proc_cmd
+        proc_cmd=$(ps -p "$pid" -o command= 2>/dev/null || true)
+        
+        if (( OPT_DRY_RUN )); then
+          echo -e "  ${YELLOW}Would kill git process:${RESET} $pid"
+        else
+          echo -e "  ${RED}Killing git process:${RESET} $pid"
+          kill -9 "$pid" 2>/dev/null || true
+        fi
+        
+        echo -e "    ${CYAN}GIT_DIR:${RESET} $proc_gitdir"
+        [[ -n "$proc_pwd" ]] && echo -e "    ${CYAN}PWD:${RESET} $proc_pwd"
+        echo -e "    ${CYAN}CMD:${RESET} $proc_cmd"
+      fi
+    done
+  fi
+  
+  if (( OPT_NUKE_FSMONITOR )) && [ -d "$git_dir" ]; then
+    local found_fsmonitor_data=0
+    
+    while IFS= read -r path; do
+      found_fsmonitor_data=1
+      local type
+      [[ -d "$path" ]] && type="directory" || type="file"
+      if (( OPT_DRY_RUN )); then
+        echo -e "  ${YELLOW}Would delete $type:${RESET} $path"
+      else
+        echo -e "  ${RED}Deleting $type:${RESET} $path"
+        rm -rf "$path" 2>/dev/null || true
+      fi
+    done < <(find "$git_dir" -name "fsmonitor--daemon*" 2>/dev/null)
+    
+    if (( ! found_fsmonitor_data )); then
+      echo -e "${GREEN}No fsmonitor data found${RESET}"
+    fi
+  fi
+}
+
+[ -z "$ARG_REPO_DIR" ] && ARG_REPO_DIR="$(pwd)"
+
+if (( OPT_ALL_WORKTREES )); then
+  echo -e "${BLUE}Gathering worktrees...${RESET}"
+  
+  worktrees=()
+  while read -r wt rest; do
+    if git -C "$wt" rev-parse --is-bare-repository 2>/dev/null | grep -q '^true$'; then
+      echo -e "${CYAN}Skipping bare repository:${RESET} $wt"
+      continue
+    fi
+    worktrees+=("$wt")
+  done < <(git -C "$ARG_REPO_DIR" worktree list)
+  
+  echo -e "${BLUE}Found ${#worktrees[@]} worktree(s) to clean${RESET}"
+  echo
+  
+  for wt in "${worktrees[@]}"; do
+    clean_worktree "$wt"
+    echo
+  done
+else
+  WORKTREE_PATH="$(git -C "$ARG_REPO_DIR" rev-parse --show-toplevel 2>/dev/null || echo "$ARG_REPO_DIR")"
+  clean_worktree "$WORKTREE_PATH"
+  echo
+fi
+
+if (( OPT_DRY_RUN )); then
+  echo -e "${YELLOW}✓ DRY RUN COMPLETE${RESET} - No changes were made"
+else
+  echo -e "${GREEN}✓ Done!${RESET}"
+fi

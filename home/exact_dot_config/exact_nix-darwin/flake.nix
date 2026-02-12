@@ -108,6 +108,7 @@
           ];
           homebrew.casks = [
             "coteditor"
+            "visual-studio-code" # vscode is kept way more current with brew than nix
           ];
           
           # automatically remove packages and prefs and supporting files not listed in the configuration

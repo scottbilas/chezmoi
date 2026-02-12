@@ -5,6 +5,7 @@
 .config/alacritty/themes
 .config/btop
 .config/configstore
+.config/electrum
 .config/elinks/cookies
 .config/elinks/*hist
 .config/elinks/socket*
@@ -15,7 +16,7 @@
 .config/nchat
 .config/nushell/history.txt
 .config/zsh/.zcompcache
-.config/zsh/.zcompdump
+.config/zsh/.zcompdump*
 .config/zsh/.zsh_sessions
 **/__pycache__
 **/*.orig
@@ -61,6 +62,7 @@ scoop
 
 ## MACOS
 
+**/.DS_Store
 .config/karabiner/assets
 .config/karabiner/automatic_backups
 .config/karabiner/backups

@@ -1,3 +1,14 @@
+// TROUBLESHOOTING: If shell_command rules stop working, check the log at
+// ~/.local/share/karabiner/log/console_user_server.log for "invalid shared secret" errors.
+// Fix by restarting the console user server:
+//
+//   launchctl kickstart -k gui/$(id -u)/org.pqrs.service.agent.karabiner_console_user_server
+//
+// If that doesn't work, do a full restart via menu bar, or:
+//
+//   sudo launchctl bootout system /Library/LaunchDaemons/org.pqrs.karabiner.karabiner_grabber.plist
+//   sudo launchctl bootstrap system /Library/LaunchDaemons/org.pqrs.karabiner.karabiner_grabber.plist
+
 local lib = import 'karabiner.libsonnet';
 
 local appWinRemote = [
@@ -12,7 +23,7 @@ local noWinRemote = lib.noApp(appWinRemote);
 local appWinOther = [
 
   // IDEs that have win style mappings
-  //'^com\\.microsoft\\.VSCode$',  // not ready for this until i redo the vscode keymap
+  '^com\\.microsoft\\.VSCode$',
   '^com\\.jetbrains\\.(rider|pycharm)$',
 
   // terminals expect win style
@@ -165,7 +176,8 @@ local ctrl_passthrough(key_code) = {
             lib.manip('m', 'any', 'end',  null,             [ifCaps]),
 
             // other
-            lib.manip('escape',              'any', 'grave_accent_and_tilde', null, [ifCaps]), // for my keychron
+            lib.manip('escape',              'any', 'grave_accent_and_tilde', null, [ifCaps]), // for my keychron without an esc
+            lib.manip('quote',               'any', 'grave_accent_and_tilde', null, [ifCaps]), // sometimes easier
             lib.manip('delete_or_backspace', 'any', 'delete_forward',         null, [ifCaps]),
             lib.manip('open_bracket',        'any', 'escape',                 null, [ifCaps]),
           ]),
@@ -252,7 +264,7 @@ local ctrl_passthrough(key_code) = {
               { from: 'c', to: 'c'     }, // ç/Ç
               { from: 'z', to: 'quote' }, // æ/Æ
               { from: 'w', to: 'a'     }, // å/Å
-              { from: '5', to: '2', to_modifiers: ['right_shift'] }, // €
+//              { from: '5', to: '2', to_modifiers: ['right_shift'] }, // €
             ]),
 
             lib.altgrDead('grave_accent_and_tilde', 'scoob:dead_tilde_active', shift=true, keyMap=[ // dead key: ~
