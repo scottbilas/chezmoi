@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+set -e
+
+usage() {
+    cat <<'EOF'
+usage: git memo [<command>]
+
+Attach a short memo to the current branch. Memos are stored as the
+branch description in the local git config (branch.<name>.memo),
+so they persist across commits, rebases, and amends. They are automatically
+removed when the branch is deleted with `git branch -d`.
+
+Memos are local-only — they are NOT pushed or shared with remotes.
+
+Commands:
+  set <text>   Set the memo for the current branch (replaces any existing memo)
+  show         Show the memo for the current branch (default if no command given)
+  rm           Remove the memo from the current branch
+
+Examples:
+  git memo set waiting on API review
+  git memo set WIP: refactoring auth module
+  git memo
+  git memo show
+  git memo rm
+
+Storage:
+  Memos are stored in .git/config (or the worktree-specific config if
+  extensions.worktreeConfig is enabled) under the key:
+
+    [branch "<name>"]
+        memo = <memo text>
+
+  You can also read/write them directly with git-config:
+
+    git config branch.<name>.memo "some text"
+    git config branch.<name>.memo
+    git config --unset branch.<name>.memo
+EOF
+}
+
+branch=$(git symbolic-ref --short HEAD 2>/dev/null) || {
+    echo "ERROR: not on a branch (detached HEAD)" >&2
+    exit 1
+}
+
+key="branch.$branch.memo"
+
+case "${1:-show}" in
+    set)
+        shift
+        if [[ -z "$*" ]]; then
+            echo "ERROR: no memo text provided" >&2
+            echo "usage: git memo set <text>" >&2
+            exit 1
+        fi
+        git config "$key" "$*"
+        ;;
+    show)
+        git config "$key" 2>/dev/null || echo "(no memo)"
+        ;;
+    rm)
+        git config --unset "$key" 2>/dev/null || {
+            echo "(no memo to remove)" >&2
+            exit 1
+        }
+        ;;
+    -h|--help|help)
+        usage
+        ;;
+    *)
+        echo "ERROR: unknown command '$1'" >&2
+        echo "" >&2
+        usage >&2
+        exit 1
+        ;;
+esac

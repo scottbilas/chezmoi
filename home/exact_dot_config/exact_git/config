@@ -31,6 +31,9 @@
     wtz = !dir=$(git root) && git co origin/master -B "z/$(basename "$dir")" --no-track
     dad = !curl https://icanhazdadjoke.com/ && echo "" && git add
 
+    # branch memos (stored in branch.<name>.memo) — see `git memo help`
+    memo = !~/.config/git/git-memo
+
     co = checkout --progress
     fc = "!f() { GIT_LFS_FORCE_PROGRESS=1 git clone --progress --recurse --jobs 7 \"$@\"; }; f"
     fcz = fc --filter=blob:none

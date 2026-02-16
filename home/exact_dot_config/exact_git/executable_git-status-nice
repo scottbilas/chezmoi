@@ -13,7 +13,17 @@ SUBDIRECTORY_OK=Yes
 
 BOLD='\033[1m'
 MAGENTA='\033[35m'
+YELLOW='\033[33m'
+ITALIC='\033[3m'
+UNDERLINE='\033[4m'
 RESET='\033[0m'
+
+print_memo() {
+  local branch memo
+  branch=$(git symbolic-ref --short HEAD 2>/dev/null) || return 0
+  memo=$(git config "branch.$branch.memo" 2>/dev/null) || return 0
+  echo -e "  ${YELLOW}${ITALIC}${UNDERLINE}memo: ${memo}${RESET}"
+}
 
 main () {
   require_work_tree_exists
@@ -36,12 +46,14 @@ main () {
   if [ -s "$top/.gitmodules" ] && $opt_recurse; then
     echo -e "${BOLD}${MAGENTA}[.]${RESET}"
     $status_cmd | sed 's/^/  /'
+    print_memo
     echo
     git submodule foreach --quiet --recursive "\
       echo -e \"${BOLD}${MAGENTA}[\$path]${RESET}\"; \
       \"$0\" --no-recurse | sed 's/^/  /'"
   else
     $status_cmd
+    print_memo
   fi
 }
 

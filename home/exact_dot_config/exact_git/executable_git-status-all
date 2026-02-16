@@ -63,6 +63,9 @@ fi
 dir="$2"
 OUTDIR="$3"
 
+# GIT_DIR is set by git-sh-setup at top so we have to unset it to avoid confusion in sub-shells
+unset GIT_DIR
+
 # Split into actual path and display path
 IFS='|' read -r actual_dir display_dir <<< "$dir"
 

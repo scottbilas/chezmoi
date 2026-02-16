@@ -22,7 +22,7 @@ UNDERLINE='\033[4m'
 RESET='\033[0m'
 
 main() {
-    declare -a paths refs infos
+    declare -a paths refs infos memos
     max_path_len=0
     max_ref_len=0
 
@@ -48,9 +48,15 @@ main() {
             info=""
         fi
 
+        local memo=""
+        if [[ -n "$branch" ]]; then
+            memo=$(git config "branch.$branch.memo" 2>/dev/null || true)
+        fi
+
         paths+=("$path")
         refs+=("$ref")
         infos+=("$info")
+        memos+=("$memo")
 
         (( ${#path} > max_path_len )) && max_path_len=${#path}
         (( ${#ref} > max_ref_len )) && max_ref_len=${#ref}
@@ -60,6 +66,7 @@ main() {
         path="${paths[$i]}"
         ref="${refs[$i]}"
         info="${infos[$i]}"
+        memo="${memos[$i]}"
 
         padded_ref=$(printf "%-${max_ref_len}s" "$ref")
         padding="${padded_ref:${#ref}}"
@@ -82,16 +89,21 @@ main() {
             colored_ref="${ul}${ref}${RESET}${padding}"
         fi
 
+        local memo_col=""
+        if [[ -n "$memo" ]]; then
+            memo_col="  ${YELLOW}${ITALIC}${memo}${RESET}"
+        fi
+
         if [[ -z "$info" ]]; then
-            printf "%-${max_path_len}s %s %b\n" "$path" "$marker" "$colored_ref"
+            printf "%-${max_path_len}s %s %b%b\n" "$path" "$marker" "$colored_ref" "$memo_col"
         elif [[ "$info" == "gone" ]]; then
-            printf "%-${max_path_len}s %s %b  %b\n" "$path" "$marker" "$colored_ref" "${RED}${info}${RESET}"
+            printf "%-${max_path_len}s %s %b  %b%b\n" "$path" "$marker" "$colored_ref" "${RED}${info}${RESET}" "$memo_col"
         elif [[ "$info" =~ ahead && "$info" =~ behind ]]; then
-            printf "%-${max_path_len}s %s %b  %b\n" "$path" "$marker" "$colored_ref" "${ORANGE}${info}${RESET}"
+            printf "%-${max_path_len}s %s %b  %b%b\n" "$path" "$marker" "$colored_ref" "${ORANGE}${info}${RESET}" "$memo_col"
         elif [[ "$info" =~ behind ]]; then
-            printf "%-${max_path_len}s %s %b  %b\n" "$path" "$marker" "$colored_ref" "${YELLOW}${info}${RESET}"
+            printf "%-${max_path_len}s %s %b  %b%b\n" "$path" "$marker" "$colored_ref" "${YELLOW}${info}${RESET}" "$memo_col"
         else
-            printf "%-${max_path_len}s %s %b  %b\n" "$path" "$marker" "$colored_ref" "${GREEN}${info}${RESET}"
+            printf "%-${max_path_len}s %s %b  %b%b\n" "$path" "$marker" "$colored_ref" "${GREEN}${info}${RESET}" "$memo_col"
         fi
     done
 }
