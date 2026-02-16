@@ -107,6 +107,7 @@
             "fresh"
           ];
           homebrew.casks = [
+            "codex"
             "coteditor"
             "visual-studio-code" # vscode is kept way more current with brew than nix
           ];
