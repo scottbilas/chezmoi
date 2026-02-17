@@ -4,7 +4,7 @@
 set -e
 
 # shellcheck disable=SC2034
-USAGE=''
+USAGE='[-a|--all]'
 # shellcheck disable=SC2034
 SUBDIRECTORY_OK=Yes
 . git-sh-setup
@@ -13,7 +13,7 @@ SUBDIRECTORY_OK=Yes
 
 CYAN='\033[36m'
 YELLOW='\033[33m'
-ORANGE='\033[38;5;208m'
+ORANGE='\033[95m'
 RED='\033[31m'
 GREEN='\033[32m'
 DIM='\033[2m'
@@ -22,7 +22,15 @@ UNDERLINE='\033[4m'
 RESET='\033[0m'
 
 main() {
-    declare -a branches shas upstreams upstream_displays worktrees infos memos
+    local show_all=false
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -a|--all) show_all=true; shift ;;
+            *) usage ;;
+        esac
+    done
+
+    declare -a branches shas upstreams upstream_displays worktrees infos memos is_remotes
     max_branch_len=0
     max_wt_len=0
     max_upstream_len=0
@@ -34,8 +42,8 @@ main() {
     # build worktree lookup: branch -> worktree path
     declare -A wt_map
     while IFS= read -r line; do
-        local wt_path wt_branch
-        wt_path=$(echo "$line" | awk '{print $1}')
+        local wt_branch
+        read -r wt_path _ <<< "$line"
 
         if [[ "$line" =~ \[([^]]+)\] ]]; then
             wt_branch="${BASH_REMATCH[1]}"
@@ -43,14 +51,38 @@ main() {
         fi
     done < <(git worktree list)
 
-    # iterate all local branches (get branch, sha, and upstream in one pass)
-    while IFS=$'\t' read -r branch sha upstream; do
-        local wt_path="${wt_map[$branch]:-}"
-        local info
-        info=$(get_upstream_info "$branch")
+    # batch: get all branch memos in one call
+    declare -A memo_map
+    while IFS= read -r line; do
+        # line format: "branch.BRANCHNAME.memo VALUE"
+        local key="${line#branch.}"
+        local value="${key##*.memo }"
+        key="${key%.memo *}"
+        memo_map["$key"]="$value"
+    done < <(git config --get-regexp '^branch\..*\.memo$' 2>/dev/null)
 
-        local memo=""
-        memo=$(git config "branch.$branch.memo" 2>/dev/null || true)
+    # track which remote refs are already covered by a local branch's upstream
+    declare -A tracked_remotes
+
+    # iterate all local branches (get branch, sha, upstream, and tracking info in one pass)
+    while IFS=$'\t' read -r branch sha upstream track; do
+        local wt_path="${wt_map[$branch]:-}"
+
+        # convert tracking info from for-each-ref format
+        local info=""
+        if [[ -n "$upstream" ]]; then
+            tracked_remotes["$upstream"]=1
+            if [[ -z "$track" ]]; then
+                info="in sync"
+            elif [[ "$track" == "gone" ]]; then
+                info="gone"
+            else
+                # convert "ahead N, behind M" to "ahead N; behind M"
+                info="${track//, /; }"
+            fi
+        fi
+
+        local memo="${memo_map[$branch]:-}"
 
         # format upstream display name
         local upstream_display=""
@@ -69,11 +101,33 @@ main() {
         worktrees+=("$wt_path")
         infos+=("$info")
         memos+=("$memo")
+        is_remotes+=(false)
 
         (( ${#branch} > max_branch_len )) && max_branch_len=${#branch}
         (( ${#wt_path} > max_wt_len )) && max_wt_len=${#wt_path}
         (( ${#upstream_display} > max_upstream_len )) && max_upstream_len=${#upstream_display}
-    done < <(git for-each-ref --format='%(refname:short)%09%(objectname:short)%09%(upstream:short)' --sort='refname:short' refs/heads/)
+    done < <(git for-each-ref --format='%(refname:short)%09%(objectname:short)%09%(upstream:short)%09%(upstream:track,nobracket)' --sort='refname:short' refs/heads/)
+
+    # add remote-tracking branches not already tracked by a local branch
+    if [[ "$show_all" == true ]]; then
+        while IFS=$'\t' read -r rbranch sha; do
+            # skip the remote HEAD pointer (e.g. origin/HEAD) and bare remote refs (e.g. origin)
+            [[ "$rbranch" == */HEAD || "$rbranch" != */* ]] && continue
+            # skip remotes already tracked by a local branch
+            [[ -n "${tracked_remotes[$rbranch]:-}" ]] && continue
+
+            branches+=("")
+            shas+=("$sha")
+            upstreams+=("")
+            upstream_displays+=("$rbranch")
+            worktrees+=("")
+            infos+=("")
+            memos+=("")
+            is_remotes+=(true)
+
+            (( ${#rbranch} > max_upstream_len )) && max_upstream_len=${#rbranch}
+        done < <(git for-each-ref --format='%(refname:short)%09%(objectname:short)' --sort='refname:short' refs/remotes/)
+    fi
 
     for i in "${!branches[@]}"; do
         local branch="${branches[$i]}"
@@ -97,7 +151,9 @@ main() {
 
         # color the branch name
         local colored_branch
-        if [[ -n "${upstreams[$i]}" ]]; then
+        if [[ "${is_remotes[$i]}" == true ]]; then
+            colored_branch="${padding}"
+        elif [[ -n "${upstreams[$i]}" ]]; then
             colored_branch="${ul}${CYAN}${branch}${RESET}${padding}"
         else
             colored_branch="${ul}${branch}${RESET}${padding}"
@@ -113,6 +169,8 @@ main() {
         local colored_upstream
         if [[ -z "$upstream_display" ]]; then
             colored_upstream="${upstream_padding}"
+        elif [[ "${is_remotes[$i]}" == true ]]; then
+            colored_upstream="${DIM}${upstream_display}${RESET}${upstream_padding}"
         elif [[ "$upstream_display" == "origin/*" ]]; then
             colored_upstream="${DIM}${ITALIC}${upstream_display}${RESET}${upstream_padding}"
         else
@@ -146,45 +204,6 @@ main() {
         printf "%s %b %b  %b  ${DIM}%-${max_wt_len}s${RESET}%b%b\n" \
             "$marker" "$colored_branch" "$sha_col" "$colored_upstream" "$wt_path" "$info_col" "$memo_col"
     done
-}
-
-get_upstream_info() {
-    local branch="$1"
-
-    local upstream
-    upstream=$(git for-each-ref --format='%(upstream:short)' "refs/heads/$branch" 2>/dev/null)
-
-    if [[ -z "$upstream" ]]; then
-        echo ""
-        return
-    fi
-
-    if ! git rev-parse --verify "$upstream" &>/dev/null; then
-        echo "gone"
-        return
-    fi
-
-    local counts
-    counts=$(git rev-list --left-right --count "$branch...$upstream" 2>/dev/null)
-
-    if [[ -z "$counts" ]]; then
-        echo ""
-        return
-    fi
-
-    local ahead behind
-    ahead=$(echo "$counts" | awk '{print $1}')
-    behind=$(echo "$counts" | awk '{print $2}')
-
-    if [[ "$ahead" -eq 0 && "$behind" -eq 0 ]]; then
-        echo "in sync"
-    elif [[ "$ahead" -gt 0 && "$behind" -gt 0 ]]; then
-        echo "ahead $ahead; behind $behind"
-    elif [[ "$ahead" -gt 0 ]]; then
-        echo "ahead $ahead"
-    else
-        echo "behind $behind"
-    fi
 }
 
 main "$@"

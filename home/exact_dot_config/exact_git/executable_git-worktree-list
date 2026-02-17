@@ -13,7 +13,7 @@ SUBDIRECTORY_OK=Yes
 
 CYAN='\033[36m'
 YELLOW='\033[33m'
-ORANGE='\033[38;5;208m'
+ORANGE='\033[95m'
 RED='\033[31m'
 GREEN='\033[32m'
 DIM='\033[2m'
@@ -26,13 +26,41 @@ main() {
     max_path_len=0
     max_ref_len=0
 
+    # get current worktree path (already physical/resolved)
     local current_wt
-    current_wt=$(cd "$(git rev-parse --show-toplevel)" && pwd -P)
+    current_wt=$(git rev-parse --show-toplevel)
+
+    # batch: get upstream tracking info for all branches in one call
+    # format: branch|upstream|tracking info (e.g. "ahead 3, behind 2" or "gone")
+    declare -A track_map
+    while IFS='|' read -r branch upstream track; do
+        if [[ -z "$upstream" ]]; then
+            track_map["$branch"]=""
+        elif [[ -z "$track" ]]; then
+            track_map["$branch"]="in sync"
+        elif [[ "$track" == "gone" ]]; then
+            track_map["$branch"]="gone"
+        else
+            # convert "ahead N, behind M" to "ahead N; behind M"
+            track_map["$branch"]="${track//, /; }"
+        fi
+    done < <(git for-each-ref --format='%(refname:short)|%(upstream:short)|%(upstream:track,nobracket)' refs/heads/ 2>/dev/null)
+
+    # batch: get all branch memos in one call
+    declare -A memo_map
+    while IFS= read -r line; do
+        # line format: "branch.BRANCHNAME.memo VALUE"
+        local key="${line#branch.}"
+        local value="${key##*.memo }"
+        key="${key%.memo *}"
+        memo_map["$key"]="$value"
+    done < <(git config --get-regexp '^branch\..*\.memo$' 2>/dev/null)
 
     while IFS= read -r line; do
-        path=$(echo "$line" | awk '{print $1}')
-        sha=$(echo "$line" | awk '{print $2}')
-        
+        # parse with bash builtins instead of awk subprocesses
+        read -r path sha rest <<< "$line"
+        local branch=""
+
         if [[ "$line" =~ \(detached\ HEAD\) ]]; then
             ref="detached at $sha"
             info=""
@@ -42,7 +70,7 @@ main() {
         elif [[ "$line" =~ \[([^]]+)\] ]]; then
             branch="${BASH_REMATCH[1]}"
             ref="$branch"
-            info=$(get_upstream_info "$path" "$branch")
+            info="${track_map[$branch]:-}"
         else
             ref="detached at $sha"
             info=""
@@ -50,7 +78,7 @@ main() {
 
         local memo=""
         if [[ -n "$branch" ]]; then
-            memo=$(git config "branch.$branch.memo" 2>/dev/null || true)
+            memo="${memo_map[$branch]:-}"
         fi
 
         paths+=("$path")
@@ -71,9 +99,8 @@ main() {
         padded_ref=$(printf "%-${max_ref_len}s" "$ref")
         padding="${padded_ref:${#ref}}"
 
-        local real_path
-        real_path=$(cd "$path" 2>/dev/null && pwd -P || echo "$path")
-        if [[ "$real_path" == "$current_wt" ]]; then
+        # worktree list paths are already physical; just compare directly
+        if [[ "$path" == "$current_wt" ]]; then
             marker="*"
             ul="${UNDERLINE}"
         else
@@ -106,46 +133,6 @@ main() {
             printf "%-${max_path_len}s %s %b  %b%b\n" "$path" "$marker" "$colored_ref" "${GREEN}${info}${RESET}" "$memo_col"
         fi
     done
-}
-
-get_upstream_info() {
-    local wt_path="$1"
-    local branch="$2"
-
-    local upstream
-    upstream=$(git -C "$wt_path" for-each-ref --format='%(upstream:short)' "refs/heads/$branch" 2>/dev/null)
-
-    if [[ -z "$upstream" ]]; then
-        echo ""
-        return
-    fi
-
-    if ! git -C "$wt_path" rev-parse --verify "$upstream" &>/dev/null; then
-        echo "gone"
-        return
-    fi
-
-    local counts
-    counts=$(git -C "$wt_path" rev-list --left-right --count "$branch...$upstream" 2>/dev/null)
-    
-    if [[ -z "$counts" ]]; then
-        echo ""
-        return
-    fi
-
-    local ahead behind
-    ahead=$(echo "$counts" | awk '{print $1}')
-    behind=$(echo "$counts" | awk '{print $2}')
-
-    if [[ "$ahead" -eq 0 && "$behind" -eq 0 ]]; then
-        echo "in sync"
-    elif [[ "$ahead" -gt 0 && "$behind" -gt 0 ]]; then
-        echo "ahead $ahead; behind $behind"
-    elif [[ "$ahead" -gt 0 ]]; then
-        echo "ahead $ahead"
-    else
-        echo "behind $behind"
-    fi
 }
 
 main "$@"
