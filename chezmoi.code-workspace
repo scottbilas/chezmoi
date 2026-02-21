@@ -38,10 +38,10 @@
 	"settings": {
 		"window.title": "${dirty}${activeEditorLong}${separator}${rootName}",
         "workbench.colorCustomizations": {
-            "titleBar.activeForeground": "#b7babe",
-            "titleBar.activeBackground": "#503956",
-            "titleBar.inactiveForeground": "#714575",
-            "titleBar.inactiveBackground": "#1a001d"
+            "titleBar.activeForeground": "#ffffff",
+            "titleBar.activeBackground": "#b33030",
+            "titleBar.inactiveForeground": "#dddddd",
+            "titleBar.inactiveBackground": "#963030"
 		},
 		"powershell.cwd": "🐚 ~/Documents/PowerShell",
 		"AHK++.v2.file": {

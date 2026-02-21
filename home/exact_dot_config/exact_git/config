@@ -52,12 +52,15 @@
     c  = commit
     d  = diff
     h  = help
+    fb = fetch-tracked --prune
 
     # should do something with path instead of this
     scobi-xfer = !~/.config/git/git-scobi-xfer
     branch-list = !~/.config/git/git-branch-list
     status-all = !~/.config/git/git-status-all
     status-nice = !~/.config/git/git-status-nice
+    fetch-tracked = !~/.config/git/git-fetch-tracked
+    lfs-pull-submodule = !~/.config/git/git-lfs-pull-submodule
 
     # TODO: gitree way too slow. use a wrapper for `git status --porcelain` that adds color and garphics
     # `npm i -g https://github.com/scottbilas/gitree`
@@ -123,7 +126,7 @@
     trash = !git add -A && git commit -m 'TRASH' && git reset --hard HEAD^
 
     # https://www.erikschierboom.com/2020/02/17/cleaning-up-local-git-branches-deleted-on-a-remote/
-    gone = ! "git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}'"
+    gone = ! "git remote prune origin && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}'"
     rm-gone = ! "git gone | xargs -r git branch -D"
 
     # make a new commit from root containing the whole tree (https://stackoverflow.com/a/23486788/14582)
@@ -153,6 +156,10 @@
     longPaths = true
     # ms-settings:developers and turn on developer mode
     symlinks = true
+
+[checkout]
+    # avoid confusing myself when working with peer machine remotes
+    defaultRemote = origin
 
 [sequence]
     editor = interactive-rebase-tool # scoop install git-interactive-rebase-tool

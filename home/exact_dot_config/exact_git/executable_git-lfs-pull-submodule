@@ -1,0 +1,112 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+set -e
+
+# shellcheck disable=SC2034
+USAGE='[-n | --dry-run] <ref>...'
+# shellcheck disable=SC2034
+SUBDIRECTORY_OK=Yes
+. git-sh-setup
+
+[ "${DEBUG:-}" ] && set -x
+
+resolve_ref() {
+    local ref=$1 remote=$2
+    if git rev-parse --verify --quiet "$ref" >/dev/null 2>&1; then
+        echo "$ref"
+    elif git rev-parse --verify --quiet "$remote/$ref" >/dev/null 2>&1; then
+        echo "Resolved '$ref' -> '$remote/$ref'" >&2
+        echo "$remote/$ref"
+    else
+        die "Could not resolve ref '$ref' (also tried '$remote/$ref')"
+    fi
+}
+
+fetch_submodule() {
+    local sm_path=$1 dry_run_flag=$2
+    shift 2
+    local resolved_refs=("$@")
+
+    echo "[$sm_path]"
+
+    local remote
+    remote=$(git -C "$sm_path" config checkout.defaultRemote 2>/dev/null || echo origin)
+
+    local ref sub_hash
+    for ref in "${resolved_refs[@]}"; do
+        sub_hash=$(git ls-tree "$ref" -- "$sm_path" 2>/dev/null | awk '{print $3}')
+        if [ -z "$sub_hash" ]; then
+            echo "  [$ref] not present, skipping"
+        else
+            echo ">> $ref -> $sub_hash"
+            # shellcheck disable=SC2086
+            git -C "$sm_path" lfs fetch $dry_run_flag "$remote" "$sub_hash"
+        fi
+    done
+
+    echo
+}
+
+main() {
+    local opt_dry_run=false
+    local opt_refs=()
+
+    while [ $# != 0 ]; do
+        case "$1" in
+            -n|--dry-run) opt_dry_run=true ;;
+            -*) usage ;;
+            *) opt_refs+=("$1") ;;
+        esac
+        shift
+    done
+
+    [ ${#opt_refs[@]} -gt 0 ] || usage
+
+    require_work_tree_exists
+    cd_to_toplevel
+
+    local dry_run_flag=''
+    if $opt_dry_run; then
+        dry_run_flag='--dry-run'
+    fi
+
+    # resolve refs up front (using superproject's default remote)
+    local default_remote
+    default_remote=$(git config checkout.defaultRemote 2>/dev/null || echo origin)
+
+    local resolved_refs=()
+    local ref
+    for ref in "${opt_refs[@]}"; do
+        resolved_refs+=("$(resolve_ref "$ref" "$default_remote")")
+    done
+
+    # collect submodules
+    local sm_paths=()
+    local uninit_paths=()
+    local sm_path
+    while IFS= read -r line; do
+        local status="${line:0:1}"
+        sm_path=$(awk '{print $2}' <<< "$line")
+        if [ "$status" = "-" ]; then
+            uninit_paths+=("$sm_path")
+        else
+            sm_paths+=("$sm_path")
+        fi
+    done < <(git submodule status)
+
+    for sm_path in "${uninit_paths[@]}"; do
+        echo "WARNING: [$sm_path] is not initialized, skipping" >&2
+    done
+
+    if [ ${#sm_paths[@]} -eq 0 ]; then
+        die "No initialized submodules found"
+    fi
+
+    # outer loop = submodule, inner loop = ref
+    for sm_path in "${sm_paths[@]}"; do
+        fetch_submodule "$sm_path" "$dry_run_flag" "${resolved_refs[@]}"
+    done
+}
+
+main "$@"

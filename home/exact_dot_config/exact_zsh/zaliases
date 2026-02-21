@@ -103,5 +103,15 @@ get-api-key() {
   yq -p toml -o=yaml '.["API Keys"]["'"$key"'"]' "$file"
 }
 
+git-raw() {
+  local -a kvs=(
+    GIT_CONFIG_GLOBAL=/dev/null
+    GIT_CONFIG_NOSYSTEM=1
+  )
+
+  echo $'\e[2;3m'"running git with: ${(j: :)kvs}"$'\e[0m' >&2
+  env "${kvs[@]}" git "$@"
+}
+
 # no sudo in termux, so alias it to help when pasting cli's from stackoverflow :D
 [[ -v TERMUX_VERSION ]] && alias sudo=''

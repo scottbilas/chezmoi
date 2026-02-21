@@ -1,0 +1,64 @@
+#!/bin/sh
+# shellcheck disable=SC2086
+
+set -e
+
+# shellcheck disable=SC2034
+USAGE='[--prune] [REMOTE]'
+# shellcheck disable=SC2034
+SUBDIRECTORY_OK=Yes
+. git-sh-setup
+
+[ "$DEBUG" ] && set -x
+
+main() {
+    opt_prune=false
+    opt_remote=''
+
+    while [ $# != 0 ]
+    do
+        case "$1" in
+            --prune) opt_prune=true ;;
+            -*) usage ;;
+            *)
+                if [ -z "$opt_remote" ]; then
+                    opt_remote=$1
+                else
+                    usage
+                fi
+                ;;
+        esac
+        shift
+    done
+
+    # default to checkout.defaultRemote, then fall back to 'origin'
+    if [ -z "$opt_remote" ]; then
+        opt_remote=$(git config checkout.defaultRemote 2>/dev/null || echo origin)
+    fi
+
+    # prune stale remote tracking refs first if requested
+    if $opt_prune; then
+        git remote prune "$opt_remote"
+    fi
+
+    # collect remote branch names from local branches that track this remote
+    # and whose tracking ref still exists (may have just been pruned)
+    branches=$(
+        git for-each-ref --format='%(upstream:remotename) %(upstream:lstrip=3)' refs/heads/ \
+        | while read -r remote branch; do
+            [ "$remote" = "$opt_remote" ] && [ -n "$branch" ] \
+                && git show-ref --verify --quiet "refs/remotes/$opt_remote/$branch" \
+                && echo "$branch"
+        done
+    )
+
+    if [ -z "$branches" ]; then
+        echo "No local branches tracking $opt_remote"
+        return
+    fi
+
+    # shellcheck disable=SC2046,SC2116
+    git fetch "$opt_remote" --refmap='' $(echo $branches)
+}
+
+main "$@"
