@@ -52,7 +52,6 @@ if (($+commands[fdfind])); then
 fi
 
 if (($+commands[bat])); then
-  alias cat='bat --paging=never'
   alias rgb=~/.config/bat/extras/src/batgrep.sh
   alias man=~/.config/bat/extras/src/batman.sh
 fi

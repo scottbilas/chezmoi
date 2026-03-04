@@ -46,6 +46,7 @@ local noCtrl = lib.ifNotVar(varHeldCtrl);
 local keychronVendorId = 13364;
 local k11MaxBTProductId = 2739;
 local k11MaxGProductId = 53296;
+local k15MaxBTProductId = 2800;
 local ifK11MaxBT = lib.ifDevice(keychronVendorId, k11MaxBTProductId);
 local ifK11MaxG = lib.ifDevice(keychronVendorId, k11MaxGProductId);
 local ifK11Max = [ifK11MaxBT, ifK11MaxG];
@@ -180,6 +181,26 @@ local ctrl_passthrough(key_code) = {
             lib.manip('quote',               'any', 'grave_accent_and_tilde', null, [ifCaps]), // sometimes easier
             lib.manip('delete_or_backspace', 'any', 'delete_forward',         null, [ifCaps]),
             lib.manip('open_bracket',        'any', 'escape',                 null, [ifCaps]),
+          ]),
+
+          // this must go before ctrl-to-cmd to properly catch the ctrl hotkeys
+          lib.rule('MS Edge Fixes', [
+            # prevent shift-ctrl-h going to home, which i do all the time by accident
+            {
+              from:       { key_code: 'h', modifiers: { mandatory: ['left_command', 'shift'] }}, to: [],
+              conditions: [{ type: 'frontmost_application_if', bundle_identifiers: ['^com\\.microsoft\\.edgemac$'] }],
+            },
+            {
+              from:       { key_code: 'h', modifiers: { mandatory: ['shift'] }}, to: [],
+              conditions: [{ type: 'frontmost_application_if', bundle_identifiers: ['^com\\.microsoft\\.edgemac$'] }, ifCtrl],
+            },
+
+            # simply cannot lose the alt-d muscle memory (makes a bookmark on mac; don't want it!)
+            {
+              from:       { key_code: 'd', modifiers: { mandatory: ['left_command'] }},
+              to:         [{ key_code: 'l', modifiers: ['left_command'] }],
+              conditions: [{ type: 'frontmost_application_if', bundle_identifiers: ['^com\\.microsoft\\.edgemac$'] }],
+            },
           ]),
 
           // my current vscode keymap has some things that shouldn't be cmd-remapped
@@ -321,21 +342,6 @@ local ctrl_passthrough(key_code) = {
             },
           ]),
 
-          lib.rule('MS Edge Fixes', [
-            {
-              # prevent shift-cmd-h nuking browse history for the tab wtf ms why',
-              from:       { key_code: 'h', modifiers: { mandatory: ['left_command', 'shift'] }},
-              to:         [],
-              conditions: [{ type: 'frontmost_application_if', bundle_identifiers: ['^com\\.microsoft\\.edgemac$'] }],
-            },
-            {
-              # simply cannot lose the alt-d muscle memory (makes a bookmark on mac, don't want it)
-              from:       { key_code: 'd', modifiers: { mandatory: ['left_command'] }},
-              to:         [{ key_code: 'l', modifiers: ['left_command'] }],
-              conditions: [{ type: 'frontmost_application_if', bundle_identifiers: ['^com\\.microsoft\\.edgemac$'] }],
-            }
-          ]),
-
           // no tilde key on this keyboard..
           ]+std.map(function(cond)
             lib.rule('Keychron K11 Max', [
@@ -404,7 +410,8 @@ local ctrl_passthrough(key_code) = {
             // the mac/win switch set to win mode always (so as not to care what kind of laptop is connected to the k11),
             // but also be able to go between BT and G modes based on desk setup.
             { is_keyboard: true, vendor_id: keychronVendorId, product_id: k11MaxBTProductId, is_pointing_device: true },
-            { is_keyboard: true, vendor_id: keychronVendorId, product_id: k11MaxGProductId }
+            { is_keyboard: true, vendor_id: keychronVendorId, product_id: k11MaxGProductId },
+            { is_keyboard: true, vendor_id: keychronVendorId, product_id: k15MaxBTProductId, is_pointing_device: true },
           ]
         )+[
 

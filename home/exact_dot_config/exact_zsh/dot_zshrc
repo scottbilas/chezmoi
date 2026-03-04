@@ -48,8 +48,8 @@ fi
 export BAT_PAGER=less
 
 export MICRO_TRUECOLOR=1
-# todo: why do I have --no-init and -z-4?
-export LESS='--quit-if-one-screen --hilite-search --hilite-unread --ignore-case --long-prompt --raw-control-chars --no-init -z-4'
+# todo: why do I have --no-init?
+export LESS='--quit-if-one-screen --hilite-search --hilite-unread --ignore-case --long-prompt --raw-control-chars --no-init'
 
 # todo: why do I have this?
 # Set the Less input preprocessor.
@@ -191,7 +191,7 @@ set-shell-theme() {
 if is-macos; then
   set-lightmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false' && set-shell-theme light; }
   set-darkmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true' && set-shell-theme dark; }
-  
+
   is-darkmode() {
     local cur
     cur=$(osascript -e 'tell application "System Events" to tell appearance preferences to get dark mode' 2>/dev/null) || cur=''
@@ -278,16 +278,22 @@ bindkey '^[[6~' do-nothing
 ## darwin system upgrade
 
 if is-macos; then
-  nix-darwin-upgrade() {
+  nix-upgrade() {
     echo "🔄 Updating nix-darwin flake inputs..."
     nix flake update --flake ~/.config/nix-darwin || return 1
-  
+
     echo "🔨 Rebuilding darwin system configuration..."
     sudo darwin-rebuild switch --flake ~/.config/nix-darwin || return 1
-  
+
     echo "📦 Upgrading Homebrew packages..."
     brew upgrade || return 1
-  
+
+    echo "🔄 Updating home-manager flake inputs..."
+    nix flake update --flake ~/.config/home-manager || return 1
+
+    echo "🏠 Switching home-manager configuration..."
+    home-manager switch --flake ~/.config/home-manager || return 1
+
     echo "✅ All systems upgraded successfully!"
   }
 fi

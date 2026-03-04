@@ -14,65 +14,65 @@ in {
   home.homeDirectory = "/Users/${username}";
   news.display = "silent";
 
-  home.packages = [
+  home.packages = with pkgs; [
 
     # cli
-    pkgs.bat
-    pkgs.chezmoi
-    pkgs.delta
-    pkgs.difftastic
-    pkgs.eza
-    pkgs.fd
-    pkgs.fzf
-    pkgs.git
-    pkgs.git-lfs
-    pkgs.git-sizer
-    pkgs.glab
-    pkgs.gh  # gh auth login
-    pkgs.hyperfine
-    pkgs.jsonnet
-    pkgs.numbat
-    pkgs.patchutils
-    pkgs.ripgrep
-    pkgs.rsync
-    pkgs.scrcpy
-    pkgs.sheldon
-    pkgs.shellcheck
-    pkgs.starship
-    pkgs.wget
-    pkgs.yq-go
-    pkgs.zoxide
+    bat
+    chezmoi
+    delta
+    difftastic
+    eza
+    fd
+    fzf
+    git
+    git-lfs
+    git-sizer
+    glab
+    gh  # gh auth login
+    hyperfine
+    jsonnet
+    markdownlint-cli2
+    numbat
+    patchutils
+    ripgrep
+    rsync
+    scrcpy
+    sheldon
+    shellcheck
+    starship
+    wget
+    yq-go
+    zoxide
 
     # shells
-    pkgs.nushell
-    pkgs.powershell
+    nushell
+    powershell
 
     # tui
-    pkgs.basalt
-    pkgs.btop
-    pkgs.gdu
-    pkgs.lazygit
-    pkgs.micro
-    pkgs.neovim
-    pkgs.ranger
-    pkgs.tmux
+    basalt
+    btop
+    gdu
+    lazygit
+    micro
+    neovim
+    ranger
+    tmux
 
     # python
-    pkgs.pipx
-    pkgs.python3
-    pkgs.uv
+    pipx
+    python3
+    uv
 
     # other environments
-    pkgs.cmake
-    pkgs.go
-    pkgs.nodejs_24
-    (pkgs.pnpm.override { nodejs = pkgs.nodejs_24; }) # nix default is node 22
-    pkgs.ollama
+    cmake
+    go
+    nodejs_24
+    (pnpm.override { nodejs = nodejs_24; }) # nix default is node 22
+    ollama
 
     # gui
-    pkgs.keka
-    pkgs.obsidian
-    pkgs.yt-dlp
-    pkgs.wezterm
+    keka
+    obsidian
+    wezterm
   ];
 }

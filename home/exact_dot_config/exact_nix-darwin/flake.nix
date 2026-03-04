@@ -105,10 +105,12 @@
           homebrew.enable = true;
           homebrew.brews = [
             "fresh"
+            "yt-dlp"
           ];
           homebrew.casks = [
             "codex"
             "coteditor"
+            "notunes"
             "visual-studio-code" # vscode is kept way more current with brew than nix
           ];
           

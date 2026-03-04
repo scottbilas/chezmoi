@@ -1165,6 +1165,84 @@
                   ]
                },
                {
+                  "description": "MS Edge Fixes",
+                  "manipulators": [
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.microsoft\\.edgemac$"
+                              ],
+                              "type": "frontmost_application_if"
+                           }
+                        ],
+                        "from": {
+                           "key_code": "h",
+                           "modifiers": {
+                              "mandatory": [
+                                 "left_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [ ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.microsoft\\.edgemac$"
+                              ],
+                              "type": "frontmost_application_if"
+                           },
+                           {
+                              "name": "scoob:held_left_control",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "h",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [ ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "bundle_identifiers": [
+                                 "^com\\.microsoft\\.edgemac$"
+                              ],
+                              "type": "frontmost_application_if"
+                           }
+                        ],
+                        "from": {
+                           "key_code": "d",
+                           "modifiers": {
+                              "mandatory": [
+                                 "left_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "l",
+                              "modifiers": [
+                                 "left_command"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     }
+                  ]
+               },
+               {
                   "description": "Ctrl to cmd - / = (vscode)",
                   "manipulators": [
                      {
@@ -7955,6 +8033,2727 @@
                   ]
                },
                {
+                  "description": "Windows-style intl keeb (right-cmd as altgr)",
+                  "manipulators": [
+                     {
+                        "from": {
+                           "key_code": "a",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "e",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "i",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "o",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "u",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u"
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "a",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "e",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "i",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "o",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "u",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "quote",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_acute_active",
+                                 "value": 1
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a"
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e"
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i"
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o"
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u"
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_acute_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape"
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_acute_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "grave_accent_and_tilde",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_backtick_active",
+                                 "value": 1
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a"
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e"
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i"
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o"
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u"
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "grave_accent_and_tilde",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_backtick_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape"
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_backtick_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "6",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 1
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a"
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e"
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i"
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o"
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u"
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_circumflex_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape"
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_circumflex_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "quote",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 1
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape"
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "semicolon",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_colon_umlaut_active",
+                                 "value": 1
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_colon_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_colon_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_colon_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_colon_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_colon_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_colon_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_colon_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "e",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "e",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_colon_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_colon_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_colon_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_colon_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "i",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "i",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_colon_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_colon_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_colon_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_colon_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_colon_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_colon_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_colon_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_colon_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "u",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_colon_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_colon_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "y"
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "y"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_colon_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_colon_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "y",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "u",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "y",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_colon_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_colon_umlaut_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape"
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_colon_umlaut_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "comma",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_cedilla_active",
+                                 "value": 1
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_cedilla_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "c"
+                        },
+                        "to": [
+                           {
+                              "key_code": "c",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_cedilla_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_cedilla_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "c",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "c",
+                              "modifiers": [
+                                 "right_option",
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_cedilla_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_cedilla_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape"
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_cedilla_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "l",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "l",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "right_option",
+                                 "right_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "c",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "c",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "c",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "c",
+                              "modifiers": [
+                                 "right_option",
+                                 "right_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "z",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "quote",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "z",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "quote",
+                              "modifiers": [
+                                 "right_option",
+                                 "right_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "w",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "w",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "right_option",
+                                 "right_shift"
+                              ]
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "from": {
+                           "key_code": "grave_accent_and_tilde",
+                           "modifiers": {
+                              "mandatory": [
+                                 "right_command",
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_tilde_active",
+                                 "value": 1
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_tilde_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "n"
+                        },
+                        "to": [
+                           {
+                              "key_code": "n",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "n"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_tilde_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_tilde_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "n",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "n",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "n",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_tilde_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_tilde_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a"
+                        },
+                        "to": [
+                           {
+                              "key_code": "n",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_tilde_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_tilde_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "a",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "n",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "a",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_tilde_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_tilde_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o"
+                        },
+                        "to": [
+                           {
+                              "key_code": "n",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o"
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_tilde_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_tilde_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "o",
+                           "modifiers": {
+                              "mandatory": [
+                                 "shift"
+                              ]
+                           }
+                        },
+                        "to": [
+                           {
+                              "key_code": "n",
+                              "modifiers": [
+                                 "right_option"
+                              ]
+                           },
+                           {
+                              "key_code": "o",
+                              "modifiers": [
+                                 "right_shift"
+                              ]
+                           },
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_tilde_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     },
+                     {
+                        "conditions": [
+                           {
+                              "name": "scoob:dead_tilde_active",
+                              "type": "variable_if",
+                              "value": 1
+                           }
+                        ],
+                        "from": {
+                           "key_code": "escape"
+                        },
+                        "to": [
+                           {
+                              "set_variable": {
+                                 "name": "scoob:dead_tilde_active",
+                                 "value": 0
+                              }
+                           }
+                        ],
+                        "type": "basic"
+                     }
+                  ]
+               },
+               {
                   "description": "Emulate Windows global hotkeys",
                   "manipulators": [
                      {
@@ -8142,59 +10941,6 @@
                         "to": [
                            {
                               "shell_command": "zsh -ic toggle-lightdarkmode"
-                           }
-                        ],
-                        "type": "basic"
-                     }
-                  ]
-               },
-               {
-                  "description": "MS Edge Fixes",
-                  "manipulators": [
-                     {
-                        "conditions": [
-                           {
-                              "bundle_identifiers": [
-                                 "^com\\.microsoft\\.edgemac$"
-                              ],
-                              "type": "frontmost_application_if"
-                           }
-                        ],
-                        "from": {
-                           "key_code": "h",
-                           "modifiers": {
-                              "mandatory": [
-                                 "left_command",
-                                 "shift"
-                              ]
-                           }
-                        },
-                        "to": [ ],
-                        "type": "basic"
-                     },
-                     {
-                        "conditions": [
-                           {
-                              "bundle_identifiers": [
-                                 "^com\\.microsoft\\.edgemac$"
-                              ],
-                              "type": "frontmost_application_if"
-                           }
-                        ],
-                        "from": {
-                           "key_code": "d",
-                           "modifiers": {
-                              "mandatory": [
-                                 "left_command"
-                              ]
-                           }
-                        },
-                        "to": [
-                           {
-                              "key_code": "l",
-                              "modifiers": [
-                                 "left_command"
-                              ]
                            }
                         ],
                         "type": "basic"
@@ -8524,6 +11270,57 @@
                "identifiers": {
                   "is_keyboard": true,
                   "product_id": 53296,
+                  "vendor_id": 13364
+               },
+               "ignore": false,
+               "simple_modifications": [
+                  {
+                     "from": {
+                        "key_code": "left_command"
+                     },
+                     "to": [
+                        {
+                           "key_code": "left_option"
+                        }
+                     ]
+                  },
+                  {
+                     "from": {
+                        "key_code": "left_option"
+                     },
+                     "to": [
+                        {
+                           "key_code": "left_command"
+                        }
+                     ]
+                  },
+                  {
+                     "from": {
+                        "key_code": "right_command"
+                     },
+                     "to": [
+                        {
+                           "key_code": "right_option"
+                        }
+                     ]
+                  },
+                  {
+                     "from": {
+                        "key_code": "right_option"
+                     },
+                     "to": [
+                        {
+                           "key_code": "right_command"
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "identifiers": {
+                  "is_keyboard": true,
+                  "is_pointing_device": true,
+                  "product_id": 2800,
                   "vendor_id": 13364
                },
                "ignore": false,
