@@ -94,7 +94,7 @@
         "./validate": true,
         "/^bash .*_test.bash($| --)/": true,
         "/_test.bash( |$)/": true,
-        "git commit -F COMMIT_MSG_TEMP": true,
+        "/git commit (--amend )?-F .*COMMIT_MSG_TEMP/": true,
         "git cat-file": true,
         "/^git (-C \\S+ |--no-pager |lfs )*(add|annotate|blame|cat-file|describe|diff|env|fetch|grep|help|log|ls-files|ls-remote|ls-tree|merge-base|merge-tree|rev-list|rev-parse|shortlog|show|status|symbolic-ref)( |$)/": true,
         "/^git (-C \\S+ |)*config (--get|--get-all|--get-regexp|--list|-l)\\b/": true,
@@ -109,6 +109,7 @@
         "/^rm (\\/tmp\\/|.*_TEMP$)/": true,
         "/.*\\/mr2d2\"? (fetch|query|review)/": true,
         "/^codex (features|debug)( |$)/": true,
+        "pwd": true
     },
     "chat.tools.terminal.ignoreDefaultAutoApproveRules": true,
     "chat.tools.urls.autoApprove": {
@@ -166,7 +167,17 @@
         "https://github.com/anthropics": true,
         "https://agentskills.io": true,
         "https://developers.google.com": true,
-        "https://geminicli.com": true
+        "https://geminicli.com": true,
+        "https://*.unity3d.com": true,
+        "https://*.unity.com": true,
+        "https://discussions.unity.com": true,
+        "https://github.com/git-for-windows": true,
+        "https://archives.docs.gitlab.com": true,
+        "https://*.docs.gitlab.com": true,
+        "https://github.com/encode": true,
+        "https://*.python-httpx.org": true,
+        "https://gitlab.com/-/graphql-explorer": true,
+        "https://gitlab.com/api": true
     },
     "chat.useAgentSkills": true,
     "chat.useNestedAgentsMdFiles": true,
