@@ -3,13 +3,145 @@
 
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# --- status worker function (defined early so it's available for --status-worker) ---
+status_worker() {
+    local wt_path="$1"
+    local outdir="$2"
+    local outfile="$outdir/$(basename "$wt_path")"
+
+    unset GIT_DIR
+
+    local newest_epoch=0
+
+    # get porcelain status
+    local porcelain
+    porcelain=$(git -C "$wt_path" status --porcelain=v1 2>/dev/null) || { echo "" >"$outfile"; return; }
+
+    # count by status category (starship-style icons)
+    local staged=0 modified=0 deleted=0 renamed=0 untracked=0 conflicted=0
+
+    while IFS= read -r line; do
+        [[ -z "$line" ]] && continue
+        local x="${line:0:1}" y="${line:1:1}"
+
+        # conflicted
+        if [[ "$x" == "U" || "$y" == "U" || ( "$x" == "A" && "$y" == "A" ) || ( "$x" == "D" && "$y" == "D" ) ]]; then
+            (( ++conflicted ))
+        else
+            case "$x" in
+                A|M|T) (( ++staged )) ;;
+                D) (( ++deleted )) ;;
+                R) (( ++renamed )) ;;
+            esac
+            case "$y" in
+                M|T) (( ++modified )) ;;
+                D) (( ++deleted )) ;;
+                ?) (( ++untracked )) ;;
+            esac
+        fi
+    done <<< "$porcelain"
+
+    # build compact icons string (same icons as starship config)
+    local icons=""
+    (( staged > 0 ))     && icons+="●${staged}"
+    (( modified > 0 ))   && icons+="✚${modified}"
+    (( deleted > 0 ))    && icons+="✖${deleted}"
+    (( renamed > 0 ))    && icons+="➜${renamed}"
+    (( untracked > 0 ))  && icons+="⁇${untracked}"
+    (( conflicted > 0 )) && icons+="‼${conflicted}"
+
+    # detect in-progress operations
+    local git_dir
+    git_dir=$(git -C "$wt_path" rev-parse --git-dir 2>/dev/null)
+    local state=""
+    if [[ -d "$git_dir/rebase-merge" || -d "$git_dir/rebase-apply" ]]; then
+        state="rebase"
+    elif [[ -f "$git_dir/MERGE_HEAD" ]]; then
+        state="merge"
+    elif [[ -f "$git_dir/CHERRY_PICK_HEAD" ]]; then
+        state="pick"
+    elif [[ -f "$git_dir/REVERT_HEAD" ]]; then
+        state="revert"
+    elif [[ -f "$git_dir/BISECT_LOG" ]]; then
+        state="bisect"
+    fi
+
+    local status_text=""
+    if [[ -n "$icons" && -n "$state" ]]; then
+        status_text="${icons} ${state}"
+    elif [[ -n "$icons" ]]; then
+        status_text="$icons"
+    elif [[ -n "$state" ]]; then
+        status_text="$state"
+    fi
+
+    # compute newest timestamp: max(dirty file mtimes, HEAD commit date)
+    # only include HEAD commit if on a real branch (not detached)
+    local branch
+    branch=$(git -C "$wt_path" symbolic-ref --short HEAD 2>/dev/null) || branch=""
+
+    if [[ -n "$branch" ]]; then
+        local head_epoch
+        head_epoch=$(git -C "$wt_path" log -1 --format='%ct' 2>/dev/null) || head_epoch=0
+        (( head_epoch > newest_epoch )) && newest_epoch=$head_epoch || true
+    fi
+
+    # check mtimes of dirty files
+    if [[ -n "$porcelain" ]]; then
+        while IFS= read -r line; do
+            [[ -z "$line" ]] && continue
+            local fname="${line:3}"
+            # handle renames: "R  old -> new"
+            if [[ "$fname" == *" -> "* ]]; then
+                fname="${fname##* -> }"
+            fi
+            local fpath="$wt_path/$fname"
+            if [[ -e "$fpath" ]]; then
+                local mtime
+                mtime=$(stat -f '%m' "$fpath" 2>/dev/null || stat -c '%Y' "$fpath" 2>/dev/null) || continue
+                (( mtime > newest_epoch )) && newest_epoch=$mtime || true
+            fi
+        done <<< "$porcelain"
+    fi
+
+    # output structured: epoch<TAB>status_text
+    # age formatting is done by the main script for column alignment
+    printf '%s\t%s' "$newest_epoch" "$status_text" >"$outfile"
+}
+
+# full-status worker: runs git status -sb on a worktree
+full_status_worker() {
+    local wt_path="$1"
+    local outdir="$2"
+    local outfile="$outdir/$(basename "$wt_path")"
+
+    unset GIT_DIR
+    git -C "$wt_path" -c color.status=always status -sb 2>/dev/null >"$outfile" || echo "(status unavailable)" >"$outfile"
+}
+
+# --- early exit for worker subprocesses (invoked by xargs, not through git) ---
+if [[ "${1:-}" == "--status-worker" ]]; then
+    [ "$DEBUG" ] && set -x
+    status_worker "$2" "$3"
+    exit 0
+elif [[ "${1:-}" == "--full-status-worker" ]]; then
+    [ "$DEBUG" ] && set -x
+    full_status_worker "$2" "$3"
+    exit 0
+fi
+
 # shellcheck disable=SC2034
-USAGE=''
+USAGE='[--status [--brief]]'
 # shellcheck disable=SC2034
 SUBDIRECTORY_OK=Yes
 . git-sh-setup
 
 [ "$DEBUG" ] && set -x
+
+# shellcheck source=lib/parallel-worktrees.sh
+. "$SCRIPT_DIR/lib/parallel-worktrees.sh"
 
 CYAN='\033[36m'
 YELLOW='\033[33m'
@@ -17,13 +149,141 @@ ORANGE='\033[95m'
 RED='\033[31m'
 GREEN='\033[32m'
 MAGENTA='\033[95m'
+BRIGHT_BLACK='\033[90m'
+LIGHT_CYAN='\033[96m'
 DIM='\033[2m'
 ITALIC='\033[3m'
 UNDERLINE='\033[4m'
 RESET='\033[0m'
 
+relative_to_cwd() {
+    local target="$1"
+    local abs_target abs_cwd
+
+    abs_target=$(cd "$target" 2>/dev/null && pwd -P) || return 1
+    abs_cwd=$(pwd -P)
+
+    local target_trimmed="${abs_target#/}"
+    local cwd_trimmed="${abs_cwd#/}"
+    local -a target_parts=() cwd_parts=() rel_parts=()
+
+    if [[ -n "$target_trimmed" ]]; then
+        IFS='/' read -r -a target_parts <<< "$target_trimmed"
+    fi
+    if [[ -n "$cwd_trimmed" ]]; then
+        IFS='/' read -r -a cwd_parts <<< "$cwd_trimmed"
+    fi
+
+    local common_len=0
+    local max_common=${#target_parts[@]}
+    (( ${#cwd_parts[@]} < max_common )) && max_common=${#cwd_parts[@]}
+
+    while (( common_len < max_common )) && [[ "${target_parts[$common_len]}" == "${cwd_parts[$common_len]}" ]]; do
+        (( common_len += 1 ))
+    done
+
+    local i
+    for (( i = common_len; i < ${#cwd_parts[@]}; i++ )); do
+        rel_parts+=("..")
+    done
+    for (( i = common_len; i < ${#target_parts[@]}; i++ )); do
+        rel_parts+=("${target_parts[$i]}")
+    done
+
+    if (( ${#rel_parts[@]} == 0 )); then
+        local repo_dir
+        repo_dir=$(basename "$abs_target")
+        if [[ -n "$repo_dir" && "$repo_dir" != "/" && "$repo_dir" != "." ]]; then
+            printf '. (%s)' "$repo_dir"
+        else
+            printf '.'
+        fi
+    else
+        local rel_path="${rel_parts[0]}"
+        for (( i = 1; i < ${#rel_parts[@]}; i++ )); do
+            rel_path+="/${rel_parts[$i]}"
+        done
+        printf '%s' "$rel_path"
+    fi
+}
+
 main() {
-    declare -a paths refs infos memos submods
+    local opt_status=false
+    local opt_brief=false
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --status) opt_status=true ;;
+            --brief) opt_brief=true ;;
+            *) usage ;;
+        esac
+        shift
+    done
+
+    # --brief only valid with --status
+    if $opt_brief && ! $opt_status; then
+        usage
+    fi
+
+    # if --status requested, collect status for all worktrees in parallel
+    declare -A status_icons_map status_epoch_map
+    declare -A full_status_map
+    if $opt_status; then
+        local worker_flag
+        if $opt_brief; then worker_flag="--status-worker"; else worker_flag="--full-status-worker"; fi
+
+        # run workers in parallel with progress
+        local tmpdir
+        tmpdir=$(mktemp -d)
+        local ncpus
+        ncpus=$(pwt_ncpus)
+
+        unset GIT_DIR
+        local wt_query_paths=()
+        while IFS= read -r wt_path; do
+            wt_path=$(awk '{print $1}' <<< "$wt_path")
+            if [[ -d "$wt_path/.git" || -f "$wt_path/.git" ]]; then
+                wt_query_paths+=("$wt_path")
+            fi
+        done < <(git worktree list)
+
+        local total=${#wt_query_paths[@]}
+        local completed=0 active=0
+
+        for wt_path in "${wt_query_paths[@]}"; do
+            "$SCRIPT_DIR/git-worktree-list" "$worker_flag" "$wt_path" "$tmpdir" &
+            active=$(( active + 1 ))
+            if (( active >= ncpus )); then
+                wait -n 2>/dev/null || true
+                active=$(( active - 1 ))
+                completed=$(( completed + 1 ))
+                printf '\r\033[Kquerying worktrees [%d/%d]' "$completed" "$total" >&2
+            fi
+        done
+        while (( active > 0 )); do
+            wait -n 2>/dev/null || true
+            active=$(( active - 1 ))
+            completed=$(( completed + 1 ))
+            printf '\r\033[Kquerying worktrees [%d/%d]' "$completed" "$total" >&2
+        done
+        printf '\r\033[K' >&2
+
+        # parse results
+        for wt_path in "${wt_query_paths[@]}"; do
+            local base
+            base=$(basename "$wt_path")
+            if $opt_brief; then
+                local raw=""
+                [[ -f "$tmpdir/$base" ]] && raw=$(cat "$tmpdir/$base")
+                status_epoch_map["$base"]="${raw%%	*}"
+                status_icons_map["$base"]="${raw#*	}"
+            else
+                [[ -f "$tmpdir/$base" ]] && full_status_map["$base"]=$(cat "$tmpdir/$base")
+            fi
+        done
+        rm -rf "$tmpdir"
+    fi
+    declare -a paths display_paths refs infos memos submods
     max_path_len=0
     max_ref_len=0
 
@@ -87,41 +347,124 @@ main() {
             sm_count=$(grep -c '^\[submodule ' "$path/.gitmodules" 2>/dev/null || true)
         fi
 
+        local display_path
+        display_path=$(relative_to_cwd "$path")
+
         paths+=("$path")
+        display_paths+=("$display_path")
         refs+=("$ref")
         infos+=("$info")
         memos+=("$memo")
         submods+=("$sm_count")
 
-        (( ${#path} > max_path_len )) && max_path_len=${#path}
-        (( ${#ref} > max_ref_len )) && max_ref_len=${#ref}
+        # skip bare repos from column width calculations in brief mode
+        if ! ($opt_status && $opt_brief && [[ "$ref" == "bare" ]]); then
+            (( ${#display_path} > max_path_len )) && max_path_len=${#display_path}
+            (( ${#ref} > max_ref_len )) && max_ref_len=${#ref}
+        fi
     done < <(git worktree list)
+
+    # compute max info column width for padding
+    local max_info_len=0
+    for i in "${!infos[@]}"; do
+        if $opt_status && $opt_brief && [[ "${refs[$i]}" == "bare" ]]; then continue; fi
+        (( ${#infos[$i]} > max_info_len )) && max_info_len=${#infos[$i]}
+    done
 
     # determine if any worktree has submodules, and max column width
     local has_submods=false
     local max_sm_len=0
-    for sm in "${submods[@]}"; do
-        if (( sm > 0 )); then
+    for i in "${!submods[@]}"; do
+        if $opt_status && $opt_brief && [[ "${refs[$i]}" == "bare" ]]; then continue; fi
+        if (( submods[$i] > 0 )); then
             has_submods=true
             local sm_text
-            if (( sm == 1 )); then
+            if (( submods[$i] == 1 )); then
                 sm_text="SM"
             else
-                sm_text="SM[$sm]"
+                sm_text="SM[${submods[$i]}]"
             fi
             (( ${#sm_text} > max_sm_len )) && max_sm_len=${#sm_text}
         fi
     done
 
-    for i in "${!paths[@]}"; do
+    # for --status --brief: compute age texts, max column widths, and sort order
+    declare -A age_text_map age_plain_map
+    local max_icons_len=0 max_age_len=0
+    declare -a sort_order
+
+    if $opt_status && $opt_brief; then
+        local now
+        now=$(date +%s)
+
+        # compute age text for each worktree and track max widths
+        for i in "${!paths[@]}"; do
+            local base
+            base=$(basename "${paths[$i]}")
+            local icons="${status_icons_map[$base]:-}"
+            local epoch="${status_epoch_map[$base]:-0}"
+
+            (( ${#icons} > max_icons_len )) && max_icons_len=${#icons}
+
+            local age_plain=""
+            if (( epoch > 0 )); then
+                local age_secs=$(( now - epoch ))
+                if (( age_secs < 60 )); then
+                    age_plain="just now"
+                elif (( age_secs < 3600 )); then
+                    age_plain="$(( age_secs / 60 ))m ago"
+                elif (( age_secs < 86400 )); then
+                    age_plain="$(( age_secs / 3600 ))h ago"
+                elif (( age_secs < 604800 )); then
+                    age_plain="$(( age_secs / 86400 ))d ago"
+                elif (( age_secs < 2592000 )); then
+                    age_plain="$(( age_secs / 604800 ))w ago"
+                elif (( age_secs < 31536000 )); then
+                    age_plain="$(( age_secs / 2592000 ))mo ago"
+                else
+                    age_plain="$(( age_secs / 31536000 ))y ago"
+                fi
+            fi
+
+            age_plain_map["$base"]="$age_plain"
+            (( ${#age_plain} > max_age_len )) && max_age_len=${#age_plain}
+        done
+
+        # build sort order: by epoch descending (newest first = increasing age going down)
+        # bare repos (epoch=0) go to the top
+        local sort_data=""
+        for i in "${!paths[@]}"; do
+            local base
+            base=$(basename "${paths[$i]}")
+            local epoch="${status_epoch_map[$base]:-0}"
+            # skip bare repos in brief mode
+            if [[ "${refs[$i]}" == "bare" ]]; then
+                continue
+            fi
+            sort_data+="$epoch $i"$'\n'
+        done
+        # sort by epoch descending (newest first), bare repos (0) last
+        while IFS=' ' read -r _ idx; do
+            [[ -z "$idx" ]] && continue
+            sort_order+=("$idx")
+        done < <(echo -n "$sort_data" | sort -t' ' -k1,1 -rn)
+    else
+        # default order: as returned by git worktree list
+        for i in "${!paths[@]}"; do
+            sort_order+=("$i")
+        done
+    fi
+
+    local now_ts
+    now_ts=$(date +%s)
+
+    for i in "${sort_order[@]}"; do
         path="${paths[$i]}"
+        display_path="${display_paths[$i]}"
         ref="${refs[$i]}"
         info="${infos[$i]}"
         memo="${memos[$i]}"
         sm="${submods[$i]}"
-
-        padded_ref=$(printf "%-${max_ref_len}s" "$ref")
-        padding="${padded_ref:${#ref}}"
 
         # worktree list paths are already physical; just compare directly
         if [[ "$path" == "$current_wt" ]]; then
@@ -132,44 +475,109 @@ main() {
             ul=""
         fi
 
-        if [[ "$ref" =~ ^detached\ at|^bare ]]; then
-            colored_ref="${ul}${DIM}${ITALIC}${ref}${RESET}${padding}"
-        elif [[ -n "$info" ]]; then
-            colored_ref="${ul}${CYAN}${ref}${RESET}${padding}"
-        else
-            colored_ref="${ul}${ref}${RESET}${padding}"
-        fi
+        if $opt_status && ! $opt_brief; then
+            # --- wtss: just path + status detail ---
+            printf "%-${max_path_len}s %s\n" "$display_path" "$marker"
 
-        local sm_col=""
-        if $has_submods; then
-            if (( sm > 0 )); then
-                local sm_text
-                if (( sm == 1 )); then
-                    sm_text="SM"
-                else
-                    sm_text="SM[$sm]"
+            if [[ "$ref" != "bare" ]]; then
+                local fs="${full_status_map[$path]:-}"
+                if [[ -n "$fs" ]]; then
+                    while IFS= read -r sline; do
+                        printf "  %s\n" "$sline"
+                    done <<< "$fs"
                 fi
-                sm_col="  ${MAGENTA}$(printf "%-${max_sm_len}s" "$sm_text")${RESET}"
-            else
-                sm_col="  $(printf "%-${max_sm_len}s" "")"
             fi
-        fi
-
-        local memo_col=""
-        if [[ -n "$memo" ]]; then
-            memo_col="  ${YELLOW}${ITALIC}${memo}${RESET}"
-        fi
-
-        if [[ -z "$info" ]]; then
-            printf "%-${max_path_len}s %s %b%b%b\n" "$path" "$marker" "$colored_ref" "$sm_col" "$memo_col"
-        elif [[ "$info" == "gone" ]]; then
-            printf "%-${max_path_len}s %s %b%b  %b%b\n" "$path" "$marker" "$colored_ref" "$sm_col" "${RED}${info}${RESET}" "$memo_col"
-        elif [[ "$info" =~ ahead && "$info" =~ behind ]]; then
-            printf "%-${max_path_len}s %s %b%b  %b%b\n" "$path" "$marker" "$colored_ref" "$sm_col" "${ORANGE}${info}${RESET}" "$memo_col"
-        elif [[ "$info" =~ behind ]]; then
-            printf "%-${max_path_len}s %s %b%b  %b%b\n" "$path" "$marker" "$colored_ref" "$sm_col" "${YELLOW}${info}${RESET}" "$memo_col"
+            echo
         else
-            printf "%-${max_path_len}s %s %b%b  %b%b\n" "$path" "$marker" "$colored_ref" "$sm_col" "${GREEN}${info}${RESET}" "$memo_col"
+            # --- wtl / wts: padded aligned table ---
+            padded_ref=$(printf "%-${max_ref_len}s" "$ref")
+            padding="${padded_ref:${#ref}}"
+
+            if [[ "$ref" =~ ^detached\ at|^bare ]]; then
+                colored_ref="${ul}${DIM}${ITALIC}${ref}${RESET}${padding}"
+            elif [[ -n "$info" ]]; then
+                colored_ref="${ul}${CYAN}${ref}${RESET}${padding}"
+            else
+                colored_ref="${ul}${ref}${RESET}${padding}"
+            fi
+
+            local sm_col=""
+            if $has_submods; then
+                if (( sm > 0 )); then
+                    local sm_text
+                    if (( sm == 1 )); then
+                        sm_text="SM"
+                    else
+                        sm_text="SM[$sm]"
+                    fi
+                    sm_col="  ${MAGENTA}$(printf "%-${max_sm_len}s" "$sm_text")${RESET}"
+                else
+                    sm_col="  $(printf "%-${max_sm_len}s" "")"
+                fi
+            fi
+
+            local memo_col=""
+            if [[ -n "$memo" ]]; then
+                memo_col="  ${YELLOW}${ITALIC}${memo}${RESET}"
+            fi
+
+            # info column with padding
+            local info_col=""
+            if (( max_info_len > 0 )); then
+                local info_padding
+                info_padding=$(printf "%-${max_info_len}s" "$info")
+                info_padding="${info_padding:${#info}}"
+                if [[ -z "$info" ]]; then
+                    info_col="  $(printf "%-${max_info_len}s" "")"
+                elif [[ "$info" == "gone" ]]; then
+                    info_col="  ${RED}${info}${RESET}${info_padding}"
+                elif [[ "$info" =~ ahead && "$info" =~ behind ]]; then
+                    info_col="  ${ORANGE}${info}${RESET}${info_padding}"
+                elif [[ "$info" =~ behind ]]; then
+                    info_col="  ${YELLOW}${info}${RESET}${info_padding}"
+                else
+                    info_col="  ${GREEN}${info}${RESET}${info_padding}"
+                fi
+            fi
+
+            # brief status columns (only with --status --brief)
+            local icons_col="" age_col=""
+            if $opt_status && $opt_brief; then
+                local base
+                base=$(basename "$path")
+                local icons="${status_icons_map[$base]:-}"
+                local age_plain="${age_plain_map[$base]:-}"
+                local epoch="${status_epoch_map[$base]:-0}"
+
+                # padded icons column (manual padding — printf field width counts bytes, not chars)
+                if (( max_icons_len > 0 )); then
+                    local icons_pad_len=$(( max_icons_len - ${#icons} ))
+                    local icons_pad=""
+                    (( icons_pad_len > 0 )) && printf -v icons_pad "%-${icons_pad_len}s" ""
+                    icons_col="  ${icons}${icons_pad}"
+                fi
+
+                # padded age column with color
+                if (( max_age_len > 0 )); then
+                    local age_padding
+                    age_padding=$(printf "%-${max_age_len}s" "$age_plain")
+                    age_padding="${age_padding:${#age_plain}}"
+                    if [[ -n "$age_plain" ]] && (( epoch > 0 )); then
+                        local age_secs=$(( now_ts - epoch ))
+                        if (( age_secs < 259200 )); then
+                            age_col="  ${LIGHT_CYAN}${age_plain}${RESET}${age_padding}"
+                        elif (( age_secs > 2592000 )); then
+                            age_col="  ${BRIGHT_BLACK}${age_plain}${RESET}${age_padding}"
+                        else
+                            age_col="  ${age_plain}${age_padding}"
+                        fi
+                    else
+                        age_col="  $(printf "%-${max_age_len}s" "")"
+                    fi
+                fi
+            fi
+
+            printf "%-${max_path_len}s %s %b%b%b%b%b%b\n" "$display_path" "$marker" "$colored_ref" "$sm_col" "$info_col" "$memo_col" "$icons_col" "$age_col"
         fi
     done
 }

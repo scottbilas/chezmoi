@@ -24,8 +24,9 @@
     last = log -1 HEAD
 
     wt = worktree
-    wtl = !~/.config/git/git-worktree-list
-    wts = "!f() { echo ""; git worktree list | while read -r line; do dir=${line%*  *}; echo "$(tput setaf 4)${line%* [*}$(tput sgr 0)"; unset GIT_DIR; git -C $dir status -sb; echo ""; done; }; f"
+    wtl = worktree-list
+    wts = worktree-list --status --brief
+    wtss = worktree-list --status
     # TODO: make this also go and do a `submodule update` on the new worktree
     wta = -c "submodule.recurse=" worktree add --detach
     wtz = !dir=$(git root) && git co origin/master -B "z/$(basename "$dir")" --no-track
@@ -61,8 +62,9 @@
     status-nice = !~/.config/git/git-status-nice
     fetch-tracked = !~/.config/git/git-fetch-tracked
     lfs-pull-submodule = !~/.config/git/git-lfs-pull-submodule
+    worktree-list = !~/.config/git/git-worktree-list
 
-    # TODO: gitree way too slow. use a wrapper for `git status --porcelain` that adds color and garphics
+    # TODO: gitree way too slow. use a wrapper for `git status --porcelain` that adds color and graphics
     # `npm i -g https://github.com/scottbilas/gitree`
     #s  = !gitree -mcdn
     status- = !git -c color.status=always status --short --branch --show-stash --ignore-submodules=none
@@ -71,6 +73,7 @@
     f  = scobi-xfer
     p  = scobi-xfer --pull
     pr = scobi-xfer --pull --rebase
+    pushf = push --force-with-lease
 
     sync = scobi-xfer --pull --rebase --push
 
@@ -182,6 +185,7 @@
 
 [push]
     default = simple
+    useForceIfIncludes = true
 
 [rebase]
     autosquash = true

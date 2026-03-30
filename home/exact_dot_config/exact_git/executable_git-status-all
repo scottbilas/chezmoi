@@ -3,6 +3,33 @@
 
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# --- worker: invoked directly by xargs (not through git) ---
+if [[ "${1:-}" == "--worker" ]]; then
+    [ "$DEBUG" ] && set -x
+
+    YELLOW='\033[93m'
+    RESET='\033[0m'
+
+    actual_dir="$2"
+    OUTDIR="$3"
+
+    resolved_parent="$(dirname "$(pwd -P)")"
+    unresolved_parent="$(dirname "$PWD" | sed "s|^$HOME|~|")"
+
+    display_dir="${actual_dir/#$resolved_parent/$unresolved_parent}"
+    outfile="$OUTDIR/$(basename "$actual_dir")"
+
+    {
+      echo -e "${YELLOW}========== $display_dir ==========${RESET}"
+      git -C "$actual_dir" status-nice
+    } >"$outfile"
+
+    printf "%s " "$(basename "$actual_dir")" >&2
+    exit 0
+fi
+
 # shellcheck disable=SC2034
 USAGE=''
 # shellcheck disable=SC2034
@@ -11,73 +38,28 @@ SUBDIRECTORY_OK=Yes
 
 [ "$DEBUG" ] && set -x
 
+# shellcheck source=lib/parallel-worktrees.sh
+. "$SCRIPT_DIR/lib/parallel-worktrees.sh"
+
 main () {
 
 set -euo pipefail
 
-YELLOW='\033[93m'
-CYAN='\033[96m'
 ITALIC='\033[3m'
+CYAN='\033[96m'
 RESET='\033[0m'
 
-# =============================================================================
-# ORCHESTRATOR SECTION - coordinate parallel worktree status checks
+local ncpus
+ncpus=$(pwt_ncpus)
+echo -n -e "${ITALIC}Gathering status from worktrees (max $ncpus jobs)... ${CYAN}" >&2
 
-if [[ "${1:-}" != "--worker" ]]; then
-  # Create temp dir for outputs
-  OUTDIR="$(mktemp -d)"
+pwt_run "$SCRIPT_DIR/git-status-all" --worker
 
-  # Get parent directories for path translation (for display only)
-  UNRESOLVED_PARENT="$(dirname "$PWD" | sed "s|^$HOME|~|")"
-  RESOLVED_PARENT="$(dirname "$(pwd -P)")"
+echo -e "...done!${RESET}" >&2
+echo >&2
 
-  # Detect CPU count: macOS perf cores, Linux nproc, Windows env var, or default to 4
-  NCPUS=$(sysctl -n hw.perflevel0.logicalcpu 2>/dev/null || nproc 2>/dev/null || echo "${NUMBER_OF_PROCESSORS:-4}")
-
-  echo -n -e "${ITALIC}Gathering status from worktrees (max $NCPUS jobs)... ${CYAN}" >&2
-
-  # Run in parallel - get all worktrees from git
-  git worktree list | awk '{print $1}' | while IFS= read -r path; do
-    [[ "$(git --git-dir="$path" rev-parse --is-bare-repository 2>/dev/null)" == "true" ]] && continue
-    display_path="${path/#$RESOLVED_PARENT/$UNRESOLVED_PARENT}"
-    echo "$path|$display_path"
-  done | xargs -n 1 -P "$NCPUS" -I {} "$0" --worker {} "$OUTDIR"
-
-  echo -e "...done!${RESET}" >&2
-  echo >&2
-
-  # Display sorted results
-  for f in "$OUTDIR"/*; do
-    [[ -f "$f" ]] && cat "$f" && echo
-  done
-
-  # Cleanup
-  rm -rf "$OUTDIR"
-
-  exit 0
-fi
-
-# =============================================================================
-# WORKER SECTION - process a single worktree
-
-dir="$2"
-OUTDIR="$3"
-
-# GIT_DIR is set by git-sh-setup at top so we have to unset it to avoid confusion in sub-shells
-unset GIT_DIR
-
-# Split into actual path and display path
-IFS='|' read -r actual_dir display_dir <<< "$dir"
-
-# Create output file named by directory
-outfile="$OUTDIR/$(basename "$actual_dir")"
-{
-  echo -e "${YELLOW}========== $display_dir ==========${RESET}"
-  git -C "$actual_dir" status-nice
-} >"$outfile"
-
-# Add to progress
-printf "%s " "$(basename "$actual_dir")" >&2
+pwt_cat_results $'\n'
+pwt_cleanup
 
 }
 
