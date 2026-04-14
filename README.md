@@ -1,28 +1,15 @@
-# Chezmoi-based dotfiles (WIP)
+# Dotfiles
 
-_currently a "clean" aux project, eventually will take over dotfiles entirely_
+[Chezmoi](https://www.chezmoi.io/)-managed, multi-platform dotfiles.
 
-## Setup
+## How it works
 
-```powershell
-start https://aka.ms/powershell-release?tag=stable # install latest powershell from windows store
-iwr https://raw.githubusercontent.com/scottbilas/dotfiles/rework/install.ps1sh | iex
-cd ~/Documents/PowerShell
-./setup
-git remote set-url origin git@github.com:scottbilas/chezmoi.git
-```
+Chezmoi source lives under `home/` (set via `.chezmoiroot`). Templates and ignore rules handle platform differences so the same repo works everywhere.
 
-## Conventions
+Folders under `.config` use chezmoi's `exact_` prefix, which means untracked files show up in `chezmoi status` — making it easy to notice new configs and decide whether to track them. Folders that shouldn't be fully tracked drop the `exact_` prefix; folders to ignore entirely get a `.keep` file.
 
-* `.config` and its contents are `exact` by default so anything new shows up and can decide whether to add to cm/git.
-* Use non-`exact` naming to exclude a subfolder that don't want to (fully) track. Add a `.keep` file when totally ignoring the folder.
+External dependencies (fonts, plugins, theme repos) are declared in `.chezmoiexternal.toml` rather than vendored. Private data lives in a separate repo and is never checked in here.
 
-## Catalog of external dependencies
+## License
 
-These paths are expected to exist..
-
-### Personal
-
-### Work
-
-* `~/Sync/Private` - shared private data
+[Dual-licensed](LICENSE.md): Public Domain (Unlicense) or MIT.
