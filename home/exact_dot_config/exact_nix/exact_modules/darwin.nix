@@ -7,7 +7,7 @@
     inputs.home-manager.darwinModules.home-manager
   ];
 
-  nixpkgs.hostPlatform = system;
+  nixpkgs.hostPlatform = system; # nix-darwin still warns "'system' has been renamed" — upstream issue, not ours
   home-manager.users.${username} = packagesModule;
 
   environment.systemPackages = [
@@ -35,6 +35,7 @@
   '';
 
   system.primaryUser = username;
+  users.users.${username}.home = "/Users/${username}";
   system.configurationRevision = null; # set by flake.nix
   system.stateVersion = 6;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

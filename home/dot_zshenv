@@ -46,12 +46,3 @@ if [[ -e /opt/homebrew ]]; then
 elif [[ -e /home/linuxbrew ]]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
-
-# nix vars
-
-if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
-  source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-fi
-if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
-  source "$HOME/.nix-profile/etc/profile.d/nix.sh"
-fi

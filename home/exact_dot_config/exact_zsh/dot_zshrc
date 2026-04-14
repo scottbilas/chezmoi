@@ -278,47 +278,44 @@ bindkey '^[[6~' do-nothing
 ## nix system upgrade
 
 nix-upgrade() {
+  if [[ $# -eq 0 ]]; then
+    echo "Usage: nix-upgrade [options]"
+    echo
+    echo "Options:"
+    echo "  -u, --update   Update inputs and pins"
+    echo "  -s, --switch   Switch to new configuration"
+    return 0
+  fi
+
   local do_update=false
   local do_switch=false
 
   for arg in "$@"; do
     case "$arg" in
-      --help|-h|help)
-        echo "Usage: nix-upgrade [options]"
-        echo
-        echo "Default: apply current flake lockfile (brew upgrade / home-manager switch)"
-        echo
-        echo "Options:"
-        echo "  -u, --update   Update flake inputs before applying"
-        echo "  -s, --switch   Run darwin-rebuild switch (macOS only)"
-        echo "  -h, --help     Show this help"
-        return 0
-        ;;
       --update|-u) do_update=true ;;
       --switch|-s) do_switch=true ;;
-      *) echo "Unknown option: $arg (try --help)"; return 1 ;;
+      *) echo "Unknown option: $arg"; nix-upgrade; return 1 ;;
     esac
   done
 
   if $do_update; then
-    echo "🔄 Updating flake inputs..."
+    echo "🔄 Updating inputs and pins..."
     nix flake update --flake ~/.config/nix || return 1
   fi
 
   if is-macos; then
     if $do_switch; then
-      echo "🔨 Rebuilding darwin system configuration..."
+      echo "🔨 Rebuilding darwin system configuration (includes home-manager and brew)..."
       sudo darwin-rebuild switch --flake ~/.config/nix || return 1
     fi
-
-    echo "📦 Upgrading Homebrew packages..."
-    brew upgrade || return 1
   else
-    echo "🏠 Switching home-manager configuration..."
-    home-manager switch --flake ~/.config/nix || return 1
+    if $do_switch; then
+      echo "🏠 Switching home-manager configuration..."
+      home-manager switch --flake ~/.config/nix || return 1
+    fi
   fi
 
-  echo "✅ All systems upgraded successfully!"
+  echo "✅ Done!"
 }
 
 ## aliases

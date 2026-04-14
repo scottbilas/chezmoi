@@ -1,5 +1,6 @@
 {
   username = "{{ .chezmoi.username }}";
   hostname = "{{ .chezmoi.hostname }}";
+  homeDir = "{{ .chezmoi.homeDir }}";
   system = "{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else }}x86_64{{ end }}-{{ .chezmoi.os }}";
 }

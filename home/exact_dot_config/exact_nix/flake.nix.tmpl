@@ -3,6 +3,11 @@
 # or:
 #   sudo darwin-rebuild switch --flake ~/.config/nix  (macOS only)
 #   home-manager switch --flake ~/.config/nix         (all nix)
+#
+# note: with nix-darwin + home-manager as module, packages go to
+# /etc/profiles/per-user/$USER/ and PATH is managed by nix-darwin's
+# set-environment (via /etc/zshenv). the .zshrc path block also adds
+# these paths explicitly for resilience (e.g. VS Code env caching).
 
 {
   description = "portable nix flake";
@@ -34,14 +39,13 @@
   outputs = inputs@{ self, nixpkgs, home-manager, claude-code, ... }:
   let
     config = import ./config.nix;
-    inherit (config) username hostname system;
+    inherit (config) username hostname homeDir system;
 
-    packagesModule = import ./modules/packages.nix { inherit username claude-code; };
+    packagesModule = import ./modules/packages.nix { inherit username homeDir claude-code; };
   in {
 
 {{- if eq .chezmoi.os "darwin" }}
     darwinConfigurations.${hostname} = inputs.nix-darwin.lib.darwinSystem {
-      inherit system;
       modules = [
         (import ./modules/darwin.nix { inherit inputs username hostname system packagesModule; })
         { system.configurationRevision = self.rev or self.dirtyRev or null; }
@@ -51,7 +55,10 @@
 
     homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.${system};
-      modules = [ packagesModule ];
+      modules = [
+        packagesModule
+        { nixpkgs.config.allowUnfree = true; }
+      ];
     };
   };
 }

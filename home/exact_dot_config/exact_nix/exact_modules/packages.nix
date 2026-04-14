@@ -1,15 +1,11 @@
 # portable packages for all platforms (home-manager module)
 
-{ username, claude-code }: { pkgs, ... }:
+{ username, homeDir, claude-code }: { pkgs, ... }:
 
 {
-  nixpkgs.config.allowUnfree = true;
-
   home.stateVersion = "24.05";
   home.username = username;
-  home.homeDirectory =
-    if pkgs.stdenv.isDarwin then "/Users/${username}"
-    else "/home/${username}";
+  home.homeDirectory = homeDir;
   news.display = "silent";
 
   home.packages = with pkgs; [
