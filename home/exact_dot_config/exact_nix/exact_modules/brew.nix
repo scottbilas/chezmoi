@@ -30,12 +30,17 @@
     "yt-dlp"
   ];
   homebrew.casks = [
-    "codex"
-    "coteditor"
-    "notunes"
-    "visual-studio-code" # vscode is kept way more current with brew than nix
-  ];
+      "coteditor"
+      "notunes"
+    ] ++
+    # these may exist on nix but we want latest latest for these tools
+    (map (name: { inherit name; greedy = true; }) [
+      "codex"
+      "visual-studio-code"
+    ]);
 
   # automatically remove packages and prefs and supporting files not listed in the configuration
   homebrew.onActivation.cleanup = "zap";
+  # upgrade outdated formulae and casks on nix-darwin activation (i.e. `darwin-rebuild switch`)
+  homebrew.onActivation.upgrade = true;
 }
