@@ -1,17 +1,15 @@
-# nix flake update --flake ~/.config/home-manager
-# home-manager switch
+# portable packages for all platforms (home-manager module)
 
-{ pkgs, claude-code, ... }:
+{ username, claude-code }: { pkgs, ... }:
 
-let
-  username = "scott.bilas"; # builtins.getEnv "USER";
-
-in {
+{
   nixpkgs.config.allowUnfree = true;
 
   home.stateVersion = "24.05";
   home.username = username;
-  home.homeDirectory = "/Users/${username}";
+  home.homeDirectory =
+    if pkgs.stdenv.isDarwin then "/Users/${username}"
+    else "/home/${username}";
   news.display = "silent";
 
   home.packages = with pkgs; [
@@ -76,6 +74,6 @@ in {
     wezterm
 
     # ai
-    claude-code.packages.aarch64-darwin.default
+    claude-code.packages.${pkgs.system}.default
   ];
 }

@@ -1,0 +1,57 @@
+# use nix-upgrade zsh function to update
+#
+# or:
+#   sudo darwin-rebuild switch --flake ~/.config/nix  (macOS only)
+#   home-manager switch --flake ~/.config/nix         (all nix)
+
+{
+  description = "portable nix flake";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+{{- if eq .chezmoi.os "darwin" }}
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    homebrew-core = { url = "github:homebrew/homebrew-core"; flake = false; };
+    homebrew-cask = { url = "github:homebrew/homebrew-cask"; flake = false; };
+    sinelaw-homebrew-fresh = { url = "github:sinelaw/homebrew-fresh"; flake = false; };
+    # ^^ homebrew config: see modules/brew.nix
+{{- end }}
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    claude-code.url = "github:sadjow/claude-code-nix";
+  };
+
+  outputs = inputs@{ self, nixpkgs, home-manager, claude-code, ... }:
+  let
+    config = import ./config.nix;
+    inherit (config) username hostname system;
+
+    packagesModule = import ./modules/packages.nix { inherit username claude-code; };
+  in {
+
+{{- if eq .chezmoi.os "darwin" }}
+    darwinConfigurations.${hostname} = inputs.nix-darwin.lib.darwinSystem {
+      inherit system;
+      modules = [
+        (import ./modules/darwin.nix { inherit inputs username hostname system packagesModule; })
+        { system.configurationRevision = self.rev or self.dirtyRev or null; }
+      ];
+    };
+{{- end }}
+
+    homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.${system};
+      modules = [ packagesModule ];
+    };
+  };
+}
