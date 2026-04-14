@@ -430,6 +430,14 @@ local ctrl_passthrough(key_code) = {
 
           // sanity
           mouse_flip_vertical_wheel: true,
+        },
+        // logi mx vertical
+        {
+          identifiers: { is_pointing_device: true, vendor_id: 1133, product_id: 50475 },
+          ignore: false,
+
+          // sanity
+          mouse_flip_vertical_wheel: true,
         }
       ],
     }
