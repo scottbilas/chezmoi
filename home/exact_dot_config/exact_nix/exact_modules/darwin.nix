@@ -62,6 +62,9 @@
   home-manager.useUserPackages = true;
 
   home-manager.sharedModules = [
-    inputs.mac-app-util.homeManagerModules.default # creates Finder aliases so nix GUI apps appear in Spotlight
+    # creates trampoline apps so nix GUI apps appear in Spotlight with correct icons
+    # known issue: icons broken on macOS Tahoe (https://github.com/hraban/mac-app-util/issues/36)
+    #   fix PR: https://github.com/hraban/mac-app-util/pull/44
+    inputs.mac-app-util.homeManagerModules.default
   ];
 }
