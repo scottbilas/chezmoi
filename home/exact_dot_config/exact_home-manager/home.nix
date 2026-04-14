@@ -1,7 +1,7 @@
 # nix flake update --flake ~/.config/home-manager
 # home-manager switch
 
-{ pkgs, ... }:
+{ pkgs, claude-code, ... }:
 
 let
   username = "scott.bilas"; # builtins.getEnv "USER";
@@ -74,5 +74,8 @@ in {
     keka
     obsidian
     wezterm
+
+    # ai
+    claude-code.packages.aarch64-darwin.default
   ];
 }

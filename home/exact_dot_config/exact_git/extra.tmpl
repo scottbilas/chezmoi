@@ -78,4 +78,7 @@
 {{- if eq .chezmoi.hostname "scomac" }}
 [lfs]
     storage = /Volumes/ext/cache/git-lfs
+{{- else -}}
+[lfs]
+    storage = {{.profile.home_dirf}}/.cache/git-lfs
 {{- end }}

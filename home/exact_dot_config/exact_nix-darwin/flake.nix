@@ -1,7 +1,7 @@
 # sudo darwin-rebuild switch --flake ~/.config/nix-darwin
 
 {
-  description = "scomac nix-darwin system flake";
+  description = "nix-darwin system flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -26,9 +26,10 @@
   outputs = inputs@{ self, nixpkgs, nix-darwin, home-manager, nix-homebrew, ... }:
   let
     system = "aarch64-darwin";
-    username = "scott.bilas"; # builtins.getEnv "USER"; (no work)
+    username = "scott.bilas";
+    hostname = "scomac";
   in {
-    darwinConfigurations."scomac" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations.${hostname} = nix-darwin.lib.darwinSystem {
       specialArgs = { inherit inputs; };
 
       modules = [
@@ -48,9 +49,9 @@
           environment.shells = [ pkgs.zsh ];
 
           # name of this mac
-          networking.hostName = "scomac";       # used for dns and the shell prompt
-          networking.localHostName = "scomac";  # bonjour networking
-          networking.computerName = "scomac";   # user-friendly name used in finder etc
+          networking.hostName = hostname;       # used for dns and the shell prompt
+          networking.localHostName = hostname;  # bonjour networking
+          networking.computerName = hostname;   # user-friendly name used in finder etc
 
           security.pam.services.sudo_local.touchIdAuth = true;
           security.pam.services.sudo_local.text = ''
@@ -113,7 +114,7 @@
             "notunes"
             "visual-studio-code" # vscode is kept way more current with brew than nix
           ];
-          
+
           # automatically remove packages and prefs and supporting files not listed in the configuration
           homebrew.onActivation.cleanup = "zap";
         }
