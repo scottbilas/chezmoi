@@ -281,16 +281,19 @@ nix-upgrade() {
     echo "Options:"
     echo "  -u, --update   Update inputs and pins"
     echo "  -s, --switch   Switch to new configuration"
+    echo "  -g, --gc       Garbage collect nix store and brew cleanup"
     return 0
   fi
 
   local do_update=false
   local do_switch=false
+  local do_gc=false
 
   for arg in "$@"; do
     case "$arg" in
       --update|-u) do_update=true ;;
       --switch|-s) do_switch=true ;;
+      --gc|-g)     do_gc=true ;;
       *) echo "Unknown option: $arg"; nix-upgrade; return 1 ;;
     esac
   done
@@ -309,6 +312,15 @@ nix-upgrade() {
     if $do_switch; then
       echo "🏠 Switching home-manager configuration..."
       home-manager switch --flake ~/.config/nix || return 1
+    fi
+  fi
+
+  if $do_gc; then
+    echo "🧹 Collecting nix garbage..."
+    nix-collect-garbage --delete-old || return 1
+    if (( $+commands[brew] )); then
+      echo "🧹 Cleaning up brew..."
+      brew cleanup --prune=all || return 1
     fi
   fi
 
