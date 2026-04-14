@@ -1,5 +1,10 @@
 # this file included from `~\.config\git\config`
 
+{{- if stat (print .profile.home_dirf "/.local/share/private/ssh/id") }}
+[url "git@github.com:scottbilas/"]
+    insteadOf = "https://github.com/scottbilas/"
+{{- end }}
+
 # use `cmd = "set"` in a difftool to detect env vars git sends to the tool
 
 {{  if eq .chezmoi.os "windows" -}}

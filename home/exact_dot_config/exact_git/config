@@ -201,9 +201,6 @@
     # (like `reset` or `checkout` ruining the .git:gitdir of the submodule when working with worktrees and extensions.worktreeConfig=true)
     #recurse = true
 
-[url "git@github.com:scottbilas/"]
-    insteadOf = "https://github.com/scottbilas/"
-
 
 ;            _                 _
 ;   _____  _| |_ ___ _ __  ___(_) ___  _ __  ___
