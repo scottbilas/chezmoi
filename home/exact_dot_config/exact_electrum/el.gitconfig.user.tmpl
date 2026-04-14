@@ -1,0 +1,6 @@
+{{ if eq .chezmoi.hostname "scomac" }}
+# having issues with my external ssd screwing up fsmonitor and making it hang. sometimes it wakes up and gets past it
+# but i have no idea the cause. can't be bothered to figure it out.
+[core]
+fsmonitor=false
+{{ end }}
