@@ -36,6 +36,7 @@
     # these may exist on nix but we want latest latest for these tools
     (map (name: { inherit name; greedy = true; }) [
       "codex"
+      "microsoft-edge"
       "visual-studio-code"
     ]);
 

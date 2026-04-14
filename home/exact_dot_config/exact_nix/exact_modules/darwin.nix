@@ -5,6 +5,7 @@
   imports = [
     (import ./brew.nix { inherit inputs username; })
     inputs.home-manager.darwinModules.home-manager
+    inputs.mac-app-util.darwinModules.default
   ];
 
   nixpkgs.hostPlatform = system; # nix-darwin still warns "'system' has been renamed" — upstream issue, not ours
@@ -59,4 +60,8 @@
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
+
+  home-manager.sharedModules = [
+    inputs.mac-app-util.homeManagerModules.default # creates Finder aliases so nix GUI apps appear in Spotlight
+  ];
 }

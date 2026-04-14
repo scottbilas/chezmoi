@@ -20,12 +20,13 @@
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mac-app-util.url = "github:hraban/mac-app-util";
 
+    # homebrew config (see modules/brew.nix)
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     homebrew-core = { url = "github:homebrew/homebrew-core"; flake = false; };
     homebrew-cask = { url = "github:homebrew/homebrew-cask"; flake = false; };
     sinelaw-homebrew-fresh = { url = "github:sinelaw/homebrew-fresh"; flake = false; };
-    # ^^ homebrew config: see modules/brew.nix
 {{- end }}
 
     home-manager = {
