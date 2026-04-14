@@ -118,7 +118,7 @@ function Get-ConfigToml {
 
     $path = Join-Path $baseDir scott.toml
     if (!(Test-Path $path)) {
-        $path = Join-Path $baseDir scobly.toml
+        $path = Join-Path $baseDir scobely.toml
     }
 
     Get-Content $path | convertfrom-toml
