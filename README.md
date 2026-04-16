@@ -19,22 +19,21 @@ name='my-overpriced-mac'; for key in ComputerName LocalHostName HostName; do sud
 # some packages may need to compile native code, for which we'll need this (note: runs gui app)
 xcode-select --install
 
-# install nix multi-user (single user not supported on mac)
-curl -L https://nixos.org/nix/install | sh -s -- --daemon
+# install lix (nix-darwin recommends this over the official nix installer, and it will auto-escalate if needed)
+curl -sSf -L https://install.lix.systems/lix | sh -s -- install --no-confirm
 
-# pick up nix env in curent shell
+# pick up nix env in current shell
 exec $SHELL -l
 
 # set up dotfiles (which includes nix config)
-nix-shell -p chezmoi git --run 'chezmoi init -a scottbilas/chezmoi'
+nix shell nixpkgs#chezmoi nixpkgs#git --command chezmoi init -a scottbilas/chezmoi
 
 # prep for nix-darwin
 sudo mv /etc/bashrc /etc/bashrc.before-nix-darwin
 sudo mv /etc/zshrc /etc/zshrc.before-nix-darwin
-sudo touch /etc/synthetic.conf
 
 # set up nix-darwin (this gives a warning about HOME owner, which is expected)
-sudo nix --extra-experimental-features "nix-command flakes" run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/nix
+sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/nix
 
 # one more time to pick up darwin/brew/hm stuff! (or can exit and switch to wezterm)
 exec $SHELL -l
