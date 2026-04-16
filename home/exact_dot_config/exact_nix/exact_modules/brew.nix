@@ -29,15 +29,35 @@
     "fresh"
     "yt-dlp"
   ];
-  homebrew.casks = [
-      "coteditor"
+  homebrew.casks = (map (name: { inherit name; greedy = true; }) [
+      # system
+      "alt-tab"
+      "hammerspoon"
+      "jordanbaird-ice"
+      "karabiner-elements"
       "notunes"
-    ] ++
-    # these may exist on nix but we want latest latest for these tools
-    (map (name: { inherit name; greedy = true; }) [
-      "codex"
-      "microsoft-edge"
+      "rectangle"
+      "syncthing-app"
+      "zerotier-one"
+
+      # dev
+      "beyond-compare"
+      "coteditor"
+      "jetbrains-toolbox"
+      "linqpad"
+      "unity-hub"
       "visual-studio-code"
+
+      # agents
+      "codex"
+      "codex-app"
+      "copilot-cli@prerelease"
+
+      # misc
+      "elgato-stream-deck"
+      "microsoft-edge"
+      "obsidian"
+      "spotify"
     ]);
 
   # automatically remove packages and prefs and supporting files not listed in the configuration

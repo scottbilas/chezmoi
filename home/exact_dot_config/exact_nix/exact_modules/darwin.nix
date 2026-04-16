@@ -44,7 +44,8 @@
 
   # apple system settings
   system.defaults.finder.AppleShowAllFiles = true; # show hidden files (like dotfiles)
-  system.defaults.dock.show-recents = false;      # dislike recents appearing in dock
+  system.defaults.dock.show-recents = false; # dislike recents appearing in dock
+  system.defaults.NSGlobalDomain."com.apple.keyboard.fnState" = true; # F1/F2/etc without holding Fn
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -52,8 +53,14 @@
 
   # pmset not supported yet by nix-darwin so have to script it (note that this is not idempotent)
   system.activationScripts.customPmsetSettings = ''
-    /usr/bin/pmset -b powernap 0  # powernap will wake a lot during sleep to check for updates, don't care
-    /usr/bin/pmset -b womp 0      # wake on lan, don't need
+    /usr/bin/pmset -b powernap 0      # powernap will wake a lot during sleep to check for updates, don't care (-b battery only)
+    /usr/bin/pmset -b womp 0          # wake on lan, don't need (-b battery only)
+    /usr/bin/pmset -c sleep 0         # no idle sleep on AC (lid close still triggers sleep independently)
+  '';
+
+  # disable annoying Tips app
+  system.activationScripts.disableTips.text = ''
+    /bin/launchctl disable "gui/$(id -u)/com.apple.tipsd" || true
   '';
 
   # === home-manager ===

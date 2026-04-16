@@ -29,6 +29,7 @@
     numbat
     patchutils
     ripgrep
+    rclone
     rsync
     scrcpy
     sheldon
@@ -39,7 +40,7 @@
     zoxide
 
     # shells
-    nushell
+    (nushell.overrideAttrs { doCheck = false; }) # SHLVL test flaky in nix sandbox
     powershell
 
     # tui
