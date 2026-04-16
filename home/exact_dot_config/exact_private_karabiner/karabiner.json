@@ -45,13 +45,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_if"
                            }
@@ -344,13 +347,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -390,13 +396,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -436,13 +445,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -482,13 +494,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -528,13 +543,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -574,13 +592,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -615,13 +636,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -661,13 +685,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -1410,13 +1437,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -1449,13 +1479,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -1491,13 +1524,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -1533,13 +1569,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -1577,13 +1616,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -1616,13 +1658,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -1658,13 +1703,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -1700,13 +1748,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -1744,13 +1795,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -1783,13 +1837,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -1825,13 +1882,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -1867,13 +1927,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -1911,13 +1974,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -1950,13 +2016,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -1992,13 +2061,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2034,13 +2106,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2078,13 +2153,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2117,13 +2195,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2159,13 +2240,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2201,13 +2285,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2245,13 +2332,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2284,13 +2374,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2326,13 +2419,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2368,13 +2464,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2412,13 +2511,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2451,13 +2553,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2493,13 +2598,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2535,13 +2643,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2579,13 +2690,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2618,13 +2732,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2660,13 +2777,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2702,13 +2822,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2746,13 +2869,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2785,13 +2911,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2827,13 +2956,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2869,13 +3001,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2913,13 +3048,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2952,13 +3090,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -2994,13 +3135,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3036,13 +3180,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3080,13 +3227,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3119,13 +3269,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3161,13 +3314,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3203,13 +3359,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3247,13 +3406,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3286,13 +3448,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3328,13 +3493,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3370,13 +3538,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3414,13 +3585,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3453,13 +3627,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3495,13 +3672,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3537,13 +3717,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3581,13 +3764,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3620,13 +3806,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3662,13 +3851,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3704,13 +3896,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3748,13 +3943,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3787,13 +3985,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3829,13 +4030,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3871,13 +4075,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3915,13 +4122,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3954,13 +4164,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -3996,13 +4209,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4038,13 +4254,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4082,13 +4301,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4121,13 +4343,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4163,13 +4388,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4205,13 +4433,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4249,13 +4480,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4288,13 +4522,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4330,13 +4567,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4372,13 +4612,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4416,13 +4659,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4455,13 +4701,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4497,13 +4746,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4539,13 +4791,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4583,13 +4838,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4622,13 +4880,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4664,13 +4925,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4706,13 +4970,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4750,13 +5017,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4789,13 +5059,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4831,13 +5104,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4873,13 +5149,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4917,13 +5196,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4956,13 +5238,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -4998,13 +5283,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5040,13 +5328,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5084,13 +5375,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5123,13 +5417,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5165,13 +5462,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5207,13 +5507,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5251,13 +5554,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5290,13 +5596,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5332,13 +5641,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5374,13 +5686,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5418,13 +5733,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5457,13 +5775,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5499,13 +5820,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5541,13 +5865,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5585,13 +5912,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5624,13 +5954,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5666,13 +5999,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5708,13 +6044,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5752,13 +6091,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5791,13 +6133,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5833,13 +6178,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5875,13 +6223,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5919,13 +6270,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -5958,13 +6312,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6000,13 +6357,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6042,13 +6402,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6086,13 +6449,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6125,13 +6491,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6167,13 +6536,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6209,13 +6581,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6253,13 +6628,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6292,13 +6670,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6334,13 +6715,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6376,13 +6760,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6420,13 +6807,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6459,13 +6849,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6501,13 +6894,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6543,13 +6939,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6587,13 +6986,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6626,13 +7028,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6668,13 +7073,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6710,13 +7118,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6754,13 +7165,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6793,13 +7207,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6835,13 +7252,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6877,13 +7297,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6921,13 +7344,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -6960,13 +7386,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7002,13 +7431,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7044,13 +7476,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7088,13 +7523,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7127,13 +7565,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7169,13 +7610,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7211,13 +7655,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7255,13 +7702,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7294,13 +7744,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7336,13 +7789,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7378,13 +7834,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7422,13 +7881,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7461,13 +7923,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7503,13 +7968,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7545,13 +8013,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7589,13 +8060,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7628,13 +8102,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7670,13 +8147,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -7712,13 +8192,16 @@
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
                                  "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$",
                                  "^com\\.microsoft\\.VSCode$",
                                  "^com\\.jetbrains\\.(rider|pycharm)$",
+                                 "^com\\.ScooterSoftware\\.BeyondCompare$",
                                  "\\.wezterm$",
                                  "\\.Terminal$",
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            },
@@ -10811,7 +11294,8 @@
                               "bundle_identifiers": [
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            }
@@ -10837,7 +11321,8 @@
                               "bundle_identifiers": [
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            }
@@ -10881,7 +11366,8 @@
                               "bundle_identifiers": [
                                  "^com\\.parallels\\.winapp\\.",
                                  "^com\\.parallels\\.desktop\\.console$",
-                                 "^com\\.microsoft\\.rdc\\."
+                                 "^com\\.microsoft\\.rdc\\.",
+                                 "^com\\.apple\\.ScreenSharing$"
                               ],
                               "type": "frontmost_application_unless"
                            }

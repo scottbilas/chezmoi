@@ -1,0 +1,240 @@
+#!/usr/bin/env python3
+"""
+Audit Karabiner output combos against macOS system keyboard shortcuts.
+Reads the compiled karabiner.json and queries macOS system settings via plutil
+to find actual enabled shortcuts and report collisions.
+"""
+
+import json
+import os
+import subprocess
+import sys
+from collections import defaultdict
+
+# ── macOS symbolic hotkey IDs → description ──────────────────────────────
+
+SYMBOLIC_HOTKEY_NAMES = {
+    32: 'Mission Control',
+    33: 'Mission Control (+shift)',
+    34: 'Application Windows',
+    35: 'Application Windows (+shift)',
+    79: 'Move left a space',
+    80: 'Move left a space (+shift)',
+    81: 'Move right a space',
+    82: 'Move right a space (+shift)',
+    60: 'Select previous input source',
+    61: 'Select next input source',
+    64: 'Spotlight',
+    65: 'Finder search window',
+    28: 'Screenshot entire screen',
+    29: 'Screenshot selection',
+    30: 'Screenshot/recording options',
+    31: 'Screenshot selection (variant)',
+    59: 'Invert colors',
+     7: 'Move focus to menu bar',
+     8: 'Move focus to Dock',
+     9: 'Move focus to active/next window',
+    10: 'Move focus to window toolbar',
+    11: 'Move focus to floating window',
+    12: 'Toggle full keyboard access',
+    13: 'Move focus to status menus',
+    118: 'Switch to Desktop 1',
+    119: 'Switch to Desktop 2',
+    120: 'Switch to Desktop 3',
+    121: 'Switch to Desktop 4',
+}
+
+# macOS virtual keycode → karabiner-style key name
+VIRTUAL_KEYCODE_MAP = {
+    0: 'a', 1: 's', 2: 'd', 3: 'f', 4: 'h', 5: 'g', 6: 'z', 7: 'x',
+    8: 'c', 9: 'v', 11: 'b', 12: 'q', 13: 'w', 14: 'e', 15: 'r',
+    16: 'y', 17: 't', 18: '1', 19: '2', 20: '3', 21: '4', 22: '6',
+    23: '5', 24: 'equal_sign', 25: '9', 26: '7', 27: 'hyphen', 28: '8',
+    29: '0', 30: 'close_bracket', 31: 'o', 32: 'u', 33: 'open_bracket',
+    34: 'i', 35: 'p', 36: 'return_or_enter', 37: 'l', 38: 'j',
+    39: 'quote', 40: 'k', 41: 'semicolon', 42: 'backslash', 43: 'comma',
+    44: 'slash', 45: 'n', 46: 'm', 47: 'period',
+    48: 'tab', 49: 'spacebar', 50: 'grave_accent_and_tilde',
+    51: 'delete_or_backspace', 53: 'escape',
+    96: 'f5', 97: 'f6', 98: 'f7', 99: 'f3', 100: 'f8', 101: 'f9',
+    103: 'f11', 105: 'f13', 107: 'f14', 109: 'f10', 111: 'f12',
+    115: 'home', 116: 'page_up', 117: 'delete_forward', 119: 'end',
+    120: 'f2', 121: 'page_down', 122: 'f1', 118: 'f4',
+    123: 'left_arrow', 124: 'right_arrow', 125: 'down_arrow', 126: 'up_arrow',
+}
+
+# macOS modifier flag bitmasks
+MODIFIER_FLAGS = {
+    0x020000: 'shift',
+    0x040000: 'ctrl',
+    0x080000: 'opt',
+    0x100000: 'cmd',
+    0x800000: 'fn',
+}
+
+
+def decode_parameters(params):
+    """Decode plist parameters [ascii_or_65535, virtual_keycode, modifier_flags] into a combo string."""
+    if not params or len(params) < 3:
+        return None
+    _, vk, mod_flags = params
+    key = VIRTUAL_KEYCODE_MAP.get(vk)
+    if key is None:
+        return None
+    mods = [name for mask, name in sorted(MODIFIER_FLAGS.items()) if mod_flags & mask]
+    order = {'ctrl': 0, 'opt': 1, 'cmd': 2, 'shift': 3, 'fn': 4}
+    mods.sort(key=lambda m: order.get(m, 99))
+    return '+'.join(mods + [key]) if mods else key
+
+def read_symbolic_hotkeys():
+    """Read enabled system shortcuts via plutil JSON conversion, decoding actual bound combos."""
+    enabled = {}
+    try:
+        export = subprocess.run(
+            ["defaults", "export", "com.apple.symbolichotkeys", "-"],
+            capture_output=True, timeout=5
+        )
+        if export.returncode != 0:
+            return enabled
+
+        convert = subprocess.run(
+            ["plutil", "-convert", "json", "-o", "-", "-"],
+            input=export.stdout, capture_output=True, timeout=5
+        )
+        if convert.returncode != 0:
+            return enabled
+
+        data = json.loads(convert.stdout)
+        hotkeys = data.get("AppleSymbolicHotKeys", {})
+
+        for str_id, info in hotkeys.items():
+            hk_id = int(str_id)
+            desc = SYMBOLIC_HOTKEY_NAMES.get(hk_id)
+            if desc is None:
+                continue
+            is_enabled = info.get("enabled", True)
+            if not is_enabled:
+                continue
+            params = info.get("value", {}).get("parameters")
+            combo = decode_parameters(params)
+            if combo is None:
+                continue
+            enabled[combo] = {"description": desc, "id": hk_id}
+
+    except Exception as e:
+        print(f"  (Could not read symbolic hotkeys: {e})", file=sys.stderr)
+
+    return enabled
+
+
+def normalize_mod(mod):
+    """Normalize karabiner modifier names to short form."""
+    return (mod
+        .replace('left_', '').replace('right_', '')
+        .replace('command', 'cmd').replace('option', 'opt')
+        .replace('control', 'ctrl').replace('shift', 'shift')
+    )
+
+def combo_key(mods, key):
+    """Build a normalized combo string like 'ctrl+left_arrow'."""
+    norm = sorted(set(normalize_mod(m) for m in mods))
+    # Canonical order: ctrl, opt, cmd, shift
+    order = {'ctrl': 0, 'opt': 1, 'cmd': 2, 'shift': 3}
+    norm.sort(key=lambda m: order.get(m, 99))
+    return '+'.join(norm + [key])
+
+def main():
+    # ── Read karabiner config ──
+    karabiner_path = sys.argv[1] if len(sys.argv) > 1 else None
+    
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    if karabiner_path:
+        with open(karabiner_path) as f:
+            data = json.load(f)
+    else:
+        json_path = os.path.join(script_dir, 'karabiner.json')
+        with open(json_path) as f:
+            data = json.load(f)
+    
+    rules = data['profiles'][0]['complex_modifications']['rules']
+    
+    # ── Extract all output combos ──
+    karabiner_combos = defaultdict(list)  # combo_string -> list of details
+    
+    for rule in rules:
+        for manip in rule.get('manipulators', []):
+            to_list = manip.get('to', [])
+            for to_item in to_list:
+                key = to_item.get('key_code')
+                if not key:
+                    continue
+                mods = to_item.get('modifiers', [])
+                if not isinstance(mods, list):
+                    mods = []
+                if not mods:
+                    continue  # no modifiers = unlikely to collide with system
+                
+                combo = combo_key(mods, key)
+                
+                # Gather context
+                from_key = manip.get('from', {}).get('key_code', '?')
+                conds = manip.get('conditions', [])
+                cond_parts = []
+                for c in conds:
+                    t = c.get('type', '')
+                    if t == 'variable_if':
+                        name = c['name'].replace('scoob:', '')
+                        cond_parts.append(f"{name}")
+                    elif t == 'frontmost_application_if':
+                        cond_parts.append('mac-app-only' if 'unless' not in t else 'win-app')
+                    elif t == 'frontmost_application_unless':
+                        cond_parts.append('non-win-app')
+                    elif t == 'device_if':
+                        cond_parts.append('specific-device')
+                
+                karabiner_combos[combo].append({
+                    'rule': rule['description'],
+                    'from': from_key,
+                    'conditions': cond_parts,
+                })
+    
+    # ── Read actual system hotkey state ──
+    system_shortcuts = read_symbolic_hotkeys()  # combo → {description, id}
+
+    # ── Find collisions ──
+    # Only report combos where we have verified the system shortcut is enabled AND
+    # actually bound to the same key combo Karabiner is outputting.
+    # Skip device-specific rules — those are hardware remaps intentionally targeting system shortcuts.
+    collisions = []
+    for combo, details in sorted(karabiner_combos.items()):
+        sys_info = system_shortcuts.get(combo)
+        if sys_info:
+            non_device = [d for d in details if 'specific-device' not in d['conditions']]
+            if non_device:
+                collisions.append((combo, sys_info, non_device))
+
+
+    if not collisions:
+        return
+
+    print(f"Found {len(collisions)} collision(s):")
+    print()
+    for combo, sys_info, details in collisions:
+        print(f"  ┌─ OUTPUT: {combo}")
+        print(f"  │  System: {sys_info['description']} (hotkey #{sys_info['id']})")
+        for d in details:
+            cond_str = ', '.join(d['conditions']) if d['conditions'] else 'unconditional'
+            print(f"  │  ← from '{d['from']}' in rule '{d['rule'][:55]}' [{cond_str}]")
+        print(f"  └─")
+        print()
+
+    # ── Recommendations ──
+    if collisions:
+        print("Disable in System Settings → Keyboard → Keyboard Shortcuts:")
+        for combo, sys_info, _ in collisions:
+            print(f"  • {sys_info['description']} ({combo})")
+        print()
+
+if __name__ == '__main__':
+    main()

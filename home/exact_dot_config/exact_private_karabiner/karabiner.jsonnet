@@ -12,19 +12,21 @@
 local lib = import 'karabiner.libsonnet';
 
 local appWinRemote = [
-   // apps that think they are windows
+   // apps that need direct passthru
   '^com\\.parallels\\.winapp\\.',          // parallels in coherence
   '^com\\.parallels\\.desktop\\.console$', // standalone window
   '^com\\.microsoft\\.rdc\\.',             // official microsoft remote desktop app
+  '^com\\.apple\\.ScreenSharing$',         // apple remote desktop
 ];
 local ifWinRemote = lib.ifApp(appWinRemote);
 local noWinRemote = lib.noApp(appWinRemote);
 
 local appWinOther = [
 
-  // IDEs that have win style mappings
+  // tools i use with win-style mappings
   '^com\\.microsoft\\.VSCode$',
   '^com\\.jetbrains\\.(rider|pycharm)$',
+  '^com\\.ScooterSoftware\\.BeyondCompare$',
 
   // terminals expect win style
   '\\.wezterm$',
