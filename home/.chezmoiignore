@@ -32,8 +32,6 @@
 
 # WINDOWS
 
-.hammerspoon
-.config/karabiner
 .config/lazygit
 .config/ranger
 .config/tmux
@@ -75,6 +73,8 @@ scoop
 
 # NON-MACOS
 
+.hammerspoon
+.config/karabiner
 Library
 
 {{ end }}
