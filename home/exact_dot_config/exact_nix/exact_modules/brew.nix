@@ -33,7 +33,6 @@
       # system
       "alt-tab"
       "hammerspoon"
-      "jordanbaird-ice"
       "karabiner-elements"
       "notunes"
       "rectangle"
@@ -53,10 +52,11 @@
       "codex-app"
       "copilot-cli@prerelease"
 
-      # misc
+      # other apps
       "elgato-stream-deck"
       "microsoft-edge"
       "obsidian"
+      "parallels"
       "spotify"
     ]);
 
