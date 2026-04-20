@@ -4,6 +4,10 @@
 .config/.copilot/logs
 .config/alacritty/themes
 .config/btop
+.config/claude/.claude.json
+.config/claude/backups
+.config/claude/cache
+.config/claude/sessions
 .config/configstore
 .config/electrum
 .config/elinks/cookies

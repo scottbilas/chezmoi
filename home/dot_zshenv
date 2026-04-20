@@ -34,6 +34,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 export GOPATH=$HOME/go
 export BAT_CONFIG_PATH=$HOME/.config/bat/bat.conf
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
+export CLAUDE_CONFIG_DIR=$HOME/.config/claude
 
 # tune app settings
 

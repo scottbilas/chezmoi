@@ -1,0 +1,6 @@
+{{- $envFile := joinPath .profile.home_dirf ".local/share/private/claude/env.json" -}}
+{
+  "env":
+    {{- if stat $envFile }} {{ include $envFile | trim }}{{ else }} "MISSING: {{ $envFile }}"{{ end }},
+  "model": "opus"
+}
