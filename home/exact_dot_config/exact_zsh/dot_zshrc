@@ -28,12 +28,6 @@ export WEECHAT_HOME=$HOME/.config/weechat
 export ELINKS_CONFDIR=$HOME/.config/elinks
 export NPM_CONFIG_USERCONFIG=$HOME/.config/npm/npmrc
 
-if (( $+commands[fasd] )); then
-  # move out of root (folder not autocreated by fasd)
-  mkdir -p ~/.local/share/fasd
-  export _FASD_DATA=$HOME/.local/share/fasd/data
-fi
-
 ## tune app settings
 
 if (( $+commands[fzf] )); then
@@ -161,7 +155,7 @@ if (( $+commands[dasht] )); then
 fi
 
 (( $+commands[chezmoi] )) && eval "$(chezmoi completion zsh)"
-# fzf. fasd, etc.
+# fzf, etc.
 
 set-shell-theme() {
   local -r theme="$1"
@@ -332,8 +326,6 @@ nix-upgrade() {
 source ~/.config/zsh/zaliases
 
 # finally any modules
-
-(( $+commands[fasd] )) && eval "$(fasd --init auto)"
 
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
