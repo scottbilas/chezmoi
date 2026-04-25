@@ -38,3 +38,10 @@ Shell (zsh, PowerShell, nushell), git, VSCode, bat, eza, fd, ripgrep, starship, 
 ## Security: Preflight Scan
 
 This is a **public repo**. After making significant changes, invoke the `preflight-scan` skill to check for leaked secrets, private data, and work-related content before integrating back into chezmoi source. When in doubt, scan.
+
+## Verification Rule: Search Failures Are Not Evidence
+
+Workspace search tools (`grep_search`, `file_search`) only cover files inside workspace folders. **A search returning no results does not mean a file is missing or lacks content.** Live dotfiles (e.g. `~/.zshenv`, `~/.zprofile`) often live outside the workspace tree.
+
+- When verifying whether a live file contains something, use `read_file` with the absolute path -- never rely solely on search tools.
+- Never tell the user a file is missing content based only on a failed search. Confirm with a direct read first.

@@ -70,7 +70,7 @@
 
 [".hammerspoon/Spoons/SkyRocket.spoon"]
     type = "git-repo"
-    branch = "dev"
+    clone.args = ["-b", "dev"]
     url = "https://github.com/scottbilas/SkyRocket.spoon"
 
 [".config/karabiner/jsonschema"]

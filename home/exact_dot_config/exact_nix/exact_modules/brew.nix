@@ -42,6 +42,7 @@
       # dev
       "beyond-compare"
       "coteditor"
+      "fork"
       "jetbrains-toolbox"
       "linqpad"
       "unity-hub"

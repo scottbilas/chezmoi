@@ -349,3 +349,6 @@
 
 [include]
     path = ~/.local/share/private/git/config
+
+[includeIf "gitdir:~/.local/share/chezmoi/"]
+    path = ~/.local/share/private/git/config-personal

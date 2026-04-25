@@ -5,9 +5,6 @@
 .config/alacritty/themes
 .config/btop
 .config/claude/.claude.json
-.config/claude/backups
-.config/claude/cache
-.config/claude/sessions
 .config/configstore
 .config/electrum
 .config/elinks/cookies
@@ -26,11 +23,15 @@
 **/*.orig
 
 # FIGURE OUT LATER
+.config/claude
 .config/github-copilot
 .config/gitlab
 .config/glab-cli
+.config/rclone
 .config/superfile
 .local/bin/parllama
+.local/bin/gkg
+.local/bin/python*
 
 {{ if eq .chezmoi.os "windows" }}
 

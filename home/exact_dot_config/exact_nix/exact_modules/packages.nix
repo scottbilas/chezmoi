@@ -17,9 +17,11 @@
     difftastic
     eza
     fd
+    ffmpeg
     fzf
     git
     git-lfs
+    gnutar
     git-sizer
     glab
     gh  # gh auth login

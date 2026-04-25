@@ -480,7 +480,7 @@ main() {
             printf "%-${max_path_len}s %s\n" "$display_path" "$marker"
 
             if [[ "$ref" != "bare" ]]; then
-                local fs="${full_status_map[$path]:-}"
+                local fs="${full_status_map[$(basename "$path")]:-}"
                 if [[ -n "$fs" ]]; then
                     while IFS= read -r sline; do
                         printf "  %s\n" "$sline"
