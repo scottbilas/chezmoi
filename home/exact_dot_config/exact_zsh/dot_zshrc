@@ -1,9 +1,5 @@
 ## COMMON ENV
 
-# prevent ctrl-d from exiting shell and also autocompleting the world
-setopt IGNORE_EOF
-bindkey "^D" undefined-key
-
 if (( $+commands[micro] )); then
   export EDITOR=micro
   export VISUAL=micro
@@ -63,59 +59,7 @@ if (( $+commands[vivid] )); then
   export LS_COLORS=$(vivid generate solarized-dark)
 fi
 
-if (( $+commands[oh-my-posh] )); then
-  eval "$(oh-my-posh init zsh -c ~/.config/oh-my-posh/prompt.json)"
-elif (( $+commands[starship] )); then
-  STARSHIP_LOG=error
-  eval "$(starship init zsh)"
-
-  _cmd_duration_min=2
-
-  # can't get starship putting time where i want it, but this works ok enough.
-  _cmd_start_time=""
-  preexec_record_start() { _cmd_start_time=$EPOCHREALTIME }
-  rprompt_up_one_line() {
-    local duration=""
-    if [[ -n "$_cmd_start_time" ]]; then
-      local secs=$(( EPOCHREALTIME - _cmd_start_time ))
-      (( secs >= _cmd_duration_min )) && duration=$(printf "%.2fs " $secs)
-    fi
-    _cmd_start_time=""
-    RPROMPT=$'%{\e[1A%}%B%F{cyan}'"${duration}"$'%f%b%{\e[2;3;90m%}'"$(date +%H:%M:%S)"$'%{\e[0m\e[1B%}'
-  }
-  preexec_functions=(preexec_record_start)
-  # avoid problem where cwd on an external drive gets stale if drive remounted because laptop sleep (at least macos)
-  refresh_cwd_if_stale() {
-    builtin test -d . || builtin cd .
-  }
-
-  precmd_functions=(refresh_cwd_if_stale rprompt_up_one_line)
-fi
-
-### other
-
-# completion
-
 export _ZO_RESOLVE_SYMLINKS=0
-eval "$(zoxide init zsh --cmd z)"
-
-autoload -Uz compinit && compinit
-
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'  # case insensitive matching
-zstyle ':completion:*' completer _complete _files       # if a command has no specific completer, just complete paths
-
-# todo: figure out why getting compdef error after uncommenting below
-# (see https://github.com/sorin-ionescu/prezto/issues/1138)
-# bash compatibility
-#autoload -U bashcompinit && bashcompinit
-#
-#if [[ $(type -p az) ]]; then
-#    . ~/lib/azure-cli/az.completion
-#fi
-
-[[ $- == *i* ]] && source $HOME/.config/fzf/fzf/shell/completion.zsh 2> /dev/null
-source $HOME/.config/fzf/fzf/shell/key-bindings.zsh 2> /dev/null
-### FIX ME ^^ drop the /dev/null routing of errors
 
 # ensure path arrays do not contain duplicates
 typeset -gU cdpath fpath mailpath path
@@ -130,9 +74,6 @@ path=(
   ~/.dotnet/tools
   $GOPATH/bin
   ~/.local/share/npm/bin
-  ~/.poetry/bin
-  # other
-  ~/.local/share/repos/dasht/bin
 )
 
 # filter to existing directories
@@ -143,78 +84,6 @@ done
 path=(${(u)valid_path})
 
 #####
-
-[[ -d ~/.poetry ]] && source ~/.poetry/env
-#todo: check this works
-#fpath+=~/extern/dasht/etc/zsh/completions/
-
-# needed if dasht not installed via a package mamager
-if (( $+commands[dasht] )); then
-#  export MANPATH=$commands[dasht]:h:h/man
-#  source $commands[dasht]:h:h/etc/zsh/completions.zsh
-fi
-
-(( $+commands[chezmoi] )) && eval "$(chezmoi completion zsh)"
-# fzf, etc.
-
-set-shell-theme() {
-  local -r theme="$1"
-
-  local cfg="$(chezmoi execute-template '{{ .chezmoi.configFile }}')"
-  yq e -i ".data.profile.theme = \"$theme\"" "$cfg"
-
-  chezmoi apply ~/.config/bat/bat.conf
-  chezmoi apply ~/.config/eza/theme.yml
-  chezmoi apply ~/.config/lazygit/config.yml
-  chezmoi apply ~/.config/micro/settings.json
-  chezmoi apply ~/.config/starship.toml
-  chezmoi apply ~/.gemini/settings.json
-
-  if (( $+commands[fast-theme] )); then
-    if [[ "$theme" == "dark" ]]; then
-      fast-theme free
-    else
-      fast-theme base16
-    fi
-  fi
-}
-
-if is-macos; then
-  set-lightmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false' && set-shell-theme light; }
-  set-darkmode() { osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true' && set-shell-theme dark; }
-
-  is-darkmode() {
-    local cur
-    cur=$(osascript -e 'tell application "System Events" to tell appearance preferences to get dark mode' 2>/dev/null) || cur=''
-    [[ "$cur" == "true" ]]
-  }
-
-  # these things hang a lot
-  kill-parallels-vms()  {
-    ps aux | grep prl_vm | grep -v grep | awk '{print $2}' | xargs sudo kill -9
-  }
-fi
-
-is-lightmode() {
-  ! is-darkmode
-}
-
-toggle-lightdarkmode() {
-  if is-darkmode; then
-    set-lightmode
-  else
-    set-darkmode
-  fi
-}
-
-#### LAST
-
-# keep these last so they override any modules
-
-## OPTIONS
-
-setopt auto_pushd
-setopt globdots # include dotfiles in tab completion and other globbing (i don't care they are "hidden")
 
 ## history-related
 
@@ -227,123 +96,8 @@ setopt share_history           # share command history data across terminals
 setopt bang_hist               # https://linuxhint.com/search-in-my-zsh-history/
 setopt hist_ignore_all_dups    # don't want any dups in history at all
 setopt hist_ignore_space       # leading space will prevent adding the command to history
+unsetopt prompt_sp             # /etc/zshrc sets prompt_sp which can hang on `zsh -i -c` when writing eolmark to a terminal with no reader
 
-# map up/down arrow to partial history-based match, while also supporting cursoring
-# within a multiline command.
-autoload up-line-or-beginning-search down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey '^[[A' up-line-or-beginning-search
-bindkey '^[[B' down-line-or-beginning-search
+## interactive shell setup
 
-# mac-only, cmd-backspace
-bindkey "^[[3~" delete-char
-
-
-## line editing
-
-# ctrl left/right to move word left/right
-bindkey '^[[1;5C' emacs-forward-word
-bindkey '^[[1;5D' emacs-backward-word
-# home and end
-bindkey '^[[1~' beginning-of-line
-bindkey '^[[4~' end-of-line
-# undo/redo
-bindkey '^Y' redo
-bindkey '^Z' undo
-
-## (un-)line editing
-
-do-nothing() {}
-zle -N do-nothing
-
-# pageup/down ignore to prevent accidental crudding on fn lock laptop
-bindkey '^[[5~' do-nothing
-bindkey '^[[6~' do-nothing
-
-# TODO: review https://stackoverflow.com/questions/5407916/zsh-zle-shift-selection
-# (read all the answers...)
-# would be nice to get it like posh
-# is this in any zsh module currently?
-
-## nix system upgrade
-
-nix-upgrade() {
-  if [[ $# -eq 0 ]]; then
-    echo "Usage: nix-upgrade [options]"
-    echo
-    echo "Options:"
-    echo "  -u, --update   Update inputs and pins"
-    echo "  -s, --switch   Switch to new configuration"
-    echo "  -g, --gc       Garbage collect nix store and brew cleanup"
-    return 0
-  fi
-
-  local do_update=false
-  local do_switch=false
-  local do_gc=false
-
-  for arg in "$@"; do
-    case "$arg" in
-      --update|-u) do_update=true ;;
-      --switch|-s) do_switch=true ;;
-      --gc|-g)     do_gc=true ;;
-      *) echo "Unknown option: $arg"; nix-upgrade; return 1 ;;
-    esac
-  done
-
-  if $do_update; then
-    echo "🔄 Updating inputs and pins..."
-    nix flake update --flake ~/.config/nix || return 1
-  fi
-
-  if is-macos; then
-    if $do_switch; then
-      echo "🔨 Rebuilding darwin system configuration (includes home-manager and brew)..."
-      sudo darwin-rebuild switch --flake ~/.config/nix || return 1
-    fi
-  else
-    if $do_switch; then
-      echo "🏠 Switching home-manager configuration..."
-      home-manager switch --flake ~/.config/nix || return 1
-    fi
-  fi
-
-  if $do_gc; then
-    echo "🧹 Collecting nix garbage..."
-    nix-collect-garbage --delete-old || return 1
-    if (( $+commands[brew] )); then
-      echo "🧹 Cleaning up brew..."
-      brew cleanup --prune=all || return 1
-    fi
-  fi
-
-  echo "✅ Done!"
-}
-
-## aliases
-
-source ~/.config/zsh/zaliases
-
-# finally any modules
-
-export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-bindkey '^ ' autosuggest-accept
-
-if (( $+commands[sheldon] )); then
-  eval "$(sheldon source)"
-
-  # set fast-syntax-highlighter theme if one not already set
-  [[ ! -f ~/.cache/fsh/current_theme.zsh ]] && zsh-defer fast-theme -q free
-
-  # set shell theme if not set
-  # TODO: doesn't work..base16_* are generated aliases and even a manual `setopt aliases` (on by default) gives a command not found error.
-  #[[ ! -f ~/.base16_theme ]] && base16_twilight
-
-  [[ -f ~/.base16_theme ]] && . ~/.base16_theme
-fi
-
-# don't like these, ensure they aren't set
-unsetopt auto_cd
-unsetopt cdable_vars
+[[ -z "$ZSH_EXECUTION_STRING" ]] && source ~/.config/zsh/zinteractive
