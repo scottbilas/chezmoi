@@ -20,6 +20,7 @@
     ffmpeg
     fzf
     git
+    git-filter-repo
     git-lfs
     gnutar
     git-sizer
