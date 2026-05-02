@@ -20,15 +20,20 @@ for property in wmi.ExecQuery("SELECT * FROM WmiMonitorBrightness")
     brightness := property.CurrentBrightness
 
 AdjustBrightness(adjust) {
-    global brightness
-    brightness += adjust
-    if (brightness < 0)
-        brightness := 0
-    if (brightness > 100)
-        brightness := 100
+    global brightness, wmi
+    try {
+        brightness += adjust
+        if (brightness < 0)
+            brightness := 0
+        if (brightness > 100)
+            brightness := 100
 
-    for property in wmi.ExecQuery("SELECT * FROM WmiMonitorBrightnessMethods")
-        property.WmiSetBrightness(1, brightness)
+        for property in wmi.ExecQuery("SELECT * FROM WmiMonitorBrightnessMethods")
+            property.WmiSetBrightness(1, brightness)
+    } catch as e {
+        ; don't let transient WMI/display failures kill the whole script
+        TrayTip("scokeymap", "Brightness adjust failed: " e.Message, 3)
+    }
 }
 
 ; emulate term
@@ -65,6 +70,8 @@ $*Capslock::
 
     ; other fun
     '::`
+    Esc::`
+    +Esc::~
 
     ; match the keychron
     b::`

@@ -49,6 +49,7 @@ $Env:RIPGREP_CONFIG_PATH = (Resolve-Path ~/.config/ripgrep/config)
 $Env:SCOOP = Resolve-Path ~\scoop
 $Env:UNITY_MIXED_CALLSTACK = 1
 $Env:WSL_UTF8 = 1
+$Env:CLAUDE_CODE_GIT_BASH_PATH = Resolve-Path ~\scoop\apps\git\current\bin\bash.exe
 
 Invoke-Expression (&scoop-search --hook) # this replaces crappy built-in scoop search with something very fast
 

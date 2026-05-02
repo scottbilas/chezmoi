@@ -3,52 +3,75 @@ function Remove-EmptyFolders {
     .SYNOPSIS
         Removes empty folders recursively from a root directory.
         The root directory itself is not removed.
-
-        Author: Joakim Borger Svendsen, Svendsen Tech, Copyright 2022.
-        MIT License.
-        
-        Semantic version: v1.0.0        
-        https://github.com/EliteLoser/misc/blob/master/PowerShell/Remove-EmptyFolders.ps1
     .EXAMPLE
-        . .\Remove-EmptyFolders.ps1
         Remove-EmptyFolders -Path E:\FileShareFolder
     .EXAMPLE
         Remove-EmptyFolders -Path \\server\share\data
-    
+    .EXAMPLE
+        Remove-EmptyFolders -Path E:\FileShareFolder -WhatIf
+    .EXAMPLE
+        Remove-EmptyFolders -Path E:\FileShareFolder -Confirm
+
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess)]
     Param(
+        [Parameter(Mandatory)]
         [String] $Path
     )
     Begin {
-        [Int32] $Script:Counter = 0
-        if (++$Counter -eq 1) {
-            $RootPath = $Path
-            Write-Verbose -Message "Saved root path as '$RootPath'."
+        # explicit state passed through recursion so -WhatIf can correctly include
+        # folders that would become empty after deleting their empty descendants. this makes the
+        # non-whatif scenario more complex, but that's an ok price to pay. 
+        $state = [pscustomobject]@{
+            RootPath = $Path
+            Removed  = [hashtable]::new([StringComparer]::Ordinal) # track folders that are (actually or virtually) removed.
         }
-        # Avoid overflow. Overly cautious?
-        if ($Counter -eq [Int32]::MaxValue) {
-            $Counter = 1
-        }
-    }
-    Process {
-        # List directories.
-        foreach ($ChildDirectory in Get-ChildItem -LiteralPath $Path -Force |
-            Where-Object {$_.PSIsContainer}) {
-            # Use .ProviderPath on Windows instead of .FullName in order to support UNC paths (untested).
-            # Process each child directory recursively.
-            Remove-EmptyFolders -Path $ChildDirectory.FullName
-        }
-        $CurrentChildren = Get-ChildItem -LiteralPath $Path -Force
-        # If it's empty, the condition below evaluates to true. Get-ChildItem 
-        # returns $null for empty folders.
-        if ($null -eq $CurrentChildren) {
-            # Do not delete the root folder itself.
-            if ($Path -ne $RootPath) {
-                Write-Verbose -Message "Removing empty folder '$Path'."
-                Remove-Item -LiteralPath $Path -Force
-            }
-        }
+
+        Remove-EmptyFoldersInternal -Path $Path -State $state
     }
 }
 Export-ModuleMember Remove-EmptyFolders
+
+function Remove-EmptyFoldersInternal {
+    [CmdletBinding(SupportsShouldProcess)]
+    Param(
+        [Parameter(Mandatory)]
+        [String] $Path,
+        [Parameter(Mandatory)]
+        [psobject] $State
+    )
+
+    Process {
+        # recurse into child dirs
+        foreach ($ChildDirectory in Get-ChildItem -LiteralPath $Path -Force -Directory) {
+            Remove-EmptyFoldersInternal -Path $ChildDirectory.FullName -State $State
+        }
+
+        # if it has any files, it's not empty and must abort
+        if (Get-ChildItem -LiteralPath $Path -Force -File -ErrorAction SilentlyContinue |
+            Select-Object -First 1) {
+            return
+        }
+
+        # if it has any directories not already removed, it's not empty and must abort
+        if (Get-ChildItem -LiteralPath $Path -Force -Directory -ErrorAction SilentlyContinue |
+            Where-Object { -not $State.Removed.ContainsKey($_.FullName) } |
+            Select-Object -First 1) {
+            return
+        }
+
+        # do not delete the root folder itself
+        if ($Path -eq $State.RootPath) {
+            return
+        }
+
+        # ok do the actual removal (maybe!)
+        if ($PSCmdlet.ShouldProcess($Path, 'Remove empty folder')) {
+            if (-not $WhatIfPreference) {
+                Write-Output "Removing empty folder '$Path'."
+            }
+            Remove-Item -LiteralPath $Path -Force
+            $State.Removed[$Path] = $true
+        }
+    }
+}
