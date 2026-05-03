@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-NIXOS_DIR="/etc/nixos"
+die() { echo "error: $*" >&2; exit 1; }
+
+NIXOS_DIR="/mnt/etc/nixos"
 GITHUB_RAW="https://raw.githubusercontent.com/scottbilas/chezmoi/dev/special/nixos"
 
 usage() {
@@ -28,28 +30,21 @@ done
 
 # --- checks ---
 
-if [[ $EUID -ne 0 ]] && ! $OPT_DRY_RUN; then
-  echo "error: must be run as root (sudo bash bootstrap.sh)"
-  exit 1
-fi
-
-if [[ ! -f "$NIXOS_DIR/hardware-configuration.nix" ]]; then
-  echo "error: $NIXOS_DIR/hardware-configuration.nix not found"\
-  echo "Run 'nixos-generate-config' first, then re-run this script"
-  exit 1
-fi
-
-if [[ -f "$NIXOS_DIR/profile.nix" ]] && ! $OPT_FORCE; then
-  echo "error: $NIXOS_DIR/profile.nix already exists"
-  echo "Re-run this script with --force to overwrite"
-  exit 1
-fi
-
 if $OPT_DRY_RUN; then
-  NIXOS_DIR=$(mktemp -d)
-  echo "dry-run: writing files to $NIXOS_DIR"
 
-  cp "/etc/nixos/hardware-configuration.nix" "$NIXOS_DIR/hardware-configuration.nix"
+  NIXOS_DIR=$(mktemp -d)
+  echo "[dry-run] writing files to $NIXOS_DIR"
+
+else
+
+  [[ $EUID -ne 0 ]] &&
+    die "must be run as root (sudo bash bootstrap.sh)"
+
+  [[ -f "$NIXOS_DIR/profile.nix" ]] && ! $OPT_FORCE &&
+    die "$NIXOS_DIR/profile.nix already exists -- re-run with --force to overwrite"
+
+  echo "Generating initial nix configuration..."
+  nixos-generate-config --root /mnt
 fi
 
 # --- gather info ---
@@ -67,7 +62,7 @@ case "$profile_choice" in
   2) profile=(headless-minimal.nix); use_zerotier=0 ;;
   3) profile=(desktop-light.nix) ;;
   4) profile=(desktop-heavy.nix) ;;
-  *) echo "Invalid choice"; exit 1 ;;
+  *) die "invalid choice: $profile_choice" ;;
 esac
 use_zerotier=${use_zerotier:-1}
 
@@ -137,14 +132,15 @@ echo ""
 if $OPT_DRY_RUN; then
   echo "dry-run output: $NIXOS_DIR"
 else
-  # Pin the nixos channel so nixos-rebuild uses a known-good, fully cached build.
-  nix-channel --add https://nixos.org/channels/nixos-25.11 nixos
-  nix-channel --update
+#  # Pin the nixos channel so nixos-rebuild uses a known-good, fully cached build.
+#  nix-channel --add https://nixos.org/channels/nixos-25.11 nixos
+#  nix-channel --update
   echo ""
+#
+#  hostname "$hostname"
+#  echo "Hostname set to: $hostname"
+#  echo ""
+#  echo "Done. Deploy:"
+#  echo "  sudo nixos-rebuild switch"
 
-  hostname "$hostname"
-  echo "Hostname set to: $hostname"
-  echo ""
-  echo "Done. Deploy:"
-  echo "  sudo nixos-rebuild switch"
 fi
