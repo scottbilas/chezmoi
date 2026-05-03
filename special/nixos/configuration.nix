@@ -26,8 +26,8 @@
     networking.firewall.enable = true;
 
     # access
-    services.zerotierone.enable = true;              # joinNetworks expected in profile.nix
-    networking.firewall.allowedUDPPorts = [ 9993 ];  # zerotier's port
+    networking.firewall.allowedUDPPorts =            # zerotier's port (if service enabled)
+      lib.mkIf config.services.zerotierone.enable [ 9993 ];
     services.openssh.enable = true;                  # authorized keys expected in profile.nix
     networking.firewall.allowedTCPPorts = [ 22 ];    # ssh's port
     security.sudo.enable = true;                     # sudo off by default in nixos
