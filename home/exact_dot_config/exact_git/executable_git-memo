@@ -11,7 +11,7 @@ branch description in the local git config (branch.<name>.memo),
 so they persist across commits, rebases, and amends. They are automatically
 removed when the branch is deleted with `git branch -d`.
 
-Memos are local-only — they are NOT pushed or shared with remotes.
+Memos are local-only - they are NOT pushed or shared with remotes.
 
 Commands:
   set <text>   Set the memo for the current branch (replaces any existing memo)

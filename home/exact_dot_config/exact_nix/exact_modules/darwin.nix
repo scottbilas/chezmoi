@@ -8,7 +8,7 @@
     inputs.mac-app-util.darwinModules.default
   ];
 
-  nixpkgs.hostPlatform = system; # nix-darwin still warns "'system' has been renamed" — upstream issue, not ours
+  nixpkgs.hostPlatform = system; # nix-darwin still warns "'system' has been renamed" - upstream issue, not ours
   home-manager.users.${username} = packagesModule;
 
   environment.systemPackages = [

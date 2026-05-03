@@ -2,7 +2,7 @@
 
 ## Editing Rule: Live Files First
 
-When asked to edit, create, or modify files, **always target the deployed (live) file paths** — not the chezmoi source files in this repo.
+When asked to edit, create, or modify files, **always target the deployed (live) file paths** - not the chezmoi source files in this repo.
 
 - Edit `~/.config/git/config`, not `home/exact_dot_config/exact_git/config`
 - Edit `~/.zshenv`, not `home/dot_zshenv`
@@ -29,7 +29,7 @@ Key paths:
 
 ## Platforms
 
-Configs target **macOS** (primary), **Windows** (PowerShell 7+), **Linux**, **WSL2**, and **Android/Termux**. Templates use platform conditionals — be aware of this when reading `.tmpl` files.
+Configs target **macOS** (primary), **Windows** (PowerShell 7+), **Linux**, **WSL2**, and **Android/Termux**. Templates use platform conditionals - be aware of this when reading `.tmpl` files.
 
 ## Key Tools Managed
 

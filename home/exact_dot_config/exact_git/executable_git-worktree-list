@@ -549,7 +549,7 @@ main() {
                 local age_plain="${age_plain_map[$base]:-}"
                 local epoch="${status_epoch_map[$base]:-0}"
 
-                # padded icons column (manual padding — printf field width counts bytes, not chars)
+                # padded icons column (manual padding - printf field width counts bytes, not chars)
                 if (( max_icons_len > 0 )); then
                     local icons_pad_len=$(( max_icons_len - ${#icons} ))
                     local icons_pad=""

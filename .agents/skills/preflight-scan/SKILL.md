@@ -85,7 +85,7 @@ Output a structured report:
 
 ## Rules
 
-1. **Err on the side of caution** — flag anything suspicious, even if uncertain.
-2. **Never auto-fix secrets** — report them; let the user decide how to handle.
-3. **Check both directions** — content being added AND content being removed (removed secrets in diffs still appear in git history).
-4. **Treat all credential-like strings as real** — do not assume example/placeholder values are safe.
+1. **Err on the side of caution** - flag anything suspicious, even if uncertain.
+2. **Never auto-fix secrets** - report them; let the user decide how to handle.
+3. **Check both directions** - content being added AND content being removed (removed secrets in diffs still appear in git history).
+4. **Treat all credential-like strings as real** - do not assume example/placeholder values are safe.

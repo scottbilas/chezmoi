@@ -32,7 +32,7 @@
     wtz = !dir=$(git root) && git co origin/master -B "z/$(basename "$dir")" --no-track
     dad = !curl https://icanhazdadjoke.com/ && echo "" && git add
 
-    # branch memos (stored in branch.<name>.memo) — see `git memo help`
+    # branch memos (stored in branch.<name>.memo) - see `git memo help`
     memo = !~/.config/git/git-memo
 
     co = checkout --progress
