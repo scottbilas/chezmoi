@@ -11,7 +11,8 @@
 { ... }:
 
 {
-  # GRUB is for BIOS/UEFI machines — disable it entirely on Pi
+  # GRUB and systemd-boot are for BIOS/UEFI machines — disable both on Pi
+  boot.loader.systemd-boot.enable = false;
   boot.loader.grub.enable = false;
 
   # Generate /boot/extlinux/extlinux.conf on each rebuild.
