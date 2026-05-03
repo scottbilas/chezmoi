@@ -54,22 +54,24 @@ fi
 
 # --- gather info ---
 
+# need to explicitly route from /dev/tty since stdin is used for the script itself when piped from curl
+
 echo "Select profile:"
 echo "  1) pi    - minimal desktop on pi hardware"
 echo "  2) light - lightweight minimal desktop"
 echo "  3) heavy - full dev environment"
-read -rp "Profile [1/2/3]: " profile_choice
+read -rp "Profile [1/2/3]: " profile_choice </dev/tty
 case "$profile_choice" in
-  1) { profile=(hardware-pi.nix desktop-light.nix); } ;;
-  2) { profile=(desktop-light.nix); } ;;
-  3) { profile=(desktop-heavy.nix); } ;;
+  1) profile=(hardware-pi.nix desktop-light.nix) ;;
+  2) profile=(desktop-light.nix) ;;
+  3) profile=(desktop-heavy.nix) ;;
   *) echo "Invalid choice"; exit 1 ;;
 esac
 
-read -rp "Primary username (joe.bob): " username
-read -rp "Computer name (my-machine): " hostname
-read -rp "ZeroTier network ID (guid): " zerotier_network
-read -rp "SSH public key (ssh-rsa..): " ssh_pubkey
+read -rp "Primary username (joe.bob): " username </dev/tty
+read -rp "Computer name (my-machine): " hostname </dev/tty
+read -rp "ZeroTier network ID (guid): " zerotier_network </dev/tty
+read -rp "SSH public key (ssh-rsa..): " ssh_pubkey </dev/tty
 
 echo "Detecting timezone via ipinfo.io..."
 timezone=$(curl -fsSL https://ipinfo.io/timezone 2>/dev/null || true)
