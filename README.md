@@ -13,11 +13,12 @@ External dependencies (fonts, plugins, theme repos) are declared in `.chezmoiext
 ## NixOS Bringup
 
 ```sh
-# generate hardware config (detects boot loader, filesystems, etc.)
-sudo nixos-generate-config
+# generate hardware config (detects boot loader, filesystems, etc.); use --force to overwrite default 'minimal iso setup'
+sudo nixos-generate-config --force
 
 # bootstrap: fetches nix files from github, generates profile.nix (prompts for details)
 curl -fsSL https://raw.githubusercontent.com/scottbilas/chezmoi/dev/special/nixos/bootstrap.sh | sudo bash
+# can use `| sudo bash -s -- --dry-run` first to test
 
 # build and activate
 sudo nixos-rebuild switch

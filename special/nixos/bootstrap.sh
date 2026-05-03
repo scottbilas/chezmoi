@@ -60,9 +60,9 @@ echo "  2) light - lightweight minimal desktop"
 echo "  3) heavy - full dev environment"
 read -rp "Profile [1/2/3]: " profile_choice
 case "$profile_choice" in
-  1) profile=(hardware-pi.nix desktop-light.nix) ;;
-  2) profile=(desktop-light.nix) ;;
-  3) profile=(desktop-heavy.nix) ;;
+  1) { profile=(hardware-pi.nix desktop-light.nix); } ;;
+  2) { profile=(desktop-light.nix); } ;;
+  3) { profile=(desktop-heavy.nix); } ;;
   *) echo "Invalid choice"; exit 1 ;;
 esac
 
