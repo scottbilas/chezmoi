@@ -6,9 +6,33 @@
 
 Chezmoi source lives under `home/` (set via `.chezmoiroot`). Templates and ignore rules handle platform differences so the same repo works everywhere.
 
-Folders under `.config` use chezmoi's `exact_` prefix, which means untracked files show up in `chezmoi status` — making it easy to notice new configs and decide whether to track them. Folders that shouldn't be fully tracked drop the `exact_` prefix; folders to ignore entirely get a `.keep` file.
+Folders under `.config` use chezmoi's `exact_` prefix, which means untracked files show up in `chezmoi status` - making it easy to notice new configs and decide whether to track them. Folders that shouldn't be fully tracked drop the `exact_` prefix; folders to ignore entirely get a `.keep` file.
 
 External dependencies (fonts, plugins, theme repos) are declared in `.chezmoiexternal.toml` rather than vendored. Private data lives in a separate repo and is never checked in here.
+
+## NixOS Bringup
+
+```sh
+# generate hardware config (detects boot loader, filesystems, etc.)
+sudo nixos-generate-config
+
+# bootstrap: fetches nix files from github, generates profile.nix (prompts for details)
+curl -fsSL https://raw.githubusercontent.com/scottbilas/chezmoi/dev/special/nixos/bootstrap.sh | sudo bash
+
+# build and activate
+sudo nixos-rebuild switch
+
+# set up dotfiles and home-manager
+nix shell nixpkgs#chezmoi nixpkgs#git --command chezmoi init -a scottbilas/chezmoi
+
+# activate home-manager config (packages, shell, tools)
+home-manager switch --flake ~/.config/nix
+```
+
+> **Pi note:** when prompted for a profile, choose `pi`. The Pi has no UEFI —
+> it boots via GPU firmware reading `config.txt` from the SD card, then extlinux.
+> `nixos-generate-config` usually detects this correctly; `hardware-pi.nix` makes
+> it explicit in case it doesn't.
 
 ## Mac Bringup
 
