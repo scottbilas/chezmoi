@@ -19,7 +19,6 @@
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     nixpkgs.config.allowUnfree = true;
     i18n.defaultLocale = "en_US.UTF-8";
-    system.copySystemConfiguration = true; # auto backup of configuration.nix after a nixos-rebuild switch (find with 'cat $(nixos-option system.copySystemConfiguration)')
 
     # networking
     networking.networkmanager.enable = true;

@@ -29,8 +29,8 @@ sudo nixos-generate-config --force
 curl -fsSL https://raw.githubusercontent.com/scottbilas/chezmoi/dev/special/nixos/bootstrap.sh | sudo bash
 # can use `| sudo bash -s -- --dry-run` first to test
 
-# build and activate (with nice monitoring, otherwise it just sits there with heavy fan spin and no feedback for a long time)
-nix-shell -p nix-output-monitor --run 'sudo nixos-rebuild switch |& nom'
+# build and activate
+sudo nixos-rebuild switch
 
 # set up dotfiles and home-manager
 nix shell nixpkgs#chezmoi nixpkgs#git --command chezmoi init -a scottbilas/chezmoi
