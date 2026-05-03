@@ -57,14 +57,16 @@ fi
 # need to explicitly route from /dev/tty since stdin is used for the script itself when piped from curl
 
 echo "Select profile:"
-echo "  1) pi    - minimal desktop on pi hardware"
-echo "  2) light - lightweight minimal desktop"
-echo "  3) heavy - full dev environment"
-read -rp "Profile [1/2/3]: " profile_choice </dev/tty
+echo "  1) pi      - minimal desktop on pi hardware"
+echo "  2) minimal - headless, no desktop"
+echo "  3) light   - lightweight minimal desktop"
+echo "  4) heavy   - full dev environment"
+read -rp "Profile [1/2/3/4]: " profile_choice </dev/tty
 case "$profile_choice" in
   1) profile=(hardware-pi.nix desktop-light.nix) ;;
-  2) profile=(desktop-light.nix) ;;
-  3) profile=(desktop-heavy.nix) ;;
+  2) profile=(headless-minimal.nix) ;;
+  3) profile=(desktop-light.nix) ;;
+  4) profile=(desktop-heavy.nix) ;;
   *) echo "Invalid choice"; exit 1 ;;
 esac
 
@@ -123,5 +125,6 @@ echo ""
 if $OPT_DRY_RUN; then
   echo "dry-run output: $NIXOS_DIR"
 else
-  echo "Done. Deploy with 'nixos-rebuild switch'."
+  echo "Done. Deploy:"
+  echo "  nix-shell -p nix-output-monitor --run \"nixos-rebuild switch |& nom\""
 fi
