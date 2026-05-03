@@ -128,7 +128,7 @@ echo "Generated $NIXOS_DIR/profile.nix"
 
 # --- fetch nix files from github ---
 
-for f in configuration.nix "${profile[@]}"; do
+for f in flake.nix configuration.nix "${profile[@]}"; do
   echo "Fetching $f..."
   curl -fsSL "$GITHUB_RAW/$f" -o "$NIXOS_DIR/$f"
 done
@@ -138,5 +138,5 @@ if $OPT_DRY_RUN; then
   echo "dry-run output: $NIXOS_DIR"
 else
   echo "Done. Deploy:"
-  echo "  nix-shell -p nix-output-monitor --run \"nixos-rebuild switch --log-format internal-json -v |& nom\""
+  echo "  sudo nixos-rebuild switch --log-format internal-json -v 2>&1 | nix-shell -p nix-output-monitor --run 'nom --json'"
 fi
