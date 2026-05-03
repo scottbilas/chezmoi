@@ -3,7 +3,7 @@ set -euo pipefail
 
 die() { echo "error: $*" >&2; exit 1; }
 
-NIXOS_DIR="/mnt/etc/nixos"
+NIXOS_DIR="/etc/nixos"
 GITHUB_RAW="https://raw.githubusercontent.com/scottbilas/chezmoi/dev/special/nixos"
 
 usage() {
@@ -40,11 +40,11 @@ else
   [[ $EUID -ne 0 ]] &&
     die "must be run as root (sudo bash bootstrap.sh)"
 
+  [[ -f "$NIXOS_DIR/hardware-configuration.nix" ]] ||
+    die "NixOS has not been installed yet; run the installer, don't just generate the config"
+
   [[ -f "$NIXOS_DIR/profile.nix" ]] && ! $OPT_FORCE &&
     die "$NIXOS_DIR/profile.nix already exists -- re-run with --force to overwrite"
-
-  echo "Generating initial nix configuration..."
-  nixos-generate-config --root /mnt
 fi
 
 # --- gather info ---
@@ -66,20 +66,22 @@ case "$profile_choice" in
 esac
 use_zerotier=${use_zerotier:-1}
 
-read -rp "Primary username (joe.bob): " username </dev/tty
-read -rp "Computer name (my-machine): " hostname </dev/tty
+prompt_with_default() {
+  local prompt="$1" default="$2"
+  local hint="${default:+ [$default]}"
+  read -rp "${prompt}${hint}: " val </dev/tty
+  echo "${val:-$default}"
+}
+
+# detect defaults from the live system and prompt
+username=$(prompt_with_default "Primary username" "$(id -un 1000)")
+fullname=$(prompt_with_default "Full name"        "$(getent passwd 1000 | cut -d: -f5 | cut -d, -f1)")
+hostname=$(prompt_with_default "Computer name"    "$(hostname)")
+timezone=$(prompt_with_default "Timezone"         "$(timedatectl show --property=Timezone --value)")
+
+read -rp "SSH public key (ssh-rsa ...): " ssh_pubkey </dev/tty
 if [[ "$use_zerotier" == "1" ]]; then
   read -rp "ZeroTier network ID (guid): " zerotier_network </dev/tty
-fi
-read -rp "SSH public key (ssh-rsa..): " ssh_pubkey </dev/tty
-
-echo "Detecting timezone via ipinfo.io..."
-timezone=$(curl -fsSL https://ipinfo.io/timezone 2>/dev/null || true)
-if [[ -z "$timezone" ]]; then
-  echo "warning: could not detect timezone, defaulting to UTC"
-  timezone="UTC"
-else
-  echo "Detected: $timezone"
 fi
 
 # --- generate profile.nix ---
@@ -114,6 +116,7 @@ $(printf '    ./%s\n' "${profile[@]}")
   users.users.\${config.primaryUser}.openssh.authorizedKeys.keys = [
     "$ssh_pubkey"
   ];
+  users.users.\${config.primaryUser}.description = "$fullname";
 
 $zerotier_block
 }
@@ -132,15 +135,6 @@ echo ""
 if $OPT_DRY_RUN; then
   echo "dry-run output: $NIXOS_DIR"
 else
-#  # Pin the nixos channel so nixos-rebuild uses a known-good, fully cached build.
-#  nix-channel --add https://nixos.org/channels/nixos-25.11 nixos
-#  nix-channel --update
-  echo ""
-#
-#  hostname "$hostname"
-#  echo "Hostname set to: $hostname"
-#  echo ""
-#  echo "Done. Deploy:"
-#  echo "  sudo nixos-rebuild switch"
-
+  echo "Done. Deploy:"
+  echo "  sudo nixos-rebuild switch"
 fi
