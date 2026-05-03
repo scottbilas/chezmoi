@@ -13,6 +13,15 @@ External dependencies (fonts, plugins, theme repos) are declared in `.chezmoiext
 ## NixOS Bringup
 
 ```sh
+# set password so we can ssh in and paste things. can be weak, user will get nuked on rebuild.
+passwd
+
+# get ip so have a target to ssh (look for "ether")
+ip address
+
+# ssh in and do the rest from here (use password from above)
+ssh nixos@the-ip-address
+
 # generate hardware config (detects boot loader, filesystems, etc.); use --force to overwrite default 'minimal iso setup'
 sudo nixos-generate-config --force
 
@@ -20,8 +29,8 @@ sudo nixos-generate-config --force
 curl -fsSL https://raw.githubusercontent.com/scottbilas/chezmoi/dev/special/nixos/bootstrap.sh | sudo bash
 # can use `| sudo bash -s -- --dry-run` first to test
 
-# build and activate
-sudo nixos-rebuild switch
+# build and activate (with nice monitoring, otherwise it just sits there with heavy fan spin and no feedback for a long time)
+sudo nix-shell -p nix-output-monitor --run "nixos-rebuild switch |& nom"
 
 # set up dotfiles and home-manager
 nix shell nixpkgs#chezmoi nixpkgs#git --command chezmoi init -a scottbilas/chezmoi
