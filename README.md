@@ -30,7 +30,7 @@ curl -fsSL https://raw.githubusercontent.com/scottbilas/chezmoi/dev/special/nixo
 # can use `| sudo bash -s -- --dry-run` first to test
 
 # build and activate (with nice monitoring, otherwise it just sits there with heavy fan spin and no feedback for a long time)
-sudo nixos-rebuild switch --log-format internal-json -v 2>&1 | nix-shell -p nix-output-monitor --run "nom --json"
+nix-shell -p nix-output-monitor --run 'sudo nixos-rebuild switch |& nom'
 
 # set up dotfiles and home-manager
 nix shell nixpkgs#chezmoi nixpkgs#git --command chezmoi init -a scottbilas/chezmoi

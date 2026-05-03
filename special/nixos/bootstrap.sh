@@ -126,9 +126,36 @@ EOF
 
 echo "Generated $NIXOS_DIR/profile.nix"
 
+# --- generate flake.nix ---
+
+cat > "$NIXOS_DIR/flake.nix" <<EOF
+{
+  description = "NixOS system configuration";
+
+  # Pinning nixpkgs to a specific channel here (rather than using nix-channel) means:
+  # 1. nixos-rebuild uses exactly this nixpkgs commit, which is fully built by Hydra
+  #    and available in the binary cache (cache.nixos.org) - no local compilation.
+  # 2. The pinned commit is recorded in flake.lock, making builds reproducible.
+  # 3. No manual nix-channel management needed - the source is declarative.
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+
+  outputs = { self, nixpkgs }: {
+    # nixos-rebuild looks up nixosConfigurations.\${hostname} - hostname is substituted
+    # at generation time to avoid impure filesystem reads (forbidden in flake pure eval).
+    nixosConfigurations."$hostname" = nixpkgs.lib.nixosSystem {
+      # nixos-generate-config writes nixpkgs.hostPlatform into hardware-configuration.nix
+      # (e.g. "x86_64-linux"), so we don't need to repeat it here.
+      modules = [ ./configuration.nix ];
+    };
+  };
+}
+EOF
+
+echo "Generated $NIXOS_DIR/flake.nix"
+
 # --- fetch nix files from github ---
 
-for f in flake.nix configuration.nix "${profile[@]}"; do
+for f in configuration.nix "${profile[@]}"; do
   echo "Fetching $f..."
   curl -fsSL "$GITHUB_RAW/$f" -o "$NIXOS_DIR/$f"
 done
@@ -138,5 +165,5 @@ if $OPT_DRY_RUN; then
   echo "dry-run output: $NIXOS_DIR"
 else
   echo "Done. Deploy:"
-  echo "  sudo nixos-rebuild switch --log-format internal-json -v 2>&1 | nix-shell -p nix-output-monitor --run 'nom --json'"
+  echo "  nix-shell -p nix-output-monitor --run 'sudo nixos-rebuild switch |& nom'"
 fi

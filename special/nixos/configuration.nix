@@ -33,6 +33,10 @@
     security.sudo.enable = true;                     # sudo off by default in nixos
     security.sudo.wheelNeedsPassword = false;        # sudo will not ask for password
 
+    # cap parallelism to avoid OOM on low-memory systems
+    nix.settings.max-jobs = 2;
+    nix.settings.cores = 2;
+
     # system programs
     programs.zsh.enable = true;
     environment.systemPackages = with pkgs; [ home-manager ];
