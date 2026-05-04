@@ -26,7 +26,6 @@
   # FUTURE: figure out how to make brew user-local (without sudo) for most things
   homebrew.enable = true;
   homebrew.brews = [
-    "fresh"
     "yt-dlp"
   ];
   homebrew.casks = (map (name: { inherit name; greedy = true; }) [
@@ -48,17 +47,21 @@
       "unity-hub"
       "visual-studio-code"
 
-      # agents
+      # ai
+      "chatgpt"
       "codex"
       "codex-app"
       "copilot-cli@prerelease"
+      "lm-studio"
 
       # other apps
       "elgato-stream-deck"
+      "kopiaui"
       "microsoft-edge"
       "obsidian"
       "parallels"
       "spotify"
+      "wezterm"
     ]);
 
   # automatically remove packages and prefs and supporting files not listed in the configuration
