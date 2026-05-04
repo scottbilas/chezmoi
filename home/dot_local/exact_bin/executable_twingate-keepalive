@@ -1,0 +1,150 @@
+#!/bin/sh
+
+# Monitor Twingate VPN connection and alert + attempt reconnect on disconnect.
+# The macOS Twingate client has no CLI -- reconnect works by poking the app,
+# which triggers its internal reconnect logic.
+
+LABEL="com.twingate.keepalive"
+PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
+SCRIPT="$HOME/.local/bin/twingate-keepalive"
+LOG="$HOME/.local/share/twingate-keepalive.log"
+
+POLL_INTERVAL=15
+RECONNECT_COOLDOWN=60
+
+usage() {
+    cat <<EOF
+Usage: twingate-keepalive <command>
+
+Commands:
+  --run        Monitor VPN and reconnect on disconnect
+  --start      Load (resume) the Launch Agent
+  --stop       Unload (pause) the Launch Agent
+  --install    Create and load Launch Agent (runs on login)
+  --uninstall  Unload and remove Launch Agent
+  --help       Show this help
+EOF
+}
+
+notify() {
+    osascript -e "display notification \"$1\" with title \"Twingate Keepalive\"" 2>/dev/null
+    printf '%s %s\n' "$(date '+%F %T')" "$1"
+}
+
+is_connected() {
+    scutil --nc list | grep -q '(Connected).*VPN (com\.twingate\.macos)'
+}
+
+cmd_run() {
+    last_reconnect=0
+    was_connected=false
+
+    while true; do
+        if is_connected; then
+            if [ "$was_connected" = false ]; then
+                notify "Connected"
+                was_connected=true
+            fi
+        else
+            if [ "$was_connected" = true ]; then
+                notify "Disconnected -- attempting reconnect"
+                was_connected=false
+            fi
+
+            now=$(date +%s)
+            elapsed=$((now - last_reconnect))
+
+            if [ "$elapsed" -ge "$RECONNECT_COOLDOWN" ]; then
+                last_reconnect=$now
+                open -a Twingate
+                sleep 5
+                if is_connected; then
+                    notify "Reconnected"
+                    was_connected=true
+                else
+                    notify "Still disconnected -- may need manual auth"
+                fi
+            fi
+        fi
+
+        sleep "$POLL_INTERVAL"
+    done
+}
+
+require_plist() {
+    if [ ! -f "$PLIST" ]; then
+        echo "Not installed (run --install first)"
+        exit 1
+    fi
+}
+
+agent_load() {
+    launchctl load "$PLIST" 2>/dev/null
+    echo "Started $LABEL"
+}
+
+agent_unload() {
+    launchctl unload "$PLIST" 2>/dev/null
+    echo "Stopped $LABEL"
+}
+
+cmd_start() {
+    require_plist
+    agent_load
+}
+
+cmd_stop() {
+    require_plist
+    agent_unload
+}
+
+cmd_install() {
+    mkdir -p "$(dirname "$PLIST")" "$(dirname "$LOG")"
+
+    cat > "$PLIST" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>$LABEL</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>$SCRIPT</string>
+		<string>--run</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>KeepAlive</key>
+	<true/>
+	<key>StandardOutPath</key>
+	<string>$LOG</string>
+	<key>StandardErrorPath</key>
+	<string>$LOG</string>
+</dict>
+</plist>
+EOF
+
+    agent_load
+    echo "Installed $LABEL"
+    echo "Log: $LOG"
+}
+
+cmd_uninstall() {
+    if [ -f "$PLIST" ]; then
+        agent_unload
+        rm "$PLIST"
+        echo "Uninstalled $LABEL"
+    else
+        echo "Not installed"
+    fi
+}
+
+case "${1:-}" in
+    --run)       cmd_run ;;
+    --start)     cmd_start ;;
+    --stop)      cmd_stop ;;
+    --install)   cmd_install ;;
+    --uninstall) cmd_uninstall ;;
+    *)           usage ;;
+esac
